@@ -1,12 +1,15 @@
-import './App.css'
+import './App.css';
+import Homepage from './pages/homepage';
+
+
 
 function App() {
   
   return (
-    <div className="text-slate-800">
-       <h1 className='font-heading'>hello world</h1>
+    <div className='overflow-hidden'>
+      <Homepage />
     </div>
   )
 }
 
-export default App
+export default App;
