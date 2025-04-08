@@ -70,5 +70,29 @@ export const data = [
                 id: 5, img: "https://jhouse.vn/wp-content/uploads/2023/04/Bright-and-spacious-serviced-apartment-in-a-villa-in-Thao-Dien-District-2-HCMC.jpeg"
             },
         ]
-    }
+    },
+    {
+        id: 4,
+        title: "Furnished 3-Bedroom Apartment",
+        type: "3-bedroom",
+        location: "Surulere, lagos",
+        price: "1,800,000",
+        images: [
+            {
+                id: 1, img: "https://th.bing.com/th/id/R.35ec572a5eaa4d8ee4c7de9a2bdf160a?rik=o1Vecirmla7e1A&pid=ImgRaw&r=0"
+            },
+            {
+                id: 2, img: "https://th.bing.com/th/id/OIP.SLnLAYH4hTyQMwxOuYx7aQHaEo?w=2200&h=1376&rs=1&pid=ImgDetMain"
+            },
+            {
+                id: 3, img: "https://th.bing.com/th/id/R.0a9cefc9796ac7ddaf6193d411a6a588?rik=FF7qU4AvbQu2sw&riu=http%3a%2f%2fnestliving.vn%2fwp-content%2fuploads%2fID496%2funnamed-file.H%2f2.jpg&ehk=wzsOUNrSHk6bpjRS0PlzYVVHg5eL%2fMcKEWePpO98Bv0%3d&risl=&pid=ImgRaw&r=0"
+            },
+            {
+                id: 4, img: "https://www.livinginvietnam.com/wp-content/uploads/2018/04/gold-view-apartment-hcmc-rent-3.jpg"
+            },
+            {
+                id: 5, img: "https://jhouse.vn/wp-content/uploads/2023/04/Bright-and-spacious-serviced-apartment-in-a-villa-in-Thao-Dien-District-2-HCMC.jpeg"
+            },
+        ]
+    },
 ]
