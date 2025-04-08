@@ -94,4 +94,4 @@ const ApartmentDetails = ({ item }) => {
     )
 }
 
-export default ApartmentDetails
+export default ApartmentDetails;

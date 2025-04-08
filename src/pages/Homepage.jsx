@@ -1,4 +1,5 @@
 import Apartments from "../components/Apartments";
+import Footer from "../components/Footer";
 import Footerbar from "../components/Footerbar";
 import Navbar from "../components/Navbar";
 import Search from "../components/Search";
@@ -11,6 +12,7 @@ const Homepage = () => {
         <Search />
         <Apartments />
         <Footerbar />
+        <Footer />
     </div>
   )
 }

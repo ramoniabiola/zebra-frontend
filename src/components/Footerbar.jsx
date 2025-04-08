@@ -1,9 +1,9 @@
 import { BellIcon, HeartIcon, HomeIcon, UserIcon } from "@heroicons/react/24/outline";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const Footerbar = () => {
   const [activeTab, setActiveTab] = useState("home");
-  const [isScrolled, setIsScrolled] = useState(false);
+  
 
   const tabs = [
     { id: "home", label: "Home", icon: <HomeIcon className="w-8 h-8" /> },
@@ -12,25 +12,11 @@ const Footerbar = () => {
     { id: "profile", label: "Profile", icon: <UserIcon className="w-8 h-8" /> },
   ];
 
-  
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const vh = window.innerHeight;
-      setIsScrolled(scrollY > vh);
-    };
 
-    window.addEventListener("scroll", handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
-    <div 
-      className={`fixed bottom-0 w-full h-20 bg-white shadow-[0_-3px_10px_-4px_rgba(0,0,0,0.15)] z-50 flex items-center justify-around transition-opacity duration-700 ${
-        isScrolled ? "opacity-50" : "opacity-100"
-      }`}
-    >
+    <div className='fixed bottom-0 w-full h-20 bg-white shadow-[0_-3px_10px_-4px_rgba(0,0,0,0.15)] z-50 flex items-center justify-around'>
       {tabs.map((tab) => (
         <div
           key={tab.id}

@@ -42,10 +42,14 @@ const Apartments = () => {
       </div>
 
       {/* APARTMENT LISTINGS */}
-      <div className="mt-[12rem] w-full h-full flex flex-col items-center justify-center px-4 overflow-y-auto scroll-smooth mb-36">
+      <div className="mt-[12rem] w-full h-full flex flex-col items-center justify-center px-4 overflow-y-auto scroll-smooth mb-12">
         {data.map((item) => (
           <ApartmentDetails item={item} key={item.id} />
         ))}
+        <div className="w-full h-full mt-12 flex flex-col items-center justify-center gap-24">
+          <hr className="w-11/12 text-stone-200" />
+          <button className="px-8 py-4 text-white text-xl font-bold bg-cyan-600 rounded-lg hover:bg-cyan-700 cursor-pointer">Show more</button>
+        </div>
       </div>
     </div>
   );
