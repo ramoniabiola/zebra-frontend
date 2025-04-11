@@ -95,4 +95,47 @@ export const data = [
             },
         ]
     },
+];
+
+
+
+export const apartmentInfoData = [
+    {
+        id: 1,
+        title: "Modern 2-Bedroom Apartment",
+        apartment_type: "2-bedroom",
+        price: 1200000,
+        payment_frequency: "yearly",
+        duration: "1 year",
+        location: "Lekki, Lagos",
+        apartment_address: "23 Banana Street, Lekki Phase 1",
+        nearest_landmark: "Lekki Conservation Centre",
+        images: [
+            {   id: 1,
+                img: "https://th.bing.com/th/id/OIP.q8Guh5Q_gmZc4PiEGHktdAHaE8?rs=1&pid=ImgDetMain"
+            }, 
+            {   id: 2, 
+                img: "https://th.bing.com/th/id/OIP.jDdaHarm0fQWyY344f8qXQHaE8?rs=1&pid=ImgDetMain"
+            },
+            { 
+                id: 3, 
+                img: "https://thumbs.dreamstime.com/b/empty-beautiful-flat-14685327.jpg"
+            },
+            {   id: 4,  
+                img: "https://th.bing.com/th/id/OIP.L95_u7pDzexlGG4b1QcRNgHaE8?w=2560&h=1709&rs=1&pid=ImgDetMain"
+            },
+            {   id: 5, 
+                img: "https://th.bing.com/th/id/OIP.L95_u7pDzexlGG4b1QcRNgHaE8?w=2560&h=1709&rs=1&pid=ImgDetMain"
+            },
+        ],
+        contact_phone: "08012345678",
+        isAvailable: true,
+        apartment_amenities: "24/7 electricity, water, parking, security",
+        bedrooms: 2,
+        bathrooms: 2,
+        apartmen_size: "120 sqm",
+        furnished: true,
+        service_charge: 150000,
+        verified_listing: true,
+    } 
 ]

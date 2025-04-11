@@ -16,7 +16,7 @@ const Footer = () => {
                 className="text-4xl text-slate-900 font-extrabold cursor-pointer pt-1">zebr
                 <span className="text-cyan-600">a</span>
             </h1>
-            <p className="text-lg font-normal italic text-stone-600">"Making apartment renting seamless and easy..."</p>
+            <p className="text-lg font-normal italic text-stone-600">"Making a seamless and easy apartment renting experience..."</p>
         </div>
 
         {/* Quick Links */}
@@ -29,7 +29,7 @@ const Footer = () => {
                 <li className="hover:underline"><a href="#">Contact Support</a></li>
                 <li className="hover:underline"><a href="#">FAQs / Help Center</a></li>
            </ul> 
-           <hr className="w-11/12 text-stone-300 mt-8" />
+           <hr className="w-11/12 text-stone-200 mt-8" />
         </div>
 
         {/* Contact */}
@@ -40,7 +40,7 @@ const Footer = () => {
                 <li>ramoniabiola61@gmail.com</li>
                 <li>Lagos, Nigeria.</li>
             </ul>
-            <hr className="w-11/12 text-stone-300 mt-8" />
+            <hr className="w-11/12 text-stone-200 mt-8" />
         </div>
 
         {/* Legal */}

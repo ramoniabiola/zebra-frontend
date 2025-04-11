@@ -1,5 +1,6 @@
 import './App.css';
-import Homepage from './pages/homepage';
+import ApartmentInfo from './pages/ApartmentInfo';
+
 
 
 
@@ -7,7 +8,7 @@ function App() {
   
   return (
     <div className='overflow-hidden'>
-      <Homepage />
+      <ApartmentInfo />
     </div>
   )
 }
