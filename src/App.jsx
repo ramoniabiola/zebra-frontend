@@ -1,14 +1,12 @@
 import './App.css';
-import ApartmentInfo from './pages/ApartmentInfo';
-
-
+import Bookmarks from './pages/Bookmarks';
 
 
 function App() {
   
   return (
     <div className='overflow-hidden'>
-      <ApartmentInfo />
+      <Bookmarks />
     </div>
   )
 }

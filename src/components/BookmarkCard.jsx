@@ -1,28 +1,26 @@
-import { HeartIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { HeartIcon } from "@heroicons/react/24/solid";
 
-const ApartmentDetails = ({ item }) => {
+const BookmarkCard = ({ item }) => {
     const [currentImg, setCurrentImg] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
     const totalImages = item.images?.length || 0;
-    
 
     const handleNext = () => {
         if (currentImg < totalImages - 1) {
           setCurrentImg((prev) => prev + 1);
         }
     };
-  
     const handlePrev = () => {
         if (currentImg > 0) {
           setCurrentImg((prev) => prev - 1);
         }
     };
-   
-   
+
 
     return (
-        <div className='w-11/12 h-auto flex flex-col items-center justify-start bg-white mb-4 relative mt-12 cursor-pointer'>  
+        <div className='w-11/12 h-auto flex flex-col items-center justify-start bg-white relative mb-16 cursor-pointer'>  
             <div 
                 className="w-full h-[310px] relative overflow-hidden rounded-xl"
                 onMouseEnter={() => setIsHovered(true)}
@@ -44,15 +42,15 @@ const ApartmentDetails = ({ item }) => {
                         />
                     )}
                 </div>
-
+                
                 {/* Left and right image slider navigatiom */}
                 {isHovered && currentImg > 0 && (
-                <button
-                    onClick={handlePrev}
-                    className="absolute top-1/2 left-3 transform -translate-y-1/2 bg-white p-2 rounded-full opacity-90 shadow hover:bg-gray-100 transition cursor-pointer"
-                >
-                    <ChevronLeftIcon className="w-6 h-6 text-gray-700" />
-                </button>
+                    <button
+                        onClick={handlePrev}
+                        className="absolute top-1/2 left-3 transform -translate-y-1/2 bg-white p-2 rounded-full opacity-90 shadow hover:bg-gray-100 transition cursor-pointer"
+                    >
+                        <ChevronLeftIcon className="w-6 h-6 text-gray-700" />
+                    </button>
                 )}
                 {isHovered && currentImg < totalImages - 1 && (
                     <button
@@ -62,7 +60,6 @@ const ApartmentDetails = ({ item }) => {
                         <ChevronRightIcon className="w-6 h-6 text-gray-700" />
                     </button>
                 )}
-
                 {/* Dots Navigation */}
                 {totalImages > 1 && (
                   <div className="absolute bottom-3.5 left-1/2 transform -translate-x-1/2 flex gap-1.5">
@@ -86,12 +83,12 @@ const ApartmentDetails = ({ item }) => {
                 <h4 className="text-md text-slate-600 font-medium">{item.location}</h4>
             </div>
 
-            {/* Heart Icon  */}
+            {/* Bookmark Icon  */}
             <div className="absolute bottom-0.5 right-4">
-                <HeartIcon className="w-7 h-7 text-slate-800 cursor-pointer hover:text-sky-600 transition" />
+                <HeartIcon className="w-8 h-8 text-rose-500 cursor-pointer" />
             </div>
         </div>
-    )
-}
+    );      
+};
 
-export default ApartmentDetails;
+export default BookmarkCard;
