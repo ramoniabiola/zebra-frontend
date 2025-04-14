@@ -15,7 +15,7 @@ const Bookmarks = () => {
                     <div className="w-12 h-12  mt-1 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-colors duration-200 cursor-pointer">
                         <ArrowLeftIcon className="w-6 h-6" />
                     </div>
-                    <h1 className="font-bold text-gray-900 text-3xl">Your WishLists</h1>
+                    <h1 className="font-bold text-gray-900 text-3xl">WishLists</h1>
                 </div>
 
                 {/* BOOKMARKS SEARCH INPUT FIELD */}

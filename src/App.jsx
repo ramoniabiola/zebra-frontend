@@ -1,12 +1,14 @@
 import './App.css';
-import Bookmarks from './pages/Bookmarks';
+import UserProfile from './pages/UserProfile';
+
+
 
 
 function App() {
   
   return (
     <div className='overflow-hidden'>
-      <Bookmarks />
+      <UserProfile />
     </div>
   )
 }

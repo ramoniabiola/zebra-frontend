@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeftIcon, ChevronRightIcon, ChevronLeftIcon, BookmarkIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftIcon, ChevronRightIcon, ChevronLeftIcon, HeartIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { CheckBadgeIcon }from "@heroicons/react/24/solid";
 import { apartmentInfoData } from "../utils/Data";
 import Footer from "../components/Footer";
@@ -34,7 +34,7 @@ const ApartmentInfo = () => {
           <ArrowLeftIcon className="w-6 h-6" />
         </div>
         <div className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-neutral-100 transition-colors duration-200 cursor-pointer">
-          <BookmarkIcon className="w-6 h-6" />
+          <HeartIcon className="w-7 h-7" />
         </div>
       </nav> 
 
@@ -80,7 +80,7 @@ const ApartmentInfo = () => {
       <div className="bg-white w-full h-full flex flex-col items-start justify-center ml-4 gap-4 mb-8">
         {/* Verified Badge(if premium is subscribed)*/}
         {apartment.verified_listing && (
-          <div className="flex items-center justify-center px-2 py-1 bg-cyan-500 gap-1 rounded-lg">
+          <div className="flex items-center justify-center px-2 py-1 bg-teal  -500 gap-1 rounded-lg">
             <CheckBadgeIcon className="w-5 h-5 text-white" />
               <h3 className="text-sm font-mono text-white">Verified</h3>
           </div>

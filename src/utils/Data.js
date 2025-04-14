@@ -139,3 +139,19 @@ export const apartmentInfoData = [
         verified_listing: true,
     } 
 ]
+
+
+export const dummyTenant = {
+    full_name: "Ramoni Olalekan",
+    email: "rolalekan176@yahoo.com",
+    username: "Sir Tee",
+    phone_no: "08012345678",
+    gender: "Male",
+    date_of_birth: "1995-04-10",
+    address: "Lekki Phase 1, Lagos",
+    preferred_locations: ["Lekki", "Ikoyi", "Ajah"],
+    profile_picture: "https://cdn2.vectorstock.com/i/thumb-large/28/66/profile-placeholder-image-gray-silhouette-vector-21542866.jpg",
+    role: "Tenant"
+}
+
+  

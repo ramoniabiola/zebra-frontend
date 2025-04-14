@@ -1,5 +1,5 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { HeartIcon } from "@heroicons/react/24/solid";
 
 const BookmarkCard = ({ item }) => {
@@ -60,6 +60,7 @@ const BookmarkCard = ({ item }) => {
                         <ChevronRightIcon className="w-6 h-6 text-gray-700" />
                     </button>
                 )}
+                
                 {/* Dots Navigation */}
                 {totalImages > 1 && (
                   <div className="absolute bottom-3.5 left-1/2 transform -translate-x-1/2 flex gap-1.5">
