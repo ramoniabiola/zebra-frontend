@@ -27,7 +27,7 @@ const UserProfile = () => {
         </div>
 
         {/* USER PROFILE DETAILS */}
-        <div className="w-11/12 mx-auto mt-8 p-6 bg-white border-2 border-stone-200 rounded-xl shadow-sm">
+        <div className="w-11/12 mx-auto mt-8 p-6 bg-white border-1 border-stone-100 rounded-xl shadow-sm">
           {/* Profile Image */}
           <div className="flex flex-col items-center gap-3 mb-6">
             <div className="relative w-28 h-28">
@@ -135,19 +135,32 @@ const UserProfile = () => {
           <div className="mt-16">
             <h2 className="text-xl text-center font-bold text-gray-800 mb-8">Security Settings</h2>
             {editMode ? (
-              <button 
-                // onClick={() => navigate("/change-password")} 
-                className="text-white bg-rose-500 px-4 py-2 rounded-md font-semibold hover:bg-rose-600 transition cursor-pointer"
-              >
-                Change Password
-              </button>  
+              <div className="w-full flex flex-col items-start justify-start gap-8">
+                <button 
+                  // onClick={() => navigate("/change-password")} 
+                  className="text-white bg-rose-500 px-4 py-2 rounded-md font-semibold hover:bg-rose-600 transition cursor-pointer"
+                >
+                  Change Password
+                </button>
+                <button className="text-red-700 bg-red-50  border-2 border-red-200 px-4 py-2 rounded-md font-semibold hover:bg-red-100 transition cursor-pointer">
+                  Deactivate Account
+                </button> 
+              </div> 
             ) : (
-              <button 
-                className="text-gray-800 bg-gray-300 px-4 py-2 rounded-md font-semibold transition"
-                disabled
-              >
-                Change Password
-              </button>  
+              <div className="w-full flex flex-col items-start justify-start gap-8">
+                <button 
+                  className="text-gray-800 bg-gray-300 px-4 py-2 rounded-md font-semibold transition"
+                  disabled
+                >
+                  Change Password
+                </button> 
+                <button 
+                  className="text-stone-800 bg-stone-100 border-2 border-stone-300 px-4 py-2 rounded-md font-semibold  transition"
+                  disabled
+                >
+                  Deactivate Account
+                </button> 
+              </div> 
             )}
           </div>
 
