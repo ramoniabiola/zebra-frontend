@@ -1,6 +1,5 @@
 import './App.css';
-import UserProfile from './pages/UserProfile';
-
+import Login from './pages/Auth/Login';
 
 
 
@@ -8,7 +7,7 @@ function App() {
   
   return (
     <div className='overflow-hidden'>
-      <UserProfile />
+      <Login />
     </div>
   )
 }
