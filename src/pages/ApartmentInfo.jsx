@@ -80,7 +80,7 @@ const ApartmentInfo = () => {
       <div className="bg-white w-full h-full flex flex-col items-start justify-center ml-4 gap-4 mb-8">
         {/* Verified Badge(if premium is subscribed)*/}
         {apartment.verified_listing && (
-          <div className="flex items-center justify-center px-2 py-1 bg-teal  -500 gap-1 rounded-lg">
+          <div className="flex items-center justify-center px-2 py-1 bg-teal-500 gap-1 rounded-lg">
             <CheckBadgeIcon className="w-5 h-5 text-white" />
               <h3 className="text-sm font-mono text-white">Verified</h3>
           </div>
@@ -94,15 +94,15 @@ const ApartmentInfo = () => {
           ₦{apartment.price.toLocaleString()} / {apartment.payment_frequency}
         </div>
         {/* Address */}
-        <div className="mb-4">
+        <div className="mb-8 space-y-2">
           <h2 className="text-xl font-semibold text-gray-600">Address:</h2>
           <p className="text-lg text-gray-700 font-normal">{apartment.apartment_address}</p>
           {apartment.nearest_landmark && (
-              <p className="text-lg text-gray-500">Near {apartment.nearest_landmark}</p>
+            <p className="text-lg text-gray-500">Near {apartment.nearest_landmark}</p>
           )}
         </div>
         {/* Features */}
-        <div className="grid grid-cols-2 text-gray-700 gap-4 text-lg font-medium mb-4">
+        <div className="grid grid-cols-2 text-gray-700 gap-8 text-lg font-medium mb-8">
           <div><strong>Bedrooms:</strong> {apartment.bedrooms}</div>
           <div><strong>Bathrooms:</strong> {apartment.bathrooms}</div>
           <div><strong>Size:</strong> {apartment.apartmen_size}</div>
@@ -114,7 +114,7 @@ const ApartmentInfo = () => {
         {/* Amenities */}
         {apartment.apartment_amenities && (
           <div className="mb-6">
-            <h2 className="text-xl font-medium text-gray-600 mb-1">Amenities:</h2>
+            <h2 className="text-xl font-medium text-gray-700 mb-1">Amenities:</h2>
             <p className="text-lg text-gray-700">{apartment.apartment_amenities}</p>
           </div>
         )}

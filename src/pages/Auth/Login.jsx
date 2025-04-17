@@ -33,7 +33,7 @@ const Login = () => {
                         name="email"
                         value={form.email}
                         onChange={handleChange}
-                        className="mt-1 block w-full px-4 py-3 border border-gray-200 rounded-lg text-lg shadow focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                        className="mt-1 block w-full px-4 py-3 border border-gray-200 rounded-lg text-lg font-semibold text-gray-800 shadow focus:outline-none focus:ring-2 focus:ring-cyan-500"
                         placeholder="you@example.com"
                     />
                 </div>
@@ -48,7 +48,7 @@ const Login = () => {
                         name="password"
                         value={form.password}
                         onChange={handleChange}
-                        className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg text-lg shadow focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                        className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg text-lg font-semibold text-gray-800 shadow focus:outline-none focus:ring-2 focus:ring-cyan-500"
                         placeholder="********"
                     />
                 </div>
