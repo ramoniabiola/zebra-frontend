@@ -88,7 +88,7 @@ const ApartmentDetails = ({ item }) => {
 
             {/* Heart Icon  */}
             <div className="absolute bottom-0.5 right-4">
-                <HeartIcon className="w-7 h-7 text-slate-800 cursor-pointer hover:text-sky-600 transition" />
+                <HeartIcon className="w-7 h-7 text-slate-800 cursor-pointer hover:text-rose-500 transition" />
             </div>
         </div>
     )

@@ -24,14 +24,14 @@ const Register = () => {
     return (
         <div className="w-full min-h-screen bg-white flex flex-col items-center px-4 py-6">
 
-              {/* App Name / Logo */}
+            {/* App Name / Logo */}
             <h1 
-              className="text-5xl text-slate-900 font-extrabold text-center mb-6">zebr
+              className="text-5xl text-slate-900 font-extrabold text-center mb-4">zebr
               <span className="text-cyan-600">a</span>
             </h1>
 
             {/* Welcome Message */}
-            <h2 className="text-xl font-semibold text-gray-600 mb-6">
+            <h2 className="text-xl font-semibold text-gray-500 mb-6">
                 Create Your Account
             </h2>
 
