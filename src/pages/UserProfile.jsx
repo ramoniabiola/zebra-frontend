@@ -13,7 +13,7 @@ const UserProfile = () => {
   const handleChange = (e) => { 
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-
+        
 
   return (
     <div className="w-full h-full flex flex-col items-start justify-start">

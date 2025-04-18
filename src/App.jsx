@@ -1,13 +1,12 @@
 import './App.css';
-import Login from './pages/Auth/Login';
-
+import PasswordChange from './pages/Auth/PasswordChange';
 
 
 function App() {
   
   return (
     <div className='overflow-hidden'>
-      <Login />
+      <PasswordChange />
     </div>
   )
 }
