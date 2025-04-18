@@ -1,17 +1,48 @@
-import { BellIcon, HeartIcon, HomeIcon, UserIcon } from "@heroicons/react/24/outline";
+import {
+  BellIcon as BellOutline,
+  HeartIcon as HeartOutline,
+  HomeIcon as HomeOutline,
+  UserIcon as UserOutline,
+} from "@heroicons/react/24/outline";
+
+import {
+  BellIcon as BellSolid,
+  HeartIcon as HeartSolid,
+  HomeIcon as HomeSolid,
+  UserIcon as UserSolid,
+} from "@heroicons/react/24/solid";
 import { useState } from "react";
+
 
 const Footerbar = () => {
   const [activeTab, setActiveTab] = useState("home");
+
   
-
   const tabs = [
-    { id: "home", label: "Home", icon: <HomeIcon className="w-8 h-8" /> },
-    { id: "whishlists", label: "Wishlists", icon: <HeartIcon className="w-8 h-8" /> },
-    { id: "notifications", label: "Notifications", icon: <BellIcon className="w-8 h-8" /> },
-    { id: "profile", label: "Profile", icon: <UserIcon className="w-8 h-8" /> },
+    {
+      id: "home",
+      label: "Home",
+      icon: (active) => active ? <HomeSolid className="w-8 h-8" /> : <HomeOutline className="w-8 h-8" />,
+    },
+    {
+      id: "whishlists",
+      label: "Wishlists",
+      icon: (active) => active ? <HeartSolid className="w-8 h-8" /> : <HeartOutline className="w-8 h-8" />,
+    },
+    {
+      id: "notifications",
+      label: "Notifications",
+      icon: (active) => active ? <BellSolid className="w-8 h-8" /> : <BellOutline className="w-8 h-8" />,
+    },
+    {
+      id: "profile",
+      label: "Profile",
+      icon: (active) => active ? <UserSolid className="w-8 h-8" /> : <UserOutline className="w-8 h-8" />,
+    },
   ];
-
+  
+  // Mock Wishlists and Notification values
+  const notificationCount = 7;
 
 
 
@@ -25,7 +56,14 @@ const Footerbar = () => {
             ${activeTab === tab.id ? "text-sky-500" : "text-gray-500 hover:text-gray-600"}
           `}
         >
-          {tab.icon}
+          <div className="relative">
+            {tab.icon(activeTab === tab.id)}
+            {(tab.id === "notifications" && notificationCount > 0) && (
+              <span className="absolute -top-1.5 -right-3.5 bg-red-500 text-white text-xs rounded-full px-2">
+                {notificationCount}
+              </span>
+            )}
+          </div>
           <h2 className="text-xs font-medium mt-1">{tab.label}</h2>
         </div>
       ))}

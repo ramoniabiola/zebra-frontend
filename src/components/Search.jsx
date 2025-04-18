@@ -8,7 +8,7 @@ const Search = () => {
         <input
           type="text"
           placeholder="Search your potential apartment"
-          className="w-full h-full  pl-4 rounded-md outline-none text-lg font-semibold text-gray-900 placeholder-gray-700" 
+          className="w-full h-full  pl-4 rounded-md outline-none text-lg font-semibold text-gray-900 placeholder-gray-500" 
         />
         <MagnifyingGlassIcon className="absolute right-4 h-6 w-6 top-1/2 transform -translate-y-1/2 font-extrabold text-slate-700 cursor-pointer" />
       </div>
