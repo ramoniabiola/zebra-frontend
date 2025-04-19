@@ -49,7 +49,7 @@ const Footerbar = () => {
   ];
   
   // Mock Wishlists and Notification values
-  const notificationCount = 7;
+  const notificationCount = 3;
 
 
 

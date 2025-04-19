@@ -1,12 +1,12 @@
 import './App.css';
-import SearchResults from './pages/SearchResults';
+import NotificationPage from './pages/NotificationPage';
 
 
 function App() {
   
   return (
     <div className='overflow-hidden'>
-      <SearchResults />
+      <NotificationPage />
     </div>
   )
 }
