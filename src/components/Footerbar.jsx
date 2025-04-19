@@ -3,6 +3,7 @@ import {
   HeartIcon as HeartOutline,
   HomeIcon as HomeOutline,
   UserIcon as UserOutline,
+  MagnifyingGlassIcon as SearchOutline
 } from "@heroicons/react/24/outline";
 
 import {
@@ -10,6 +11,7 @@ import {
   HeartIcon as HeartSolid,
   HomeIcon as HomeSolid,
   UserIcon as UserSolid,
+  MagnifyingGlassIcon as SearchSolid
 } from "@heroicons/react/24/solid";
 import { useState } from "react";
 
@@ -22,22 +24,27 @@ const Footerbar = () => {
     {
       id: "home",
       label: "Home",
-      icon: (active) => active ? <HomeSolid className="w-8 h-8" /> : <HomeOutline className="w-8 h-8" />,
+      icon: (active) => active ? <HomeSolid className="w-7.5 h-7.5" /> : <HomeOutline className="w-7.5 h-7.5" />,
+    },
+    {
+      id: "search",
+      label: "Search",
+      icon: (active) => active ? <SearchSolid className="w-7.5 h-7.5" /> : <SearchOutline className="w-7.5 h-7.5" />,
     },
     {
       id: "whishlists",
       label: "Wishlists",
-      icon: (active) => active ? <HeartSolid className="w-8 h-8" /> : <HeartOutline className="w-8 h-8" />,
+      icon: (active) => active ? <HeartSolid className="w-7.5 h-7.5" /> : <HeartOutline className="w-7.5 h-7.5" />,
     },
     {
       id: "notifications",
       label: "Notifications",
-      icon: (active) => active ? <BellSolid className="w-8 h-8" /> : <BellOutline className="w-8 h-8" />,
+      icon: (active) => active ? <BellSolid className="w-7.5 h-7.5" /> : <BellOutline className="w-7.5 h-7.5" />,
     },
     {
       id: "profile",
       label: "Profile",
-      icon: (active) => active ? <UserSolid className="w-8 h-8" /> : <UserOutline className="w-8 h-8" />,
+      icon: (active) => active ? <UserSolid className="w-7.5 h-7.5" /> : <UserOutline className="w-7.5 h-7.5" />,
     },
   ];
   
