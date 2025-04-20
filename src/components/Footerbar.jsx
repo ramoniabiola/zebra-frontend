@@ -13,11 +13,23 @@ import {
   UserIcon as UserSolid,
   MagnifyingGlassIcon as SearchSolid
 } from "@heroicons/react/24/solid";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 const Footerbar = () => {
   const [activeTab, setActiveTab] = useState("home");
+  const [isBeyondScreen, setIsBeyondScreen] = useState(false);
+
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsBeyondScreen(window.scrollY > window.innerHeight);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
 
   
   const tabs = [
@@ -48,13 +60,17 @@ const Footerbar = () => {
     },
   ];
   
-  // Mock Wishlists and Notification values
+  // Fake Notification value
   const notificationCount = 3;
 
 
 
   return (
-    <div className='fixed bottom-0 w-full h-20 bg-white shadow-[0_-3px_10px_-4px_rgba(0,0,0,0.15)] z-50 flex items-center justify-around'>
+    <div
+      className={`fixed bottom-0 w-full h-20 bg-white shadow-[0_-3px_10px_-4px_rgba(0,0,0,0.15)] z-50 flex items-center justify-around transition-opacity duration-300 ${
+        isBeyondScreen ? "opacity-50" : "opacity-100"
+      }`}
+    >
       {tabs.map((tab) => (
         <div
           key={tab.id}
