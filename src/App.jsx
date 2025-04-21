@@ -1,12 +1,12 @@
 import './App.css';
-import SupportPage from './pages/SupportPage';
+import ReportListing from './pages/ReportListing';
 
 
 function App() {
   
   return (
     <div className='overflow-hidden'>
-      <SupportPage />
+      <ReportListing />
     </div>
   )
 }

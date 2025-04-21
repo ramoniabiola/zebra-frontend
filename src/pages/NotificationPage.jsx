@@ -7,15 +7,16 @@ const NotificationPage = () => {
     return (
         <div className="w-full h-full flex flex-col items-start justify-start bg-white">
             {/* Header */}
-            <div className="fixed top-0 z-50 w-full h-16 flex items-center justify-start gap-4 px-4 bg-white shadow-sm">
-                <div className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-neutral-100 cursor-pointer">
-                    <ArrowLeftIcon className="w-5 h-5 text-gray-800" />
+            <div className="w-full h-16 flex items-center justify-start gap-4 pl-2 pt-4 bg-white">
+                <div className="w-12 h-12  mt-1 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-colors duration-200 cursor-pointer">
+                    <ArrowLeftIcon className="w-6 h-6" />
                 </div>
-                <h1 className="text-xl font-bold text-gray-900">Notifications</h1>
+                <h1 className="font-bold text-gray-900 text-3xl">Notifications</h1>
             </div>
 
+
             {/* Notification List */}
-            <div className="w-full flex flex-col gap-6 px-4 mt-24 mb-8 cursor-pointer">
+            <div className="w-full flex flex-col gap-6 px-4 mt-12 mb-8 cursor-pointer">
                 {/* Single Notification Card */}
                 {[1, 2, 3].map((_, i) => (
                     <div

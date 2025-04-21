@@ -52,8 +52,8 @@ const SupportPage = () => {
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Support & FAQ</h1>
 
         {/* Tab Switcher */}
-        <div className="flex gap-11 mb-16">
-          {["Tenant", "Landlord/Agent"].map(tab => (
+        <div className="w-full flex items-center justify-center gap-11 mb-16">
+          {["Tenant", "Landlord / Agent"].map(tab => (
             <span
               key={tab}
               onClick={() => { setActiveTab(tab); setOpenIndex(null); }}
