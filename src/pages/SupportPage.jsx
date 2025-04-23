@@ -58,7 +58,7 @@ const SupportPage = () => {
               key={tab}
               onClick={() => { setActiveTab(tab); setOpenIndex(null); }}
               className={`relative px-1 cursor-pointer rounded-md text-lg font-semibold transition-all
-                ${activeTab === tab ? "text-cyan-600" : "text-gray-500 hover:text-gray-600"}`}
+              ${activeTab === tab ? "text-cyan-600" : "text-gray-500 hover:text-gray-600"}`}
             >
               {tab}
               {activeTab === tab && (    

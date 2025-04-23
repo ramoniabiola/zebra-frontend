@@ -1,12 +1,11 @@
 import './App.css';
-import ReportListing from './pages/ReportListing';
-
+import MyDashboard from './pages/MyDashBoard';
 
 function App() {
   
   return (
     <div className='overflow-hidden'>
-      <ReportListing />
+     <MyDashboard />
     </div>
   )
 }
