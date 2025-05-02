@@ -1,10 +1,12 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { data } from "../utils/Data"
-import DeactivatedListingDetails from "./MyListingDetails";
+import DeactivatedListingDetails from "./DeactivatedListingDetails";
 
 const DeactivatedListings = () => {
+
+
   return (
-    <div className="w-full h-full flex flex-col items-start justify-center">
+    <div className="w-full h-full flex flex-col items-start justify-center mt-2">
       {/* DEACTIVADED LISTINGS SEARCH INPUT FIELD */}
       <div className="w-full h-20 flex items-center justify-center bg-white">
           <div className="relative bg-white w-11/12 h-8/12 border-2 border-stone-200 rounded-xl">  
@@ -17,7 +19,7 @@ const DeactivatedListings = () => {
           </div>
       </div>
 
-      {/* USER (landlord / agent) LISTINGS */}
+      {/* USER (landlord / agent) LISTINGS */} 
       <div className="w-full h-full flex flex-col items-center justify-center px-4 overflow-y-auto scroll-smooth mb-12">
         {data.map((item) => (
           <DeactivatedListingDetails item={item} key={item.id} />

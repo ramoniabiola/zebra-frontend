@@ -3,7 +3,8 @@ import {
   HeartIcon as HeartOutline,
   HomeIcon as HomeOutline,
   UserIcon as UserOutline,
-  MagnifyingGlassIcon as SearchOutline
+  MagnifyingGlassIcon as SearchOutline,
+  Squares2X2Icon as DashboardOuline
 } from "@heroicons/react/24/outline";
 
 import {
@@ -11,9 +12,20 @@ import {
   HeartIcon as HeartSolid,
   HomeIcon as HomeSolid,
   UserIcon as UserSolid,
-  MagnifyingGlassIcon as SearchSolid
+  MagnifyingGlassIcon as SearchSolid,
+  Squares2X2Icon as DashboardSolid
 } from "@heroicons/react/24/solid";
 import { useState, useEffect } from "react";
+
+
+// Example user data
+const user = {
+  username: "LandlordMike",
+  role: "Landlord",
+  avatar: "",
+  totalListings: 12,
+  activeListings: 5,
+};
 
 
 const Footerbar = () => {
@@ -43,11 +55,19 @@ const Footerbar = () => {
       label: "Search",
       icon: (active) => active ? <SearchSolid className="w-7.5 h-7.5" /> : <SearchOutline className="w-7.5 h-7.5" />,
     },
-    {
-      id: "whishlists",
-      label: "Wishlists",
-      icon: (active) => active ? <HeartSolid className="w-7.5 h-7.5" /> : <HeartOutline className="w-7.5 h-7.5" />,
-    },
+    // Conditional item between My Wishlits and My Dashboard
+    user.role === "Tenant" ?
+      {
+        id: "whishlists",
+        label: "Wishlists",
+        icon: (active) => active ? <HeartSolid className="w-7.5 h-7.5" /> : <HeartOutline className="w-7.5 h-7.5" />,
+      } 
+      :
+      {
+        id: "dashboard",
+        label: "Dashboard",
+        icon: (active) => active ? <DashboardSolid className="w-7.5 h-7.5" /> : <DashboardOuline className="w-7.5 h-7.5" />,
+      }, 
     {
       id: "notifications",
       label: "Notifications",
@@ -76,7 +96,7 @@ const Footerbar = () => {
           key={tab.id}
           onClick={() => setActiveTab(tab.id)}
           className={`flex flex-col items-center justify-center cursor-pointer transition-all duration-200
-            ${activeTab === tab.id ? "text-sky-500" : "text-gray-500 hover:text-gray-600"}
+            ${activeTab === tab.id ? "text-cyan-500" : "text-gray-500 hover:text-gray-600"}
           `}
         >
           <div className="relative">

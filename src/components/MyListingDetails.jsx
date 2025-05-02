@@ -1,4 +1,4 @@
-import { ChevronLeftIcon, ChevronRightIcon, HeartIcon } from "@heroicons/react/24/outline";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 
 
@@ -46,20 +46,21 @@ const MyListingDetails = ({ item }) => {
         {/* Left and right image slider navigatiom */}
         {isHovered && currentImg > 0 && (
         <button
-            onClick={handlePrev}
-            className="absolute top-1/2 left-3 transform -translate-y-1/2 bg-white p-2 rounded-full opacity-90 shadow hover:bg-gray-100 transition cursor-pointer"
+          onClick={handlePrev}
+          className="absolute top-1/2 left-3 transform -translate-y-1/2 bg-white p-2 rounded-full opacity-90 shadow hover:bg-gray-100 transition cursor-pointer"
         >
-            <ChevronLeftIcon className="w-6 h-6 text-gray-700" />
+          <ChevronLeftIcon className="w-6 h-6 text-gray-700" />
         </button>
         )}
         {isHovered && currentImg < totalImages - 1 && (
-            <button
-                onClick={handleNext}
-                className="absolute top-1/2 right-3 transform -translate-y-1/2 bg-white p-2 rounded-full opacity-90 shadow hover:bg-gray-100 transition cursor-pointer"
-            >
-                <ChevronRightIcon className="w-6 h-6 text-gray-700" />
-            </button>
+          <button
+            onClick={handleNext}
+            className="absolute top-1/2 right-3 transform -translate-y-1/2 bg-white p-2 rounded-full opacity-90 shadow hover:bg-gray-100 transition cursor-pointer"
+          >
+            <ChevronRightIcon className="w-6 h-6 text-gray-700" />
+          </button>
         )}
+
         {/* Dots Navigation */}
         {totalImages > 1 && (
           <div className="absolute bottom-3.5 left-1/2 transform -translate-x-1/2 flex gap-1.5">
@@ -74,16 +75,14 @@ const MyListingDetails = ({ item }) => {
           </div>
         )}
       </div>
+
       {/* Apartment Info */}
-      <div className="w-full mt-4 flex flex-col gap-0.5 text-left">
+      <div className="w-full mt-4 flex flex-col gap-1 text-left">
         <h1 className="text-xl font-semibold text-slate-800">{item.title}</h1>
         <h3 className="text-lg text-slate-500 font-medium">₦{item.price.toLocaleString()} yearly</h3>
         <p className="text-md text-slate-400">{item.type}</p>
         <h4 className="text-md text-slate-600 font-medium">{item.location}</h4>
-      </div>
-      {/* Heart Icon  */}
-      <div className="absolute bottom-0.5 right-4">
-        <HeartIcon className="w-7 h-7 text-slate-800 cursor-pointer hover:text-rose-500 transition" />
+        <h3 className="text-gray-400 font-semibold">2days ago</h3>
       </div>
     </div>
   )

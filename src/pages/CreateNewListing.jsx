@@ -1,0 +1,134 @@
+import React, { useState } from 'react';
+import Step1_ApartmentInfo from './steps/Step1_ApartmentInfo';
+import Step2_PricingDuration from './steps/Step2_PricingDuration';
+import Step3_ContactAmenities from './steps/Step3_ContactAmenities';
+import Step4_UploadImages from './steps/Step4_UploadImages';
+import StepIndicator from './steps/StepIndicator';
+import { ArrowLeftIcon } from "@heroicons/react/24/solid";
+import Footer from '../components/Footer';
+import Footerbar from '../components/Footerbar';
+
+
+
+const CreateNewListing = () => {
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    title: '',
+    apartment_type: '',
+    price: '',
+    payment_frequency: '',
+    duration: '',
+    location: '',
+    apartment_address: '',
+    nearest_landmark: '',
+    contact_phone: '',
+    apartment_amenities: '',
+    bedrooms: '',
+    bathrooms: '',
+    apartment_size: '',
+    furnished: false,
+    service_charge: '',
+    images: [],
+  });
+
+
+  const nextStep = () => setStep((prev) => Math.min(prev + 1, 5));
+  const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
+
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
+
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    const updatedImages = [...formData.images, ...files];
+
+    setFormData((prev) => ({
+      ...prev,
+      images: updatedImages,
+    }));
+  };
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Submitted Form Data:', formData);
+    // Call API or show success toast here
+  };
+
+
+  const renderStep = () => {
+    switch (step) {
+      case 1:
+        return <Step1_ApartmentInfo formData={formData} handleChange={handleChange} />;
+      case 2:
+        return <Step2_PricingDuration formData={formData} handleChange={handleChange} />;
+      case 3:
+        return <Step3_ContactAmenities formData={formData} handleChange={handleChange} />;
+      case 4:
+        return <Step4_UploadImages formData={formData} setFormData={setFormData} handleFileChange={handleFileChange}  />;
+      default:
+      return null;
+    }
+  };
+
+
+  return (
+    <div className="w-full h-full flex flex-col items-start justify-center min-h-screen">
+      {/* Header */}
+      <div className="w-full h-20 flex items-center gap-4 px-4 bg-white mb-8 mt-2">
+        <button onClick={prevStep} className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full focus:invisible">
+          <ArrowLeftIcon className="w-6 h-6 text-gray-700 cursor-pointer" />
+        </button>
+        <h1 className="text-[26px] font-bold text-gray-800">Create New Listing</h1>
+      </div>
+
+      {/* Step Indicator */}
+      <div className=''> 
+        <StepIndicator currentStep={step} />
+      </div>
+
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md mt-6 space-y-6">
+        {renderStep()}
+
+        {/* Navigation Buttons */}
+        <div className="flex justify-between">
+          {step > 1 && (
+            <button
+              type="button"
+              onClick={prevStep}
+              className="px-6 py-2 bg-gray-300  text-gray-700 rounded font-semibold hover:bg-gray-400 cursor-pointer focus:invisible"
+            >
+              Back
+            </button>
+          )}
+          {step < 5 ? (
+            <button
+              type="button"
+              onClick={nextStep}
+              className="ml-auto px-6 py-2 bg-cyan-600 text-white font-semibold rounded hover:bg-cyan-700 cursor-pointer focus:invisible"
+            >
+              Next
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="ml-auto px-6 py-2 bg-emerald-500 text-white rounded  font-semibold hover:bg-emerald-600 cursor-pointer focus:invisible"
+            >
+              Submit Listing
+            </button>
+          )}
+        </div>
+      </form>
+      <Footerbar /> 
+      <Footer />
+    </div>
+  )
+};
+
+export default CreateNewListing;

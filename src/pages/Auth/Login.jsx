@@ -54,7 +54,7 @@ const Login = () => {
                 </div>
 
                 {/* Forgot Password */}
-                <div className="flex justify-end text-lg font-bold text-gray-600 cursor-pointer">
+                <div className="flex justify-end text-lg font-bold text-gray-500 cursor-pointer">
                     <span className="text-midnight-blue hover:underline">
                       Forgot Password?
                     </span>

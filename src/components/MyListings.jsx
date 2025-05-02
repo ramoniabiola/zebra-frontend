@@ -5,7 +5,7 @@ import MyListingDetails from "./MyListingDetails";
 const MyListings = () => {
   
   return (
-    <div className="w-full h-full flex flex-col items-start justify-center">
+    <div className="w-full h-full flex flex-col items-start justify-center mt-2">
       {/* ACTIVE LISTINGS SEARCH INPUT FIELD */}
       <div className="w-full h-20 flex items-center justify-center bg-white">
         <div className="relative bg-white w-11/12 h-8/12 border-2 border-stone-200 rounded-xl">  

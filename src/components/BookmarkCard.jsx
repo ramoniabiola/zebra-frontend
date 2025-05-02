@@ -77,11 +77,12 @@ const BookmarkCard = ({ item }) => {
             </div>
 
             {/* Apartment Info */}
-            <div className="w-full mt-4 flex flex-col gap-0.5 text-left">
+            <div className="w-full mt-4 flex flex-col gap-1 text-left">
                 <h1 className="text-xl font-semibold text-slate-800">{item.title}</h1>
                 <h3 className="text-lg text-slate-500 font-medium">₦{item.price.toLocaleString()} yearly</h3>
                 <p className="text-md text-slate-400">{item.type}</p>
                 <h4 className="text-md text-slate-600 font-medium">{item.location}</h4>
+                <h3 className="text-gray-400 font-semibold text-sm">5mins ago</h3>
             </div>
 
             {/* Bookmark Icon  */}

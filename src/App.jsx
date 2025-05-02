@@ -1,11 +1,12 @@
 import './App.css';
-import MyDashboard from './pages/MyDashBoard';
+import CreateNewListing from './pages/CreateNewListing';
+
 
 function App() {
   
   return (
     <div className='overflow-hidden'>
-     <MyDashboard />
+     <CreateNewListing />
     </div>
   )
 }

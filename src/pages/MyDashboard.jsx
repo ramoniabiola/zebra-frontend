@@ -2,11 +2,12 @@ import Footerbar from "../components/Footerbar";
 import Footer from "../components/Footer";
 import {
   UserCircleIcon,
+  UserIcon,
   ClipboardDocumentListIcon,
   PlusIcon,
   HomeModernIcon,
 } from "@heroicons/react/24/solid";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import MyListings from "../components/MyListings";
 import DeactivatedListings from "../components/DeactivatedListings";
 
@@ -21,7 +22,25 @@ const user = {
 };
 
 const MyDashboard = () => { 
-  const [activeTab, setActiveTab] = useState("My Listings");
+  const [activeTab, setActiveTab] = useState("My Listings"); 
+  
+  const tabRefs = {
+    "My Listings": useRef(null),
+    "Deactivated Listings": useRef(null),
+  };
+  const underlineRef = useRef(null);
+
+
+  useEffect(() => {
+    const activeElement = tabRefs[activeTab]?.current;
+    const underline = underlineRef.current;
+
+    if (activeElement && underline) {
+      underline.style.width = `${activeElement.offsetWidth}px`;
+      underline.style.left = `${activeElement.offsetLeft}px`;
+    }
+  }, [activeTab]);
+
 
 
   return (
@@ -36,7 +55,7 @@ const MyDashboard = () => {
           {user.avatar ? (
             <img src={user.avatar} alt="avatar" className="w-12 h-12 rounded-full object-cover cursor-pointer" />
           ) : (
-            <UserCircleIcon className="w-14 h-14 text-gray-400 cursor-pointer" />
+            <UserCircleIcon className="w-14 h-14 text-cyan-600 cursor-pointer" />
           )}
         </div>
       </div>
@@ -63,7 +82,7 @@ const MyDashboard = () => {
 
         {/* User Role */}
         <div className="border-[2px] border-gray-200 rounded-md px-6 py-3 flex items-center justify-start pl-2 pr-1 pt-1 pb-1 gap-1.5 inset-shadow-sm">
-          <UserCircleIcon className="w-8 h-8 text-cyan-600" />
+          <UserIcon className="w-8 h-8 text-cyan-600" />
           <div>
             <p className="text-gray-600 text-sm font-semibold">User Role</p>
             <h2 className="text-base text-center font-extrabold  text-gray-700">{user.role}</h2>  
@@ -79,26 +98,30 @@ const MyDashboard = () => {
 
       {/*APARTMENT LISTING DISPLAY*/}
       <div className="w-full h-full flex flex-col items-start justify-center">
-        {/* Listing Tab */}
-        <div className="w-full h-16 flex flex-col items-center justify-center">
-          <div className="flex items-center justify-center gap-12">
-            {["My Listings", "Deactivated Listings"].map(tab => (
-              <span
+        {/* LISTING TAB */}
+        <div className="w-full">
+          <div className="relative flex justify-center gap-12 border-b border-gray-300 pb-4">
+            {["My Listings", "Deactivated Listings"].map((tab) => (
+              <button
                 key={tab}
+                ref={tabRefs[tab]}
                 onClick={() => setActiveTab(tab)}
-                className={`relative cursor-pointer rounded-md text-lg transition-all font-bold 
-                  ${activeTab === tab ? "text-gray-600" : "text-gray-400"
+                className={`relative text-lg font-semibold transition-colors duration-300 cursor-pointer focus:hidden ${
+                  activeTab === tab ? "text-gray-700" : "text-gray-400"
                 }`}
               >
                 {tab}
-                {activeTab === tab && (    
-                  <span className="absolute -bottom-[18px] left-0 w-full h-[5px] bg-cyan-500 rounded-t-full"></span>
-                )}  
-              </span>
+              </button>
             ))}
+
+            {/* Animated Underline */}
+            <span
+              ref={underlineRef}
+              className="absolute bottom-0 h-[5px] bg-cyan-600 rounded-t-full transition-all duration-300 ease-in-out"
+              style={{ left: 0, width: 0 }}
+            />
           </div>
-          <hr className="w-full text-gray-300 mt-4.5 sticky" />
-        </div> 
+        </div>
         
         {/* CONDITIONAL LISTINGS RENDER */}
         <div className="w-full">
@@ -109,6 +132,6 @@ const MyDashboard = () => {
       <Footer />
     </div>
   );
-};
+}; 
 
 export default MyDashboard;
