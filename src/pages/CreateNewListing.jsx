@@ -75,7 +75,7 @@ const CreateNewListing = () => {
       return null;
     }
   };
-
+ 
 
   return (
     <div className="w-full h-full flex flex-col items-start justify-center min-h-screen">
@@ -88,12 +88,12 @@ const CreateNewListing = () => {
       </div>
 
       {/* Step Indicator */}
-      <div className=''> 
+      <div className='w-full max-w-2xl mx-auto px-4'> 
         <StepIndicator currentStep={step} />
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md mt-6 space-y-6">
+      <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto p-6 mt-6 space-y-6 mb-8">
         {renderStep()}
 
         {/* Navigation Buttons */}

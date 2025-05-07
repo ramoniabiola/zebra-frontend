@@ -10,7 +10,7 @@ const steps = [
 
 const StepIndicator = ({ currentStep }) => {
   return (
-    <div className="w-full mb-4 mt-4 flex flex-col items-center justify-center">
+    <div className="w-full mb-4 mt-2 flex flex-col items-center justify-center">
 
       {/* Step Circles & Lines */}
       <div className="flex justify-between items-center w-full">
@@ -27,11 +27,11 @@ const StepIndicator = ({ currentStep }) => {
                   transition-all duration-300 shadow border-4 border-white
                 `}
                 style={{
-                    backgroundColor: isCompleted
-                    ? '#06b6d4'
-                    : isActive
-                    ? '#0e7490'
-                    : '#d1d5db',
+                  backgroundColor: isCompleted
+                  ? '#06b6d4'
+                  : isActive
+                  ? '#0e7490'
+                  : '#d1d5db',
                 }}
               >
                 {isCompleted ? (

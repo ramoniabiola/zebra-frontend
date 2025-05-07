@@ -1,12 +1,13 @@
 import './App.css';
-import CreateNewListing from './pages/CreateNewListing';
+import ListingInfo from './pages/ListingInfo';
+
 
 
 function App() {
   
   return (
     <div className='overflow-hidden'>
-     <CreateNewListing />
+     <ListingInfo />
     </div>
   )
 }

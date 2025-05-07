@@ -1,14 +1,16 @@
-  import React from 'react';
+import React from 'react';
+
+
 
 const Step4_UploadImages = ({ formData, setFormData, handleFileChange }) => {
 
   const handleRemoveImage = (indexToRemove) => {
-      const updatedImages = formData.images.filter((_, idx) => idx !== indexToRemove);
-  
-      setFormData((prev) => ({
-        ...prev,
-        images: updatedImages,
-      }));
+    const updatedImages = formData.images.filter((_, idx) => idx !== indexToRemove);
+
+    setFormData((prev) => ({
+      ...prev,
+      images: updatedImages,
+    }));
   };
   
   return (
@@ -36,7 +38,7 @@ const Step4_UploadImages = ({ formData, setFormData, handleFileChange }) => {
                   <img
                     src={URL.createObjectURL(file)}
                     alt={`preview-${idx}`}
-                    className="w-full h-full object-cover rounded border border-gray-300"
+                    className="w-full h-full object-cover rounded  border border-gray-300"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-xs text-gray-500 border rounded">

@@ -133,7 +133,7 @@ export const apartmentInfoData = [
         apartment_amenities: "24/7 electricity, water, parking, security",
         bedrooms: 2,
         bathrooms: 2,
-        apartmen_size: "120 sqm",
+        apartment_size: "120 sqm",
         furnished: true,
         service_charge: 150000,
         verified_listing: true,
