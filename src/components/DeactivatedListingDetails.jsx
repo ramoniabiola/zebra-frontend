@@ -1,11 +1,14 @@
 import { ChevronLeftIcon, ChevronRightIcon, HeartIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 
 const DeactivatedListingDetails = ({ item }) => {
   const [currentImg, setCurrentImg] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const totalImages = item.images?.length || 0;
+  const { id } = useParams();
+  
   
 
   const handleNext = () => {
@@ -21,7 +24,7 @@ const DeactivatedListingDetails = ({ item }) => {
   };
 
   return (
-    <div className='w-11/12 h-auto flex flex-col items-center justify-start bg-white relative mt-8 mb-16 cursor-pointer'>  
+    <Link to={`/deactivated-listing/${id}`} className='w-11/12 h-auto flex flex-col items-center justify-start bg-white relative mt-8 mb-16 cursor-pointer'>  
       <div 
         className="w-full h-[310px] relative overflow-hidden rounded-xl"
         onMouseEnter={() => setIsHovered(true)}
@@ -83,7 +86,7 @@ const DeactivatedListingDetails = ({ item }) => {
         <h4 className="text-md text-slate-600 font-medium">{item.location}</h4>
         <h3 className="text-gray-400 font-semibold">2days ago</h3>
       </div>
-    </div>
+    </Link>
   ) 
 }
 

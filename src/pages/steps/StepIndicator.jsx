@@ -58,7 +58,7 @@ const StepIndicator = ({ currentStep }) => {
       </div>
       
       {/* Step Labels */}
-      <div className="flex justify-between mt-4 px-2">
+      <div className="flex justify-between mt-4 px-1">
         {steps.map((label, index) => (
           <div
             key={index}

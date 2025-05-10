@@ -12,7 +12,7 @@ const DeactivatedListings = () => {
           <div className="relative bg-white w-11/12 h-8/12 border-2 border-stone-200 rounded-xl">  
               <input
                 type="text"
-                placeholder="Search your deactivated Listings"
+                placeholder="Deactivated Listings Search"
                 className="w-full h-full  pl-4 rounded-md outline-none text-lg font-semibold text-gray-900 placeholder-stone-400" 
               />
               <MagnifyingGlassIcon className="absolute right-3 h-6 w-6 top-1/2 transform -translate-y-1/2 font-extrabold text-stone-500 cursor-pointer" />

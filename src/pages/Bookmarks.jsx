@@ -4,6 +4,7 @@ import { data } from "../utils/Data"
 import BookmarkCard from "../components/BookmarkCard";
 import Footerbar from "../components/Footerbar";
 
+
 const Bookmarks = () => {
 
 

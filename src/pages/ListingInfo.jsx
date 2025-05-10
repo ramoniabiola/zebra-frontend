@@ -84,7 +84,7 @@ const ListingInfo = () => {
                         <button
                           type="button"
                           onClick={() => handleRemoveImage(idx)}
-                          className="absolute top-1 right-1 bg-black opacity-50 shadow text-white rounded-full w-5 h-5 flex items-center justify-center text-xs cursor-pointer"
+                          className="absolute top-0.5 right-1 bg-black opacity-50 shadow text-white rounded-full w-5 h-5 flex items-center justify-center text-xs cursor-pointer"
                           >
                           ✕
                         </button>
@@ -194,7 +194,7 @@ const ListingInfo = () => {
                 </div>
               ))}
             </div>
-          </div> 
+          </div>   
 
 
           {/* Contact & Amenities */}

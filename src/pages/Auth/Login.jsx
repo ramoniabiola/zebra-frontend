@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
     const [form, setForm] = useState({ email: "", password: "" });
@@ -55,9 +56,11 @@ const Login = () => {
 
                 {/* Forgot Password */}
                 <div className="flex justify-end text-lg font-bold text-gray-500 cursor-pointer">
-                    <span className="text-midnight-blue hover:underline">
-                      Forgot Password?
-                    </span>
+                    <Link to="/change-password">
+                      <span className="text-midnight-blue hover:underline">
+                        Forgot Password?
+                      </span>
+                    </Link>
                 </div>
 
                 {/* Login Button */}
@@ -71,9 +74,11 @@ const Login = () => {
                 {/* Link to Register */}
                 <p className="text-center text-lg text-gray-600 mt-2">
                     Don't have an account?{" "}
-                    <span  className="text-cyan-500 font-medium hover:underline cursor-pointer">
-                      Create one
-                    </span>
+                    <Link to="/register">
+                      <span  className="text-cyan-500 font-medium hover:underline cursor-pointer">
+                        Create one
+                      </span>
+                    </Link>
                 </p>
             </form>
         </div>

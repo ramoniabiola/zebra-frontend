@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { HeartIcon } from "@heroicons/react/24/solid";
+import { Link, useParams } from "react-router-dom";
+
+
 
 const BookmarkCard = ({ item }) => {
     const [currentImg, setCurrentImg] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
     const totalImages = item.images?.length || 0;
+    const { id } = useParams();
+  
 
     const handleNext = () => {
         if (currentImg < totalImages - 1) {
@@ -20,7 +25,7 @@ const BookmarkCard = ({ item }) => {
 
 
     return (
-        <div className='w-11/12 h-auto flex flex-col items-center justify-start bg-white relative mb-16 cursor-pointer'>  
+        <Link to={`/apartment/${id}`} className='w-11/12 h-auto flex flex-col items-center justify-start bg-white relative mb-16 cursor-pointer'>  
             <div 
                 className="w-full h-[310px] relative overflow-hidden rounded-xl"
                 onMouseEnter={() => setIsHovered(true)}
@@ -89,7 +94,7 @@ const BookmarkCard = ({ item }) => {
             <div className="absolute bottom-0.5 right-4">
                 <HeartIcon className="w-8 h-8 text-rose-500 cursor-pointer" />
             </div>
-        </div>
+        </Link>
     );      
 };
 

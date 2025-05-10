@@ -27,7 +27,7 @@ const ApartmentInfo = () => {
 
 
   return (
-    <div className="h-full w-full flex flex-col items-start justify-items-start">
+    <div className="h-full w-full overflow-hidden flex flex-col items-start justify-items-start">
       {/* NAVBAR */}
       <nav className="w-full h-20 flex items-center justify-between bg-white pl-4 pr-4">
         <div className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-neutral-100 transition-colors duration-200 cursor-pointer">
@@ -79,12 +79,13 @@ const ApartmentInfo = () => {
       {/* APARTMENT INFORMATION */}
       <div className="bg-white w-full h-full flex flex-col items-start justify-center ml-4 gap-4 mb-8">
         {/* Verified Badge(if premium is subscribed)*/}
-        {apartment.verified_listing && (
+        {/* {apartment.verified_listing && (
           <div className="flex items-center justify-center px-2 py-1 bg-teal-500 gap-1 rounded-lg">
             <CheckBadgeIcon className="w-5 h-5 text-white" />
               <h3 className="text-sm font-mono text-white">Verified</h3>
           </div>
-        )} 
+        )}  */}
+        
         {/* Title & Price */}
         <div className="mb-1">
           <h1 className="text-2xl font-semibold">{apartment.title}</h1>
@@ -94,18 +95,18 @@ const ApartmentInfo = () => {
           ₦{apartment.price.toLocaleString()} / {apartment.payment_frequency}
         </div>
         {/* Address */}
-        <div className="mb-8 space-y-2">
+        <div className="mb-8 space-y-1">
           <h2 className="text-xl font-semibold text-gray-600">Address:</h2>
-          <p className="text-lg text-gray-700 font-normal">{apartment.apartment_address}</p>
+          <p className="text-base text-gray-700 font-normal">{apartment.apartment_address}</p>
           {apartment.nearest_landmark && (
-            <p className="text-lg text-gray-500">Near {apartment.nearest_landmark}</p>
+            <p className="text-base text-gray-500">Near {apartment.nearest_landmark}</p>
           )}
         </div>
         {/* Features */}
         <div className="grid grid-cols-2 text-gray-700 gap-8 text-lg font-medium mb-8">
           <div><strong>Bedrooms:</strong> {apartment.bedrooms}</div>
           <div><strong>Bathrooms:</strong> {apartment.bathrooms}</div>
-          <div><strong>Size:</strong> {apartment.apartmen_size}</div>
+          <div><strong>Size:</strong> {apartment.apartment_size}</div>
           <div><strong>Furnished:</strong> {apartment.furnished ? "Yes" : "No"}</div>
           <div><strong>Service Charge:</strong> ₦{apartment.service_charge.toLocaleString()}</div>
           <div><strong>Duration:</strong> {apartment.duration}</div>
@@ -124,8 +125,8 @@ const ApartmentInfo = () => {
           <p className="text-xl font-semibold text-gray-800 tracking-widest">{apartment.contact_phone}</p>
         </div>
         {/* Action Buttons */}
-        <div className="w-full m-auto flex items-center justify-start mt-8 mb-2">
-          <button className="flex items-center justify-center bg-gray-200 text-gray-800 px-24 py-3 gap-2 text-xl font-semibold rounded-lg cursor-pointer hover:bg-gray-300">
+        <div className="w-full flex items-center justify-center mt-8 mb-2">
+          <button className="flex items-center justify-center bg-gray-200 text-gray-800 w-full mr-5 py-3 gap-2 text-xl font-semibold rounded-lg cursor-pointer hover:bg-gray-300">
             <ExclamationTriangleIcon className="w-6 h-6" />
             Report Listing
           </button>

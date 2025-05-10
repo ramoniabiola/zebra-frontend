@@ -10,6 +10,7 @@ import {
 import { useState, useRef, useEffect } from "react";
 import MyListings from "../components/MyListings";
 import DeactivatedListings from "../components/DeactivatedListings";
+import { Link } from "react-router-dom";
 
 
 // Example user data
@@ -90,17 +91,17 @@ const MyDashboard = () => {
         </div>
 
         {/* Create New Listing Button*/}
-        <button className="bg-linear-65 from-cyan-600 to-cyan-300 text-white font-bold text-sm  rounded-md flex items-center justify-center gap-1 cursor-pointer" >
+        <Link to="/create-listing" className="bg-linear-65 from-cyan-400 to-cyan-700 text-white font-bold text-sm  rounded-md flex items-center justify-center gap-1 cursor-pointer" >
           <PlusIcon className="w-5 h-5 text-white" />
             Add Apartment
-        </button>
+        </Link>
       </div>
 
       {/*APARTMENT LISTING DISPLAY*/}
       <div className="w-full h-full flex flex-col items-start justify-center">
         {/* LISTING TAB */}
         <div className="w-full">
-          <div className="relative flex justify-center gap-12 border-b border-gray-300 pb-4">
+          <div className="relative flex items-center justify-center gap-8 border-b border-gray-300 pb-4">
             {["My Listings", "Deactivated Listings"].map((tab) => (
               <button
                 key={tab}

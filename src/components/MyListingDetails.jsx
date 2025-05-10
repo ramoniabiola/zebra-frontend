@@ -1,11 +1,12 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-
+import { Link, useParams } from "react-router-dom";
 
 const MyListingDetails = ({ item }) => {
   const [currentImg, setCurrentImg] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const totalImages = item.images?.length || 0;
+  const { id } = useParams();
   
 
   const handleNext = () => {
@@ -21,7 +22,7 @@ const MyListingDetails = ({ item }) => {
   };
 
   return (
-    <div className='w-11/12 h-auto flex flex-col items-center justify-start bg-white mt-8 mb-16 relative cursor-pointer'>  
+    <Link to={`/listing/${id}`} className='w-11/12 h-auto flex flex-col items-center justify-start bg-white mt-8 mb-16 relative cursor-pointer'>  
       <div 
         className="w-full h-[310px] relative overflow-hidden rounded-xl"
         onMouseEnter={() => setIsHovered(true)}
@@ -84,7 +85,7 @@ const MyListingDetails = ({ item }) => {
         <h4 className="text-md text-slate-600 font-medium">{item.location}</h4>
         <h3 className="text-gray-400 font-semibold">2days ago</h3>
       </div>
-    </div>
+    </Link>
   )
 }
 

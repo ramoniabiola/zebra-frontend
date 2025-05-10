@@ -24,7 +24,7 @@ const Apartments = () => {
             onMouseEnter={() => setHovered(tab.id)}
             onMouseLeave={() => setHovered(null)}
             className={`flex flex-col items-center justify-center cursor-pointer transition-all duration-200
-              ${activeTab === tab.id ? "text-gray-900" : "text-gray-500 hover:text-gray-950"
+              ${activeTab === tab.id ? "text-gray-900" : "text-gray-500 hover:text-gray-700"
             }`}
           >
             {tab.icon}
@@ -34,7 +34,7 @@ const Apartments = () => {
                 <span className="absolute -bottom-[12px] left-0 w-full h-[2.5px]  bg-gray-900 rounded-t-full"></span>
               )}
               {hovered === tab.id && (    
-                <span className="absolute -bottom-[12px] left-0 w-full h-[2.5px] bg-gray-200 transition-all duration-200 rounded-t-full"></span>
+                <span className={`absolute -bottom-[12px] left-0 w-full h-[2.5px] ${activeTab !== tab.id ? "bg-gray-200" : "bg-gray-900"} transition-all duration-200 rounded-t-full`}></span>
               )}
             </h2>
           </div>
