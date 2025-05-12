@@ -114,7 +114,7 @@ const Register = () => {
                                     name="role"
                                     value={roleOption}
                                     checked={formData.role === roleOption}
-                                    onChange={handleChange}
+                                    onChange={handleChange} 
                                 />
                                 {roleOption.charAt(0).toUpperCase() + roleOption.slice(1)}
                             </label>

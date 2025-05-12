@@ -1,14 +1,21 @@
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import Footerbar from "../components/Footerbar";
 import Footer from "../components/Footer";
+import { useNavigate } from 'react-router-dom';
+
 
 const NotificationPage = () => {
+    const navigate = useNavigate();
+
     
     return (
         <div className="w-full h-full flex flex-col items-start justify-start bg-white">
             {/* Header */}
             <div className="w-full h-16 flex items-center justify-start gap-4 pl-2 pt-4 bg-white">
-                <div className="w-12 h-12  mt-1 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-colors duration-200 cursor-pointer">
+                <div 
+                    className="w-12 h-12  mt-1 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-colors duration-200 cursor-pointer"
+                    onClick={() => navigate(-1)}
+                >
                     <ArrowLeftIcon className="w-6 h-6" />
                 </div>
                 <h1 className="font-bold text-gray-900 text-3xl">Notifications</h1>

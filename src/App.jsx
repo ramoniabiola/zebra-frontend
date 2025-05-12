@@ -43,9 +43,6 @@ function App() {
         {/* Security & Inquiry */}
         <Route path="/support" element={<SupportPage />} />
         <Route path="/report/:id" element={<ReportListing />} />
-
-        {/* Optional: 404 fallback */}
-        <Route path="*" element={<div className="p-8 text-center text-red-600 text-xl">404 - Page Not Found</div>} />
       </Routes>
     </Router>
   );

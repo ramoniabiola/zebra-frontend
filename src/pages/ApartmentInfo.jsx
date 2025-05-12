@@ -3,6 +3,7 @@ import { ArrowLeftIcon, ChevronRightIcon, ChevronLeftIcon, HeartIcon, Exclamatio
 import { CheckBadgeIcon }from "@heroicons/react/24/solid";
 import { apartmentInfoData } from "../utils/Data";
 import Footer from "../components/Footer";
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -11,6 +12,8 @@ const ApartmentInfo = () => {
   const [currentImg, setCurrentImg] = useState(0);
   const totalImages = apartment?.images?.length || 0;
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
+  
 
   const handleNext = () => {
     if (currentImg < totalImages - 1) {
@@ -30,7 +33,10 @@ const ApartmentInfo = () => {
     <div className="h-full w-full overflow-hidden flex flex-col items-start justify-items-start">
       {/* NAVBAR */}
       <nav className="w-full h-20 flex items-center justify-between bg-white pl-4 pr-4">
-        <div className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-neutral-100 transition-colors duration-200 cursor-pointer">
+        <div 
+          className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-neutral-100 transition-colors duration-200 cursor-pointer"
+          onClick={() => navigate(-1)}
+        >
           <ArrowLeftIcon className="w-6 h-6" />
         </div>
         <div className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-neutral-100 transition-colors duration-200 cursor-pointer">
@@ -96,32 +102,32 @@ const ApartmentInfo = () => {
         </div>
         {/* Address */}
         <div className="mb-8 space-y-1">
-          <h2 className="text-xl font-semibold text-gray-600">Address:</h2>
+          <h2 className="text-xl font-semibold text-slate-500">Address:</h2>
           <p className="text-base text-gray-700 font-normal">{apartment.apartment_address}</p>
           {apartment.nearest_landmark && (
-            <p className="text-base text-gray-500">Near {apartment.nearest_landmark}</p>
+            <p className="text-base text-gray-600">Near {apartment.nearest_landmark}</p>
           )}
         </div>
         {/* Features */}
-        <div className="grid grid-cols-2 text-gray-700 gap-8 text-lg font-medium mb-8">
-          <div><strong>Bedrooms:</strong> {apartment.bedrooms}</div>
-          <div><strong>Bathrooms:</strong> {apartment.bathrooms}</div>
-          <div><strong>Size:</strong> {apartment.apartment_size}</div>
-          <div><strong>Furnished:</strong> {apartment.furnished ? "Yes" : "No"}</div>
-          <div><strong>Service Charge:</strong> ₦{apartment.service_charge.toLocaleString()}</div>
-          <div><strong>Duration:</strong> {apartment.duration}</div>
+        <div className="grid grid-cols-2 text-gray-800 gap-8 text-lg font-medium mb-8">
+          <div><strong className="text-slate-500">Bedrooms:</strong> {apartment.bedrooms}</div>
+          <div><strong className="text-slate-500">Bathrooms:</strong> {apartment.bathrooms}</div>
+          <div><strong className="text-slate-500">Size:</strong> {apartment.apartment_size}</div>
+          <div><strong className="text-slate-500">Furnished:</strong> {apartment.furnished ? "Yes" : "No"}</div>
+          <div><strong className="text-slate-500">Service Charge:</strong> ₦{apartment.service_charge.toLocaleString()}</div>
+          <div><strong className="text-slate-500">Duration:</strong> {apartment.duration}</div>
         </div>
         
         {/* Amenities */}
         {apartment.apartment_amenities && (
           <div className="mb-6">
-            <h2 className="text-xl font-medium text-gray-700 mb-1">Amenities:</h2>
-            <p className="text-lg text-gray-700">{apartment.apartment_amenities}</p>
+            <h2 className="text-xl font-medium text-slate-500 mb-1">Amenities:</h2>
+            <p className="text-lg text-gray-800">{apartment.apartment_amenities}</p>
           </div>
         )}
         {/* Contact Info */}
         <div className="">
-          <h2 className="text-xl text-gray-700 font-semibold mb-1">Contact Landlord/Agent:</h2>
+          <h2 className="text-xl text-slate-500 font-semibold mb-1">Contact Landlord/Agent:</h2>
           <p className="text-xl font-semibold text-gray-800 tracking-widest">{apartment.contact_phone}</p>
         </div>
         {/* Action Buttons */}

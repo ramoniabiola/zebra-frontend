@@ -4,6 +4,8 @@ import Footer from '../components/Footer';
 import { apartmentInfoData } from "../utils/Data";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from 'react-router-dom';
+
 
 const ListingInfo = () => {
   const apartment = apartmentInfoData[0]; // Static for now
@@ -12,6 +14,7 @@ const ListingInfo = () => {
   const [currentImg, setCurrentImg] = useState(0);
   const totalImages = apartment?.images?.length || 0;
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
 
 
   const handleChange = (e) => {
@@ -55,7 +58,7 @@ const ListingInfo = () => {
     <div className="w-full h-full flex flex-col items-start justify-center min-h-screen">
       {/* Section: Header */}
       <div className="w-full h-20 flex items-center justify-start pl-2 gap-2 bg-white">
-        <button className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full focus:invisible">
+        <button onClick={() => navigate(-1)} className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full focus:invisible">
           <ArrowLeftIcon className="w-6 h-6 text-gray-700 cursor-pointer" />
         </button>
         <h1 className="text-xl font-bold text-gray-800">Apartment Details</h1>

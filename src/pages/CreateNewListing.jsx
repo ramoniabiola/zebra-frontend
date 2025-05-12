@@ -7,6 +7,8 @@ import StepIndicator from './steps/StepIndicator';
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import Footer from '../components/Footer';
 import Footerbar from '../components/Footerbar';
+import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -30,6 +32,8 @@ const CreateNewListing = () => {
     service_charge: '',
     images: [],
   });
+  const navigate = useNavigate();
+
 
 
   const nextStep = () => setStep((prev) => Math.min(prev + 1, 5));
@@ -80,8 +84,8 @@ const CreateNewListing = () => {
   return (
     <div className="w-full h-full flex flex-col items-start justify-center min-h-screen">
       {/* Header */}
-      <div className="w-full h-20 flex items-center gap-4 px-4 bg-white mb-8 mt-2">
-        <button onClick={prevStep} className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full focus:invisible">
+      <div className="w-full h-20 flex items-center gap-2 px-4 bg-white mb-8 mt-2">
+        <button  onClick={() => navigate(-1)}  className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full focus:invisible">
           <ArrowLeftIcon className="w-6 h-6 text-gray-700 cursor-pointer" />
         </button>
         <h1 className="text-[26px] font-bold text-gray-800">Create New Listing</h1>
