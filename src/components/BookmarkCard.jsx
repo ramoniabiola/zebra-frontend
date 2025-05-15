@@ -9,7 +9,7 @@ const BookmarkCard = ({ item }) => {
     const [currentImg, setCurrentImg] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
     const totalImages = item.images?.length || 0;
-    const { id } = useParams();
+    const { apartmentId } = useParams();
   
 
     const handleNext = () => {
@@ -25,7 +25,7 @@ const BookmarkCard = ({ item }) => {
 
 
     return (
-        <Link to={`/apartment/${id}`} className='w-11/12 h-auto flex flex-col items-center justify-start bg-white relative mb-16 cursor-pointer'>  
+        <div className='w-11/12 h-auto flex flex-col items-center justify-start bg-white relative mb-16 cursor-pointer'>  
             <div 
                 className="w-full h-[310px] relative overflow-hidden rounded-xl"
                 onMouseEnter={() => setIsHovered(true)}
@@ -82,19 +82,19 @@ const BookmarkCard = ({ item }) => {
             </div>
 
             {/* Apartment Info */}
-            <div className="w-full mt-4 flex flex-col gap-1 text-left">
+            <Link to={`/apartment/${apartmentId}`} className="w-full mt-4 flex flex-col gap-1 text-left">
                 <h1 className="text-xl font-semibold text-slate-800">{item.title}</h1>
                 <h3 className="text-lg text-slate-500 font-medium">₦{item.price.toLocaleString()} yearly</h3>
                 <p className="text-md text-slate-400">{item.type}</p>
                 <h4 className="text-md text-slate-600 font-medium">{item.location}</h4>
                 <h3 className="text-gray-400 font-semibold text-sm">5mins ago</h3>
-            </div>
+            </Link>
 
             {/* Bookmark Icon  */}
             <div className="absolute bottom-0.5 right-4">
                 <HeartIcon className="w-8 h-8 text-rose-500 cursor-pointer" />
             </div>
-        </Link>
+        </div>
     );      
 };
 
