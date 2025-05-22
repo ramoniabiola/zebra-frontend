@@ -10,7 +10,7 @@ import {
 import { useState, useRef, useEffect } from "react";
 import MyListings from "../components/MyListings";
 import DeactivatedListings from "../components/DeactivatedListings";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 // Example user data
@@ -24,6 +24,7 @@ const user = {
 
 const MyDashboard = () => { 
   const [activeTab, setActiveTab] = useState("My Listings"); 
+  const navigate =  useNavigate();
   
   const tabRefs = {
     "My Listings": useRef(null),
@@ -91,10 +92,10 @@ const MyDashboard = () => {
         </div>
 
         {/* Create New Listing Button*/}
-        <Link to="/create-listing" className="bg-linear-65 from-cyan-400 to-cyan-700 text-white font-bold text-sm  rounded-md flex items-center justify-center gap-1 cursor-pointer" >
+        <button onClick={() => navigate("/create-listing")} className="bg-linear-65 from-cyan-400 to-cyan-700 text-white font-bold text-sm  rounded-md flex items-center justify-center gap-1 cursor-pointer" >
           <PlusIcon className="w-5 h-5 text-white" />
-            Add Apartment
-        </Link>
+          Add Apartment
+        </button>
       </div>
 
       {/*APARTMENT LISTING DISPLAY*/}

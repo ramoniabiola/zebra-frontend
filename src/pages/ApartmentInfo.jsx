@@ -4,6 +4,7 @@ import { CheckBadgeIcon }from "@heroicons/react/24/solid";
 import { apartmentInfoData } from "../utils/Data";
 import Footer from "../components/Footer";
 import { useNavigate } from 'react-router-dom';
+import Footerbar from "../components/Footerbar";
 
 
 
@@ -134,10 +135,11 @@ const ApartmentInfo = () => {
         <div className="w-full flex items-center justify-center mt-8 mb-2">
           <button className="flex items-center justify-center bg-gray-200 text-gray-800 w-full mr-5 py-3 gap-2 text-xl font-semibold rounded-lg cursor-pointer hover:bg-gray-300">
             <ExclamationTriangleIcon className="w-6 h-6" />
-            Report Listing
+            Report Apartment
           </button>
         </div>
       </div> 
+      <Footerbar /> 
       <Footer />
     </div>  
   )

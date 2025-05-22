@@ -9,24 +9,24 @@ const myListingsSlice = createSlice({
     },
 
     reducers: {
-        setMyListingsLoading: (state) => {
+        getMyListingsLoading: (state) => {
             state.loading = true;
             state.error = null;
         },
 
-        setMyListings: (state, action) => {
+        getMyListings: (state, action) => {
             state.listings = action.payload;
             state.loading = false;
             state.error = null;
         },
 
-        setMyListingsError: (state, action) => {
+        getMyListingsError: (state, action) => {
             state.loading = false;
             state.error = action.payload;
         },
 
         updateListing: (state, action) => {
-             const updated = action.payload;
+            const updated = action.payload;
             const index = state.listings.findIndex((item) => item._id === updated._id);
             if (index !== -1) {
                 state.listings[index] = updated;
@@ -44,9 +44,9 @@ const myListingsSlice = createSlice({
 });
 
 export const {
-    setMyListings,
-    setMyListingsLoading,
-    setMyListingsError,
+    getMyListings,
+    getMyListingsLoading,
+    getMyListingsError,
     updateListing,
     deactivateListing,
 } = myListingsSlice.actions;

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Footer from "../components/Footer";
+import Footerbar from "../components/Footerbar";
 
 
 
-const ReportListing = () => {
+const Report = () => {
   const [reason, setReason] = useState("");
   const [otherReason, setOtherReason] = useState("");
   const [comments, setComments] = useState("");
@@ -101,9 +102,10 @@ const ReportListing = () => {
             </div>
         )}
         </div>
+        <Footerbar />
         <Footer />
     </div>
   );
 };
 
-export default ReportListing;
+export default Report;

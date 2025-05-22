@@ -15,7 +15,7 @@ import SearchResults from './pages/SearchResults';
 import UserProfile from './pages/UserProfile';
 import NotificationPage from './pages/NotificationPage';
 import SupportPage from './pages/SupportPage';
-import ReportListing from './pages/ReportListing';
+import Report from './pages/Report';
 import DeactivatedListingInfo from './pages/DeactivatedListingInfo';
 
 
@@ -42,7 +42,7 @@ function App() {
 
         {/* Security & Inquiry */}
         <Route path="/support" element={<SupportPage />} />
-        <Route path="/report/:id" element={<ReportListing />} />
+        <Route path="/report" element={<Report />} />
       </Routes>
     </Router>
   );

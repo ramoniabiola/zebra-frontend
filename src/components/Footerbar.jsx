@@ -18,14 +18,14 @@ import {
   UserCircleIcon as UserCircleSolid
 } from "@heroicons/react/24/solid";
 import { useState, useEffect } from "react";
-import { Link,useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 
 // Example user data
 const user = {
   username: "LandlordMike",
-  role: "Landlord",
+  role: "Tenant",
   avatar: "",
   totalListings: 12,
   activeListings: 5,
@@ -36,7 +36,9 @@ const user = {
 const Footerbar = () => {
   const [isBeyondScreen, setIsBeyondScreen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate()
   const currentPath = location.pathname;
+  
 
   
   useEffect(() => {
@@ -144,8 +146,8 @@ const Footerbar = () => {
       }`}
     >
       {tabs.map((tab) => (
-        <Link
-          to={tabRoutes[tab.id]}
+        <div
+          onClick={() => navigate(tabRoutes[tab.id])}
           key={tab.id}
           className={`flex flex-col items-center justify-center cursor-pointer transition-all duration-200
             ${activeTab === tab.id ? "text-cyan-500" : "text-gray-500 hover:text-gray-600"}
@@ -160,7 +162,7 @@ const Footerbar = () => {
             )}
           </div>
           <h2 className="text-xs font-medium mt-1">{tab.label}</h2>
-        </Link>
+        </div>
       ))}
     </div>
   );

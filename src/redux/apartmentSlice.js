@@ -9,24 +9,24 @@ const apartmentSlice = createSlice({
         error: null,
     },
     reducers: {
-        setApartments: (state, action) => {
+        getApartments: (state, action) => {
             state.list = action.payload;
             state.loading = false;
             state.error = null;
         },
 
-        setApartmentDetails: (state, action) => {
+        getApartmentDetails: (state, action) => {
             state.selected = action.payload;
             state.loading = false;
             state.error = null;
         },
 
-        setApartmentsLoading: (state) => {
+        getApartmentsLoading: (state) => {
             state.loading = true;
             state.error = null;
         },
 
-        setApartmentsError: (state, action) => {
+        getApartmentsError: (state, action) => {
             state.loading = false;
             state.error = action.payload;
         },
@@ -38,10 +38,10 @@ const apartmentSlice = createSlice({
 });
 
 export const {
-    setApartments,
-    setApartmentDetails,
-    setApartmentsLoading,
-    setApartmentsError,
+    getApartments,
+    getApartmentDetails,
+    getApartmentsLoading,
+    getApartmentsError,
     clearSelectedApartment,
 } = apartmentSlice.actions;
 

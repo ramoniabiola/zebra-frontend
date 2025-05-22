@@ -1,0 +1,92 @@
+ import { loginApi, registerUserApi } from "../api/auth";
+import {
+    loginLoading, loginSuccess, 
+    loginFailure, registerUserLoading, 
+    registerUserSuccess, registerUserFailure, 
+    setLogout 
+} from "../redux/authSlice";
+import { clearBookmark } from "../redux/bookmarkSlice";
+import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+
+
+// LOGIN CUSTOM HOOK 
+export const useLogin = () => {
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+  
+    const login = async (dispatch, credentials) => {
+        dispatch(loginLoading());
+        setIsLoading(true);
+        setError(null)
+    
+        try {
+            const response = await loginApi(credentials);
+            if (response.status >= 200 && response.status < 300) {
+                dispatch(loginSuccess(response.data));
+                setError(null);
+                setIsLoading(false);
+                navigate('/');
+            } else { 
+                // If the response status is not in the success range, handle the error
+                throw new Error(response.data?.error || 'Something went wrong...');
+            }
+        } catch (error) {
+            // If there's an error, set the error state to display 
+            setError(error.response?.data?.error || 'Something went wrong...'); 
+            setIsLoading(false);
+            dispatch(loginFailure(error.response?.data?.error || error.message))
+        }      
+    };
+    
+    return { login, error, isLoading };
+};
+
+
+// REGISTER-USER CUSTOM HOOK
+export const useRegisterUser = () => {
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+  
+    const registerUser = async (dispatch, credentials) => {
+        dispatch(registerUserLoading());
+        setIsLoading(true);
+        setError(null)
+    
+        try {
+            const response = await registerUserApi(credentials);
+            if (response.status >= 200 && response.status < 300) {
+                dispatch(registerUserSuccess(response.data));
+                setError(null);
+                setIsLoading(false);
+                navigate('/');
+            } else { 
+                // If the response status is not in the success range, handle the error
+                throw new Error(response.data?.error || 'Something went wrong...');
+            }
+        } catch (error) {
+            // If there's an error, set the error state to display 
+            setError(error.response?.data?.error || 'Something went wrong...'); 
+            setIsLoading(false);
+            dispatch(registerUserFailure(error.response?.data?.error || error.message))
+        }      
+    };
+    
+    return { registerUser, error, isLoading };
+};
+
+
+// LOGOUT CUSTOM HOOK
+export const useLogout = () => {
+    const dispatch = useDispatch();
+
+    const handleLogout = async () => {
+        dispatch(setLogout());
+        dispatch(clearBookmark());
+    };
+
+    return { handleLogout };
+};

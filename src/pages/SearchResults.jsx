@@ -14,7 +14,7 @@ const SearchResults = () => {
             <Navbar />
             <Search />
             <div className="w-full h-full flex flex-col items-center justify-start mt-38">
-                <h1 className="text-2xl text-center text-gray-800 font-semibold">Search Results for "<b>Lekki</b>"</h1>
+                <h1 className="text-2xl text-center text-gray-600 font-semibold">Search Results for "<b className="text-gray-800">Lekki</b>"</h1>
                 <div className="w-full h-full flex flex-col items-center justify-center px-4 overflow-y-auto scroll-smooth mb-12">
                     {data.map((item) => (
                       <ApartmentDetails item={item} key={item.id} />

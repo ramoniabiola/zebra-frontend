@@ -1,6 +1,5 @@
 import API from "./index";
 
 // Auth APIs
-export const login = (credentials) => API.post("/auth/login", credentials);
-export const register = (credentials) => API.post("/auth/register", credentials);
-export const logout = () => API.post("/auth/logout");
+export const loginApi = (credentials) => API.post("/auth/login", credentials);
+export const registerUserApi = (credentials) => API.post("/auth/register", credentials);

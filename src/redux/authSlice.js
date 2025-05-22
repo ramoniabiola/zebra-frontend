@@ -1,30 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import * as api from '../../api'; // Adjust the path to your api file
+import { createSlice } from '@reduxjs/toolkit';
 
-// Async Thunks
-export const loginUser = createAsyncThunk(
-    'auth/loginUser',
-    async (credentials, { rejectWithValue }) => {
-        try {
-            const response = await api.login(credentials);
-            return response.data;
-        } catch (error) {
-            return rejectWithValue(error.response?.data?.message || 'Login failed');
-        }
-    }
-);
-
-export const registerUser = createAsyncThunk(
-    'auth/registerUser',
-    async (credentials, { rejectWithValue }) => {
-        try {
-            const response = await api.register(credentials);
-            return response.data;
-        } catch (error) {
-            return rejectWithValue(error.response?.data?.message || 'Registration failed');
-        }
-    }
-);
 
 // Initial state
 const initialState = {
@@ -38,42 +13,51 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        logout: (state) => {
+        // LOGIN
+        loginLoading: (state) => {
+            state.loading = true;
+            state.error = null;
+        },
+
+        loginSuccess: (state, action) => {
+            state.user = action.payload;
+            state.loading = false;
+            state.error = null;
+        },
+
+        loginFailure: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
+
+        // REGISTER
+        registerUserLoading: (state) => {
+            state.loading = true;
+            state.error = null;
+        },
+
+        registerUserSuccess: (state, action) => {
+            state.user = action.payload;
+            state.loading = false;
+            state.error = null;
+        },
+
+        registerUserFailure: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
+
+        // LOGOUT
+        setLogout: (state) => {
           state.user = null;
           state.error = null;
         },
     },
-    extraReducers: (builder) => {
-        builder
-        // Login
-        .addCase(loginUser.pending, (state) => {
-            state.loading = true;
-            state.error = null;
-        })
-        .addCase(loginUser.fulfilled, (state, action) => {
-            state.loading = false;
-            state.user = action.payload;
-        })
-        .addCase(loginUser.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.payload;
-        })
-
-        // Register
-        .addCase(registerUser.pending, (state) => {
-            state.loading = true;
-            state.error = null;
-        })
-        .addCase(registerUser.fulfilled, (state, action) => {
-            state.loading = false;
-            state.user = action.payload;
-        })
-        .addCase(registerUser.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.payload;
-        });
-    },
 });
 
-export const { logout } = authSlice.actions;
+export const { loginLoading,loginSuccess, 
+    loginFailure,registerUserLoading, 
+    registerUserSuccess, registerUserFailure, 
+    setLogout 
+} = authSlice.actions;
 export default authSlice.reducer;

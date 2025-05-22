@@ -4,11 +4,13 @@ import {
     FaInstagram,
     FaLinkedinIn,
 } from "react-icons/fa";
-
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Footer = () => {
+    const navigate = useNavigate();
+    
   return (
     <footer className="w-full h-full bg-stone-100 flex flex-col text-stone-900 items-start justify-center px-6 pt-4 pb-24 gap-8">
         <div className="w-full flex flex-col gap-2">
@@ -26,8 +28,7 @@ const Footer = () => {
                 <li className="hover:underline"><a href="#">Browse Apartment Listings</a></li>
                 <li className="hover:underline"><a href="#">How It Works</a></li>
                 <li className="hover:underline"><a href="#">List An Apartment (for landlords/agents)</a></li>
-                <li className="hover:underline"><a href="#">Contact Support</a></li>
-                <li className="hover:underline"><a href="#">FAQs / Help Center</a></li>
+                <li onClick={() => navigate("/support")} className="hover:underline cursor-pointer">FAQs / Help Center</li>
            </ul> 
            <hr className="w-11/12 text-stone-200 mt-8" />
         </div>
@@ -49,7 +50,7 @@ const Footer = () => {
             <ul className="space-y-3 text-lg">
                 <li><a href="#" className="hover:underline">Privacy Policy</a></li>
                 <li><a href="#" className="hover:underline">Terms & Conditions</a></li>
-                <li><a href="#" className="hover:underline">Report a Scam</a></li>
+                <li onClick={() => navigate("/report")} className="hover:underline cursor-pointer">Report a Scam</li>
             </ul>
             <hr className="w-11/12 text-stone-200 mt-8" />
         </div>

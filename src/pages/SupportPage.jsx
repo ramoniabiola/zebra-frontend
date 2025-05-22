@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 import Footer from "../components/Footer";
+import Footerbar from "../components/Footerbar";
 
 const tenantFaqs = [
   { 
@@ -28,11 +29,15 @@ const tenantFaqs = [
 const landlordFaqs = [
   { 
     question: "How do I list an apartment?", 
-    answer: "Go to your dashboard and click 'Add New Apartment', then fill in all necessary details." 
+    answer: "Go to your dashboard and click 'Add Apartment', then fill in all necessary details." 
   },
   { 
-    question: "Can I edit or remove a listing?", 
-    answer: "Yes, navigate to your dashboard and use the edit or delete options for your listings." 
+    question: "Can I edit or deactivate a listing?", 
+    answer: "Yes, navigate to your dashboard, click on any of your listings and use the Update listing button or Deactivate button options for your listings." 
+  },  
+   { 
+    question: "Can I Reactivate a listing?", 
+    answer: "Yes, navigate to your dashboard, click on the Deactivated Listing tab then click on any of the deactivated listings to see the details of the listing you want to reactivate, scroll down and click on the Reactivate button." 
   },  
 ];
 
@@ -102,6 +107,7 @@ const SupportPage = () => {
           </button>
         </div>
       </div>
+      <Footerbar />
       <Footer />
     </div>
   );
