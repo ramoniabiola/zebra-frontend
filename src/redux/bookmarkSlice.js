@@ -43,8 +43,6 @@ const bookmarkSlice = createSlice({
             state.error = action.payload;
         },
 
-        // CLEAR BOOKMARK
-        clearBookmark: (state) => initialState
     } 
 });
 

@@ -1,6 +1,6 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { data } from "../utils/Data"
 import DeactivatedListingDetails from "./DeactivatedListingDetails";
+import { SearchIcon } from "lucide-react";
 
 const DeactivatedListings = () => {
 
@@ -15,7 +15,7 @@ const DeactivatedListings = () => {
                 placeholder="Deactivated Listings Search"
                 className="w-full h-full  pl-4 rounded-md outline-none text-lg font-semibold text-gray-900 placeholder-stone-400" 
               />
-              <MagnifyingGlassIcon className="absolute right-3 h-6 w-6 top-1/2 transform -translate-y-1/2 font-extrabold text-stone-500 cursor-pointer" />
+              <SearchIcon size={24} strokeWidth={2} className="absolute right-3 h-6 w-6 top-1/2 transform -translate-y-1/2 font-extrabold text-stone-400 cursor-pointer" />
           </div>
       </div>
 
@@ -25,8 +25,7 @@ const DeactivatedListings = () => {
           <DeactivatedListingDetails item={item} key={item.id} />
         ))}
         <div className="w-full h-full mt-12 flex flex-col items-center justify-center gap-12">
-        <hr className="w-11/12 text-stone-200" />
-        <button className="px-8 py-4 text-white text-xl font-bold bg-cyan-600 rounded-lg hover:bg-cyan-700 cursor-pointer">Show more</button>
+          <button className="px-4 py-2 text-white text-lg font-bold border-8 border-double bg-cyan-600 rounded-full hover:bg-cyan-700 cursor-pointer focus:invisible">Show more</button>
         </div>
       </div> 
     </div>

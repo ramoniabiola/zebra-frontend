@@ -1,6 +1,6 @@
 import API from "./index";
 
 // myDeactivatedListings APIs
-export const fetchDeactivatedListings = (query) => API.get(`/apartments?${query}`);
-export const fetchDeactivatedListingsById = (id) => API.get(`/apartments/${id}`); 
-export const reactivateListing = (id) => API.put(`/reactivate/${id}`);
+export const fetchMyDeactivatedListingsApi = (query) => API.get(`/deactivated?${query}`);
+export const fetchMyDeactivatedListingByIdApi = (id) => API.get(`/deactivated/find/${id}`); 
+export const reactivateMyListingApi = (id) => API.put(`/user-post/reactivate/${id}`);

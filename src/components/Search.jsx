@@ -1,4 +1,4 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import { SearchIcon } from "lucide-react";
 
 
 const Search = () => {
@@ -10,7 +10,7 @@ const Search = () => {
           placeholder="Search an apartment..."
           className="w-full h-full pl-4 rounded-md outline-none text-lg font-semibold text-gray-900 placeholder-gray-400" 
         />
-        <MagnifyingGlassIcon className="absolute right-4 h-6 w-6 top-1/2 transform -translate-y-1/2 font-extrabold text-slate-700 cursor-pointer" />
+        <SearchIcon size={24} strokeWidth={3} className="absolute right-4 h-6 w-6 top-1/2 transform -translate-y-1/2 font-extrabold text-slate-400 cursor-pointer" />
       </div>
     </header>
   );

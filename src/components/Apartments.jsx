@@ -47,8 +47,7 @@ const Apartments = () => {
           <ApartmentDetails item={item} key={item.id} />
         ))}
         <div className="w-full h-full mt-12 flex flex-col items-center justify-center gap-24">
-          <hr className="w-11/12 text-stone-200" />
-          <button className="px-8 py-4 text-white text-xl font-bold bg-cyan-600 rounded-lg hover:bg-cyan-700 cursor-pointer">Show more</button>
+          <button className="px-4 py-2 text-white text-lg font-bold border-8 border-double bg-cyan-600 rounded-full hover:bg-cyan-700 cursor-pointer">Show more</button>
         </div>
       </div>
     </div>

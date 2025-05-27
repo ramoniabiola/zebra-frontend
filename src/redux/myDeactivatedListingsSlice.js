@@ -9,37 +9,52 @@ const myDeactivatedListingsSlice = createSlice({
     },
 
     reducers: {
-        setMyDeactivatedListingsLoading: (state) => {
+        //GET MY DEACTIVATED LISTINGS
+        getMyDeactivatedListingsLoading: (state) => {
             state.loading = true;
             state.error = null;
         },
 
-        setMyDeactivatedListings: (state, action) => {
+        getMyDeactivatedListingsSuccess: (state, action) => {
             state.deactivatedListings = action.payload;
             state.loading = false;
             state.error = null;
         },
 
-        setMyDeactivatedListingsError: (state, action) => {
+        getMyDeactivatedListingsError: (state, action) => {
             state.loading = false;
             state.error = action.payload;
         },
+
+        // REACTIVATE MY LISTING
+        reactivateMyListingLoading: (state) => {
+           state.loading = true; 
+           state.error = null;
+        },
         
-        reactivateListing: (state, action) => {
-            const id = action.payload;
-            const index = state.deactivatedListings.findIndex((item) => item._id === id);
-            if (index !== -1) {
-                state.deactivatedListings[index].status = "active"; // or use a flag depending on schema
-            }
+        
+        reactivateMyListingSuccess: (state, action) => {
+          const id = action.payload;
+          const index = state.listings.findIndex((item) => item._id === id);
+          if (index !== -1) {
+            state.listings[index].isAvailable = true;
+          }
+        },
+
+        reactivateMyListingError: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
         },
     },
 });
 
 export const {
-    setMyDeactivatedListings,
-    setMyDeactivatedListingsLoading,
-    setMyDeactivatedListingsError,
-    reactivateListing,
+    getMyDeactivatedListingsSuccess,
+    getMyDeactivatedListingsLoading,
+    getMyDeactivatedListingsError,
+    reactivateMyListingSuccess,
+    reactivateMyListingLoading,
+    reactivateMyListingError,
 } = myDeactivatedListingsSlice.actions;
 
 export default myDeactivatedListingsSlice.reducer;

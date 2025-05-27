@@ -9,12 +9,13 @@ const myListingsSlice = createSlice({
     },
 
     reducers: {
+        // GET MY-LISTINGS
         getMyListingsLoading: (state) => {
             state.loading = true;
             state.error = null;
         },
 
-        getMyListings: (state, action) => {
+        getMyListingsSuccess: (state, action) => {
             state.listings = action.payload;
             state.loading = false;
             state.error = null;
@@ -25,7 +26,13 @@ const myListingsSlice = createSlice({
             state.error = action.payload;
         },
 
-        updateListing: (state, action) => {
+        // UPDATE MY-LISTING
+        updateMyListingLoading: (state) => {
+            state.loading = true;
+            state.error = null;
+        },
+
+        updateMyListingSuccess: (state, action) => {
             const updated = action.payload;
             const index = state.listings.findIndex((item) => item._id === updated._id);
             if (index !== -1) {
@@ -33,22 +40,63 @@ const myListingsSlice = createSlice({
             }
         },
 
-        deactivateListing: (state, action) => {
+        updateMyListingError: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
+
+
+        // CREATE NEW LISTING
+        createNewListingLoading: (state) => {
+            state.loading = true;
+            state.error = null;
+        },
+
+        createNewListingSuccess: (state, action) => {
+            state.loading = false;
+            state.listings.unshift(action.payload); 
+        },
+
+        createNewListingFailure: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
+
+
+        // DEACTIVATE MY-LISTING
+        deactivateMyListingLoading: (state) => {
+            state.loading = true;
+            state.error = null;
+        },
+
+        deactivateMyListingSuccess: (state, action) => {
             const id = action.payload;
             const index = state.listings.findIndex((item) => item._id === id);
             if (index !== -1) {
-                state.listings[index].status = "inactive"; // or use a flag depending on schema
+              state.listings[index].isAvailable = false;
             }
+        },
+
+        deactivateMyListingError: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
         },
     },
 });
 
 export const {
-    getMyListings,
+    getMyListingsSuccess,
     getMyListingsLoading,
     getMyListingsError,
-    updateListing,
-    deactivateListing,
+    updateMyListingSuccess,
+    updateMyListingLoading,
+    updateMyListingError,
+    createNewListingSuccess,
+    createNewListingLoading,
+    createNewListingFailure,
+    deactivateMyListingSuccess,
+    deactivateMyListingLoading,
+    deactivateMyListingError
 } = myListingsSlice.actions;
 
 export default myListingsSlice.reducer;

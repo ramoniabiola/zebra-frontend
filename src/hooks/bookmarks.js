@@ -3,8 +3,8 @@ import {getBookmarksLoading, getBookmarksSuccess,
     getBookmarksFailure, addBookmarkSuccess, addBookmarkFailure, 
     removeBookmarkSuccess, removeBookmarkFailure  
 } from "../redux/bookmarkSlice";
-import { useEffect, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 
 // GET USER BOOKMARKS
@@ -34,26 +34,54 @@ export const useGetUserBookmarks = () => {
 };
 
 
+
 // ADD AN APARTMENT TO BOOKMARK
 export const useAddBookmark = () => {
     const dispatch = useDispatch();
     const { error } = useSelector((state) => state.bookmarks);
+    const [success, setSuccess] = useState(false);
+    
+    
 
     const addToBookmark = useCallback(async (apartmentId) => {
 
         try {
             const response = await addBookmarkApi(apartmentId);
-            dispatch(addBookmarkSuccess(response.data)); // Assume response returns the new bookmark
+            dispatch(addBookmarkSuccess(response.data)); 
+            setSuccess(true);
+            setTimeout(() => setSuccess(false), 4000);
         } catch (err) {
             dispatch(
                 addBookmarkFailure(
-                err.response?.data?.message || "Failed to add to bookmarks"
-              )
+                    err.response?.data?.message || "Failed to add to bookmarks"
+                )
             );
         }
     }, [dispatch]);
 
-  return { addToBookmark, error };
+  return { addToBookmark, success, error };
 };
 
+
+
+// REMOVE AN APARTMENT FROM BOOKMARK
+export const useRemoveBookmark = () => {
+    const dispatch = useDispatch();
+
+    const removeFromBookmark = useCallback(async (apartmentId) => {
+
+        try {
+            await removeBookmarkApi(apartmentId); 
+            dispatch(removeBookmarkSuccess(apartmentId)); 
+        } catch (err) {
+            dispatch(
+                removeBookmarkFailure(
+                    err.response?.data?.message || "Failed to remove bookmark"
+                )
+            );
+        }
+    }, [dispatch]);
+
+    return { removeFromBookmark };
+};
 

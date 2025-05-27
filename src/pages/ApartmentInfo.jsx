@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ArrowLeftIcon, ChevronRightIcon, ChevronLeftIcon, HeartIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftIcon, ChevronRightIcon, ChevronLeftIcon, HeartIcon, ShareIcon } from "@heroicons/react/24/outline";
+import { Bed, Bath, Square, Sofa, Clock, DollarSign, AlertTriangle, Phone, Calendar } from "lucide-react";
 import { CheckBadgeIcon }from "@heroicons/react/24/solid";
 import { apartmentInfoData } from "../utils/Data";
 import Footer from "../components/Footer";
@@ -9,9 +10,9 @@ import Footerbar from "../components/Footerbar";
 
 
 const ApartmentInfo = () => {
-  const apartment = apartmentInfoData[0]; // Static for now
+  const apartmentData = apartmentInfoData[0]; // Static for now
   const [currentImg, setCurrentImg] = useState(0);
-  const totalImages = apartment?.images?.length || 0;
+  const totalImages = apartmentData?.images?.length || 0;
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
   
@@ -33,15 +34,12 @@ const ApartmentInfo = () => {
   return (
     <div className="h-full w-full overflow-hidden flex flex-col items-start justify-items-start">
       {/* NAVBAR */}
-      <nav className="w-full h-20 flex items-center justify-between bg-white pl-4 pr-4">
+      <nav className="w-full h-18 flex items-center justify-between bg-white pl-4 pr-4">
         <div 
           className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-neutral-100 transition-colors duration-200 cursor-pointer"
           onClick={() => navigate(-1)}
         >
           <ArrowLeftIcon className="w-6 h-6" />
-        </div>
-        <div className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-neutral-100 transition-colors duration-200 cursor-pointer">
-          <HeartIcon className="w-7 h-7" />
         </div>
       </nav> 
 
@@ -58,7 +56,7 @@ const ApartmentInfo = () => {
               transform: `translateX(${currentImg * - 100}%)`,
           }}
         >
-          {apartment.images.map((image, index) => (
+          {apartmentData.images.map((image, index) => (
             <img
               key={index}
               src={image.img}
@@ -66,20 +64,44 @@ const ApartmentInfo = () => {
               className="w-full h-full object-cover"
             />
           ))}
-        </div> 
+        </div>
+
+        {/* Navigation Arrows */}
         {isHovered && currentImg > 0 && (
-          <button onClick={handlePrev} className="absolute left-2 top-1/2 -translate-y-1/2 bg-white opacity-90 p-2 rounded-full shadow cursor-pointer">
+          <button onClick={handlePrev} className="absolute left-2 top-1/2 -translate-y-1/2 bg-white opacity-70 p-2 rounded-full shadow cursor-pointer">
             <ChevronLeftIcon className="w-6 h-6 text-gray-600" />
           </button>
         )}
         {isHovered && currentImg < totalImages - 1 && (
-          <button onClick={handleNext} className="absolute right-2 top-1/2 -translate-y-1/2 bg-white opacity-90 p-2 rounded-full shadow cursor-pointer">
+          <button onClick={handleNext} className="absolute right-2 top-1/2 -translate-y-1/2 bg-white opacity-70 p-2 rounded-full shadow cursor-pointer">
             <ChevronRightIcon className="w-6 h-6 text-gray-600" />
           </button>
         )}
-        {/* Image Count */}
-        <div className="absolute bottom-4 right-4 bg-black/50 text-white text-sm font-bold px-3 py-[4px] rounded">
-          {currentImg + 1} / {totalImages}
+
+        {/* Image Indicators */}
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-1.5">
+            {apartmentData.images.map((_, index) => (
+              <button
+                key={index}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  index === currentImg 
+                    ? 'bg-white scale-110' 
+                    : 'bg-white opacity-50'
+                }`}
+              />
+            ))}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="absolute top-4 right-2 flex space-x-3">
+          <button 
+            className={`p-2 rounded-full bg-white bg-opacity-90 hover:bg-opacity-100 text-gray-700 cursor-pointer`}
+          >
+            <HeartIcon className="w-6 h-6 text-gray-600"  />
+          </button>
+          <button className="p-2 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full text-gray-700 cursor-pointer">
+            <ShareIcon className="w-6 h-6 text-gray-600"  />
+          </button>
         </div>
       </div>
 
@@ -95,47 +117,119 @@ const ApartmentInfo = () => {
         
         {/* Title & Price */}
         <div className="mb-1">
-          <h1 className="text-2xl font-semibold">{apartment.title}</h1>
-          <p className="text-gray-600">{apartment.apartment_type} • {apartment.location}</p>
+          <h1 className="text-2xl font-semibold text-gray-900">{apartmentData.title}</h1>
+          <p className="text-gray-600">{apartmentData.apartment_type} • {apartmentData.location}</p>
         </div>
-        <div className="text-xl font-bold text-gray-700 mb-4">
-          ₦{apartment.price.toLocaleString()} / {apartment.payment_frequency}
+        <div className="text-xl font-extrabold text-cyan-600 mb-4">
+          ₦{apartmentData.price.toLocaleString()} / {apartmentData.payment_frequency}
         </div>
+
         {/* Address */}
         <div className="mb-8 space-y-1">
           <h2 className="text-xl font-semibold text-slate-500">Address:</h2>
-          <p className="text-base text-gray-700 font-normal">{apartment.apartment_address}</p>
-          {apartment.nearest_landmark && (
-            <p className="text-base text-gray-600">Near {apartment.nearest_landmark}</p>
+          <p className="text-base text-gray-700 font-normal">{apartmentData.apartment_address}</p>
+          {apartmentData.nearest_landmark && (
+            <p className="text-base text-gray-600">Near {apartmentData.nearest_landmark}</p>
           )}
         </div>
-        {/* Features */}
-        <div className="grid grid-cols-2 text-gray-800 gap-8 text-lg font-medium mb-8">
-          <div><strong className="text-slate-500">Bedrooms:</strong> {apartment.bedrooms}</div>
-          <div><strong className="text-slate-500">Bathrooms:</strong> {apartment.bathrooms}</div>
-          <div><strong className="text-slate-500">Size:</strong> {apartment.apartment_size}</div>
-          <div><strong className="text-slate-500">Furnished:</strong> {apartment.furnished ? "Yes" : "No"}</div>
-          <div><strong className="text-slate-500">Service Charge:</strong> ₦{apartment.service_charge.toLocaleString()}</div>
-          <div><strong className="text-slate-500">Duration:</strong> {apartment.duration}</div>
-        </div>
-        
-        {/* Amenities */}
-        {apartment.apartment_amenities && (
-          <div className="mb-6">
-            <h2 className="text-xl font-medium text-slate-500 mb-1">Amenities:</h2>
-            <p className="text-lg text-gray-800">{apartment.apartment_amenities}</p>
+
+        {/* Key Stats */}
+        <div className="grid grid-cols-3 gap-8 py-6 px-2 bg-gray-50 rounded-xl mb-8 mr-6">
+          <div className="text-center">
+            <div className="flex justify-center mb-2">
+              <Bed size={24} strokeWidth={2} className="text-cyan-600" />
+            </div>
+            <div className="text-2xl font-bold text-gray-800">{apartmentData.bedrooms}</div>
+            <div className="text-gray-600">Bedrooms</div>
           </div>
-        )}
-        {/* Contact Info */}
-        <div className="">
-          <h2 className="text-xl text-slate-500 font-semibold mb-1">Contact Landlord/Agent:</h2>
-          <p className="text-xl font-semibold text-gray-800 tracking-widest">{apartment.contact_phone}</p>
+          <div className="text-center">
+            <div className="flex justify-center mb-2">
+              <Bath size={24} strokeWidth={2} className="text-cyan-600" />
+            </div>
+            <div className="text-2xl font-bold text-gray-800">{apartmentData.bathrooms}</div>
+            <div className="text-gray-600">Bathrooms</div>
+          </div>
+          <div className="text-center">
+            <div className="flex justify-center mb-2">
+              <Square size={24} strokeWidth={2} className="text-cyan-600" />
+            </div>
+            <div className="text-xl font-bold text-gray-800">{apartmentData.apartment_size}</div>
+            <div className="text-gray-600">Size</div>
+          </div>
         </div>
-        {/* Action Buttons */}
-        <div className="w-full flex items-center justify-center mt-8 mb-2">
-          <button className="flex items-center justify-center bg-gray-200 text-gray-800 w-full mr-5 py-3 gap-2 text-xl font-semibold rounded-lg cursor-pointer hover:bg-gray-300">
-            <ExclamationTriangleIcon className="w-6 h-6" />
-            Report Apartment
+
+        {/* Additional Details */}
+        <div className="grid grid-cols-1 gap-4 py-6 pl-2 pr-12 bg-blue-50 rounded-xl mb-8 mr-6">
+          <div className="flex items-center gap-4">
+            <span className="text-gray-600 text-base flex items-center gap-2">
+              <Sofa size={18} className="text-cyan-600" />
+              Furnished:
+            </span>
+            <span className="font-bold text-gray-800 text-lg">{apartmentData.furnished ? "Yes" : "No"}</span>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <span className="text-gray-600 text-base flex items-center gap-2">
+              <Clock size={18} className="text-cyan-600" />
+              Duration:
+            </span>
+            <span className="font-bold text-gray-800 text-lg">{apartmentData.duration}</span>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <span className="text-gray-600 text-base flex items-center gap-2">
+              <DollarSign size={18} className="text-cyan-600" />
+              Service Charge:
+            </span>
+            <span className="font-bold text-gray-800 text-lg">₦{apartmentData.service_charge.toLocaleString()}</span>
+          </div>
+        </div>
+
+        {/* Amenities */}
+        <div className="mb-8">
+          <h2 className="text-2xl text-center font-bold text-gray-800 mb-4">Amenities</h2>
+          <div className="grid grid-cols-1 gap-4 mr-2">
+            {apartmentData.amenities.map((amenity, index) => (
+              <div key={index} className="flex items-center py-3 pl-4 pr-16 bg-cyan-50 rounded-lg">
+                <span className="text-cyan-700 text-base font-bold">{amenity}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Landlord Info */}
+        <div className="pt-4 mb-6">
+          <h2 className="text-2xl font-bold text-center text-gray-800 mb-4">Contact Information</h2>
+          <div className="pr-28 pl-4 py-6 bg-gradient-to-r from-cyan-50  to-blue-50 rounded-xl">
+            <div className="flex flex-col items-start justify-start space-y-8 ">
+              <div className="">
+                <h3 className="text-xl font-bold text-gray-800 mb-4">{apartmentData.contact_name}</h3>
+                <div className="space-y-2">
+                  <div className="flex items-center text-gray-700">
+                    <Phone size={18} className="mr-4 text-cyan-800" />
+                    <span className="font-semibold text-xl tracking-widest">{apartmentData.contact_phone}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col space-y-4 ">
+                <button className="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-2 rounded-lg transition-colors cursor-pointer">
+                  <Phone size={16} className="inline mr-2" />
+                  Call Now
+                </button>
+                <button className="bg-white hover:bg-gray-50 text-cyan-600 border border-cyan-600 px-6 py-2 rounded-lg transition-colors cursor-pointer">
+                  <Calendar size={16} className="inline mr-2" />
+                  Schedule Tour
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Report Button */}
+        <div className="pt-6">
+          <button className="w-full flex items-center justify-center gap-3 bg-red-50 hover:bg-red-100 text-red-600 font-semibold py-3 px-18 rounded-lg transition-all duration-300 border border-red-200 hover:border-red-300 cursor-pointer">
+            <AlertTriangle className="w-5 h-5" />
+            Report This Listing
           </button>
         </div>
       </div> 

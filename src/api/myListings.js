@@ -1,8 +1,8 @@
 import API from "./index";
 
 // myListings APIs
-export const fetchListings = (query) => API.get(`/apartments?${query}`);
-export const fetchListingsById = (id) => API.get(`/apartments/${id}`);
-export const createNewListing = (data) => API.post("/apartments", data); 
-export const updateListing = (id, data) => API.put(`/apartments/${id}`, data); 
-export const deactivateListing = (id) => API.put(`/deactivate/${id}`);
+export const fetchMyListingsApi = () => API.get("/user-post/");
+export const fetchMyListingsByIdApi = (id) => API.get(`/user-post/${id}`);
+export const createNewListingApi = (data) => API.post("/user-post", data); 
+export const updateMyListingApi = (id, data) => API.put(`/user-post/${id}`, data); 
+export const deactivateMyListingApi = (id) => API.put(`/user-post/deactivate/${id}`);

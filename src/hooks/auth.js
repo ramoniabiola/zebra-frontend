@@ -50,6 +50,9 @@ export const useRegisterUser = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const [success, setSuccess] = useState(false);
+
+
   
     const registerUser = async (dispatch, credentials) => {
         dispatch(registerUserLoading());
@@ -62,6 +65,8 @@ export const useRegisterUser = () => {
                 dispatch(registerUserSuccess(response.data));
                 setError(null);
                 setIsLoading(false);
+                setSuccess(true);
+                setTimeout(() => setSuccess(false), 4000);
                 navigate('/');
             } else { 
                 // If the response status is not in the success range, handle the error
@@ -75,7 +80,7 @@ export const useRegisterUser = () => {
         }      
     };
     
-    return { registerUser, error, isLoading };
+    return { registerUser, success, error, isLoading };
 };
 
 

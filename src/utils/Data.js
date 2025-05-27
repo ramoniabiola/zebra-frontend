@@ -128,13 +128,19 @@ export const apartmentInfoData = [
                 img: "https://th.bing.com/th/id/OIP.L95_u7pDzexlGG4b1QcRNgHaE8?w=2560&h=1709&rs=1&pid=ImgDetMain"
             },
         ],
+        contact_name: "Mr. Olateju James",
         contact_phone: "08012345678",
         isAvailable: true,
-        apartment_amenities: "24/7 electricity, water, parking, security",
+        amenities: [
+            "24/7 Security",
+            "Parking Space" ,
+            "High-Speed Internet",
+            "CCTV Surveillance",
+        ],
         bedrooms: 2,
         bathrooms: 2,
         apartment_size: "120 sqm",
-        furnished: true,
+        furnished: false,
         service_charge: 150000,
         verified_listing: true,
     } 

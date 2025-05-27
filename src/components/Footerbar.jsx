@@ -25,7 +25,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 // Example user data
 const user = {
   username: "LandlordMike",
-  role: "Tenant",
+  role: "Landlord",
   avatar: "",
   totalListings: 12,
   activeListings: 5,

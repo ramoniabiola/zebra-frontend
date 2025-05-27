@@ -1,4 +1,5 @@
-import { HeartIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { Calendar, Heart, MapPin } from 'lucide-react';
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -24,7 +25,7 @@ const ApartmentDetails = ({ item }) => {
    
 
     return (
-        <div className='w-11/12 h-auto flex flex-col items-center justify-start bg-white mb-4 relative mt-12 cursor-pointer'>  
+        <div className='w-11/12 h-auto flex flex-col items-center justify-start bg-white mb-12 relative mt-12 cursor-pointer'>  
             <div 
                 className="w-full h-[310px] relative overflow-hidden rounded-xl"
                 onMouseEnter={() => setIsHovered(true)}
@@ -51,7 +52,7 @@ const ApartmentDetails = ({ item }) => {
                 {isHovered && currentImg > 0 && (
                 <button
                     onClick={handlePrev}
-                    className="absolute top-1/2 left-3 transform -translate-y-1/2 bg-white p-2 rounded-full opacity-90 shadow hover:bg-gray-100 transition cursor-pointer"
+                    className="absolute top-1/2 left-3 transform -translate-y-1/2 bg-white p-2 rounded-full opacity-80 shadow hover:bg-gray-100 transition cursor-pointer"
                 >
                     <ChevronLeftIcon className="w-6 h-6 text-gray-700" />
                 </button>
@@ -59,7 +60,7 @@ const ApartmentDetails = ({ item }) => {
                 {isHovered && currentImg < totalImages - 1 && (
                     <button
                         onClick={handleNext}
-                        className="absolute top-1/2 right-3 transform -translate-y-1/2 bg-white p-2 rounded-full opacity-90 shadow hover:bg-gray-100 transition cursor-pointer"
+                        className="absolute top-1/2 right-3 transform -translate-y-1/2 bg-white p-2 rounded-full opacity-80 shadow hover:bg-gray-100 transition cursor-pointer"
                     >
                         <ChevronRightIcon className="w-6 h-6 text-gray-700" />
                     </button>
@@ -72,27 +73,50 @@ const ApartmentDetails = ({ item }) => {
                             <div
                                 key={index}
                                 className={`w-2 h-2 rounded-full transition-all ${
-                                  index === currentImg ? "bg-sky-500 scale-110" : "bg-gray-300"
+                                  index === currentImg ? "bg-white scale-110" : "bg-white opacity-50"
                                 }`}
                             >
                             </div>
                         ))}
                     </div>
                 )}
-            </div>
+
+
+                {/* Heart Icon */}
+                <button
+                    className="absolute top-4 right-3 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-200 z-10 cursor-pointer"
+                >
+                    <Heart 
+                        className={`w-7 h-7 pt-0.5  transition-all duration-200 text-gray-600 hover:text-rose-500`} 
+                    />
+                </button>
+            </div> 
 
             {/* Apartment Info */}
-            <div onClick={() => navigate(`/apartment/${apartmentId}`)} className="w-full mt-4 flex flex-col gap-1 text-left">
-                <h1 className="text-xl font-semibold text-slate-800">{item.title}</h1>
-                <h3 className="text-lg text-slate-500 font-medium">₦{item.price.toLocaleString()} yearly</h3>
-                <p className="text-md text-slate-400">{item.type}</p>
-                <h4 className="text-md text-slate-600 font-medium">{item.location}</h4>
-                <h3 className="text-gray-400 font-semibold text-sm">5mins ago</h3>
-            </div>
-
-            {/* Heart Icon  */}
-            <div className="absolute bottom-0.5 right-4">
-                <HeartIcon className="w-7 h-7 text-slate-800 cursor-pointer hover:text-rose-500 transition" />
+            <div onClick={() => navigate(`/apartment/${apartmentId}`)} className="w-full mt-4 flex flex-col gap-2.5 text-left">
+                <div className="flex items-start justify-between gap-3">
+                    <h1 className="text-xl   font-semibold text-slate-900 leading-tight group-hover:text-slate-900 transition-colors">
+                        {item.title}
+                    </h1>
+                </div>
+                
+                <div className="flex items-center gap-1.5 text-slate-600">
+                    <MapPin className="w-4 h-4 text-slate-700" />
+                    <h4 className="text-sm font-medium">{item.location}</h4>
+                </div>
+                
+                <p className="text-sm text-slate-500 leading-relaxed">{item.type}</p>
+                <div className="flex items-center justify-between mt-2 pt-4 px-1.5 border-t border-gray-100">
+                   <h3 className="text-xl font-bold text-slate-900">
+                       ₦{item.price.toLocaleString()}
+                       <span className="text-sm font-normal text-slate-500 ml-1">yearly</span>
+                   </h3>
+                   
+                   <div className="flex items-center gap-1.5 text-gray-400">
+                       <Calendar className="w-3.5 h-3.5" />
+                       <span className="text-xs font-medium">5mins ago</span>
+                   </div>
+                </div>
             </div>
         </div>
     )
