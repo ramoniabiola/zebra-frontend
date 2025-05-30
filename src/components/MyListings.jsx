@@ -24,7 +24,7 @@ const MyListings = () => {
           <MyListingDetails item={item} key={item.id} />
         ))}
         <div className="w-full h-full mt-12 flex flex-col items-center justify-center gap-12">
-          <button className="px-4 py-2 text-white text-lg font-bold border-8 border-double bg-cyan-600 rounded-full hover:bg-cyan-700 cursor-pointer focus:invisible">Show more</button>
+          <button className="px-4 py-2 text-white text-lg font-bold border-8 border-double bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 rounded-full  cursor-pointer focus:invisible">Show more</button>
         </div>
       </div> 
     </div>

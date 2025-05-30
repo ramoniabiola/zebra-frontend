@@ -131,7 +131,7 @@ export const apartmentInfoData = [
         contact_name: "Mr. Olateju James",
         contact_phone: "08012345678",
         isAvailable: true,
-        amenities: [
+        apartment_amenities: [
             "24/7 Security",
             "Parking Space" ,
             "High-Speed Internet",
@@ -142,7 +142,6 @@ export const apartmentInfoData = [
         apartment_size: "120 sqm",
         furnished: false,
         service_charge: 150000,
-        verified_listing: true,
     } 
 ]
 

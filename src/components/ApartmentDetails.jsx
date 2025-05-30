@@ -101,7 +101,7 @@ const ApartmentDetails = ({ item }) => {
                 </div>
                 
                 <div className="flex items-center gap-1.5 text-slate-600">
-                    <MapPin className="w-4 h-4 text-slate-700" />
+                    <MapPin className="w-4 h-4 text-gray-700" />
                     <h4 className="text-sm font-medium">{item.location}</h4>
                 </div>
                 

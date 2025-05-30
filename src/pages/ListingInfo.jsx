@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import Footerbar from '../components/Footerbar';
 import Footer from '../components/Footer';
 import { apartmentInfoData } from "../utils/Data";
-import { ArrowLeftIcon } from "@heroicons/react/24/solid";
-import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
+import { ArrowLeft, ChevronRight, ChevronLeft, Edit3, Save, X, Trash2, Plus, MapPin, Phone, Home, Calendar, DollarSign, Users, Bath, Square, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -19,7 +18,7 @@ const ListingInfo = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setEditedData(prev => ({
+    setEditedData(prev => ({ 
       ...prev,
       [name]: value,
     }));
@@ -52,44 +51,191 @@ const ListingInfo = () => {
       setCurrentImg((prev) => prev - 1);
     }
   };
+
+  const handleAmenityAdd = (newAmenity) => {
+    if (newAmenity.trim() && !editedData.apartment_amenities.includes(newAmenity.trim())) {
+      setEditedData(prev => ({
+        ...prev,
+        apartment_amenities: [...prev.apartment_amenities, newAmenity.trim()]
+      }));
+    }
+  }; 
+  
+
+  const handleAmenityRemove = (amenityToRemove) => {
+    setEditedData(prev => ({
+      ...prev,
+      apartment_amenities: prev.apartment_amenities.filter(amenity => amenity !== amenityToRemove)
+    }));
+  };
+
+
+
+  // INFO CARD
+  const InfoCard = ({ icon: Icon, label, value, name, editable = true }) => (
+    <div className="bg-white rounded-lg p-4  border border-gray-100">
+      <div className="flex items-start gap-4">
+        <div className="flex-shrink-0">
+          <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-400 rounded-xl flex items-center justify-center">
+            <Icon className="w-6 h-6 text-white" />
+          </div>
+        </div>
+        <div className="flex-1 min-w-0">
+          <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">{label}</label>
+          {editMode && editable ? (
+            name === 'furnished' ? (
+              <select
+                name={name}
+                value={editedData[name] ? 'yes' : 'no'}
+                onChange={(e) => handleChange({
+                  target: { name, value: e.target.value === 'yes' }
+                })}
+                className="mt-2 w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              >
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            ) : (
+              <input
+                type="text"
+                name={name}
+                value={editedData[name]}
+                onChange={handleChange}
+                className="mt-2 w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              />
+            )
+          ) : (
+            <p className="mt-2 text-lg font-semibold text-gray-900 break-words">{value}</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+  
+
+  // AMENITIES CARD
+  const AmenitiesCard = ({ icon: Icon, label, apartment_amenities, editable = true }) => {
+    const [newAmenity, setNewAmenity] = useState('');
+
+    const handleAddAmenity = (e) => {
+      e.preventDefault();
+      if (newAmenity.trim()) {
+        handleAmenityAdd(newAmenity);
+        setNewAmenity('');
+      }
+    };
+
+    return (
+      <div className="bg-white rounded-lg p-4 border border-gray-100">
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0">
+            <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-400 rounded-xl flex items-center justify-center">
+              <Icon className="w-6 h-6 text-white" />
+            </div>
+          </div>
+          <div className="flex-1 min-w-0">
+            <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">{label}</label>
+            
+            {editMode && editable ? (
+              <div className="mt-4 space-y-4">
+                {/* Existing amenities as individual input fields */}
+                <div className="space-y-3">
+                  {apartment_amenities.map((amenity, index) => (
+                    <div
+                      key={index}
+                      className="bg-gray-200 text-gray-700 px-3 py-1.5 rounded-md flex items-center justify-between"
+                    >
+                      <span>{amenity}</span>
+                      <button
+                        type="button"
+                        onClick={() => handleAmenityRemove(amenity)}
+                        className="text-red-500 hover:text-red-600 cursor-pointer"
+                      >
+                       &times;
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Add new amenity */}
+                <form onSubmit={handleAddAmenity} className="flex flex-col gap-2 pt-2">
+                  <input
+                    type="text"
+                    value={newAmenity}
+                    onChange={(e) => setNewAmenity(e.target.value)}
+                    placeholder="Add new amenity..."
+                    className="mt-1 w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                 />
+                  <button
+                    type="submit"
+                    className="px-6 py-3  bg-teal-500 hover:bg-teal-600 text-white rounded-md transition-all duration-200 flex items-center justify-center gap-1 focus:invisible cursor-pointer"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Add
+                  </button>
+                </form>
+              </div>
+            ) : (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {apartment.apartment_amenities.map((amenity, index) => (
+                  <span
+                    key={index}
+                    className="inline-flex items-center px-3 py-2 bg-gradient-to-r from-blue-50 to-cyan-50 text-cyan-800 text-sm font-medium rounded-lg border border-cyan-200"
+                  >
+                    {amenity}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+
+
   
 
   return (
-    <div className="w-full h-full flex flex-col items-start justify-center min-h-screen">
+    <div className=" bg-white w-full h-full flex flex-col items-start justify-center min-h-screen">
       {/* Section: Header */}
       <div className="w-full h-20 flex items-center justify-start pl-2 gap-2 bg-white">
         <button onClick={() => navigate(-1)} className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full focus:invisible">
-          <ArrowLeftIcon className="w-6 h-6 text-gray-700 cursor-pointer" />
+          <ArrowLeft className="w-6 h-6 text-gray-700 cursor-pointer" />
         </button>
-        <h1 className="text-xl font-bold text-gray-800">Apartment Details</h1>
+        <div className=''>
+          <h1 className="text-xl font-bold text-gray-900">Apartment Details</h1>
+          <p className="text-sm text-gray-500">Manage your apartment listing</p>
+        </div>
       </div>
 
       {/* Section: Apartment Details */}
       <div className='w-full h-full flex flex-col items-start justify-center mb-8'>
         {/* Images */}
-        <div className='w-full flex flex-col items-start justify-center'>
+         <div className="w-full flex flex-col items-start justify-center">
           {editMode ? (
-            <div className='w-full max-w-2xl mx-auto p-4 space-y-8 mb-4'>
-              {/* Apartment Images Preview */}
+            <div className="p-8">
+              <h3 className="text-lg text-center font-semibold text-gray-900 mb-6">Property Images</h3>
+              
               {editedData.images.length > 0 && (
-                <div className="grid grid-cols-3 gap-2 mt-8">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
                   {editedData.images.map((file, idx) => {
                     const isFile = file instanceof File;
                     const imageUrl = isFile ? URL.createObjectURL(file) : file.img;
  
                     return (
-                      <div key={idx} className="relative w-full h-28">
+                      <div key={idx} className="relative group">
                         <img
                           src={imageUrl}
                           alt={`preview-${idx}`}
-                          className="w-full h-full object-cover rounded border border-gray-300"
-                          />
+                          className="w-full h-32 object-cover rounded-lg border border-gray-200"
+                        />
                         <button
-                          type="button"
                           onClick={() => handleRemoveImage(idx)}
-                          className="absolute top-0.5 right-1 bg-black opacity-50 shadow text-white rounded-full w-5 h-5 flex items-center justify-center text-xs cursor-pointer"
-                          >
-                          ✕
+                          className="absolute -top-2 -right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-lg cursor-pointer"
+                        >
+                          <X className="w-4 h-4" />
                         </button>
                       </div>
                     );
@@ -97,14 +243,23 @@ const ListingInfo = () => {
                 </div>
               )}
 
-              <input
-                type="file"
-                name="images"
-                multiple
-                accept="image/*"
-                onChange={handleImageChange}
-                className="block w-full text-sm text-gray-700 border border-gray-300 p-4 rounded-md cursor-pointer bg-gray-100 focus:outline-none"
-              />
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-cyan-400 transition-colors duration-200">
+                <div className="flex flex-col items-center">
+                  <Plus className="w-12 h-12 text-gray-400 mb-4" />
+                  <label className="cursor-pointer">
+                    <span className="text-cyan-400 hover:text-cyan-500 hover:underline font-medium">Upload images</span>
+                    <span className="text-gray-500"> or drag and drop</span>
+                    <input
+                      type="file"
+                      multiple
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      className="hidden"
+                    />
+                  </label>
+                  <p className="text-sm text-gray-400 mt-2">PNG, JPG up to 10MB</p>
+                </div>
+              </div>
             </div>
           ) : (
             <div 
@@ -130,12 +285,12 @@ const ListingInfo = () => {
               </div> 
               {isHovered && currentImg > 0 && (
                 <button onClick={handlePrev} className="absolute left-2 top-1/2 -translate-y-1/2 bg-white opacity-90 p-2 rounded-full shadow cursor-pointer">
-                  <ChevronLeftIcon className="w-6 h-6 text-gray-600" />
+                  <ChevronLeft className="w-6 h-6 text-gray-600" />
                 </button>
               )}
               {isHovered && currentImg < totalImages - 1 && (
                 <button onClick={handleNext} className="absolute right-2 top-1/2 -translate-y-1/2 bg-white opacity-90 p-2 rounded-full shadow cursor-pointer">
-                  <ChevronRightIcon className="w-6 h-6 text-gray-600" />
+                  <ChevronRight className="w-6 h-6 text-gray-600" />
                 </button>
               )}
               {/* Image Count */}
@@ -145,153 +300,180 @@ const ListingInfo = () => {
             </div>
           )}
         </div>
-        
-
-        {/* Other Details */}
-        <div className='w-full mx-auto p-4 bg-white'>
-          {/* === Apartment info === */}
-          <div className="mt-2">
-            <h2 className="text-xl text-center font-bold text-gray-800 mb-4">Apartment Info</h2>
-            <div className="space-y-8">
-              {['title', 'apartment_type', 'location', 'apartment_address', 'nearest_landmark', 'bedrooms', 'bathrooms', 'apartment_size'].map((name) => (
-                <div key={name}>
-                  <label className={`block font-semibold text-lg capitalize ${editMode ? "text-gray-500" : "text-slate-400"}`}>{name}:</label>
-                  {editMode ? (
-                    <input
-                      type="text"
-                      name={name}
-                      value={editedData[name]}
-                      onChange={handleChange}
-                      className="mt-1 block w-full border text-lg text-gray-800 font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                    />
-                  ) : (
-                    <p className="mt-1 w-full bg-slate-100 text-slate-700 text-lg font-medium p-3 rounded-md">
-                      {editedData[name]}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Pricing & Duration */}
-          <div className="mt-12">
-            <h2 className="text-xl text-center font-bold text-gray-800 mb-4">Pricing & Duration</h2>
-            <div className="space-y-8 ">
-              {['price', 'payment_frequency', 'duration', 'service_charge'].map((name) => (
-                <div key={name}>
-                  <label className={`block font-semibold text-lg capitalize ${editMode ? "text-gray-500" : "text-slate-400"}`}>{name}:</label>
-                  {editMode ? (
-                    <input
-                      type="text"
-                      name={name}
-                      value={editedData[name]}
-                      onChange={handleChange}
-                      className="mt-1 block w-full border text-lg text-gray-800 font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                    />
-                  ) : (
-                    <p className="mt-1 w-full bg-gray-100 text-slate-700 text-lg font-medium p-3 rounded-md">
-                      {editedData[name]}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>   
 
 
-          {/* Contact & Amenities */}
-          <div className='mt-12'>
-            <h2 className="text-xl text-center font-bold text-gray-800 mb-4">Contact & Amenities</h2>
-            <div className="space-y-8">
-              <div>
-                <label className={`block font-semibold text-lg capitalize ${editMode ? "text-gray-500" : "text-slate-400"}`}>Contact Phone:</label>
-                {editMode ? (
-                  <input
-                    type="text"
-                    name="contact_phone"
-                    value={editedData.contact_phone}
-                    onChange={handleChange}
-                    className="mt-1 block w-full border text-lg text-gray-800 font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                  />
-                ) : (
-                  <p className="mt-1 w-full bg-gray-100 text-slate-700 text-lg font-medium p-3 rounded-md">{apartment.contact_phone}</p>
-                )}
-              </div>
-              <div>
-                <label className={`block font-semibold text-lg capitalize ${editMode ? "text-gray-500" : "text-slate-400"}`}>Furnished:</label>
-                {editMode ? (
-                  <select
-                    name="furnished"
-                    value={editedData.furnished}
-                    onChange={handleChange}
-                    className="mt-1 block w-full border text-lg text-gray-800 font-medium border-gray-200 rounded-md p-3 cursor-pointer"
-                    required
-                  >
-                    <option value="">Select Furnished Option</option>
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
-                  </select>
-                ) : (
-                  <p className="mt-1 w-full bg-gray-100 text-slate-700 text-lg font-medium p-3 rounded-md">{apartment.furnished ? 'Yes' : 'No'}</p>
-                )}
-              </div>
-              <div className="md:col-span-2">
-                <label className={`block font-semibold text-lg capitalize ${editMode ? "text-gray-500" : "text-slate-400"}`}>Amenities:</label>
-                {editMode ? (
-                  <textarea
-                    name="apartment_amenities"
-                     value={editedData.apartment_amenities}
-                    onChange={handleChange}
-                    className="mt-1 block w-full border text-lg text-gray-800 font-medium border-gray-200 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                  />
-                ) : (
-                  <p className="mt-1 w-full bg-gray-100 text-slate-700 text-lg font-medium p-3 rounded-md">{apartment.apartment_amenities}</p>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        {/* Action */}
-        <div className="w-full h-full flex justify-center items-center mt-8">
+        {/* Action Buttons */}
+        <div className={`flex items-center gap-3 mb-4 ${ !editMode ? "justify-start ml-2" : "ml-8"}`}>
           {editMode ? (
-            <div className="w-11/12 flex items-center justify-between">
-              <button
-                // onClick={handleSave}
-                className="px-4 py-2 bg-linear-55 from-teal-700 to-teal-400 text-white text-[18px] font-semibold rounded-xl border-4 border-double  cursor-pointer focus:invisible"
-              >
-                Save Update
+            <>
+              <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-200 shadow-sm  cursor-pointer focus:invisible">
+                <Save className="w-4 h-4" />
+                Save Changes
               </button>
-              <button
+              <button 
                 onClick={() => {
                   setEditMode(false); 
                   setEditedData(apartment);
                 }}
-                className="px-4 py-1.5 bg-gray-200 text-gray-700 text-[19px] font-semibold rounded-xl border-4 border-double border-gray-400 hover:bg-gray-300 cursor-pointer focus:invisible"
+                className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-all duration-200  cursor-pointer  focus:invisible"
               >
-              
+                <X className="w-4 h-4" />
                 Cancel
               </button>
-            </div>
+            </>
           ) : (
-            <div className="w-11/12 flex items-center justify-between cursor-pointer">
-              <button
+            <>
+              <button 
                 onClick={() => setEditMode(true)}
-                className="px-4 py-2.5 bg-linear-55 from-cyan-700 to-cyan-400 text-white text-[18px] font-semibold rounded-xl border-4 border-double cursor-pointer focus:invisible"
+                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-600 to-cyan-400 text-white rounded-lg hover:from-cyan-700 hover:to-cyan-500 transition-all duration-200 shadow-sm  cursor-pointer focus:invisible"
               >
-                
-                Update Listing
-              </button> 
-              <button
-                // onClick={onDeactivate}
-                className="text-white bg-rose-600 border-white px-4 py-2 text-[19px] rounded-xl border-4 border-double font-semibold tracking-wider hover:bg-rose-700 transition cursor-pointer focus:invisible"
-                >
+                <Edit3 className="w-4 h-4" />
+                Edit Listing
+              </button>
+              <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-lg hover:from-red-600 hover:to-rose-700 transition-all duration-200 shadow-sm cursor-pointer focus:invisible">
+                <Trash2 className="w-4 h-4" />
                 Deactivate
               </button>
-            </div>
+            </>
           )}
+        </div>
+        
+
+        {/* Property Details */}
+        <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
+          {/* Main Info */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="bg-white px-3 py-8">
+              <h2 className="text-2xl text-center font-bold text-gray-800 mb-8">Property Information</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="md:col-span-2">
+                  <InfoCard 
+                    icon={Home} 
+                    label="Property Title" 
+                    value={editedData.title} 
+                    name="title" 
+                  />
+                </div>
+                <InfoCard 
+                  icon={Home} 
+                  label="Type" 
+                  value={editedData.apartment_type} 
+                  name="apartment_type" 
+                />
+                <InfoCard 
+                  icon={MapPin} 
+                  label="Location" 
+                  value={editedData.location} 
+                  name="location" 
+                />
+                <div className="md:col-span-2">
+                  <InfoCard 
+                    icon={MapPin} 
+                    label="Full Address" 
+                    value={editedData.apartment_address} 
+                    name="apartment_address" 
+                  />
+                </div>
+                <InfoCard 
+                  icon={MapPin} 
+                  label="Nearest Landmark" 
+                  value={editedData.nearest_landmark} 
+                  name="nearest_landmark" 
+                />
+                <InfoCard 
+                  icon={Square} 
+                  label="Size" 
+                  value={editedData.apartment_size} 
+                  name="apartment_size" 
+                />
+                <InfoCard 
+                  icon={Users} 
+                  label="Bedrooms" 
+                  value={editedData.bedrooms} 
+                  name="bedrooms" 
+                />
+                <InfoCard 
+                  icon={Bath} 
+                  label="Bathrooms" 
+                  value={editedData.bathrooms} 
+                  name="bathrooms" 
+                />
+              </div>
+            </div>
+
+            {/* Amenities */}
+            <div className="bg-white px-3 py-8">
+              <h2 className="text-2xl text-center font-bold text-gray-800 mb-8">Amenities & Features</h2>
+              <div className="space-y-6">
+                <InfoCard 
+                  icon={Home} 
+                  label="Furnished Status" 
+                  value={editedData.furnished ? 'Fully Furnished' : 'Unfurnished'} 
+                  name="furnished" 
+                />
+                <AmenitiesCard 
+                  icon={Home} 
+                  label="Available Amenities" 
+                  apartment_amenities={editedData.apartment_amenities} 
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Sidebar */}
+          <div className="space-y-6">
+            {/* Pricing */}
+            <div className="bg-white px-3 py-8">
+              <h2 className="text-2xl text-center font-bold text-gray-800 mb-8">Pricing</h2>
+              <div className="space-y-6">
+                <InfoCard 
+                  icon={DollarSign} 
+                  label="Rent Price" 
+                  value={editedData.price} 
+                  name="price" 
+                />
+                <InfoCard 
+                  icon={Calendar} 
+                  label="Payment Frequency" 
+                  value={editedData.payment_frequency} 
+                  name="payment_frequency" 
+                />
+                <InfoCard 
+                  icon={Calendar} 
+                  label="Rent Duration" 
+                  value={editedData.duration} 
+                  name="duration" 
+                />
+                <InfoCard 
+                  icon={DollarSign} 
+                  label="Service Charge" 
+                  value={editedData.service_charge} 
+                  name="service_charge" 
+                />
+              </div>
+            </div>
+
+            {/* Contact */}
+            <div className="bg-white px-3 py-8">
+              <h2 className="text-2xl text-center font-bold text-gray-800 mb-8">Contact</h2>
+              <div className='space-y-6'>
+                <InfoCard 
+                  icon={User} 
+                  label="Contact Name" 
+                  value={editedData.contact_name} 
+                  name="contact_phone" 
+
+                />
+
+                <InfoCard 
+                  icon={Phone} 
+                  label="Phone Number" 
+                  value={editedData.contact_phone} 
+                  name="contact_phone" 
+                />
+              </div>
+            </div>
+          </div>
         </div>  
       </div>
       <Footerbar />

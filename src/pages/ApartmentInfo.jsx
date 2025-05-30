@@ -189,9 +189,9 @@ const ApartmentInfo = () => {
         <div className="mb-8">
           <h2 className="text-2xl text-center font-bold text-gray-800 mb-4">Amenities</h2>
           <div className="grid grid-cols-1 gap-4 mr-2">
-            {apartmentData.amenities.map((amenity, index) => (
-              <div key={index} className="flex items-center py-3 pl-4 pr-16 bg-cyan-50 rounded-lg">
-                <span className="text-cyan-700 text-base font-bold">{amenity}</span>
+            {apartmentData.apartment_amenities.map((amenity, index) => (
+              <div key={index} className="flex items-center py-3 pl-4 pr-16 bg-gradient-to-r from-gray-50 to-cyan-50 border border-cyan-200 rounded-lg">
+                <span className="text-cyan-800 text-base font-bold">{amenity}</span>
               </div>
             ))}
           </div>
@@ -215,10 +215,6 @@ const ApartmentInfo = () => {
                 <button className="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-2 rounded-lg transition-colors cursor-pointer">
                   <Phone size={16} className="inline mr-2" />
                   Call Now
-                </button>
-                <button className="bg-white hover:bg-gray-50 text-cyan-600 border border-cyan-600 px-6 py-2 rounded-lg transition-colors cursor-pointer">
-                  <Calendar size={16} className="inline mr-2" />
-                  Schedule Tour
                 </button>
               </div>
             </div>

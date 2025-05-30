@@ -1,8 +1,28 @@
-import React from 'react';
+import React, { useState } from "react";
 
-const Step3_ContactAmenities = ({ formData, handleChange }) => {
 
-    return (
+const Step3_ContactAmenities = ({ formData, setFormData, handleChange }) => {
+  const [amenityInput, setAmenityInput] = useState("");
+
+  const handleAmenityAdd = () => {
+    const trimmed = amenityInput.trim();
+    if (trimmed && !formData.apartment_amenities.includes(trimmed)) {
+      setFormData({
+        ...formData,
+        apartment_amenities: [...formData.apartment_amenities, trimmed],
+      });
+      setAmenityInput("");
+    }
+  };
+
+  const handleAmenityDelete = (index) => {
+    const updated = formData.apartment_amenities.filter((_, i) => i !== index);
+    setFormData({ ...formData, apartment_amenities: updated });
+  };
+
+
+
+  return (
     <div className="space-y-6">
       <h2 className="text-2xl font-semibold text-gray-800">Contact & Amenities</h2>
 
@@ -17,15 +37,56 @@ const Step3_ContactAmenities = ({ formData, handleChange }) => {
         required
       />
 
-      {/* Apartment Amenities */}
-      <textarea
-        name="apartment_amenities"
-        value={formData.apartment_amenities}
+    
+      {/* Contact Name */}
+      <input
+        type="text"
+        name="contact_name"
+        value={formData.contact_name}
         onChange={handleChange}
-        placeholder="Apartment Amenities (separate with commas)"
-        rows={3}
+        placeholder="Contact Name"
         className="input-field"
-      ></textarea>
+        required
+      />
+
+       {/* Amenities Tag Input */}
+      <div>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={amenityInput}
+            onChange={(e) => setAmenityInput(e.target.value)}
+            placeholder="Add an amenity"
+            className="input-field flex-1"
+          />
+          <button
+            type="button"
+            onClick={handleAmenityAdd}
+            className="px-4 py-2 bg-teal-500 hover:bg-teal-600 text-white rounded cursor-pointer focus:invisible"
+          >
+            Add
+          </button>
+        </div>
+
+        {/* Show list of tags */}
+        <div className="flex flex-wrap mt-3 gap-2">
+          {formData.apartment_amenities.map((item, index) => (
+            <div
+              key={index}
+              className="bg-gray-200 text-gray-700 px-3 py-1.5 rounded-md flex items-center gap-2"
+            >
+              <span>{item}</span>
+              <button
+                type="button"
+                onClick={() => handleAmenityDelete(index)}
+                className="text-red-500 hover:text-red-600 cursor-pointer"
+              >
+                &times;
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Bedrooms */}
       <input
@@ -34,7 +95,7 @@ const Step3_ContactAmenities = ({ formData, handleChange }) => {
         value={formData.bedrooms}
         onChange={handleChange}
         placeholder="Number of Bedrooms"
-        className="input-field"
+        className="input-field" 
         required
       />
 
@@ -66,7 +127,7 @@ const Step3_ContactAmenities = ({ formData, handleChange }) => {
           name="furnished"
           checked={formData.furnished}
           onChange={handleChange}
-          className="w-5 h-5 text-indigo-600"
+          className="w-5 h-5 text-indigo-600 foucs:invisible"
         />
         Furnished
       </label>

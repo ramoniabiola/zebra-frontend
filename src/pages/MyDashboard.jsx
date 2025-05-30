@@ -59,7 +59,7 @@ const MyDashboard = () => {
       </div>
 
       {/* STATS CARD - 2 per row (2x2) */}
-      <div className="w-full p-2 bg-gray-50">
+      <div className="w-full p-2 bg-slate-50">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-6">
           {/* Active Listings */}
           <div className="flex flex-col items-center justify-center bg-white rounded-xl py-2 px-4 shadow-sm border border-gray-100">
@@ -105,7 +105,7 @@ const MyDashboard = () => {
         <div className="mb-1">
           <button 
             onClick={() => navigate("/create-listing")} 
-            className="w-full sm:w-auto bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-3 group cursor-pointer" 
+            className="w-full bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-3 group cursor-pointer" 
           >
            <div className="p-1 bg-white/20 rounded-lg group-hover:bg-white/30 transition-colors">
               <Plus size={20} strokeWidth={2} className="text-white" />

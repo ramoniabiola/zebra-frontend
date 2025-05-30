@@ -24,7 +24,8 @@ const CreateNewListing = () => {
     apartment_address: '',
     nearest_landmark: '',
     contact_phone: '',
-    apartment_amenities: '',
+    contact_name: '',
+    apartment_amenities: [],
     bedrooms: '',
     bathrooms: '',
     apartment_size: '',
@@ -72,7 +73,7 @@ const CreateNewListing = () => {
       case 2:
         return <Step2_PricingDuration formData={formData} handleChange={handleChange} />;
       case 3:
-        return <Step3_ContactAmenities formData={formData} handleChange={handleChange} />;
+        return <Step3_ContactAmenities formData={formData} setFormData={setFormData} handleChange={handleChange} />;
       case 4:
         return <Step4_UploadImages formData={formData} setFormData={setFormData} handleFileChange={handleFileChange}  />;
       default:
@@ -106,7 +107,7 @@ const CreateNewListing = () => {
             <button
               type="button"
               onClick={prevStep}
-              className="px-6 py-2 bg-gray-300  text-gray-700 rounded font-semibold hover:bg-gray-400 cursor-pointer focus:invisible"
+              className="px-6 py-2 bg-gray-200 text-gray-700  hover:bg-gray-300 rounded font-semibold cursor-pointer focus:invisible"
             >
               Back
             </button>
@@ -115,14 +116,14 @@ const CreateNewListing = () => {
             <button
               type="button"
               onClick={nextStep}
-              className="ml-auto px-6 py-2 bg-cyan-600 text-white font-semibold rounded hover:bg-cyan-700 cursor-pointer focus:invisible"
+              className="ml-auto px-6 py-2 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-semibold rounded hover:bg-cyan-700 cursor-pointer focus:invisible"
             >
               Next
             </button>
           ) : (
             <button
               type="submit"
-              className="ml-auto px-6 py-2 bg-emerald-500 text-white rounded  font-semibold hover:bg-emerald-600 cursor-pointer focus:invisible"
+              className="ml-auto px-6 py-2 bg-gradient-to-r from-emerald-400 to-emerald-600 hover:from-emerald-500 hover:to-emerald-700 text-white rounded  font-semibold hover:bg-emerald-600 cursor-pointer focus:invisible"
             >
               Submit Listing
             </button>
