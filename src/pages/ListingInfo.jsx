@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Footerbar from '../components/Footerbar';
 import Footer from '../components/Footer';
 import { apartmentInfoData } from "../utils/Data";
@@ -200,7 +200,7 @@ const ListingInfo = () => {
   return (
     <div className=" bg-white w-full h-full flex flex-col items-start justify-center min-h-screen">
       {/* Section: Header */}
-      <div className="w-full h-20 flex items-center justify-start pl-2 gap-2 bg-white">
+      <div className="w-full h-20 flex items-center justify-start pl-2 gap-2 bg-white shadow">
         <button onClick={() => navigate(-1)} className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full focus:invisible">
           <ArrowLeft className="w-6 h-6 text-gray-700 cursor-pointer" />
         </button>
@@ -303,7 +303,7 @@ const ListingInfo = () => {
 
 
         {/* Action Buttons */}
-        <div className={`flex items-center gap-3 mb-4 ${ !editMode ? "justify-start ml-2" : "ml-8"}`}>
+        <div className={`flex items-center gap-3 mb-4 ${!editMode ? "justify-start ml-2" : "ml-9"}`}>
           {editMode ? (
             <>
               <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-200 shadow-sm  cursor-pointer focus:invisible">
@@ -461,7 +461,7 @@ const ListingInfo = () => {
                   icon={User} 
                   label="Contact Name" 
                   value={editedData.contact_name} 
-                  name="contact_phone" 
+                  name="contact_name" 
 
                 />
 
