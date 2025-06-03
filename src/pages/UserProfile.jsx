@@ -4,7 +4,7 @@ import Footerbar from "../components/Footerbar";
 import { dummyTenant } from "../utils/Data";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from 'react-router-dom';
-
+import { AlertTriangle, Key, LogOut } from 'lucide-react';
 
 
 const UserProfile = () => {
@@ -55,7 +55,11 @@ const UserProfile = () => {
             <p className="text-gray-500 text-lg">{user.email}</p>
             <button
               onClick={() => setEditMode(!editMode)}
-              className="px-6 py-2 bg-cyan-500 text-white text-lg font-semibold rounded-md hover:bg-cyan-600 cursor-pointer"
+              className={`px-7 py-2.5 text-lg font-semibold rounded-lg cursor-pointer transition-all duration-200 transform hover:-translate-y-1 shadow-lg hover:shadow-xl focus:invisible ${
+                editMode 
+                  ? "bg-gray-600 text-white hover:bg-gray-700" 
+                  : "bg-cyan-500 text-white hover:bg-cyan-600"
+              }`}
             >
               {editMode ? "Cancel" : "Edit Profile"}
             </button>
@@ -77,7 +81,7 @@ const UserProfile = () => {
                       className="mt-1 block w-full border text-lg font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                     />
                   ) : (
-                    <p className="mt-1 w-full bg-gray-100 text-gray-500 text-lg font-medium p-3 rounded-md">
+                    <p className="mt-1 w-full bg-gray-100 text-gray-500 border border-gray-200 text-lg font-medium p-3 rounded-md">
                       {user[name]}
                     </p>
                   )}
@@ -103,7 +107,7 @@ const UserProfile = () => {
                       className="mt-1 block w-full border text-lg font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                     />
                   ) : (
-                    <p className="mt-1 w-full bg-gray-100 text-gray-500 text-lg font-medium p-3 rounded-md">
+                    <p className="mt-1 w-full bg-gray-100 text-gray-500 border border-gray-200 text-lg font-medium p-3 rounded-md">
                       {user[name]}
                     </p>
                   )}
@@ -128,7 +132,7 @@ const UserProfile = () => {
                       className="mt-1 block w-full border text-lg font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                     />
                   ) : (
-                    <p className="mt-1 w-full bg-gray-100 text-gray-500 text-lg font-medium p-3 rounded-md">
+                    <p className="mt-1 w-full bg-gray-100 text-gray-500 border border-gray-200 text-lg font-medium p-3 rounded-md">
                       {user[name]}
                     </p>
                   )}
@@ -141,34 +145,42 @@ const UserProfile = () => {
           {/* === Security Settings === */}
           <div className="mt-16">
             <h2 className="text-xl text-center font-bold text-gray-800 mb-8">Security Settings</h2>
-            {editMode ? (
-              <div className="w-full flex flex-col items-start justify-start gap-8">
-                <button 
-                  // onClick={() => navigate("/change-password")} 
-                  className="text-white bg-rose-500 px-4 py-2 rounded-md font-semibold hover:bg-rose-600 transition cursor-pointer"
-                >
-                  Change Password
-                </button>
-                <button className="text-red-700 bg-red-50  border-2 border-red-200 px-4 py-2 rounded-md font-semibold hover:bg-red-100 transition cursor-pointer">
-                  Deactivate Account
-                </button> 
-              </div> 
-            ) : (
-              <div className="w-full flex flex-col items-start justify-start gap-8">
-                <button 
-                  className="text-gray-800 bg-gray-300 px-4 py-2 rounded-md font-semibold transition"
-                  disabled
-                >
-                  Change Password
-                </button> 
-                <button 
-                  className="text-stone-800 bg-stone-100 border-2 border-stone-300 px-4 py-2 rounded-md font-semibold  transition"
-                  disabled
-                >
-                  Deactivate Account
-                </button> 
-              </div> 
+            {/* Warning Banner */}
+            {!editMode && (
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-6">
+                <div className="flex items-center gap-2">
+                  <AlertTriangle className="w-6 h-6 text-amber-600" />
+                  <p className="text-amber-800 text-sm font-medium">Enable edit mode to access security settings</p>
+                </div>
+              </div>
             )}
+
+            {/* Security Settings */}
+            <div className="w-full flex flex-col items-start justify-start gap-6">
+              <button 
+                className={`flex items-center gap-3 px-6 py-3 rounded-lg font-semibold transition-all duration-200 shadow-md ${
+                  editMode 
+                    ? "text-white bg-rose-500 hover:bg-rose-600 hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer" 
+                    : "text-gray-500 bg-gray-200 cursor-not-allowed"
+                }`}
+                disabled={!editMode}
+              >
+                <Key className="w-5 h-5" />
+                Change Password
+              </button>
+              
+              <button 
+                className={`flex items-center gap-3 px-6 py-3 rounded-lg font-semibold transition-all duration-200 shadow-md ${
+                  editMode 
+                    ? "text-red-700 bg-red-50 border-2 border-red-200 hover:bg-red-100 hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer" 
+                    : "text-stone-500 bg-stone-100 border-2 border-stone-300 cursor-not-allowed"
+                }`}
+                disabled={!editMode}
+              >
+                <AlertTriangle className="w-5 h-5" />
+                Deactivate Account
+              </button>
+            </div>
           </div>
 
           {/* === User Role === */}
@@ -176,11 +188,11 @@ const UserProfile = () => {
             <h2 className="text-xl text-center font-bold text-gray-800 mb-8">Account Role</h2>
             <div className="flex items-center gap-3">
               <span className="font-semibold text-lg text-gray-700">Role:</span>
-              <span className={`px-4 py-1 rounded-sm text-lg font-bold
-                ${user.role === 'Tenant' ? 'bg-rose-100 text-rose-800' :
-                  user.role === 'Landlord' ? 'bg-sky-100 text-sky-800' :
-                  'bg-amber-100 text-amber-800'}
-              `}>
+              <span className={`px-6 py-2 rounded-full text-lg font-bold shadow-md ${
+                user.role === 'Tenant' ? 'bg-rose-100 text-rose-800 border border-rose-200' :
+                user.role === 'Landlord' ? 'bg-sky-100 text-sky-800 border border-sky-200' :
+                'bg-amber-100 text-amber-800 border border-amber-200'
+              }`}>
                 {user.role}
               </span>
             </div>
@@ -193,7 +205,7 @@ const UserProfile = () => {
                 onClick={() => {
                   setEditMode(false);
                 }}
-                className="w-full py-2.5 bg-teal-600 text-white text-lg font-semibold rounded-md hover:bg-teal-700 cursor-pointer"
+                className="w-full py-3 bg-teal-600 text-white text-lg font-semibold rounded-lg hover:bg-teal-700 cursor-pointer transition-all duration-200 transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
               >
                 Save Changes
               </button>
@@ -202,9 +214,8 @@ const UserProfile = () => {
 
           {/* Logout button */}
           <div className="mt-8">
-            <button
-              className="w-full py-2 bg-gray-100 text-gray-700 border-2 border-gray-300 text-lg font-semibold rounded-md hover:bg-gray-200 cursor-pointer"
-            >
+            <button className="w-full flex items-center justify-center gap-3 py-3 bg-white text-gray-700 border-2 border-gray-300 text-lg font-semibold rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 focus:invisible">
+              <LogOut className="w-5 h-5" />
               Log out
             </button>
           </div>
