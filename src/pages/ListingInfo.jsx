@@ -216,7 +216,7 @@ const ListingInfo = () => {
          <div className="w-full flex flex-col items-start justify-center">
           {editMode ? (
             <div className="p-8">
-              <h3 className="text-lg text-center font-semibold text-gray-900 mb-6">Property Images</h3>
+              <h3 className="text-lg text-center font-semibold text-gray-900 mb-6">Apartment Images</h3>
               
               {editedData.images.length > 0 && (
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">

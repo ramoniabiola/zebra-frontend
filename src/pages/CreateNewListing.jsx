@@ -58,6 +58,22 @@ const CreateNewListing = () => {
       images: updatedImages,
     }));
   };
+ 
+  // const handleUploadImages = async () => {
+    // const formData = new FormData();
+    // selectedImages.forEach((image) => {
+      // formData.append("images", image);
+    // });
+  // 
+    // const res = await axios.post("/api/apartments/upload", formData, {
+      // headers: { "Content-Type": "multipart/form-data" },
+    // });
+  // 
+    // Store returned URLs
+    // setFormData({ ...formData, images: res.data.uploadedImages });
+  // };
+
+
   
   const handleSubmit = (e) => {
     e.preventDefault();

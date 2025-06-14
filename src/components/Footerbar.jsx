@@ -23,15 +23,15 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 
 // Example user data
-const user = {
-  username: "LandlordMike",
-  role: "Landlord",
-  avatar: "",
-  totalListings: 12,
-  activeListings: 5,
-};
+// const user = {
+//   username: "LandlordMike",
+//   role: "Landlord",
+//   avatar: "",
+//   totalListings: 12,
+//   activeListings: 5,
+// };
 
-// const user = null;
+const user = null;
 
 const Footerbar = () => {
   const [isBeyondScreen, setIsBeyondScreen] = useState(false);

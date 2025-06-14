@@ -64,8 +64,10 @@ const MyDashboard = () => {
           {/* Active Listings */}
           <div className="flex flex-col items-center justify-center bg-white rounded-xl py-2 px-4 shadow-sm border border-gray-100">
             <div className="flex items-center justify-between mb-2">
-              <div className="p-3 rounded-xl bg-blue-50">
-                <Home className="w-7 h-7 text-blue-600" />
+              <div className="p-3 rounded-xl bg-violet-50">
+                <Home 
+                  className="w-7 h-7 text-violet-600" 
+                />
               </div>
             </div>
             <div className="space-y-1">
@@ -77,8 +79,10 @@ const MyDashboard = () => {
           {/* Total Listings */}
           <div className="flex flex-col items-center justify-center bg-white rounded-xl py-2 px-4 shadow-sm border border-gray-100">
             <div className="flex items-center justify-between mb-2">
-              <div className="p-3 rounded-xl bg-emerald-50">
-                <FileText className="w-7 h-7 text-emerald-600" />
+              <div className="p-3 rounded-xl bg-amber-50">
+                <FileText 
+                  className="w-7 h-7 text-amber-600" 
+                />
               </div>    
             </div>
             <div className="space-y-1">
@@ -90,8 +94,8 @@ const MyDashboard = () => {
           {/* User Role */}
           <div className="flex flex-col items-center justify-center bg-white rounded-xl py-2 px-4 shadow-sm border border-gray-100">
             <div className="flex items-center justify-between mb-2">
-              <div className="p-3 rounded-xl bg-cyan-50">
-                <UserRound className="w-7 h-7 text-cyan-600" />
+              <div className="p-3 rounded-xl bg-emerald-50">
+                <UserRound className="w-7 h-7 text-emerald-600" />
               </div>  
             </div>
             <div className="space-y-1">

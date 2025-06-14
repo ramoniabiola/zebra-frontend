@@ -53,7 +53,7 @@ const Step4_UploadImages = ({ formData, setFormData, handleFileChange }) => {
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-xs text-gray-500 border rounded">
-                    Not a valid image file
+                    Not a valid image file 
                   </div>
                 )}
                 <button

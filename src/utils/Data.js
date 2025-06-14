@@ -7,7 +7,7 @@ export const data = [
         price: "1,850,000",
         images: [
             {
-                id: 1, img: "https://skylimitsventures.co.ke/wp-content/uploads/2020/10/PXL_20201002_092507960-scaled.jpg"
+                id: 1, img: "https://enville.net/wp-content/uploads/2018/12/IMG_1469.jpg"
             },
             {
                 id: 2, img: "https://th.bing.com/th/id/R.ab6cec9a49134a391e39918e4d9a1305?rik=AvWzpMSRg5hn%2bw&riu=http%3a%2f%2fnjfurnishedapartments.com%2fwp-content%2fuploads%2fIMG_0333-2048x1365.jpg&ehk=T6S7MAzgtdBViIm0BrJlUaREFDwsXI%2bT7sdHy%2fEwUOs%3d&risl=&pid=ImgRaw&r=0"
@@ -55,7 +55,7 @@ export const data = [
         price: "1,800,000",
         images: [
             {
-                id: 1, img: "https://th.bing.com/th/id/R.35ec572a5eaa4d8ee4c7de9a2bdf160a?rik=o1Vecirmla7e1A&pid=ImgRaw&r=0"
+                id: 1, img: "https://th.bing.com/th/id/OIP.SLnLAYH4hTyQMwxOuYx7aQHaEo?w=2200&h=1376&rs=1&pid=ImgDetMain"
             },
             {
                 id: 2, img: "https://th.bing.com/th/id/OIP.SLnLAYH4hTyQMwxOuYx7aQHaEo?w=2200&h=1376&rs=1&pid=ImgDetMain"
@@ -79,7 +79,7 @@ export const data = [
         price: "1,800,000",
         images: [
             {
-                id: 1, img: "https://th.bing.com/th/id/R.35ec572a5eaa4d8ee4c7de9a2bdf160a?rik=o1Vecirmla7e1A&pid=ImgRaw&r=0"
+                id: 1, img: "https://th.bing.com/th/id/OIP.SLnLAYH4hTyQMwxOuYx7aQHaEo?w=2200&h=1376&rs=1&pid=ImgDetMain"
             },
             {
                 id: 2, img: "https://th.bing.com/th/id/OIP.SLnLAYH4hTyQMwxOuYx7aQHaEo?w=2200&h=1376&rs=1&pid=ImgDetMain"

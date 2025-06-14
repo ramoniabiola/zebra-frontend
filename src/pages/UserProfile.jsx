@@ -20,7 +20,7 @@ const UserProfile = () => {
         
 
   return (
-    <div className="w-full h-full flex flex-col items-start justify-start">
+     <div className="w-full h-full flex flex-col items-start justify-start">
       <div className="w-full h-full flex flex-col items-start justify-center gap-4 mb-12">
         {/* HEADING AND BACK ICON */}
         <div className="w-full h-16 flex items-center justify-start gap-4 pl-2 pt-4 bg-white">
