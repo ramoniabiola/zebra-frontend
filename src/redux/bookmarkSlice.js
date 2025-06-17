@@ -43,11 +43,14 @@ const bookmarkSlice = createSlice({
             state.error = action.payload;
         },
 
+        // CLEAR ALL BOOKMARK
+        clearBookmark: (state) => initialState
+
     } 
 });
 
 export const {getBookmarksLoading, getBookmarksSuccess, 
     getBookmarksFailure, addBookmarkSuccess, addBookmarkFailure, 
-    removeBookmarkSuccess, removeBookmarkFailure  
+    removeBookmarkSuccess, removeBookmarkFailure, clearBookmark  
 } = bookmarkSlice.actions;
 export default bookmarkSlice.reducer;

@@ -48,10 +48,9 @@ const authSlice = createSlice({
         },
 
         // LOGOUT
-        setLogout: (state) => {
-          state.user = null;
-          state.error = null;
-        },
+        setLogout: (state) => initialState
+
+
     },
 });
 

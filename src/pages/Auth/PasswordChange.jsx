@@ -12,15 +12,18 @@ const PasswordChange = () => {
     const [focusedField, setFocusedField] = useState("");
     const navigate =  useNavigate();
 
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
+
 
     // Create refs for each input field
     const inputRefs = {
         newPassword: useRef(null),
         confirmPassword: useRef(null),
     };
+
 
     // Effect to maintain focus when focusedField changes
     useEffect(() => {
@@ -34,6 +37,7 @@ const PasswordChange = () => {
         }
     }, [focusedField, formData]); // Re-run when formData changes to maintain focus
 
+
     const handlePasswordChange = (e) => {
         e.preventDefault();
         if (formData.newPassword !== formData.confirmPassword) {
@@ -43,6 +47,7 @@ const PasswordChange = () => {
         // Trigger password update API here later
         console.log("Password updated:", formData);
     };
+    
 
     const PasswordField = ({ name, placeholder, value, show, setShow, icon: Icon = Lock }) => (
         <div className="relative group">

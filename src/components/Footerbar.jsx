@@ -18,26 +18,16 @@ import {
   UserCircleIcon as UserCircleSolid
 } from "@heroicons/react/24/solid";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate, useLocation } from 'react-router-dom';
 
-
-
-// Example user data
-// const user = {
-//   username: "LandlordMike",
-//   role: "Landlord",
-//   avatar: "",
-//   totalListings: 12,
-//   activeListings: 5,
-// };
-
-const user = null;
 
 const Footerbar = () => {
   const [isBeyondScreen, setIsBeyondScreen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate()
   const currentPath = location.pathname;
+  const user = useSelector((state) => state.auth.user)
   
 
   
@@ -91,7 +81,7 @@ const Footerbar = () => {
       label: "Login",
       icon: (active) => active ? <UserCircleSolid className="w-7.5 h-7.5" /> : <UserCircleOutline className="w-7.5 h-7.5" />,
     };
-  } else if (user.role === "Tenant") {
+  } else if (user.role === "tenant") {
     userSpecificTab = {
       id: "whishlists",
       label: "Wishlists",
