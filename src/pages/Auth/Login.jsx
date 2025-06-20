@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Mail, Lock, ArrowRight } from "lucide-react";
 import { useLogin } from "../../hooks/auth";
 import { useDispatch } from "react-redux";
-import { ClipLoader } from "react-spinners";
+import { RingLoader } from "react-spinners";
 
 
 
@@ -11,25 +11,88 @@ const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [focusedField, setFocusedField] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [shakingFields, setShakingFields] = useState({}); // Track which fields should s
+  const { login, error, isLoading } = useLogin(); 
+
   const navigate = useNavigate()
   const dispatch = useDispatch();
-  const { login, error, isLoading } = useLogin();
-  
-
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    // Clear field error when user starts typing
+    if (fieldErrors[e.target.name]) {
+      setFieldErrors(prev => ({...prev, [e.target.name]: ""}));
+    }
+
+    // Clear shaking state when user starts typing
+    if (shakingFields[e.target.name]) {
+      setShakingFields(prev => ({...prev, [e.target.name]: false}));
+    }
   };
+
+
+   // Validation function
+    const validateForm = () => {
+    const errors = {};
+    const requiredFields = ['email', 'password'];
+    
+    requiredFields.forEach(field => {
+      if (!formData[field].trim()) {
+        errors[field] = `${field.replace('_', ' ')} is required`;   
+      }
+    });
+
+    // Email validation
+    if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Please enter a valid email address";
+    }
+
+    // Password validation
+    if (formData.password && formData.password.length < 6) {
+      errors.password = "Password must be at least 6 characters";
+    }
+
+    return errors;
+  }
 
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    const errors = validateForm();
+
+    if(Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      
+      // Set shaking state for fields with errors
+      const newShakingFields = {};
+      Object.keys(errors).forEach(field => {
+        newShakingFields[field] = true;
+      });
+      setShakingFields(newShakingFields);
+      
+      // Clear shaking state after animation completes
+      setTimeout(() => {
+        setShakingFields({});
+      }, 500);
+      
+      // Shake animation for submit button
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn?.classList.add('animate-shake');
+      setTimeout(() => submitBtn?.classList.remove('animate-shake'), 500);
+      
+      return;
+    }
+       
+    setFieldErrors({});
+    setShakingFields({});
+
     // Perform login action
     await login(dispatch, formData);
     
   }
-
 
   // Create refs for each input field
   const inputRefs = {
@@ -47,71 +110,100 @@ const Login = () => {
       const length = inputElement.value.length;
       inputElement.setSelectionRange(length, length);
     }
-  }, [focusedField, formData]); // Re-run when formData changes to maintain focus
+  }, [focusedField, formData]); 
   
 
 
-  const InputField = ({ icon: Icon, type, name, placeholder, value, required = false }) => (
-    <div className="relative group">
-      <div className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-300 ${
-        focusedField === name ? 'text-cyan-500' : 'text-gray-400'
-      }`}>
-        <Icon size={20} />
-      </div>
-      <input
-        ref={inputRefs[name]}
-        type={type}
-        name={name}
-        placeholder={placeholder}
-        value={value}
-        onChange={handleChange}
-        onFocus={() => setFocusedField(name)}
-        onBlur={() => setFocusedField("")}
-        required={required}
-        className={`w-full pl-12 pr-4 py-4 bg-gray-50 border-2 rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
-          focusedField === name 
-            ? 'border-cyan-500 shadow-lg shadow-cyan-500/20' 
-            : 'border-gray-200 hover:border-gray-300'
-        }placeholder-gray-400`}
-      />
-    </div>
-  );
 
-  const PasswordField = ({ name, placeholder, value, show, setShow }) => (
-    <div className="relative group">
-      <div className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-300 ${
-        focusedField === name ? 'text-cyan-500' : 'text-gray-400'
-      }`}>
-        <Lock size={20} />
+  const InputField = ({ icon: Icon, type, name, placeholder, value, required = false }) => {
+    const hasError = fieldErrors[name];
+    const shouldShake = shakingFields[name];
+        
+    return (
+      <div className={`relative group ${shouldShake ? 'animate-shake' : ''}`}>
+        <div className="relative">
+          <div className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-300 z-10 ${
+              hasError ? 'text-rose-500' :
+              focusedField === name ? 'text-cyan-500' : 'text-gray-400'
+            }`}
+          >
+            <Icon size={20} />
+          </div>
+          <input
+            ref={inputRefs[name]}
+            type={type}
+            name={name}
+            placeholder={placeholder}
+            value={value}
+            onChange={handleChange}
+            onFocus={() => setFocusedField(name)}
+            onBlur={() => setFocusedField("")}
+            required={required}
+            className={`w-full pl-12 pr-12 py-4 bg-gray-50 border-2 rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
+              hasError 
+                ? 'border-rose-500 shadow-md shadow-rose-500/20' 
+                : focusedField === name 
+                  ? 'border-cyan-500 shadow-lg shadow-cyan-500/20' 
+                  : 'border-gray-200 hover:border-gray-300'
+              } placeholder-gray-400`}
+            />
+          </div>
+          {hasError && (
+            <p className={`text-rose-500 text-xs mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
+          )}
       </div>
-      <input
-        ref={inputRefs[name]}
-        type={show ? "text" : "password"}
-        name={name}
-        placeholder={placeholder}
-        value={value}
-        onChange={handleChange}
-        onFocus={() => setFocusedField(name)}
-        onBlur={() => setFocusedField("")}
-         required
-        className={`w-full pl-12 pr-12 py-4 bg-gray-50 border-2 rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
-          focusedField === name 
-          ? 'border-cyan-500 shadow-lg shadow-cyan-500/20' 
-          : 'border-gray-200 hover:border-gray-300'
-        } placeholder-gray-400`}
-      />
-      <button
-          type="button"
-          onMouseDown={(e) => {
-            e.preventDefault(); // Prevent input from losing focus
-            setShow(!show);
-          }}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-cyan-500 transition-colors duration-300"
-      >
-        {show ? <EyeOff size={20} /> : <Eye size={20} />}
-      </button>
-    </div>
-  );
+    );
+  };
+
+  const PasswordField = ({ name, placeholder, value, show, setShow }) => {
+    const hasError = fieldErrors[name];
+    const shouldShake = shakingFields[name];
+
+    return (
+      <div className={`relative group ${shouldShake ? 'animate-shake' : ''}`}>
+        <div className="relative">
+          <div className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-300 z-10 ${
+              hasError ? 'text-rose-500' :
+              focusedField === name ? 'text-cyan-500' : 'text-gray-400'
+            }`}
+          >
+            <Lock size={20} />
+          </div>
+          <input
+            ref={inputRefs[name]}
+            type={show ? "text" : "password"}
+            name={name}
+            placeholder={placeholder}
+            value={value}
+            onChange={handleChange}
+            onFocus={() => setFocusedField(name)}
+            onBlur={() => setFocusedField("")}
+            required
+            className={`w-full pl-12 pr-12 py-4 bg-gray-50 border-2 rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
+              hasError 
+                ? 'border-rose-500 shadow-md shadow-rose-500/20' 
+                : focusedField === name 
+                  ? 'border-cyan-500 shadow-lg shadow-cyan-500/20' 
+                  : 'border-gray-200 hover:border-gray-300'
+            } placeholder-gray-400`}
+          />
+          <button
+              type="button"
+              onMouseDown={(e) => {
+                e.preventDefault(); // Prevent input from losing focus
+                setShow(!show);
+              }}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-cyan-500 transition-colors duration-300"
+              >
+            {show ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
+          </div>
+          {hasError && (
+            <p className={`text-rose-500 text-xs mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
+          )}
+      </div>
+    );
+  };
   
   return (
     <div className="min-h-screen bg-white flex flex-col justify-center px-6 py-10">
@@ -151,15 +243,16 @@ const Login = () => {
             Forgot Password?
           </span>
         </div>
-        {/* Submit Button */}
+         {/* Submit Button */}
         <button
-          type="button"
+          id="submit-btn"
+          type="submit"
           onClick={handleLogin}
           disabled={isLoading} // Disable button while loading
           className="w-full bg-linear-65 from-cyan-400 to-cyan-600 hover:bg-linear-65 hover:from-cyan-500 hover:to-cyan-700 text-white py-4 rounded-xl text-lg font-bold transition-all duration-300 transform hover:scale-[1.01] hover:shadow-lg shadow-cyan-500/25 focus:outline-none focus:ring-4 focus:ring-cyan-500/30 flex items-center justify-center space-x-2 group cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
           {isLoading ? (
-            <ClipLoader
+            <RingLoader
               color="#ffffff" 
               loading={true}
               size={24} 
@@ -172,6 +265,7 @@ const Login = () => {
           )}
         </button>
       </form>
+
       {/* Register Link */}
       <div className="text-center mt-8">
         <p className="text-gray-600">
@@ -181,6 +275,27 @@ const Login = () => {
           </span>
         </p>
       </div>
+
+      {/* Custom Styles */}
+      <style jsx="true">{
+        `
+          @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+          }
+          @keyframes slideDown {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+          }
+          .animate-shake {
+            animation: shake 0.5s ease-in-out;
+          }
+          .animate-slideDown {
+            animation: slideDown 0.3s ease-out;
+          }
+        `}
+      </style>
     </div>
   );
 };

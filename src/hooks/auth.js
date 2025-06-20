@@ -80,13 +80,13 @@ export const useRegisterUser = () => {
         }      
     };
     
-    return { registerUser, success, error, isLoading };
+    return { registerUser, success, error, setError, isLoading };
 };
 
 
 // LOGOUT CUSTOM HOOK
 export const useLogout = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(); 
 
     const handleLogout = async () => {
         dispatch(setLogout());

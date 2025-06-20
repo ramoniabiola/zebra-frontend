@@ -1,6 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-import { Eye, EyeOff, User, Mail, Phone, Lock, UserCheck } from "lucide-react";
+import { Eye, EyeOff, User, Mail, Phone, Lock, UserCheck, CheckCircle, X, AlertCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { RingLoader } from "react-spinners";
+import { useRegisterUser } from "../../hooks/auth";
+import { useDispatch } from "react-redux";
+
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -10,21 +14,98 @@ const Register = () => {
         phone: "",
         password: "",
         confirmPassword: "",
-        role: "tenant",
+        role: "",
     });
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [focusedField, setFocusedField] = useState("");
+    const [fieldErrors, setFieldErrors] = useState({});
+    const [shakingFields, setShakingFields] = useState({}); // Track which fields should shake
+    const { registerUser, success, error, setError, isLoading } = useRegisterUser()
+
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+
+        // Clear field error when user starts typing
+        if (fieldErrors[e.target.name]) {
+            setFieldErrors(prev => ({...prev, [e.target.name]: ""}));
+        }
+
+        // Clear shaking state when user starts typing
+        if (shakingFields[e.target.name]) {
+            setShakingFields(prev => ({...prev, [e.target.name]: false}));
+        }
     };
 
-    const handleSubmit = (e) => {
+    // Validation function
+    const validateForm = () => {
+        const errors = {};
+        const requiredFields = ['full_name', 'username', 'email', 'phone', 'password', 'confirmPassword', 'role'];
+        
+        requiredFields.forEach(field => {
+            if (!formData[field].trim()) {
+                errors[field] = field === 'role' 
+                    ? 'Please select a role' 
+                    : `${field.replace('_', ' ')} is required`;
+            }
+        });
+
+        // Email validation
+        if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
+            errors.email = "Please enter a valid email address";
+        }
+
+         // Password validation
+        if (formData.password && formData.password.length < 6) {
+            errors.password = "Password must be at least 6 characters";
+        }
+
+        // Confirm password validation
+        if (formData.password !== formData.confirmPassword) {
+            errors.confirmPassword = "Passwords do not match";
+        }
+
+        return errors;
+    }
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Validate + Submit to backend later
-        console.log(formData);
+
+        const errors = validateForm();
+
+        if(Object.keys(errors).length > 0) {
+            setFieldErrors(errors);
+            
+            // Set shaking state for fields with errors
+            const newShakingFields = {};
+            Object.keys(errors).forEach(field => {
+                newShakingFields[field] = true;
+            });
+            setShakingFields(newShakingFields);
+            
+            // Clear shaking state after animation completes
+            setTimeout(() => {
+                setShakingFields({});
+            }, 500);
+            
+            // Shake animation for submit button
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn?.classList.add('animate-shake');
+            setTimeout(() => submitBtn?.classList.remove('animate-shake'), 500);
+            
+            return;
+        }
+       
+        setFieldErrors({});
+        setShakingFields({});
+
+        
+        // Perform registerUser action
+        await registerUser(dispatch, formData);  
     };
 
     
@@ -51,74 +132,138 @@ const Register = () => {
     }, [focusedField, formData]); // Re-run when formData changes to maintain focus
 
 
-    const InputField = ({ icon: Icon, type, name, placeholder, value, required = false }) => {
-        return (
-            <div className="relative group">
-                <div className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-300 ${
-                    focusedField === name ? 'text-cyan-500' : 'text-gray-400'
-                }`}>
-                    <Icon size={20} />
+
+    // Success Modal Component
+    const SuccessModal = () => (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 animate-fadeIn">
+            <div className="bg-white rounded-2xl p-8 max-w-sm mx-4 text-center animate-slideUp">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle className="w-8 h-8 text-green-500" />
                 </div>
-                <input
-                    ref={inputRefs[name]}
-                    type={type}
-                    name={name}
-                    placeholder={placeholder}
-                    value={value}
-                    onChange={handleChange}
-                    onFocus={() => setFocusedField(name)}
-                    onBlur={() => setFocusedField("")}
-                    required={required}
-                    className={`w-full pl-12 pr-4 py-3.5 bg-gray-50 border-2 rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
-                        focusedField === name 
-                            ? 'border-cyan-500 shadow-lg shadow-cyan-500/20' 
-                            : 'border-gray-200 hover:border-gray-300'
-                    } placeholder-gray-400`}
-                />
+                <h3 className="text-xl font-bold text-gray-800 mb-2">Account Created!</h3>
+                <p className="text-gray-600 mb-4">Welcome to Zebra!</p>
+            </div>
+        </div>
+    );
+
+
+    const ErrorAlert = ({ message, onClose }) => (
+        <div className="fixed top-4 right-4 bg-red-50 border border-red-200 rounded-lg p-4 shadow-lg z-50 animate-slideInRight max-w-sm">
+            <div className="flex items-start">
+                <AlertCircle className="w-5 h-5 text-red-500 mr-3 mt-0.5 flex-shrink-0" />
+                <div className="flex-1">
+                    <p className="text-sm font-medium text-red-800">Registration Failed</p>
+                    <p className="text-sm text-red-600 mt-1">{message}</p>
+                </div>
+                <button
+                    onClick={onClose}
+                    className="ml-3 text-red-400 hover:text-red-600 transition-colors"
+                >
+                    <X className="w-4 h-4" />
+                </button>
+            </div>
+        </div>
+    );
+
+
+    const InputField = ({ icon: Icon, type, name, placeholder, value, required = false }) => {
+        const hasError = fieldErrors[name];
+        const shouldShake = shakingFields[name];
+        
+        return (
+            <div className={`relative group ${shouldShake ? 'animate-shake' : ''}`}>
+                <div className="relative">
+                    <div className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-300 z-10 ${
+                        hasError ? 'text-rose-500' :
+                        focusedField === name ? 'text-cyan-500' : 'text-gray-400'
+                    }`}>
+                        <Icon size={20} />
+                    </div>
+                    <input
+                        ref={inputRefs[name]}
+                        type={type}
+                        name={name}
+                        placeholder={placeholder}
+                        value={value}
+                        onChange={handleChange}
+                        onFocus={() => setFocusedField(name)}
+                        onBlur={() => setFocusedField("")}
+                        required={required}
+                        className={`w-full pl-12 pr-4 py-3.5 bg-gray-50 border-2 rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
+                            hasError 
+                                ? 'border-rose-500 shadow-md shadow-rose-500/20' 
+                                : focusedField === name 
+                                    ? 'border-cyan-500 shadow-lg shadow-cyan-500/20' 
+                                    : 'border-gray-200 hover:border-gray-300'
+                        } placeholder-gray-400`}
+                    />
+                </div>
+                {hasError && (
+                    <p className={`text-rose-500 text-xs mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
+                )}
             </div>
         );
     };
 
+
     const PasswordField = ({ name, placeholder, value, show, setShow }) => {
+        const hasError = fieldErrors[name];
+        const shouldShake = shakingFields[name];
+        
         return (
-            <div className="relative group">
-                <div className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-300 ${
-                    focusedField === name ? 'text-cyan-500' : 'text-gray-400'
-                }`}>
-                    <Lock size={20} />
+            <div className={`relative group ${shouldShake ? 'animate-shake' : ''}`}>
+                <div className="relative">
+                    <div className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-300 z-10 ${
+                        hasError ? 'text-rose-500' :
+                        focusedField === name ? 'text-cyan-500' : 'text-gray-400'
+                    }`}>
+                        <Lock size={20} />
+                    </div>
+                    <input
+                        ref={inputRefs[name]}
+                        type={show ? "text" : "password"}
+                        name={name}
+                        placeholder={placeholder}
+                        value={value}
+                        onChange={handleChange}
+                        onFocus={() => setFocusedField(name)}
+                        onBlur={() => setFocusedField("")}
+                        required
+                        className={`w-full pl-12 pr-12 py-3.5 bg-gray-50 border-2 rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
+                            hasError 
+                                ? 'border-rose-500 shadow-md shadow-rose-500/20' 
+                                : focusedField === name 
+                                    ? 'border-cyan-500 shadow-lg shadow-cyan-500/20' 
+                                    : 'border-gray-200 hover:border-gray-300'
+                        } placeholder-gray-400`}
+                    />
+                    <button
+                        type="button"
+                        onMouseDown={(e) => {
+                            e.preventDefault();
+                            setShow(!show);
+                        }}
+                        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-cyan-500 transition-colors duration-300 z-10"
+                    >
+                        {show ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </button>
                 </div>
-                <input
-                    ref={inputRefs[name]}
-                    type={show ? "text" : "password"}
-                    name={name}
-                    placeholder={placeholder}
-                    value={value}
-                    onChange={handleChange}
-                    onFocus={() => setFocusedField(name)}
-                    onBlur={() => setFocusedField("")}
-                    required
-                    className={`w-full pl-12 pr-12 py-3.5 bg-gray-50 border-2 rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
-                        focusedField === name 
-                            ? 'border-cyan-500 shadow-lg shadow-cyan-500/20' 
-                            : 'border-gray-200 hover:border-gray-300'
-                    } placeholder-gray-400`}
-                />
-                <button
-                    type="button"
-                    onMouseDown={(e) => {
-                        e.preventDefault(); // Prevent input from losing focus
-                        setShow(!show);
-                    }}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-cyan-500 transition-colors duration-300"
-                >
-                    {show ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
+                {hasError && (
+                    <p className={`text-red-500 text-xs mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
+                )}
             </div>
         );
     };
+
 
     return (
         <div className="w-full min-h-screen bg-white flex flex-col items-center px-4 py-6">
+            {/* Success Modal */}
+            {success && <SuccessModal />}
+            
+            {/* Error Alert */}
+            {error && <ErrorAlert message={error} onClose={() => setError(null)} />}
+            
             {/* App Name / Logo */}
             <h1 
               className="text-4xl text-slate-900 font-extrabold text-center mb-4">zebr
@@ -130,7 +275,7 @@ const Register = () => {
             <p className="text-gray-600 text-center text-sm">Join thousands of users finding their perfect home</p>
 
             {/* Form */}
-            <div className="w-full max-w-md space-y-6 mt-8" onSubmit={handleSubmit}>
+            <div className="w-full max-w-md space-y-6 mt-8">
                 <InputField
                     icon={User}
                     type="text"
@@ -180,17 +325,19 @@ const Register = () => {
 
                 {/* Role Selector */}
                 <div className="space-y-3">
-                    <label className="block text-sm font-semibold text-gray-700 mb-3">
+                    <label className="block text-sm font-semibold mb-3 text-gray-600">
                         Register as:
                     </label>
-                    <div className="grid grid-cols-3 gap-3">
+                    <div className={`grid grid-cols-3 gap-3 ${shakingFields.role ? 'animate-shake' : ''}`}>
                         {["tenant", "landlord", "agent"].map((roleOption) => (
                             <label 
                                 key={roleOption} 
-                                className={`relative flex flex-col items-center p-4  rounded-xl border-2 cursor-pointer transition-all duration-300 ${
-                                    formData.role === roleOption
-                                        ? 'border-cyan-500 bg-cyan-50 shadow-md'
-                                        : 'border-gray-200 hover:border-cyan-300 hover:bg-gray-50'
+                                className={`relative flex flex-col items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
+                                    fieldErrors.role
+                                        ? 'border-rose-500 hover:border-rose-600'
+                                        : formData.role === roleOption
+                                            ? 'border-cyan-500 bg-cyan-50 shadow-md'
+                                            : 'border-gray-200 hover:border-cyan-300 hover:bg-gray-50'
                                 }`}
                             >
                                 <input
@@ -202,31 +349,53 @@ const Register = () => {
                                     className="sr-only"
                                 />
                                 <div className={`w-4 h-4 rounded-full border-2 mb-2 transition-all duration-300 ${
-                                    formData.role === roleOption
-                                        ? 'border-cyan-500 bg-cyan-500'
-                                        : 'border-gray-300'
+                                    fieldErrors.role
+                                        ? 'border-rose-500'
+                                        : formData.role === roleOption
+                                            ? 'border-cyan-500 bg-cyan-500'
+                                            : 'border-gray-300'
                                 }`}>
                                     {formData.role === roleOption && (
                                         <div className="w-full h-full rounded-full bg-white scale-50"></div>
                                     )}
                                 </div>
                                 <span className={`text-sm font-medium capitalize ${
-                                    formData.role === roleOption ? 'text-cyan-700' : 'text-gray-600'
+                                    fieldErrors.role
+                                        ? 'text-rose-600'
+                                        : formData.role === roleOption 
+                                            ? 'text-cyan-700' 
+                                            : 'text-gray-600'
                                 }`}>
                                     {roleOption}
                                 </span>
                             </label>
                         ))}
                     </div>
+                    {fieldErrors.role && (
+                        <p className="text-rose-500 text-xs mt-1 animate-slideDown">{fieldErrors.role}</p>
+                    )}
                 </div>
 
                 {/* Submit */}
                 <button
-                    type="button"
+                    id="submit-btn"
+                    type="submit"
+                    disabled={isLoading}
                     onClick={handleSubmit}
-                    className="w-full bg-gradient-to-r from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 text-white py-3.5 rounded-xl text-lg font-semibold transition-all duration-300 transform hover:scale-101 shadow-lg hover:shadow-xl cursor-pointer"
+                    className={`w-full py-3.5 rounded-xl text-lg font-semibold transition-all duration-300 transform shadow-lg flex items-center justify-center space-x-2 focus:invisible ${
+                        isLoading 
+                            ? 'bg-gray-400 cursor-not-allowed' 
+                            : 'bg-gradient-to-r from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 hover:scale-101 hover:shadow-xl cursor-pointer'
+                    } text-white`}
                 >
-                    Create Account
+                   {isLoading ? (
+                        <>
+                            <RingLoader color="#ffffff" size={18} />
+                            <span>Creating Account...</span>
+                        </>
+                    ) : (
+                        <span>Create Account</span>
+                    )}
                 </button>
             </div>
 
@@ -239,6 +408,55 @@ const Register = () => {
                     </span>
                 </p>
             </div>
+
+            {/* Custom Styles */}
+            <style jsx="true">{`
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    25% { transform: translateX(-5px); }
+                    75% { transform: translateX(5px); }
+                }
+                
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                
+                @keyframes slideUp {
+                    from { transform: translateY(20px); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
+                
+                @keyframes slideDown {
+                    from { transform: translateY(-10px); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
+                
+                @keyframes slideInRight {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                
+                .animate-shake {
+                    animation: shake 0.5s ease-in-out;
+                }
+                
+                .animate-fadeIn {
+                    animation: fadeIn 0.3s ease-out;
+                }
+                
+                .animate-slideUp {
+                    animation: slideUp 0.4s ease-out;
+                }
+                
+                .animate-slideDown {
+                    animation: slideDown 0.3s ease-out;
+                }
+                
+                .animate-slideInRight {
+                    animation: slideInRight 0.4s ease-out;
+                }
+            `}</style>
         </div>
     );
 };
