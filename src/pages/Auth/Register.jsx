@@ -21,7 +21,9 @@ const Register = () => {
     const [focusedField, setFocusedField] = useState("");
     const [fieldErrors, setFieldErrors] = useState({});
     const [shakingFields, setShakingFields] = useState({}); // Track which fields should shake
-    const { registerUser, success, error, setError, isLoading } = useRegisterUser()
+    const { registerUser,error, setError, success, isLoading } = useRegisterUser()
+    
+   
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -106,6 +108,7 @@ const Register = () => {
         
         // Perform registerUser action
         await registerUser(dispatch, formData);  
+        console.log(formData)
     };
 
     
@@ -135,20 +138,20 @@ const Register = () => {
 
     // Success Modal Component
     const SuccessModal = () => (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 animate-fadeIn">
+        <div className="fixed inset-0 bg-black/50 bg-opacity-100 flex items-center justify-center z-50 animate-fadeIn">
             <div className="bg-white rounded-2xl p-8 max-w-sm mx-4 text-center animate-slideUp">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                     <CheckCircle className="w-8 h-8 text-green-500" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-800 mb-2">Account Created!</h3>
-                <p className="text-gray-600 mb-4">Welcome to Zebra!</p>
+                <p className="text-gray-600 mb-4">Welcome to Zebra! Redirecting to login page...</p>
             </div>
         </div>
     );
 
 
     const ErrorAlert = ({ message, onClose }) => (
-        <div className="fixed top-4 right-4 bg-red-50 border border-red-200 rounded-lg p-4 shadow-lg z-50 animate-slideInRight max-w-sm">
+        <div className="fixed top-4 left-4 right-4 bg-red-50 border border-red-200 rounded-lg p-4 shadow-lg z-50 animate-slideInRight max-w-sm">
             <div className="flex items-start">
                 <AlertCircle className="w-5 h-5 text-red-500 mr-3 mt-0.5 flex-shrink-0" />
                 <div className="flex-1">

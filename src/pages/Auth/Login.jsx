@@ -252,11 +252,13 @@ const Login = () => {
           className="w-full bg-linear-65 from-cyan-400 to-cyan-600 hover:bg-linear-65 hover:from-cyan-500 hover:to-cyan-700 text-white py-4 rounded-xl text-lg font-bold transition-all duration-300 transform hover:scale-[1.01] hover:shadow-lg shadow-cyan-500/25 focus:outline-none focus:ring-4 focus:ring-cyan-500/30 flex items-center justify-center space-x-2 group cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
           {isLoading ? (
-            <RingLoader
-              color="#ffffff" 
-              loading={true}
-              size={24} 
-            />
+            <>
+              <RingLoader
+                color="#ffffff" 
+                size={24} 
+              />
+              <span>Logging In...</span>
+            </>
           ) : (
             <>
               <span>Login</span>

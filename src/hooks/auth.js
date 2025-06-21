@@ -66,8 +66,8 @@ export const useRegisterUser = () => {
                 setError(null);
                 setIsLoading(false);
                 setSuccess(true);
-                setTimeout(() => setSuccess(false), 4000);
-                navigate('/');
+                setTimeout(() => setSuccess(false), 5000);
+                navigate('/login');
             } else { 
                 // If the response status is not in the success range, handle the error
                 throw new Error(response.data?.error || 'Something went wrong...');
