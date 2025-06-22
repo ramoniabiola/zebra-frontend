@@ -1,19 +1,25 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Step1_ApartmentInfo from './steps/Step1_ApartmentInfo';
 import Step2_PricingDuration from './steps/Step2_PricingDuration';
 import Step3_ContactAmenities from './steps/Step3_ContactAmenities';
 import Step4_UploadImages from './steps/Step4_UploadImages';
 import StepIndicator from './steps/StepIndicator';
-import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import Footer from '../components/Footer';
 import Footerbar from '../components/Footerbar';
 import { useNavigate } from 'react-router-dom';
+import { AlertCircle, ArrowLeft, CheckCircle, Eye, Loader2, Upload, X } from 'lucide-react';
 
 
 
 
 const CreateNewListing = () => {
   const [step, setStep] = useState(1);
+  const [errors, setErrors] = useState({});
+  const [showError, setShowError] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState('idle'); // 'idle', 'uploading', 'success', 'error'
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [imagesUploaded, setImagesUploaded] = useState(false);
+  const [uploadError, setUploadError] = useState('');
   const [formData, setFormData] = useState({
     title: '',
     apartment_type: '',
@@ -32,124 +38,424 @@ const CreateNewListing = () => {
     furnished: false,
     service_charge: '',
     images: [],
+    uploadedImageUrls: [], // Store uploaded image URLs
   });
+
   const navigate = useNavigate();
 
 
 
-  const nextStep = () => setStep((prev) => Math.min(prev + 1, 5));
-  const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
+  // Apartment data error validation handler
+  const validateStep = (stepNumber) => {
+    const newErrors = {};
+    
+    switch (stepNumber) {
+      case 1:
+        if (!formData.title.trim()) newErrors.title = 'Listing title is required';
+        if (!formData.apartment_type) newErrors.apartment_type = 'Apartment type is required';
+        if (!formData.location.trim()) newErrors.location = 'Location is required';
+        if (!formData.apartment_address.trim()) newErrors.apartment_address = 'Address is required';
+        break;
+      case 2:
+        if (!formData.price || formData.price <= 0) newErrors.price = 'Valid price is required';
+        if (!formData.payment_frequency) newErrors.payment_frequency = 'Payment frequency is required';
+        if (!formData.duration.trim()) newErrors.duration = 'Duration is required';
+        break;
+      case 3:
+        if (!formData.contact_name.trim()) newErrors.contact_name = 'Contact name is required';
+        if (!formData.contact_phone.trim()) newErrors.contact_phone = 'Phone number is required';
+        if (!formData.bedrooms || formData.bedrooms < 0) newErrors.bedrooms = 'Number of bedrooms is required';
+        if (!formData.bathrooms || formData.bathrooms < 0) newErrors.bathrooms = 'Number of bathrooms is required';
+        break;
+      case 4:
+        // Only validate images if upload button is clicked, not on initial render
+        break;
+    }
+    
+    return newErrors;
+  };
 
 
+
+  // Steps Handler
+  const nextStep = () => {
+    const stepErrors = validateStep(step);
+    
+    if (Object.keys(stepErrors).length > 0) {
+      setErrors(stepErrors);
+      setShowError(true);
+      // Auto-hide error after 5 seconds
+      setTimeout(() => setShowError(false), 5000);
+      return;
+    }
+    
+    setErrors({});
+    setShowError(false);
+    setStep((prev) => Math.min(prev + 1, 4));
+  };
+
+  const prevStep = () => {
+    setErrors({});
+    setShowError(false);
+    setStep((prev) => Math.max(prev - 1, 1));
+  };
+
+
+  // Navigate to specific step (for preview page back functionality)
+  const goToStep = (targetStep) => {
+    setErrors({});
+    setShowError(false);
+    setStep(targetStep);
+  };
+
+
+
+  // FormData change handler
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: type === 'checkbox' ? checked : value,
     }));
+    
+    // Clear error for this field when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: undefined }));
+    }
   };
 
+  
+  // Apartment Images handler
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     const updatedImages = [...formData.images, ...files];
+    setFormData((prev) => ({
+      ...prev,
+      images: updatedImages,
+    }));
+    
+    // Clear any existing image errors
+    if (errors.images) {
+      setErrors(prev => ({ ...prev, images: undefined }));
+    }
+  };
 
+
+  // Handle drag and drop for images
+  const handleImageDrop = (files) => {
+    const updatedImages = [...formData.images, ...files];
+    setFormData((prev) => ({
+      ...prev,
+      images: updatedImages,
+    }));
+    
+    if (errors.images) {
+      setErrors(prev => ({ ...prev, images: undefined }));
+    }
+  };
+
+  // Remove image handler
+  const handleRemoveImage = (indexToRemove) => {
+    const updatedImages = formData.images.filter((_, idx) => idx !== indexToRemove);
     setFormData((prev) => ({
       ...prev,
       images: updatedImages,
     }));
   };
- 
-  // const handleUploadImages = async () => {
-    // const formData = new FormData();
-    // selectedImages.forEach((image) => {
-      // formData.append("images", image);
-    // });
-  // 
-    // const res = await axios.post("/api/apartments/upload", formData, {
-      // headers: { "Content-Type": "multipart/form-data" },
-    // });
-  // 
-    // Store returned URLs
-    // setFormData({ ...formData, images: res.data.uploadedImages });
-  // };
+
+  // Apartment Images upload to cloud handler
+  const handleUploadImages = async () => {
+    // Validate images before upload
+    if (formData.images.length < 5) {
+      setErrors({ images: 'At least 5 images are required' });
+      setShowError(true);
+      setTimeout(() => setShowError(false), 5000);
+      return;
+    }
+
+    setUploadStatus('uploading');
+    setShowUploadModal(true);
+    setUploadError('');
+
+    try {
+      const uploadFormData = new FormData();
+      formData.images.forEach((image) => {
+        uploadFormData.append("images", image);
+      });
+
+      // Simulate API call - replace with actual API endpoint
+      const response = await fetch("/api/apartments/upload", {
+        method: "POST",
+        body: uploadFormData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const result = await response.json();
+      
+      // Update form data with uploaded image URLs
+      setFormData(prev => ({
+        ...prev,
+        uploadedImageUrls: result.uploadedImages || []
+      }));
+
+      setUploadStatus('success');
+      setImagesUploaded(true);
+      
+      // Auto close modal after 2 seconds on success
+      setTimeout(() => {
+        setShowUploadModal(false);
+      }, 3000);
+
+    } catch (error) {
+      console.error('Upload error:', error);
+      setUploadStatus('error');
+      setUploadError(error.message || 'Failed to upload images. Please try again.');
+    }
+  };
 
 
-  
+  // Navigate to preview page
+  const handlePreviewInfo = () => {
+    // navigate('/preview-listing', { state: { formData } });
+    console.log('Navigating to preview with data:', formData);
+    alert('Preview functionality - would navigate to preview page');
+  };
+
+
+
+  // Apartment data submittion handler
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
+    
     console.log('Submitted Form Data:', formData);
     // Call API or show success toast here
+    alert('Listing submitted successfully!');
   };
 
 
   const renderStep = () => {
     switch (step) {
       case 1:
-        return <Step1_ApartmentInfo formData={formData} handleChange={handleChange} />;
+        return <Step1_ApartmentInfo formData={formData} handleChange={handleChange} errors={errors} />;
       case 2:
-        return <Step2_PricingDuration formData={formData} handleChange={handleChange} />;
+        return <Step2_PricingDuration formData={formData} handleChange={handleChange} errors={errors} />;
       case 3:
-        return <Step3_ContactAmenities formData={formData} setFormData={setFormData} handleChange={handleChange} />;
+        return <Step3_ContactAmenities formData={formData} setFormData={setFormData} handleChange={handleChange} errors={errors} />;
       case 4:
-        return <Step4_UploadImages formData={formData} setFormData={setFormData} handleFileChange={handleFileChange}  />;
+        return (
+          <Step4_UploadImages 
+            formData={formData} 
+            handleFileChange={handleFileChange}
+            handleRemoveImage={handleRemoveImage}
+            handleImageDrop={handleImageDrop}
+            errors={errors} 
+            showError={showError}
+          />
+        )
       default:
-      return null;
+        return null;
     }
   };
- 
+
+  const getErrorMessage = () => {
+    const errorCount = Object.keys(errors).length;
+    if (errorCount === 0) return '';
+    
+    if (errorCount === 1) {
+      return 'Please fix the error below to continue.';
+    }
+    return `Please fix the ${errorCount} errors below to continue.`;
+  };
+
+  // Error Alert Component
+  const ErrorAlert = ({ message, onClose }) => (
+    <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3 animate-in slide-in-from-top-2 duration-300">
+      <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
+      <div className="flex-1">
+        <p className="text-sm text-red-700 font-medium">{message}</p>
+      </div>
+      {onClose && (
+        <button onClick={onClose} className="text-red-400 hover:text-red-600">
+          <X className="w-4 h-4" />
+        </button>
+      )}
+    </div>
+  );
+
+
+  // Upload Modal Component
+  const UploadModal = () => {
+    if (!showUploadModal) return null;
+
+    return (
+      <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative">
+          {uploadStatus !== 'uploading' && (
+            <button
+              onClick={() => setShowUploadModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          )}
+
+          <div className="text-center">
+            {uploadStatus === 'uploading' && (
+              <>
+                <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Loader2 className="w-8 h-8 text-sky-600 animate-spin" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">Uploading Images</h3>
+                <p className="text-gray-600">Please wait while we upload your images...</p>
+              </>
+            )}
+
+            {uploadStatus === 'success' && (
+              <>
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="w-8 h-8 text-green-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">Upload Successful!</h3>
+                <p className="text-gray-600">All images have been uploaded successfully.</p>
+              </>
+            )}
+
+            {uploadStatus === 'error' && (
+              <>
+                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <AlertCircle className="w-8 h-8 text-red-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">Upload Failed</h3>
+                <p className="text-gray-600 mb-4">{uploadError}</p>
+                <button
+                  onClick={handleUploadImages}
+                  className="px-6 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg transition-colors duration-200 cursor-pointer"
+                >
+                  Try Again
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
 
   return (
-    <div className="w-full h-full flex flex-col items-start justify-center min-h-screen">
+    <div className="w-full h-full min-h-screen bg-gradient-to-br from-gray-50 to-white flex flex-col">
       {/* Header */}
-      <div className="w-full h-20 flex items-center gap-2 px-4 bg-white mb-8 mt-2">
-        <button  onClick={() => navigate(-1)}  className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full focus:invisible">
-          <ArrowLeftIcon className="w-6 h-6 text-gray-700 cursor-pointer" />
-        </button>
-        <h1 className="text-[26px] font-bold text-gray-800">Create New Listing</h1>
-      </div>
-
-      {/* Step Indicator */}
-      <div className='w-full max-w-2xl mx-auto px-4'> 
-        <StepIndicator currentStep={step} />
-      </div>
-
-      {/* Form */}
-      <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto p-6 mt-6 space-y-6 mb-8">
-        {renderStep()}
-
-        {/* Navigation Buttons */}
-        <div className="flex justify-between">
-          {step > 1 && (
-            <button
-              type="button"
-              onClick={prevStep}
-              className="px-6 py-2 bg-gray-200 text-gray-700  hover:bg-gray-300 rounded font-semibold cursor-pointer focus:invisible"
+      <div className="bg-white border-b border-gray-100 sticky top-0 z-10">
+        <div className="max-w-4xl mx-auto px-4 py-4">
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={() => window.history.back()}
+              className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors duration-200"
             >
-              Back
+              <ArrowLeft className="w-5 h-5 text-gray-600" />
             </button>
-          )}
-          {step < 5 ? (
-            <button
-              type="button"
-              onClick={nextStep}
-              className="ml-auto px-6 py-2 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-semibold rounded hover:bg-cyan-700 cursor-pointer focus:invisible"
-            >
-              Next
-            </button>
-          ) : (
-            <button
-              type="submit"
-              className="ml-auto px-6 py-2 bg-gradient-to-r from-emerald-400 to-emerald-600 hover:from-emerald-500 hover:to-emerald-700 text-white rounded  font-semibold hover:bg-emerald-600 cursor-pointer focus:invisible"
-            >
-              Submit Listing
-            </button>
-          )}
+            <div>
+              <h1 className="text-xl font-bold text-gray-800">Create New Listing</h1>
+              <p className="text-sm text-gray-500">Step {step} of 4</p>
+            </div>
+          </div>
         </div>
-      </form>
+      </div>
+  
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        {/* Step Indicator */}
+        <StepIndicator currentStep={step} />
+  
+        {/* Error Alert */}
+        {showError && Object.keys(errors).length > 0 && (
+          <ErrorAlert 
+            message={getErrorMessage()} 
+            onClose={() => setShowError(false)} 
+          />
+        )}
+
+        {/* Form */}
+        <div className="bg-white mx-auto rounded-2xl  border border-gray-100 overflow-hidden">
+          <form onSubmit={handleSubmit} className="max-w-2xl px-4 py-8">
+            {renderStep()}
+
+            {/* Navigation Buttons */}
+            <div className="flex justify-between items-center mt-6 pt-8 border-t border-gray-100">
+              {step > 1 ? (
+                <button
+                  type="button"
+                  onClick={prevStep}
+                  className="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all duration-200 flex items-center gap-1.5 cursor-pointer focus:invisible"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Back
+                </button>
+              ) : (
+                <div></div>
+              )}
+              
+              {step < 4 ? (
+                <button
+                  type="button"
+                  onClick={nextStep}
+                  className="px-3 py-2.5 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5 cursor-pointer focus:invisible"
+                >
+                  Continue
+                  <ArrowLeft className="w-4 h-4 rotate-180" />
+                </button>
+              ) : step === 4 && !imagesUploaded ? (
+                <button
+                  type="button"
+                  onClick={handleUploadImages}
+                  disabled={uploadStatus === 'uploading'}
+                  className="px-4 py-2.5 bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 disabled:from-sky-400 disabled:to-sky-400 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5 cursor-pointer focus:invisible disabled:cursor-not-allowed"
+                >
+                  {uploadStatus === 'uploading' ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Uploading...
+                    </>
+                  ) : (
+                    <>
+                      <Upload className="w-4 h-4" />
+                      Upload
+                    </>
+                  )}
+                </button>
+              ) : step === 4 && imagesUploaded ? (
+                <button
+                  type="button"
+                  onClick={handlePreviewInfo}
+                  className="px-4 py-2.5 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5 cursor-pointer focus:ring-2 focus:ring-purple-300"
+                >
+                  <Eye className="w-4 h-4" />
+                  Preview Info
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleSubmit}
+                  className="px-3 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5 cursor-pointer focus:ring-2 focus:ring-emerald-300"
+                >
+                  <CheckCircle className="w-4 h-4" />
+                  Submit Listing
+                </button>
+              )}
+            </div>
+          </form>
+        </div>
+      </div>
+
+      {/* Upload Modal */}
+      <UploadModal />
+
       <Footerbar /> 
       <Footer />
     </div>
-  )
+  );
 };
 
 export default CreateNewListing;

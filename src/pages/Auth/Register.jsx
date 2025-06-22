@@ -21,7 +21,7 @@ const Register = () => {
     const [focusedField, setFocusedField] = useState("");
     const [fieldErrors, setFieldErrors] = useState({});
     const [shakingFields, setShakingFields] = useState({}); // Track which fields should shake
-    const { registerUser,error, setError, success, isLoading } = useRegisterUser()
+    const { registerUser, error, setError, success, isLoading } = useRegisterUser()
     
    
 

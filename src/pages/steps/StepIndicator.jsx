@@ -1,72 +1,60 @@
-import React from 'react';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { ArrowLeft, Plus, X, CheckCircle, AlertCircle, Home, DollarSign, User, Camera } from 'lucide-react';
 
-const steps = [
-  'Apartment Details',
-  'Pricing & Duration',
-  'Contact & Amenities',
-  'Upload Images',
-];
+
+
 
 const StepIndicator = ({ currentStep }) => {
-  return (
-    <div className="w-full mb-4 mt-2 flex flex-col items-center justify-center">
+  const steps = [
+    { label: 'Apartment Details', icon: Home },
+    { label: 'Pricing & Duration', icon: DollarSign },
+    { label: 'Contact & Amenities', icon: User },
+    { label: 'Upload Images', icon: Camera },
+  ];
 
-      {/* Step Circles & Lines */}
-      <div className="flex justify-between items-center w-full">
-        {steps.map((_, index) => {
-          const stepIndex = index + 1;
-          const isCompleted = currentStep > stepIndex;
-          const isActive = currentStep === stepIndex;
+
+  return (
+    <div className="w-full mb-8 px-2  ">
+      <div className="flex justify-between items-center relative">
+        {/* Progress Line */}
+        <div className="absolute top-5 left-0 right-0 h-0.5 bg-gray-200 -z-10">
+          <div 
+            className="h-full bg-gradient-to-r from-cyan-500 to-cyan-600 transition-all duration-500 ease-out"
+            style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
+          />
+        </div>
+        
+        {steps.map((step, index) => {
+          const stepNumber = index + 1;
+          const isCompleted = currentStep > stepNumber;
+          const isActive = currentStep === stepNumber;
+          const Icon = step.icon;
+          
           return (
-            <div key={index} className="relative flex-1 flex justify-center">
- 
-              {/* Circle */}
-              <div
-                className={`z-10 w-9 h-9 flex items-center justify-center rounded-full text-white text-sm font-bold
-                  transition-all duration-300 shadow border-4 border-white
-                `}
-                style={{
-                  backgroundColor: isCompleted
-                  ? '#06b6d4'
-                  : isActive
-                  ? '#0e7490'
-                  : '#d1d5db',
-                }}
-              >
+            <div key={index} className="flex flex-col items-center">
+              <div className={`
+                w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg border-2
+                ${isCompleted 
+                  ? 'bg-gradient-to-r from-cyan-500 to-cyan-600 border-cyan-500 text-white' 
+                  : isActive 
+                    ? 'bg-gradient-to-r from-cyan-500 to-cyan-600 border-cyan-500 text-white shadow-cyan-200' 
+                    : 'bg-white border-gray-300 text-gray-400'
+                }
+              `}>
                 {isCompleted ? (
-                  <CheckCircleIcon className="w-5 h-5" />
-                  ) : (
-                  stepIndex
-                )}  
+                  <CheckCircle className="w-5 h-5" />
+                ) : (
+                  <Icon className="w-4 h-4" />
+                )}
               </div>
-                
-              {/* Connecting line */}
-              {index < steps.length - 1 && (
-                <div className="absolute top-1/2 left-1/2 w-full h-[3px] bg-gray-300 -z-10">
-                  <div
-                    className="h-[3px] bg-cyan-500 transition-all duration-300"
-                    style={{
-                      width: currentStep > stepIndex ? '100%' : '0%',
-                    }}
-                  ></div>
-                </div>
-              )}
+              <span className={`
+                mt-2 text-xs font-medium text-center max-w-20
+                ${isActive ? 'text-cyan-600' : 'text-gray-500'}
+              `}>
+                {step.label}
+              </span>
             </div>
           );
         })}
-      </div>
-      
-      {/* Step Labels */}
-      <div className="flex justify-between mt-4 px-1">
-        {steps.map((label, index) => (
-          <div
-            key={index}
-            className="flex-1 text-center text-[14px] font-semibold text-gray-600"
-          >
-            {label}
-          </div>
-        ))}
       </div>
     </div>
   );
