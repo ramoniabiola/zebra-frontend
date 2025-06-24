@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
-import { Eye, EyeOff, User, Mail, Phone, Lock, UserCheck, CheckCircle, X, AlertCircle } from "lucide-react";
+import { Eye, EyeOff, User, Mail, Phone, Lock, UserCheck, CheckCircle, X, AlertCircle, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { RingLoader } from "react-spinners";
 import { useRegisterUser } from "../../hooks/auth";
 import { useDispatch } from "react-redux";
 
@@ -393,7 +392,7 @@ const Register = () => {
                 >
                    {isLoading ? (
                         <>
-                            <RingLoader color="#ffffff" size={18} />
+                            <Loader2 className="w-5 h-5 text-white animate-spin" />
                             <span>Creating Account...</span>
                         </>
                     ) : (

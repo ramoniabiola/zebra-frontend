@@ -8,6 +8,9 @@ import Footer from '../components/Footer';
 import Footerbar from '../components/Footerbar';
 import { useNavigate } from 'react-router-dom';
 import { AlertCircle, ArrowLeft, CheckCircle, Eye, Loader2, Upload, X } from 'lucide-react';
+import { uploadApartmentImagesApi } from '../api/apartments';
+import PreviewListing from './PreviewListing';
+import { useCreateNewListing } from '../hooks/myListings';
 
 
 
@@ -18,7 +21,9 @@ const CreateNewListing = () => {
   const [showError, setShowError] = useState(false);
   const [uploadStatus, setUploadStatus] = useState('idle'); // 'idle', 'uploading', 'success', 'error'
   const [showUploadModal, setShowUploadModal] = useState(false);
+   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const [imagesUploaded, setImagesUploaded] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
   const [uploadError, setUploadError] = useState('');
   const [formData, setFormData] = useState({
     title: '',
@@ -38,12 +43,9 @@ const CreateNewListing = () => {
     furnished: false,
     service_charge: '',
     images: [],
-    uploadedImageUrls: [], // Store uploaded image URLs
+    uploadedImages: [], // Store uploaded image URLs
   });
-
-  const navigate = useNavigate();
-
-
+  const { createNewListing, success, loading, error } = useCreateNewListing()
 
   // Apartment data error validation handler
   const validateStep = (stepNumber) => {
@@ -163,6 +165,8 @@ const CreateNewListing = () => {
     }));
   };
 
+
+
   // Apartment Images upload to cloud handler
   const handleUploadImages = async () => {
     // Validate images before upload
@@ -183,32 +187,28 @@ const CreateNewListing = () => {
         uploadFormData.append("images", image);
       });
 
-      // Simulate API call - replace with actual API endpoint
-      const response = await fetch("/api/apartments/upload", {
-        method: "POST",
-        body: uploadFormData,
-      });
+      // Simulate apartment upload API call
+      const response = await uploadApartmentImagesApi(uploadFormData);
+      if (response.status >= 200 && response.status < 300) {
+        const result = response.data;
 
-      if (!response.ok) {
-        throw new Error('Upload failed');
-      }
+        // Update form data with uploaded image URLs
+        setFormData(prev => ({
+          ...prev,
+          uploadedImages: result.uploadedImages || []
+        }));
 
-      const result = await response.json();
-      
-      // Update form data with uploaded image URLs
-      setFormData(prev => ({
-        ...prev,
-        uploadedImageUrls: result.uploadedImages || []
-      }));
+        setUploadStatus('success');
+        setImagesUploaded(true);
 
-      setUploadStatus('success');
-      setImagesUploaded(true);
-      
-      // Auto close modal after 2 seconds on success
-      setTimeout(() => {
-        setShowUploadModal(false);
-      }, 3000);
-
+        // Auto close modal after 2 seconds on success
+        setTimeout(() => {
+          setShowUploadModal(false);
+        }, 3000);  
+      } else { 
+        // If the response status is not in the success range, handle the error
+        throw new Error(response.data?.error || 'Upload failed');
+      }  
     } catch (error) {
       console.error('Upload error:', error);
       setUploadStatus('error');
@@ -219,21 +219,26 @@ const CreateNewListing = () => {
 
   // Navigate to preview page
   const handlePreviewInfo = () => {
-    // navigate('/preview-listing', { state: { formData } });
-    console.log('Navigating to preview with data:', formData);
-    alert('Preview functionality - would navigate to preview page');
+    setShowPreview(true);
+  };
+
+  // Handle back from preview
+  const handleBackFromPreview = (targetStep) => {
+    setShowPreview(false);
+    goToStep(targetStep);
   };
 
 
+  
+  // Final submission handler
+  const handleFinalSubmit = async () => {
 
-  // Apartment data submittion handler
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    
-    console.log('Submitted Form Data:', formData);
-    // Call API or show success toast here
-    alert('Listing submitted successfully!');
+    setShowSubmitModal(true)
+
+    //await createNewListing(formData)
+    console.log(formData)
   };
+
 
 
   const renderStep = () => {
@@ -253,12 +258,26 @@ const CreateNewListing = () => {
             handleImageDrop={handleImageDrop}
             errors={errors} 
             showError={showError}
+            imagesUploaded={imagesUploaded}
           />
         )
       default:
         return null;
     }
   };
+
+
+  // Navigate to the preview listing page
+  if (showPreview) {
+    return (
+      <PreviewListing 
+        formData={formData}
+        onBackToStep={handleBackFromPreview}
+        onFinalSubmit={handleFinalSubmit}
+      />
+    );
+  }
+
 
   const getErrorMessage = () => {
     const errorCount = Object.keys(errors).length;
@@ -286,7 +305,7 @@ const CreateNewListing = () => {
   );
 
 
-  // Upload Modal Component
+  // Upload Modal
   const UploadModal = () => {
     if (!showUploadModal) return null;
 
@@ -345,6 +364,81 @@ const CreateNewListing = () => {
   };
 
 
+  // Submit Modal
+  const SubmitModal = () => {
+    if (!showSubmitModal) return null;
+  
+    return (
+      <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative">
+          {!loading && (
+            <button
+              onClick={() => setShowUploadModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          )}
+  
+          <div className="text-center">
+            {loading && (
+              <>
+                <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Loader2 className="w-8 h-8 text-sky-600 animate-spin" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                  🚀 Making Your Home Shine Online!
+                </h3>
+                <p className="text-gray-600">
+                  We're putting the finishing touches on your amazing listing...
+                </p>
+              </>
+            )}
+  
+            {success && (
+              <>
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="w-8 h-8 text-green-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                  🎉 Your Home is Now Live!
+                </h3>
+                <p className="text-gray-600">
+                  Congratulations! Your listing is now visible to potential tenants. Get ready for inquiries!
+                </p>
+              </>
+            )}
+  
+            {error && (
+              <>
+                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <AlertCircle className="w-8 h-8 text-red-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                  Oops! Something Went Wrong
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Don't worry - these things happen! Let's give it another shot.
+                  <br />
+                  <span className="text-sm text-gray-500 mt-2 block">
+                    Error: {error}
+                  </span>
+                </p>
+                <button
+                  onClick={handleFinalSubmit}
+                  className="px-6 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg transition-colors duration-200 cursor-pointer"
+                >
+                  ✨ Try Again
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+
   return (
     <div className="w-full h-full min-h-screen bg-gradient-to-br from-gray-50 to-white flex flex-col">
       {/* Header */}
@@ -379,7 +473,7 @@ const CreateNewListing = () => {
 
         {/* Form */}
         <div className="bg-white mx-auto rounded-2xl  border border-gray-100 overflow-hidden">
-          <form onSubmit={handleSubmit} className="max-w-2xl px-4 py-8">
+          <form onSubmit={handleFinalSubmit} className="max-w-2xl px-4 py-8">
             {renderStep()}
 
             {/* Navigation Buttons */}
@@ -425,23 +519,14 @@ const CreateNewListing = () => {
                     </>
                   )}
                 </button>
-              ) : step === 4 && imagesUploaded ? (
-                <button
-                  type="button"
-                  onClick={handlePreviewInfo}
-                  className="px-4 py-2.5 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5 cursor-pointer focus:ring-2 focus:ring-purple-300"
-                >
-                  <Eye className="w-4 h-4" />
-                  Preview Info
-                </button>
               ) : (
                 <button
                   type="button"
-                  onClick={handleSubmit}
-                  className="px-3 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5 cursor-pointer focus:ring-2 focus:ring-emerald-300"
+                  onClick={handlePreviewInfo}
+                  className="px-4 py-2.5 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5 cursor-pointer focus:invisible"
                 >
-                  <CheckCircle className="w-4 h-4" />
-                  Submit Listing
+                  <Eye className="w-4 h-4" />
+                  Preview Info
                 </button>
               )}
             </div>
@@ -451,6 +536,9 @@ const CreateNewListing = () => {
 
       {/* Upload Modal */}
       <UploadModal />
+
+      {/* Submit Modal */}
+      <SubmitModal />
 
       <Footerbar /> 
       <Footer />

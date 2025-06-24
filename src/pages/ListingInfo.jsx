@@ -143,13 +143,13 @@ const ListingInfo = () => {
                   {apartment_amenities.map((amenity, index) => (
                     <div
                       key={index}
-                      className="bg-gray-200 text-gray-700 px-3 py-1.5 rounded-md flex items-center justify-between"
+                      className="bg-gradient-to-r from-cyan-50 to-cyan-100 border border-cyan-200 text-cyan-800 px-3 py-2 rounded-lg flex items-center justify-between"
                     >
                       <span>{amenity}</span>
                       <button
                         type="button"
                         onClick={() => handleAmenityRemove(amenity)}
-                        className="text-red-500 hover:text-red-600 cursor-pointer"
+                        className="text-cyan-600 hover:text-red-500 transition-colors duration-200 cursor-pointer"
                       >
                        &times;
                       </button>
@@ -170,7 +170,7 @@ const ListingInfo = () => {
                     type="submit"
                     className="px-6 py-3  bg-teal-500 hover:bg-teal-600 text-white rounded-md transition-all duration-200 flex items-center justify-center gap-1 focus:invisible cursor-pointer"
                   >
-                    <Plus className="w-4 h-4" />
+                    <Plus strokeWidth={3} className="w-4.5 h-4.5" />
                     Add
                   </button>
                 </form>

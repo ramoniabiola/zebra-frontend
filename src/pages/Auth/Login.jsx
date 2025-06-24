@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Eye, EyeOff, Mail, Lock, ArrowRight } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, ArrowRight, Loader2 } from "lucide-react";
 import { useLogin } from "../../hooks/auth";
 import { useDispatch } from "react-redux";
-import { RingLoader } from "react-spinners";
+
 
 
 
@@ -253,10 +253,7 @@ const Login = () => {
         >
           {isLoading ? (
             <>
-              <RingLoader
-                color="#ffffff" 
-                size={24} 
-              />
+              <Loader2 className="w-5 h-5 text-white animate-spin" />
               <span>Logging In...</span>
             </>
           ) : (

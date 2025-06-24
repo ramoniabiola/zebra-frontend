@@ -35,8 +35,9 @@ const MyDashboard = () => {
     const underline = underlineRef.current;
 
     if (activeElement && underline) {
-      underline.style.width = `${activeElement.offsetWidth}px`;
-      underline.style.left = `${activeElement.offsetLeft}px`;
+      const padding = 6;
+      underline.style.width = `${activeElement.offsetWidth - padding * 2}px`;
+      underline.style.left = `${activeElement.offsetLeft + padding}px`;
     }
   }, [activeTab]);
 
@@ -60,47 +61,47 @@ const MyDashboard = () => {
 
       {/* STATS CARD - 2 per row (2x2) */}
       <div className="w-full p-2 bg-slate-50">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-1.5 mb-6">
           {/* Active Listings */}
-          <div className="flex flex-col items-center justify-center bg-white rounded-xl py-2 px-4 shadow-sm border border-gray-100">
+          <div className="flex flex-col items-center justify-center bg-white rounded-lg py-2 px-4 border border-gray-100 shadow-xl shadow-violet-50 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center justify-between mb-2">
-              <div className="p-3 rounded-xl bg-violet-50">
+              <div className="p-2 rounded-xl bg-violet-50 border border-violet-100">
                 <Home 
-                  className="w-7 h-7 text-violet-600" 
+                  className="w-7 h-7 text-violet-700" 
                 />
               </div>
             </div>
             <div className="space-y-1">
-              <p className="text-base text-center font-medium text-gray-600">Active Listings</p>
-              <h2 className="text-xl font-bold text-center text-gray-900">{user.activeListings}</h2>
+              <p className="text-base text-center font-medium text-gray-600 tracking-wider">Active Listings</p>
+              <h2 className="text-2xl font-extrabold font-mono text-center text-gray-800">{user.activeListings}</h2>
             </div>
           </div>
 
           {/* Total Listings */}
-          <div className="flex flex-col items-center justify-center bg-white rounded-xl py-2 px-4 shadow-sm border border-gray-100">
+          <div className="flex flex-col items-center justify-center bg-white rounded-lg py-2 px-4 shadow-xl border border-gray-100 shadow-amber-50 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center justify-between mb-2">
-              <div className="p-3 rounded-xl bg-amber-50">
+              <div className="p-2 rounded-xl bg-amber-50 border border-amber-100">
                 <FileText 
                   className="w-7 h-7 text-amber-600" 
                 />
               </div>    
             </div>
             <div className="space-y-1">
-              <p className="text-base text-center font-medium text-gray-600">Total Listings</p>
-              <h2 className="text-xl font-bold text-center text-gray-900">{user.totalListings}</h2>
+              <p className="text-base text-center font-medium text-gray-600 tracking-wider">Total Listings</p>
+              <h2 className="text-2xl font-extrabold font-mono text-center text-gray-800">{user.totalListings}</h2>
             </div>
           </div>
 
           {/* User Role */}
-          <div className="flex flex-col items-center justify-center bg-white rounded-xl py-2 px-4 shadow-sm border border-gray-100">
+          <div className="flex flex-col items-center justify-center bg-white rounded-lg py-2 px-4 shadow-xl border border-gray-100 shadow-emerald-50 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center justify-between mb-2">
-              <div className="p-3 rounded-xl bg-emerald-50">
+              <div className="p-2 rounded-xl bg-emerald-50 border border-emerald-100">
                 <UserRound className="w-7 h-7 text-emerald-600" />
               </div>  
             </div>
             <div className="space-y-1">
-              <p className="text-base text-center font-medium text-gray-600">User Role</p>
-              <h2 className="text-xl font-bold text-center text-gray-900">{user.role}</h2>  
+              <p className="text-base text-center font-medium  text-gray-600 tracking-wider">User Role</p>
+              <h2 className="text-xl font-bold text-center text-gray-800 tracking-wide">{user.role}</h2>  
             </div>
           </div>
         </div>
@@ -109,7 +110,7 @@ const MyDashboard = () => {
         <div className="mb-1">
           <button 
             onClick={() => navigate("/create-listing")} 
-            className="w-full bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-3 group cursor-pointer" 
+            className="w-full bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-3 group focus:invisible cursor-pointer" 
           >
            <div className="p-1 bg-white/20 rounded-lg group-hover:bg-white/30 transition-colors">
               <Plus size={20} strokeWidth={2} className="text-white" />
@@ -130,23 +131,20 @@ const MyDashboard = () => {
                   key={tab}
                   ref={tabRefs[tab]}
                   onClick={() => setActiveTab(tab)}
-                  className={`relative py-4  text-lg font-semibold transition-all duration-300 cursor-pointer focus:invisible ${
+                  className={`relative py-4 text-lg transition-all duration-300 cursor-pointer focus:invisible ${
                     activeTab === tab 
-                      ? "text-cyan-600" 
-                      : "text-gray-500 hover:text-gray-700"
+                      ? "text-cyan-600 font-semibold" 
+                      : "text-gray-400 font-normal hover:text-gray-600"
                   }`}
                 >
                   {tab}
-                  {activeTab === tab && (
-                    <div className="absolute inset-x-0 bottom-0 h-1 bg-cyan-600 rounded-t-full" />
-                  )}
                 </button>
               ))}
 
               {/* Animated Underline */}
               <span
                 ref={underlineRef}
-                className="absolute bottom-0 h-1 bg-cyan-600 rounded-t-full transition-all duration-300 ease-out"
+                className="absolute bottom-0 h-1 bg-cyan-600 rounded-full transition-all duration-300 ease-out"
                 style={{ left: 0, width: 0 }}
               />
             </div>

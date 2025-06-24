@@ -86,10 +86,10 @@ export const useCreateNewListing = () => {
             const response = await createNewListingApi(data);
             dispatch(createNewListingSuccess(response.data));
             setSuccess(true);
-            setTimeout(() => setSuccess(false), 4000);
+            setTimeout(() => setSuccess(false), 5000);
             navigate('/dashboard');
         } catch (err) {
-            dispatch(createNewListingFailure(err.response?.data?.message || "Listing creation failed"));
+            dispatch(createNewListingFailure(err.response?.data?.message || "Listing publish failed"));
         }
     };
 

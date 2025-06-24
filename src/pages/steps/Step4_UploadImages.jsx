@@ -6,7 +6,8 @@ const Step4_UploadImages = ({
   handleRemoveImage,
   handleImageDrop,
   errors, 
-  showError 
+  showError,
+  imagesUploaded
 }) => {
   
   const handleDrop = (e) => {
@@ -82,12 +83,20 @@ const Step4_UploadImages = ({
         <h3 className="text-lg font-semibold text-gray-800">
           Selected Images ({formData.images.length}/5 minimum)
         </h3>
-        <div className={`px-3 py-1.5 rounded-full text-sm font-medium ${
-          formData.images.length >= 5 
+        <div className={`px-3 py-2 rounded-full text-sm font-medium ${
+          imagesUploaded 
             ? 'bg-green-100 text-green-700'
+            :  formData.images.length >= 5 
+            ? 'bg-sky-100 text-sky-700'
             : 'bg-orange-100 text-orange-700'
         }`}>
-          {formData.images.length >= 5 ? 'Ready to upload' : `${5 - formData.images.length} more needed`}
+          { 
+            imagesUploaded 
+            ? 'Images Uploaded' 
+            : formData.images.length >= 5 
+            ? 'Ready to upload' 
+            : `${5 - formData.images.length} more needed`
+          }
         </div>
       </div>
 
@@ -114,7 +123,7 @@ const Step4_UploadImages = ({
                   )}
                   <button
                     onClick={() => handleRemoveImage(idx)}
-                    className="absolute -top-2 -right-2 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-110"
+                    className="absolute -top-2 -right-2 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-110 cursor-pointer"
                     title="Remove image"
                   >
                     <X className="w-4 h-4" />

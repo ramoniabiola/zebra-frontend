@@ -10,6 +10,7 @@ const ApartmentDetails = ({ item }) => {
     const navigate = useNavigate()
     const { apartmentId } = useParams();    
 
+   
     const handleNext = () => {
         if (currentImg < totalImages - 1) {
           setCurrentImg((prev) => prev + 1);
