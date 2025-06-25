@@ -1,11 +1,16 @@
 import { useState } from 'react';
-import { ArrowLeft, Edit, MapPin, Phone, User, Home, Camera, CheckCircle, Bed, Bath, Square, Wifi, Car, Zap, Shield, Waves, Coffee, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Edit, MapPin, Phone, User, Home, CheckCircle, Bed, Bath, Square, Wifi, Car, Zap, Shield, Waves, Coffee, ChevronLeft, ChevronRight, Loader2, X, AlertCircle } from 'lucide-react';
+import { useDispatch } from 'react-redux';
+import {  useCreateNewListing } from "../hooks/myListings";
 
-const PreviewListing = ({ formData, onBackToStep, onFinalSubmit }) => {
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
+const PreviewListing = ({ formData, onBackToStep }) => {
   const [currentImg, setCurrentImg] = useState(0);
-  const totalImages = formData?.images?.length || 0;
+  const totalImages = formData?.uploadedImages?.length || 0;
   const [isHovered, setIsHovered] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showSubmitModal, setShowSubmitModal] = useState(false);
+  const { createNewListing, success, isLoading, error } = useCreateNewListing()
+  const dispatch = useDispatch();
 
   // Amenity icons mapping
   const amenityIcons = {
@@ -36,9 +41,13 @@ const PreviewListing = ({ formData, onBackToStep, onFinalSubmit }) => {
   };
 
 
-  const handleFinalSubmit = () => {
+  const handleFinalSubmit = async () => {
     setShowConfirmModal(false);
-    onFinalSubmit?.();
+  
+    setShowSubmitModal(true)
+    
+    await createNewListing(dispatch, formData)
+    console.log(formData)
   };
 
   const formatPrice = (price) => {
@@ -85,6 +94,82 @@ const PreviewListing = ({ formData, onBackToStep, onFinalSubmit }) => {
       </div>
     );
   };
+
+
+  //  Submit Modal
+  const SubmitModal = () => {
+    if (!showSubmitModal) return null;
+  
+    return (
+      <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative">
+          {!isLoading && (
+            <button
+              onClick={() => setShowSubmitModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          )}
+  
+          <div className="text-center">
+            {isLoading && (
+              <>
+                <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Loader2 className="w-8 h-8 text-sky-600 animate-spin" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                  🚀 Making Your Vacant Home Shine Online!
+                </h3>
+                <p className="text-gray-600">
+                  Please wait while we publish your vacant listing...
+                </p>
+              </>
+            )}
+  
+            {success && (
+              <>
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="w-8 h-8 text-green-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                  🎉 Your Home is Now Live!
+                </h3>
+                <p className="text-gray-600">
+                  Congratulations! Your listing is now visible to potential tenants. Get ready for inquiries!
+                </p>
+              </>
+            )}
+  
+            {error && (
+              <>
+                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <AlertCircle className="w-8 h-8 text-red-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                  Oops! Something Went Wrong
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Don't worry - these things happen! Let's give it another shot.
+                  <br />
+                  <span className="text-sm text-gray-500 mt-2 block">
+                    Error: {error}
+                  </span>
+                </p>
+                <button
+                  onClick={handleFinalSubmit}
+                  className="px-6 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg transition-colors duration-200 cursor-pointer"
+                >
+                  ✨ Try Again
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
 
   return (
     <div className="w-full min-h-screen bg-gradient-to-br from-gray-50 to-white">
@@ -331,6 +416,9 @@ const PreviewListing = ({ formData, onBackToStep, onFinalSubmit }) => {
 
       {/* Confirmation Modal */}
       <ConfirmModal />
+
+      {/* Submit Modal */}
+      <SubmitModal />
     </div>
   );
 };

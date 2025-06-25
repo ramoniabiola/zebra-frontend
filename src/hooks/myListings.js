@@ -74,26 +74,39 @@ export const useUpdateMyListing = () => {
 
 // CREATE NEW LISTING CUSTOM HOOK
 export const useCreateNewListing = () => {
-    const dispatch = useDispatch();
-    const { loading, error } = useSelector((state) => state.myListings);
     const navigate = useNavigate();
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 
 
-    const createNewListing = async (data) => {
+    const createNewListing = async (dispatch, data) => {
         dispatch(createNewListingLoading());
+        setIsLoading(true);
+        setError(null)
+
         try {
             const response = await createNewListingApi(data);
-            dispatch(createNewListingSuccess(response.data));
-            setSuccess(true);
-            setTimeout(() => setSuccess(false), 5000);
-            navigate('/dashboard');
-        } catch (err) {
-            dispatch(createNewListingFailure(err.response?.data?.message || "Listing publish failed"));
+            if(response.status >= 200 && response.status < 300) {
+                dispatch(createNewListingSuccess(response.data));
+                setSuccess(true);
+                setTimeout(() => setSuccess(false), 10000);
+                setError(null);
+                setIsLoading(false);
+                navigate('/dashboard');
+            } else {
+                // If the response status is not in the success range, handle the error
+                throw new Error(response.data?.error || 'Listing publish failed...');
+            }
+        } catch (error) {
+             // If there's an error, set the error state to display 
+            setError(error.response?.data?.error || 'Listing publish failed!'); 
+            setIsLoading(false);
+            dispatch(createNewListingFailure(error.response?.data?.message || "Listing publish failed!"));
         }
     };
 
-    return { createNewListing, success, loading, error };
+    return { createNewListing, success, isLoading, error };
 };
 
 

@@ -65,7 +65,7 @@
           </button>
           <div className=''>
             <h1 className="text-xl font-bold text-gray-900 mb-0.5">Apartment Details</h1>
-            <p className="text-sm text-gray-500">Information about the apartment</p>
+            <p className="text-sm text-gray-500">Informations about the apartment</p>
           </div>
         </div>
 

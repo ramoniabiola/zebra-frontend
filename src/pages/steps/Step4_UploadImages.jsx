@@ -142,7 +142,8 @@ const Step4_UploadImages = ({
             <div className="mt-8 p-4 bg-sky-50 border border-sky-200 rounded-xl">
               <p className="text-sm text-sky-700">
                 <span className="font-medium">Tip:</span> The first image will be used as the main listing photo. 
-                You can reorder images by removing and re-adding them in your preferred order.
+                You can re-order images by removing and re-adding them in your preferred order.also ensure the right 
+                collection of images are picked before clicking the <b>"Upload"</b> button.
               </p>
             </div>
           )}
