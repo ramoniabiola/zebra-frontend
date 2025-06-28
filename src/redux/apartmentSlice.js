@@ -8,7 +8,7 @@ const apartmentSlice = createSlice({
         error: null,
     },
     reducers: {
-        getApartments: (state, action) => {
+        getApartmentsSuccess: (state, action) => {
             state.list = action.payload;
             state.loading = false;
             state.error = null;
@@ -26,7 +26,7 @@ const apartmentSlice = createSlice({
 });
 
 export const {
-    getApartments,
+    getApartmentsSuccess,
     getApartmentsLoading,
     getApartmentsError,
 } = apartmentSlice.actions;

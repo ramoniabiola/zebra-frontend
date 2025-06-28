@@ -99,7 +99,7 @@ export const useCreateNewListing = () => {
                 throw new Error(response.data?.error || 'Listing publish failed...');
             }
         } catch (error) {
-             // If there's an error, set the error state to display 
+            // If there's an error, set the error state to display 
             setError(error.response?.data?.error || 'Listing publish failed!'); 
             setIsLoading(false);
             dispatch(createNewListingFailure(error.response?.data?.message || "Listing publish failed!"));

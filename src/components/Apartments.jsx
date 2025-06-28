@@ -1,11 +1,23 @@
 import { HomeIcon, MapIcon, SparklesIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
-import { data } from "../utils/Data"
+import { useEffect, useState } from "react";
 import ApartmentDetails from "./ApartmentDetails";
+import { useGetApartments } from "../hooks/apartments";
+import { useSelector } from "react-redux";
 
 const Apartments = () => {
   const [activeTab, setActiveTab] = useState("new"); // default active
   const [hovered, setHovered] = useState(null);
+  const { fetchApartments, isLoading, error } = useGetApartments()
+  const apartments = useSelector((state) => state.apartments.list) || { listings: [] };
+
+
+
+  useEffect(() => {
+    fetchApartments();
+    
+  }, [fetchApartments]);
+
+ 
 
   const tabs = [
     { id: "new", label: "New", icon: <SparklesIcon className="w-6 h-6" /> },
@@ -43,9 +55,14 @@ const Apartments = () => {
 
       {/* APARTMENT LISTINGS */}
       <div className="mt-[12rem] w-full h-full flex flex-col items-center justify-center px-4 overflow-y-auto scroll-smooth mb-12">
-        {data.map((item) => (
-          <ApartmentDetails item={item} key={item.id} />
-        ))}
+        {apartments?.listings?.length > 0 ? (
+          apartments.listings.map((apartment) => (
+            <ApartmentDetails apartment={apartment} key={apartment._id} />
+          ))
+        ) : (
+          <p className="text-gray-500 text-sm">No apartments found.</p>
+        )}
+
         <div className="w-full h-full mt-12 flex flex-col items-center justify-center gap-24">
           <button className="px-4 py-2 text-white text-lg font-bold border-8 border-double bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 rounded-full  cursor-pointer focus:invisible">Show more</button>
         </div>

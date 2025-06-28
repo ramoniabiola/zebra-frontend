@@ -207,9 +207,9 @@ const CreateNewListing = () => {
         throw new Error(response.data?.error || 'Upload failed');
       }  
     } catch (error) {
-      console.error('Upload error:', error);
+      console.error('Upload error:', error.message);
       setUploadStatus('error');
-      setUploadError(error.message || 'Failed to upload images. Please try again.');
+      setUploadError('Failed to upload images. Please try again.');
     }
   };
 
