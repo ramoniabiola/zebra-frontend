@@ -123,6 +123,7 @@ const Step4_UploadImages = ({
                   )}
                   <button
                     onClick={() => handleRemoveImage(idx)}
+                    type="button"
                     className="absolute -top-2 -right-2 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-110 cursor-pointer"
                     title="Remove image"
                   >
@@ -140,7 +141,7 @@ const Step4_UploadImages = ({
           
           {formData.images.length > 0 && (
             <div className="mt-8 p-4 bg-sky-50 border border-sky-200 rounded-xl">
-              <p className="text-sm text-sky-700">
+              <p className="text-sm text-sky-700 leading-6">
                 <span className="font-medium">Tip:</span> The first image will be used as the main listing photo. 
                 You can re-order images by removing and re-adding them in your preferred order.also ensure the right 
                 collection of images are picked before clicking the <b>"Upload"</b> button.

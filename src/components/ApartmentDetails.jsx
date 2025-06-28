@@ -1,5 +1,7 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { Calendar, Heart, MapPin } from 'lucide-react';
+import { Calendar, MapPin } from 'lucide-react';
+import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
+import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -85,11 +87,15 @@ const ApartmentDetails = ({ item }) => {
 
                 {/* Heart Icon */}
                 <button
-                    className="absolute top-4 right-3 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-200 z-10 cursor-pointer"
+                    className="absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer focus:invisible"
                 >
-                    <Heart 
-                        className={`w-7 h-7 pt-0.5  transition-all duration-200 text-gray-600 hover:text-rose-500`} 
-                    />
+                    <HeartSolid className="w-12 h-12 text-black/35  cursor-pointer" />
+                </button>
+                 {/* Heart Icon */}
+                <button
+                    className="absolute top-4 right-3 hover:scale-110 transition-all duration-200 z-10 cursor-pointer focus:invisible"
+                >
+                    <HeartOutline className="w-12 h-12 text-gray-50 cursor-pointer" />
                 </button>
             </div> 
 

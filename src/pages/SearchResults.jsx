@@ -1,9 +1,8 @@
 import Footer from "../components/Footer";
 import Footerbar from "../components/Footerbar";
-import Navbar from "../components/Navbar";
-import Search from "../components/Search";
 import ApartmentDetails from "../components/ApartmentDetails";
 import { data } from "../utils/Data"
+import Search2 from "../components/Search2";
 
 
 const SearchResults = () => {
@@ -11,10 +10,9 @@ const SearchResults = () => {
 
     return (
         <div className="w-full h-full flex flex-col items-start justify-center">
-            <Navbar />
-            <Search />
-            <div className="w-full h-full flex flex-col items-center justify-start mt-38">
-                <h1 className="text-2xl text-center text-gray-600 font-semibold">Search Results for "<b className="text-gray-800">Lekki</b>"</h1>
+            <Search2 />
+            <div className="w-full h-full flex flex-col items-center justify-start mt-28">
+                <h1 className="text-2xl text-center text-gray-600 font-semibold">Search results for "<b className="text-gray-800">Lekki</b>"</h1>
                 <div className="w-full h-full flex flex-col items-center justify-center px-4 overflow-y-auto scroll-smooth mb-12">
                     {data.map((item) => (
                       <ApartmentDetails item={item} key={item.id} />

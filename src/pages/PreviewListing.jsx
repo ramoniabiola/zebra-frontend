@@ -42,7 +42,7 @@ const PreviewListing = ({ formData, onBackToStep }) => {
 
 
   const handleFinalSubmit = async () => {
-    setShowConfirmModal(false);
+    setShowConfirmModal(false); 
   
     setShowSubmitModal(true)
     
@@ -160,7 +160,7 @@ const PreviewListing = ({ formData, onBackToStep }) => {
                   onClick={handleFinalSubmit}
                   className="px-6 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg transition-colors duration-200 cursor-pointer"
                 >
-                  ✨ Try Again
+                  Try Again
                 </button>
               </>
             )}

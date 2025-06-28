@@ -6,7 +6,6 @@ import Step4_UploadImages from './steps/Step4_UploadImages';
 import StepIndicator from './steps/StepIndicator';
 import Footer from '../components/Footer';
 import Footerbar from '../components/Footerbar';
-import { useNavigate } from 'react-router-dom';
 import { AlertCircle, ArrowLeft, CheckCircle, Eye, Loader2, Upload, X } from 'lucide-react';
 import { uploadApartmentImagesApi } from '../api/apartments';
 import PreviewListing from './PreviewListing';

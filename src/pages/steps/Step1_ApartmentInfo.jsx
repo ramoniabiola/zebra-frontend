@@ -45,7 +45,7 @@ const Step1_ApartmentInfo = ({ formData, handleChange, errors }) => {
             <option value="1-bedroom">1 Bedroom</option>
             <option value="2-bedroom">2 Bedroom</option>
             <option value="3-bedroom">3 Bedroom</option>
-            <option value="semi-detached-duplex">Semi-detached Duplex</option>
+            <option value="semi-detached-duplex">S-detached Duplex</option>
             <option value="detached-duplex">Detached Duplex</option>
             <option value="studio">Studio</option>
             <option value="shared-apartment">Shared Apartment</option>

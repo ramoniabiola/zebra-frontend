@@ -1,5 +1,7 @@
   import { useState } from "react";
-  import { ChevronRightIcon, ChevronLeftIcon, HeartIcon, ShareIcon } from "@heroicons/react/24/outline";
+  import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
+  import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
+  import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
   import { Bed, Bath, Wifi, Car, Square, AlertTriangle, Phone, ArrowLeft, MapPin, Zap, Shield, Waves, Coffee, Home, User } from "lucide-react";
   import { CheckBadgeIcon }from "@heroicons/react/24/solid";
   import { apartmentInfoData } from "../utils/Data";
@@ -118,17 +120,18 @@
               ))}
           </div>
 
-          {/* Action Buttons */}
-          <div className="absolute top-4 right-2 flex space-x-3">
-            <button 
-              className={`p-2 rounded-full bg-white bg-opacity-90 hover:bg-opacity-100 text-gray-700 hover:scale-110 transition-all duration-200 cursor-pointer`}
-            >
-              <HeartIcon className="w-6 h-6 transition-all duration-200 text-gray-600 hover:text-rose-500"  />
-            </button>
-            <button className="p-2 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full text-gray-700 hover:scale-110 transition-all duration-200 cursor-pointer">
-              <ShareIcon className="w-6 h-6 text-gray-600"  />
-            </button>
-          </div>
+          {/* Heart Icon */}
+          <button
+              className="absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer focus:invisible"
+          >
+              <HeartSolid className="w-12 h-12 text-black/35  cursor-pointer" />
+          </button>
+           {/* Heart Icon */}
+          <button
+              className="absolute top-4 right-3 hover:scale-110 transition-all duration-200 z-10 cursor-pointer focus:invisible"
+          >
+              <HeartOutline className="w-12 h-12 text-gray-50 cursor-pointer" />
+          </button>
         </div>
 
         {/* APARTMENT INFORMATION */}

@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { Calendar, MapPin } from 'lucide-react';
-import { HeartIcon } from "@heroicons/react/24/solid";
+import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
+import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
+
 import { useNavigate, useParams } from "react-router-dom";
 
 
@@ -86,9 +88,15 @@ const BookmarkCard = ({ item }) => {
 
                 {/* Heart Icon */}
                 <button
-                    className="absolute top-4 right-3 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-200 z-10 cursor-pointer focus:invisible"
+                    className="absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer focus:invisible"
                 >
-                    <HeartIcon className="w-8 h-8 text-rose-500 cursor-pointer" />
+                    <HeartSolid className="w-12 h-12 text-rose-500  cursor-pointer" />
+                </button>
+                 {/* Heart Icon */}
+                <button
+                    className="absolute top-4 right-3 hover:scale-110 transition-all duration-200 z-10 cursor-pointer focus:invisible"
+                >
+                    <HeartOutline className="w-12 h-12 text-gray-50 cursor-pointer" />
                 </button>
             </div>
 

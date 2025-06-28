@@ -29,7 +29,7 @@ const Bookmarks = () => {
 
                 {/* BOOKMARKS SEARCH INPUT FIELD */}
                 <div className="w-full h-20 flex items-center justify-center bg-white">
-                    <div className="relative bg-white w-11/12 h-8/12 border-2 border-stone-200 rounded-xl">  
+                    <div className="relative bg-stone-100 w-11/12 h-8/12 border border-stone-200 rounded-xl">  
                         <input
                           type="text"
                           placeholder="Search your wishlists"
