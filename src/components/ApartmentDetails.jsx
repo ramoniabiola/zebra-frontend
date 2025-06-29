@@ -3,7 +3,7 @@ import { Calendar, MapPin } from 'lucide-react';
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { formatDistanceToNow } from 'date-fns';
 
 const ApartmentDetails = ({ apartment }) => {
@@ -11,7 +11,7 @@ const ApartmentDetails = ({ apartment }) => {
     const [isHovered, setIsHovered] = useState(false);
     const totalImages = apartment.uploadedImages?.length || 0;
     const navigate = useNavigate()
-    const { apartmentId } = useParams();  
+     
 
 
     // Price Formatting
@@ -123,7 +123,7 @@ const ApartmentDetails = ({ apartment }) => {
             </div> 
 
             {/* Apartment Info */}
-            <div onClick={() => navigate(`/apartment/${apartmentId}`)} className="w-full mt-4 flex flex-col gap-2.5 text-left">
+            <div onClick={() => navigate(`/apartment/${apartment._id}`)} className="w-full mt-4 flex flex-col gap-2.5 text-left">
                 <div className="flex items-start justify-between gap-3">
                     <h1 className="text-xl   font-semibold text-slate-900 leading-tight group-hover:text-slate-900 transition-colors">
                         {apartment.title}

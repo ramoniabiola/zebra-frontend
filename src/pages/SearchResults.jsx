@@ -4,7 +4,7 @@ import ApartmentDetails from "../components/ApartmentDetails";
 import Search2 from "../components/Search2";
 import { useGetApartments } from "../hooks/apartments";
 import { useSelector } from "react-redux";
-import ApartmentDetailsLoadingSkeleton from "../utils/loading-display/ApartmentDetailsLoadingSkeleton";
+import ApartmentDetailsSkeleton from "../utils/loading-display/ApartmentDetailsSkeleton";
 import { useEffect } from "react";
 
 
@@ -49,11 +49,14 @@ const SearchResults = () => {
             <div className="w-full h-full flex flex-col items-center justify-start mt-28">
                 <h1 className="text-2xl text-center text-gray-600 font-semibold">Search results for "<b className="text-gray-800">Lekki</b>"</h1>
                 <div className="w-full h-full flex flex-col items-center justify-center px-4 overflow-y-auto scroll-smooth mb-12">
-                   {error ? (
+                   {error ? 
+                        (
                             <ErrorDisplay />
-                        ) : isLoading ? (
-                            <ApartmentDetailsLoadingSkeleton cards={2} />
-                        ) : apartments?.listings?.length > 0 ? (
+                        ) : isLoading ? 
+                        (
+                            <ApartmentDetailsSkeleton cards={2} />
+                        ) : apartments?.listings?.length > 0 ? 
+                        (
                             apartments.listings.map((apartment) => (
                                 <ApartmentDetails apartment={apartment} key={apartment._id} />
                             ))

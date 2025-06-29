@@ -1,9 +1,9 @@
-import { HomeIcon, MapIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import { ExclamationTriangleIcon, HomeIcon, MapIcon, SparklesIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import ApartmentDetails from "./ApartmentDetails";
 import { useGetApartments } from "../hooks/apartments";
 import { useSelector } from "react-redux";
-import ApartmentDetailsLoadingSkeleton from "../utils/loading-display/ApartmentDetailsLoadingSkeleton";
+import ApartmentDetailsSkeleton from "../utils/loading-display/ApartmentDetailsSkeleton";
 
 const Apartments = () => {
   const [activeTab, setActiveTab] = useState("new"); // default active
@@ -81,15 +81,18 @@ const Apartments = () => {
 
       {/* APARTMENT LISTINGS */}
       <div className="mt-[12rem] w-full h-full flex flex-col items-center justify-center px-4 overflow-y-auto scroll-smooth mb-12">
-        {error ? (
-          <ErrorDisplay />
-        ) : isLoading ? (
-          <ApartmentDetailsLoadingSkeleton cards={2} />
-        ) : apartments?.listings?.length > 0 ? (
-          apartments.listings.map((apartment) => (
-            <ApartmentDetails apartment={apartment} key={apartment._id} />
-          ))
-        ) : (
+        {error ? 
+          (
+            <ErrorDisplay />
+          ) : isLoading ? 
+          (
+            <ApartmentDetailsSkeleton cards={4} />
+          ) : apartments?.listings?.length > 0 ? 
+          (
+            apartments.listings.map((apartment) => (
+              <ApartmentDetails apartment={apartment} key={apartment._id} />
+            ))
+          ) : (
           <p className="text-gray-500 text-sm">No apartments found.</p>
         )}
 
