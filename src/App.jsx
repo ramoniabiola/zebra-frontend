@@ -1,5 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { SkeletonTheme } from "react-loading-skeleton";
 
 // Import pages
 import Login from './pages/Auth/Login';
@@ -21,30 +22,32 @@ import DeactivatedListingInfo from './pages/DeactivatedListingInfo';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        {/* Auth Section */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/change-password" element={<PasswordChange />} />
+    <SkeletonTheme baseColor="#e0e0e0" highlightColor="#f5f5f5">
+      <Router>
+        <Routes>
+          {/* Auth Section */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/change-password" element={<PasswordChange />} />
 
-        {/* Core Section */}
-        <Route path="/" element={<Homepage />} />
-        <Route path="/apartment/:id" element={<ApartmentInfo />} />
-        <Route path="/bookmarks" element={<Bookmarks />} />
-        <Route path="/create-listing" element={<CreateNewListing />} />
-        <Route path="/listing/:id" element={<ListingInfo />} />
-        <Route path="/deactivated-listing/:id" element={<DeactivatedListingInfo />} />
-        <Route path="/dashboard" element={<MyDashboard />} />
-        <Route path="/search" element={<SearchResults />} />
-        <Route path="/profile" element={<UserProfile />} />
-        <Route path="/notifications" element={<NotificationPage />} />
+          {/* Core Section */}
+          <Route path="/" element={<Homepage />} />
+          <Route path="/apartment/:id" element={<ApartmentInfo />} />
+          <Route path="/bookmarks" element={<Bookmarks />} />
+          <Route path="/create-listing" element={<CreateNewListing />} />
+          <Route path="/listing/:id" element={<ListingInfo />} />
+          <Route path="/deactivated-listing/:id" element={<DeactivatedListingInfo />} />
+          <Route path="/dashboard" element={<MyDashboard />} />
+          <Route path="/search" element={<SearchResults />} />
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/notifications" element={<NotificationPage />} />
 
-        {/* Security & Inquiry */}
-        <Route path="/support" element={<SupportPage />} />
-        <Route path="/report" element={<Report />} />
-      </Routes>
-    </Router>
+          {/* Security & Inquiry */}
+          <Route path="/support" element={<SupportPage />} />
+          <Route path="/report" element={<Report />} />
+        </Routes>
+      </Router>
+    </SkeletonTheme>
   );
 }
 

@@ -13,6 +13,7 @@ const ApartmentDetails = ({ apartment }) => {
     const navigate = useNavigate()
     const { apartmentId } = useParams();  
 
+
     // Price Formatting
     const formatPrice = (price) => {
         return new Intl.NumberFormat('en-NG', {

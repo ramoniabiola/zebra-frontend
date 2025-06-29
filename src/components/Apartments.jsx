@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import ApartmentDetails from "./ApartmentDetails";
 import { useGetApartments } from "../hooks/apartments";
 import { useSelector } from "react-redux";
+import ApartmentDetailsLoadingSkeleton from "../utils/loading-display/ApartmentDetailsLoadingSkeleton";
 
 const Apartments = () => {
   const [activeTab, setActiveTab] = useState("new"); // default active
   const [hovered, setHovered] = useState(null);
   const { fetchApartments, isLoading, error } = useGetApartments()
-  const apartments = useSelector((state) => state.apartments.list) || { listings: [] };
+  const apartments = useSelector((state) => state.apartments.list);
 
 
 
@@ -17,6 +18,12 @@ const Apartments = () => {
     
   }, [fetchApartments]);
 
+  
+  
+  const handleRetry = () => {
+    fetchApartments();
+  };
+
  
 
   const tabs = [
@@ -24,6 +31,25 @@ const Apartments = () => {
     { id: "apartments", label: "Apartments", icon: <HomeIcon className="w-6 h-6" /> },
     { id: "top-locations", label: "Top Locations", icon: <MapIcon className="w-6 h-6" /> },
   ];
+
+  // Error Display
+  const ErrorDisplay = () => (
+    <div className="text-center py-8">
+      <ExclamationTriangleIcon className="w-12 h-12 text-red-500 mx-auto mb-4" />
+      <h3 className="text-lg font-semibold text-gray-800 mb-2">
+        Something went wrong
+      </h3>
+      <p className="text-gray-600 mb-4">
+        {error?.message || "Failed to load apartments"}
+      </p>
+      <button
+        onClick={handleRetry}
+        className="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded transition-colors"
+      >
+        Try Again
+      </button>
+    </div>
+  );
 
   return (
     <div className="h-full w-full flex flex-col items-start justify-center">
@@ -55,7 +81,11 @@ const Apartments = () => {
 
       {/* APARTMENT LISTINGS */}
       <div className="mt-[12rem] w-full h-full flex flex-col items-center justify-center px-4 overflow-y-auto scroll-smooth mb-12">
-        {apartments?.listings?.length > 0 ? (
+        {error ? (
+          <ErrorDisplay />
+        ) : isLoading ? (
+          <ApartmentDetailsLoadingSkeleton cards={2} />
+        ) : apartments?.listings?.length > 0 ? (
           apartments.listings.map((apartment) => (
             <ApartmentDetails apartment={apartment} key={apartment._id} />
           ))
@@ -63,9 +93,13 @@ const Apartments = () => {
           <p className="text-gray-500 text-sm">No apartments found.</p>
         )}
 
-        <div className="w-full h-full mt-12 flex flex-col items-center justify-center gap-24">
-          <button className="px-4 py-2 text-white text-lg font-bold border-8 border-double bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 rounded-full  cursor-pointer focus:invisible">Show more</button>
-        </div>
+        {!error && !isLoading && apartments?.listings?.length > 0 && (
+          <div className="w-full h-full mt-12 flex flex-col items-center justify-center gap-24">
+            <button className="px-4 py-2 text-white text-lg font-bold border-8 border-double bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 rounded-full cursor-pointer focus:invisible">
+              Show more
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
