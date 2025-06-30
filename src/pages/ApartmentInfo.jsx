@@ -98,9 +98,9 @@ import ApartmentInfoSkeleton from "../utils/loading-display/ApartmentInfoSkeleto
 
     // Error Display
     const ErrorDisplay = () => (
-      <div className="text-center py-8">
+      <div className="h-screen w-full flex flex-col items-center justify-center text-center py-8">
         <ExclamationTriangleIcon className="w-12 h-12 text-red-500 mx-auto mb-4" />
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">
+        <h3 className="text-lg font-semibold text-gray-800 mb-1">
           Something went wrong
         </h3>
         <p className="text-gray-600 mb-4">
@@ -108,7 +108,7 @@ import ApartmentInfoSkeleton from "../utils/loading-display/ApartmentInfoSkeleto
         </p>
         <button
           onClick={handleRetry}
-          className="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded transition-colors"
+          className="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded transition-colors cursor-pointer"
         >
           Try Again
         </button>

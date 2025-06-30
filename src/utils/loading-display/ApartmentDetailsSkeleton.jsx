@@ -11,6 +11,10 @@ const ApartmentDetailsSkeleton = ({ cards }) => {
           <Skeleton width={260} count={2} borderRadius={4}  />
           <Skeleton  width={150}  borderRadius={4}/>
         </div>
+        <div className="w-full flex items-center justify-between mt-2 pt-4 px-1.5 border-t border-gray-100">
+          <Skeleton  width={100}  borderRadius={4}/>
+          <Skeleton  width={60}  borderRadius={4}/>
+        </div>
       </div>
     )
   );
