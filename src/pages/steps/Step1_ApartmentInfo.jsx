@@ -48,6 +48,7 @@ const Step1_ApartmentInfo = ({ formData, handleChange, errors }) => {
             <option value="semi-detached-duplex">S-detached Duplex</option>
             <option value="detached-duplex">Detached Duplex</option>
             <option value="studio">Studio</option>
+            <option value="mini-flat">Mini-Flat</option>
             <option value="shared-apartment">Shared Apartment</option>
           </select>
           {errors?.apartment_type && <p className="mt-1 text-sm text-red-600">{errors.apartment_type}</p>}

@@ -13,6 +13,7 @@ const useQuery = () => {
     return new URLSearchParams(useLocation().search);
 };
 
+
 const SearchResults = () => {
     const query = useQuery().get('q')
     const [apartments, setApartments] = useState([]);
@@ -35,8 +36,7 @@ const SearchResults = () => {
             throw new Error(response.data.error);
           }
         }catch(error){
-          setIsLoading(false)
-          console.log(error.response?.data?.message)
+          setIsLoading(false)   
           setError(error.response?.data?.message || `Apartments "${query}" not found...`)
         }
     }
@@ -67,7 +67,7 @@ const SearchResults = () => {
             <button
                 onClick={handleRetry}
                 className="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded transition-colors cursor-pointer"
-            >
+            > 
                 Try Again
             </button>
         </div>
