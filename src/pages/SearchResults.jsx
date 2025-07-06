@@ -36,8 +36,15 @@ const SearchResults = () => {
             throw new Error(response.data.error);
           }
         }catch(error){
-          setIsLoading(false)   
-          setError(error.response?.data?.message || `Apartments "${query}" not found...`)
+             setIsLoading(false);
+            if (error.response?.status === 404) {
+              // 404 - Not Found
+              setError(`Apartments "${query}" not found...`);
+            } else {
+              // 500 - Internal Server Error (or any other error)
+              setError(error.response?.data?.message || 'Internal server error');
+            }
+            
         }
     }
     
@@ -62,7 +69,7 @@ const SearchResults = () => {
                 Something went wrong
             </h3>
             <p className="text-gray-600 mb-4">
-                {error?.message || "Failed to load apartments"}
+                {error}
             </p>
             <button
                 onClick={handleRetry}

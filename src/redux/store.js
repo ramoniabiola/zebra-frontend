@@ -16,11 +16,13 @@ import bookmarkReducer from './bookmarkSlice';
 import apartmentReducer from './apartmentSlice';
 import myListingsReducer from './myListingSlice';
 import myDeactivatedListingsReducer from './myDeactivatedListingsSlice';
+import isBookmarkedReducer from './isBookmarkedSlice';
 
 // Combine all your reducers
 const rootReducer = combineReducers({
   auth: authReducer,
   bookmarks: bookmarkReducer,
+  isBookmarked: isBookmarkedReducer,
   apartments: apartmentReducer,
   myListings: myListingsReducer,
   myDeactivatedListings: myDeactivatedListingsReducer,
@@ -30,7 +32,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'bookmarks'], 
+  whitelist: ['auth', 'isBookmarked'], 
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

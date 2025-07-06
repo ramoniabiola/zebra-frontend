@@ -27,7 +27,7 @@ const bookmarkSlice = createSlice({
 
         // ADD BOOKMARK
         addBookmarkSuccess: (state, action) => {
-            state.items.unshift(action.payload);
+            state.items?.bookmarks.unshift(action.payload);
         },
 
         addBookmarkFailure: (state, action) => {
@@ -36,7 +36,7 @@ const bookmarkSlice = createSlice({
 
         // REMOVE BOOKMARK
         removeBookmarkSuccess: (state, action) => {
-           state.items = state.items.filter(b => b._id !== action.payload);  
+          state.items?.filter((b) => b.apartmentId?._id !== action.payload);
         },
 
         removeBookmarkFailure: (state, action) => {
@@ -44,7 +44,11 @@ const bookmarkSlice = createSlice({
         },
 
         // CLEAR ALL BOOKMARK
-        clearBookmark: (state) => initialState
+        clearBookmark: () => ({
+            items: [],
+            loading: false,
+            error: null,
+        })
 
     } 
 });

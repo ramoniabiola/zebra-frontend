@@ -7,14 +7,15 @@ import { useDispatch } from "react-redux";
 
 
 
+
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [focusedField, setFocusedField] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
-  const [shakingFields, setShakingFields] = useState({}); // Track which fields should s
+  const [shakingFields, setShakingFields] = useState({}); // Track which fields shoulds
   const { login, error, isLoading } = useLogin(); 
-
+ 
   const navigate = useNavigate()
   const dispatch = useDispatch();
 

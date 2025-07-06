@@ -2,125 +2,228 @@ import { useEffect, useState } from "react";
 import { ChevronRightIcon, ChevronLeftIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
-import { Bed, Bath, Wifi, Car, Square, AlertTriangle, Phone, ArrowLeft, MapPin, Zap, Shield, Waves, Coffee, Home, User } from "lucide-react";
+import { Bed, Bath, Wifi, Car, Square, AlertTriangle, Phone, ArrowLeft, MapPin, Zap, Shield, Waves, Coffee, Home, User, AlertCircle, X } from "lucide-react";
 import { CheckBadgeIcon }from "@heroicons/react/24/solid";
 import Footer from "../components/Footer";
 import { useNavigate, useParams } from 'react-router-dom';
 import Footerbar from "../components/Footerbar";
 import { fetchApartmentByIdApi } from "../api/apartments";
 import ApartmentInfoSkeleton from "../utils/loading-display/ApartmentInfoSkeleton";
+import { useSelector } from "react-redux";
+import { useToggleBookmark } from "../hooks/bookmarks";
 
 
 
-  const ApartmentInfo = () => {
-    const { id: apartmentId } = useParams();
-    const [currentImg, setCurrentImg] = useState(0);
-    const [apartment, setApartment]  = useState({}) 
-    const [isLoading, setIsLoading] = useState(true)
-    const [error, setError] = useState(null)
-    const totalImages = apartment?.uploadedImages?.length || 0;
-    const [isHovered, setIsHovered] = useState(false);
-    const navigate = useNavigate();
+const ApartmentInfo = () => {
+  const { id: apartmentId } = useParams();
+  const [currentImg, setCurrentImg] = useState(0);
+  const [apartment, setApartment]  = useState({}) 
+  const [isLoading, setIsLoading] = useState(true)
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
+  const totalImages = apartment?.uploadedImages?.length || 0;
+  const [isHovered, setIsHovered] = useState(false);
+  const userId = useSelector((state) => state.auth.user?._id);
+  const { toggleBookmark, error, setError } = useToggleBookmark();
+  const bookmarked = useSelector((state) => state.isBookmarked?.apartments || []);
+ 
+  
+  const navigate = useNavigate();
 
-    // Amenity icons mapping
-    const amenityIcons = {
-      'WiFi': Wifi,
-      'Parking': Car,
-      'Power': Zap,
-      'Security': Shield,
-      'Swimming Pool': Waves,
-      'Kitchen': Coffee,
-      'Air Conditioning': Zap,
-      'Gym': Home,
-      'Elevator': Home,
-      'Garden': Home,
-      'Balcony': Home,
-      'Furnished': Home
-    }
+  
+
+  // Amenity icons mapping
+  const amenityIcons = {
+    'WiFi': Wifi,
+    'Parking': Car,
+    'Power': Zap,
+    'Security': Shield,
+    'Swimming Pool': Waves,
+    'Kitchen': Coffee,
+    'Air Conditioning': Zap,
+    'Gym': Home,
+    'Elevator': Home,
+    'Garden': Home,
+    'Balcony': Home,
+    'Furnished': Home
+  }
+  
 
 
-    
-    const getApartment = async () => {
-      setIsLoading(true);
-      setError(null)
-
-
-      try{
-        const response = await fetchApartmentByIdApi(apartmentId);
-        if(response.status >= 200 && response.status < 300) {
-          setApartment(response.data);
-          setError(null);
-          setIsLoading(false);
-        } else {
-          // If the response status is not in the success range, handle the error
-          throw new Error(response.data.error);
-        }
-      }catch(error){
-        setIsLoading(false)
-        console.log(error.response?.data?.message)
-        setError(error.response?.data?.message || "Failed to fetch apartment")
+  const getApartment = async () => {
+    setIsLoading(true);
+    setErrorMessage(null)
+    try{
+      const response = await fetchApartmentByIdApi(apartmentId);
+      if(response.status >= 200 && response.status < 300) {
+        setApartment(response.data);
+        setErrorMessage(null);
+        setIsLoading(false);
+      } else {
+        // If the response status is not in the success range, handle the error
+        throw new Error(response.data.error);
       }
+    }catch(error){
+      setIsLoading(false)
+      console.log(error.response?.data?.message)
+      setErrorMessage(error.response?.data?.message || "Failed to fetch apartment")
+    }
+  }
+
+
+  useEffect(() => { 
+    getApartment();
+  }, [apartmentId]);
+
+ 
+  const handleRetry = () => {
+    getApartment();
+  };
+
+
+  const isBookmarked = bookmarked.some(
+    (b) => b?.apartmentId === apartment._id
+  );
+
+  const handleToggleBookmark = async () => {
+        
+    // Check if user is authenticated
+    if (!userId) {
+      setShowAuthDialog(true);
+      return;
     }
 
-    useEffect(() => { 
-      getApartment();
-    }, [apartmentId]);
+    await toggleBookmark(apartment._id, isBookmarked);
+  }
+   
+    
 
+
+  const handleDialogClose = () => {
+    setShowAuthDialog(false);
+  }
+
+
+  const handleLoginNavigation = () => {
+    setShowAuthDialog(false);
+    navigate('/login');
+  }
+
+  const handleRegisterNavigation = () => {
+    setShowAuthDialog(false);
+    navigate('/register');
+  }
+  
+
+  const handleNext = () => {
+    if (currentImg < totalImages - 1) {
+      setCurrentImg((prev) => prev + 1);
+    }
+  };
+  
+  const handlePrev = () => {
+    if (currentImg > 0) {
+      setCurrentImg((prev) => prev - 1);
+    }
+  };
+
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('en-NG', {
+      style: 'currency',
+      currency: 'NGN',
+      minimumFractionDigits: 0
+    }).format(price);
+  };
 
    
-
-    const handleRetry = () => {
-      getApartment()
-    };
-
-    const handleNext = () => {
-      if (currentImg < totalImages - 1) {
-        setCurrentImg((prev) => prev + 1);
-      }
-    };
-    
-    const handlePrev = () => {
-      if (currentImg > 0) {
-        setCurrentImg((prev) => prev - 1);
-      }
-    };
-
-    const formatPrice = (price) => {
-      return new Intl.NumberFormat('en-NG', {
-        style: 'currency',
-        currency: 'NGN',
-        minimumFractionDigits: 0
-      }).format(price);
-    };
-
-
-    
-
-    // Error Display
-    const ErrorDisplay = () => (
-      <div className="h-screen w-full flex flex-col items-center justify-center text-center py-8">
-        <ExclamationTriangleIcon className="w-12 h-12 text-red-500 mx-auto mb-4" />
-        <h3 className="text-lg font-semibold text-gray-800 mb-1">
-          Something went wrong
-        </h3>
-        <p className="text-gray-600 mb-4">
-          {error?.message || "Failed to fetch apartment"}
-        </p>
+  // Authentication Dialog Component
+  const AuthDialog = () => (
+    <div className="fixed inset-0 bg-black/20 bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg p-6 max-w-md w-11/12 mx-4 relative">
+        {/* Close button */}
         <button
-          onClick={handleRetry}
-          className="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded transition-colors cursor-pointer"
+          onClick={handleDialogClose}
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
         >
-          Try Again
+          <X className="w-5 h-5" />
         </button>
+        {/* Dialog content */}
+        <div className="text-center">
+          <div className="mb-4">
+            <HeartSolid className="w-14 h-14 text-rose-500 mx-auto mb-3" />
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">
+              Save Your Favorite Apartments
+            </h2>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Log in to add this apartment to your wishlist and keep track of your favorite potential homes.
+            </p>
+          </div>
+          {/* Action buttons */}
+          <div className="flex flex-col gap-3 mt-6">
+            <button
+              onClick={handleLoginNavigation}
+              className="w-full shadow-lg bg-cyan-600 text-white py-2 px-2 rounded-lg font-medium hover:bg-cyan-700 transition-colors cursor-pointer"
+            >
+              Log In
+            </button>
+            <button
+              onClick={handleRegisterNavigation}
+              className="w-full border shadow-lg border-gray-300 text-gray-700 py-1.5 px-4 rounded-lg font-medium hover:bg-gray-50 transition-colors cursor-pointer"
+            >
+              Create Account
+            </button>
+          </div>
+          <p className="text-xs text-gray-500 mt-4">
+            Don't have an account? Create one to start building your wishlist.
+          </p>
+        </div>
       </div>
-    );
+    </div>
+  );
+  
+  
+  
+
+  // Error Display
+  const ErrorDisplay = () => (
+    <div className="h-screen w-full flex flex-col items-center justify-center text-center py-8">
+      <ExclamationTriangleIcon className="w-12 h-12 text-red-500 mx-auto mb-4" />
+      <h3 className="text-lg font-semibold text-gray-800 mb-1">
+        Something went wrong
+      </h3>
+      <p className="text-gray-600 mb-4">
+        {errorMessage?.message || "Failed to fetch apartment"}
+      </p>
+      <button
+        onClick={handleRetry}
+        className="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded transition-colors cursor-pointer"
+      >
+        Try Again
+      </button>
+    </div>
+  );
+
+  // Bookmark Error Alert Component
+  const ErrorAlert = ({ onClose }) => (
+    <div className="p-2 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3 animate-in slide-in-from-top-2 duration-300">
+      <AlertCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
+      <div className="flex-1">
+        <p className="text-sm text-red-700 font-medium">{error}</p>
+      </div>
+      {onClose && (
+        <button onClick={onClose} className="text-red-400 hover:text-red-600">
+          <X className="w-4 h-4" />
+        </button>
+      )}
+    </div>
+  );
+      
 
 
-
-
-    return (
+  return (
+    <>
       <div className="h-full w-full overflow-hidden flex flex-col items-start justify-items-start">
-        { error ? 
+        {errorMessage ? 
         (
           <ErrorDisplay />
         ) : isLoading ? 
@@ -156,7 +259,6 @@ import ApartmentInfoSkeleton from "../utils/loading-display/ApartmentInfoSkeleto
                   const optimizedUrl = image.includes("/upload/") 
                   ? image.replace("/upload/", "/upload/f_auto,q_auto/")
                   : image;
-
                   return(
                     <img
                     key={index}
@@ -179,37 +281,51 @@ import ApartmentInfoSkeleton from "../utils/loading-display/ApartmentInfoSkeleto
                   <ChevronRightIcon className="w-6 h-6 text-gray-600" />
                 </button>
               )}
-
               {/* Image Indicators */}
               <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-1.5">
-                  {apartment?.uploadedImages?.map((_, index) => (
-                    <button
-                    key={index}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      index === currentImg 
-                          ? 'bg-white scale-110' 
-                          : 'bg-white opacity-50'
-                      }`}
-                    />
-                  ))}
+                {apartment?.uploadedImages?.map((_, index) => (
+                  <button
+                  key={index}
+                  className={`w-2 h-2 rounded-full transition-all ${
+                    index === currentImg 
+                      ? 'bg-white scale-110' 
+                      : 'bg-white opacity-50'
+                    }`}
+                  />
+                ))}
               </div>
 
               {/* Heart Icon */}
-              <button
-                  className="absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer focus:invisible"
-                  >
-                  <HeartSolid className="w-12 h-12 text-black/35  cursor-pointer" />
-              </button>
-               {/* Heart Icon */}
-              <button
-                  className="absolute top-4 right-3 hover:scale-110 transition-all duration-200 z-10 cursor-pointer focus:invisible"
+              <div 
+                onClick={handleToggleBookmark}
               >
-                  <HeartOutline className="w-12 h-12 text-gray-50 cursor-pointer" />
-              </button>
+                {
+                  isBookmarked ? (  
+                    <>   
+                      <HeartSolid className="w-12 h-12 text-rose-500 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
+                      <HeartOutline className="w-12 h-12 text-gray-50 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
+                    </> 
+                  ) : (
+                    <>   
+                      <HeartSolid className="w-12 h-12 text-black/35 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
+                      <HeartOutline className="w-12 h-12 text-gray-50 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
+                    </>
+                  )
+                }   
+              </div>
             </div>
+
 
             {/* APARTMENT INFORMATION */}
             <div className="bg-white w-full h-full flex flex-col items-start justify-center ml-4 mr-4 gap-4 mb-8">
+
+              {/* Add to bookmark error notification  */}
+              {error && (
+                <ErrorAlert 
+                  onClose={() => setError(null)} 
+                />
+              )}
+
               {/* Verified Badge(if premium is subscribed)*/}
               {/* {apartment.verified_listing && (
                 <div className="flex items-center justify-center px-2 py-1 bg-teal-500 gap-1 rounded-lg">
@@ -336,7 +452,6 @@ import ApartmentInfoSkeleton from "../utils/loading-display/ApartmentInfoSkeleto
                 </div>
               </div>
             
-
               {/* Report Button */}
               <div className="pt-6">
                 <button className="w-full flex items-center justify-center gap-3 bg-red-50 hover:bg-red-100 text-red-600 font-semibold py-3 px-18 rounded-lg transition-all duration-300 border border-red-200 hover:border-red-300 cursor-pointer">
@@ -350,7 +465,10 @@ import ApartmentInfoSkeleton from "../utils/loading-display/ApartmentInfoSkeleto
         <Footerbar /> 
         <Footer />
       </div>  
-    )
-  };
 
-  export default ApartmentInfo;
+      {/* Authentication Dialog */}
+      {showAuthDialog && <AuthDialog />}
+    </>
+  )
+};
+export default ApartmentInfo;

@@ -3,12 +3,13 @@ import {
     loginLoading, loginSuccess, 
     loginFailure, registerUserLoading, 
     registerUserSuccess, registerUserFailure, 
-    setLogout 
+    setLogout
 } from "../redux/authSlice";
 import { clearBookmark } from "../redux/bookmarkSlice";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
+import { useGetUserBookmarks } from "./bookmarks";
 
 
 // LOGIN CUSTOM HOOK 
@@ -16,6 +17,8 @@ export const useLogin = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const { getUserBookmarks } = useGetUserBookmarks(); // or use a global bookmarks thunk
+
   
     const login = async (dispatch, credentials) => {
         dispatch(loginLoading());
@@ -29,6 +32,10 @@ export const useLogin = () => {
                 setError(null);
                 setIsLoading(false);
                 navigate('/');
+                const userRole = response.data?.role
+                if(userRole === "tenant") {
+                    await getUserBookmarks(); // Fetch bookmarks immediately after login
+                }
             } else { 
                 // If the response status is not in the success range, handle the error
                 throw new Error(response.data?.error || 'Something went wrong...');

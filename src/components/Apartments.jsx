@@ -5,14 +5,14 @@ import { useGetApartments } from "../hooks/apartments";
 import { useSelector } from "react-redux";
 import ApartmentDetailsSkeleton from "../utils/loading-display/ApartmentDetailsSkeleton";
 
+
 const Apartments = () => {
   const [activeTab, setActiveTab] = useState("new"); // default active
   const [hovered, setHovered] = useState(null);
   const { fetchApartments, isLoading, error } = useGetApartments()
   const apartments = useSelector((state) => state.apartments.list);
-
-
-
+ 
+  
   useEffect(() => {
     fetchApartments();
     
@@ -89,9 +89,9 @@ const Apartments = () => {
             <ApartmentDetailsSkeleton cards={4} />
           ) : apartments?.listings?.length > 0 ? 
           (
-            apartments.listings.map((apartment) => (
-              <ApartmentDetails apartment={apartment} key={apartment._id} />
-            ))
+            apartments?.listings?.map((apartment) => 
+              <ApartmentDetails  apartment={apartment}  key={apartment._id} /> 
+            )
           ) : (
           <p className="text-gray-500 text-sm">No apartments found.</p>
         )}
