@@ -25,24 +25,6 @@ const bookmarkSlice = createSlice({
             state.error = action.payload;
         },
 
-        // ADD BOOKMARK
-        addBookmarkSuccess: (state, action) => {
-            state.items?.bookmarks.unshift(action.payload);
-        },
-
-        addBookmarkFailure: (state, action) => {
-            state.error = action.payload;
-        },
-
-        // REMOVE BOOKMARK
-        removeBookmarkSuccess: (state, action) => {
-          state.items?.filter((b) => b.apartmentId?._id !== action.payload);
-        },
-
-        removeBookmarkFailure: (state, action) => {
-            state.error = action.payload;
-        },
-
         // CLEAR ALL BOOKMARK
         clearBookmark: () => ({
             items: [],
@@ -53,8 +35,5 @@ const bookmarkSlice = createSlice({
     } 
 });
 
-export const {getBookmarksLoading, getBookmarksSuccess, 
-    getBookmarksFailure, addBookmarkSuccess, addBookmarkFailure, 
-    removeBookmarkSuccess, removeBookmarkFailure, clearBookmark  
-} = bookmarkSlice.actions;
+export const {getBookmarksLoading, getBookmarksSuccess,  getBookmarksFailure, clearBookmark } = bookmarkSlice.actions;
 export default bookmarkSlice.reducer;

@@ -1,6 +1,6 @@
 import { fetchUserBookmarksApi, addBookmarkApi, removeBookmarkApi } from "../api/bookmarks";
 import {getBookmarksLoading, getBookmarksSuccess, getBookmarksFailure } from "../redux/bookmarkSlice";
-import { addBookmarkSuccess, removeBookmarkSuccess, addBookmarkFailure, removeBookmarkFailure } from "../redux/isBookmarkedSlice";
+import { addBookmarkSuccess, removeBookmarkSuccess, addBookmarkFailure, removeBookmarkFailure, clearError } from "../redux/isBookmarkedSlice";
 import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -79,6 +79,7 @@ export const useToggleBookmark = () => {
             }
         
             setError(null);
+            dispatch(clearError())
         } catch (error) {
             console.error('Bookmark toggle error:', error);
             

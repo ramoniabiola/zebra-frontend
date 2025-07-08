@@ -40,8 +40,13 @@ const isBookmarkedSlice = createSlice({
             state.error = action.payload;
         },
 
+          // CLEAR ERROR
+        clearError: (state) => {
+            state.error = null;
+        },
+
         // CLEAR ALL BOOKMARK
-        clearBookmark: () => ({
+        clearBookmarked: () => ({
             apartments: [],
             error: null,
         })
@@ -50,6 +55,6 @@ const isBookmarkedSlice = createSlice({
 });
 
 export const { addBookmarkSuccess, addBookmarkFailure, 
-    removeBookmarkSuccess, removeBookmarkFailure, clearBookmark  
+    removeBookmarkSuccess, removeBookmarkFailure, clearBookmarked, clearError
 } = isBookmarkedSlice.actions;
 export default isBookmarkedSlice.reducer;

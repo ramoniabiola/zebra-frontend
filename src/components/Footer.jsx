@@ -15,8 +15,8 @@ const Footer = () => {
     <footer className="w-full h-full bg-stone-100 flex flex-col text-stone-900 items-start justify-center px-6 pt-4 pb-24 gap-8">
         <div className="w-full flex flex-col gap-2">
             <h1 
-                className="text-4xl text-slate-900 font-extrabold pt-1">zebr
-                <span className="text-cyan-600">a</span>
+                className="text-3xl text-slate-900 font-extrabold pt-1">T
+                <span className="text-cyan-600">o-</span>Let
             </h1>
             <p className="text-lg font-normal italic text-stone-600">"Making a seamless and easy apartment renting experience..."</p>
         </div>
@@ -25,9 +25,8 @@ const Footer = () => {
         <div className="w-full flex flex-col">
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-3 text-lg">
-                <li className="hover:underline"><a href="#">Browse Apartment Listings</a></li>
                 <li className="hover:underline"><a href="#">How It Works</a></li>
-                <li className="hover:underline"><a href="#">List An Apartment (for landlords/agents)</a></li>
+                <li className="hover:underline"><a href="#">List a Vacant Apartment (for landlords/agents)</a></li>
                 <li onClick={() => navigate("/support")} className="hover:underline cursor-pointer">FAQs / Help Center</li>
            </ul> 
            <hr className="w-11/12 text-stone-200 mt-8" />
