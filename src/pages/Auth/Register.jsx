@@ -20,10 +20,7 @@ const Register = () => {
     const [focusedField, setFocusedField] = useState("");
     const [fieldErrors, setFieldErrors] = useState({});
     const [shakingFields, setShakingFields] = useState({}); // Track which fields should shake
-    const { registerUser, error, setError, success, isLoading } = useRegisterUser()
-    
-   
-
+    const { registerUser, error, setError, setSuccess, success, isLoading } = useRegisterUser();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     
@@ -133,6 +130,20 @@ const Register = () => {
         }
     }, [focusedField, formData]); // Re-run when formData changes to maintain focus
 
+
+    
+    useEffect(() => {
+        if (success) {
+            // After 4 seconds, close modal and clear status
+            const timer = setTimeout(() => {
+                setSuccess(false);
+                navigate('/login');
+            }, 4000);
+        
+            return () => clearTimeout(timer);
+        }
+    }, [success, navigate]);
+    
 
 
     // Success Modal Component

@@ -1,6 +1,7 @@
 import { fetchUserBookmarksApi, addBookmarkApi, removeBookmarkApi } from "../api/bookmarks";
-import {getBookmarksLoading, getBookmarksSuccess, getBookmarksFailure } from "../redux/bookmarkSlice";
-import { addBookmarkSuccess, removeBookmarkSuccess, addBookmarkFailure, removeBookmarkFailure, clearError } from "../redux/isBookmarkedSlice";
+import {getBookmarksLoading, getBookmarksSuccess, getBookmarksFailure, 
+    addBookmarkSuccess, removeBookmarkSuccess, addBookmarkFailure, 
+    removeBookmarkFailure, clearError } from "../redux/bookmarkSlice";
 import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -72,7 +73,7 @@ export const useToggleBookmark = () => {
                 response = await addBookmarkApi({ apartmentId });
                 if (response.status >= 200 && response.status < 300) {
                     // Pass the apartmentId to the reducer
-                    dispatch(addBookmarkSuccess(apartmentId));
+                    dispatch(addBookmarkSuccess(response.data));
                 } else {
                     throw new Error("Failed to add to wishlist.");
                 }

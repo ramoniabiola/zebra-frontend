@@ -17,11 +17,10 @@ const ApartmentDetails   = ({ apartment }) => {
     const navigate = useNavigate()
     const userId = useSelector((state) => state.auth.user?._id);
     const { toggleBookmark, error, setError } = useToggleBookmark();
-    const bookmarked = useSelector((state) => state.isBookmarked?.apartments || []);
+    const bookmarked = useSelector((state) => state.bookmarks.items?.bookmarks || []);
     const isBookmarked = bookmarked.some(
-        (b) => b?.apartmentId === apartment._id
+        (b) => b?.apartmentId._id === apartment._id
     );
-
 
     // Price Formatting
     const formatPrice = (price) => {

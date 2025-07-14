@@ -15,7 +15,7 @@ const useQuery = () => {
 
 
 const SearchResults = () => {
-    const query = useQuery().get('keyword')
+    const query = useQuery().get('q')
     const [apartments, setApartments] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);

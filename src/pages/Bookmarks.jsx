@@ -1,14 +1,14 @@
 import Footer from "../components/Footer";
+import Footerbar from "../components/Footerbar";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import BookmarkCard from "../components/BookmarkCard";
-import Footerbar from "../components/Footerbar";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SearchIcon, X } from "lucide-react";
 import { useGetUserBookmarks } from "../hooks/bookmarks";
-import ApartmentDetailsSkeleton from "../utils/loading-display/ApartmentDetailsSkeleton";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import ApartmentDetailsSkeleton from "../utils/loading-display/ApartmentDetailsSkeleton";
 import WishlistPlaceholder from "../utils/placeholders/WishlistPlaceholder";
 import { fetchUserBookmarksBySearchApi } from "../api/bookmarks";
 
@@ -124,7 +124,7 @@ const Bookmarks = () => {
             <h3 className="text-lg font-semibold text-gray-800 mb-1">
                 Something went wrong
             </h3>
-            <p className="text-gray-600 mb-4">
+            <p className="text-gray-600 font-semibold mb-4">
                 {error}
             </p>
             <button
@@ -183,7 +183,7 @@ const Bookmarks = () => {
                 {query && (
                     <div className="w-full text-center px-4">
                         <p className="text-lg text-gray-600 font-semibold">
-                            {`Search results for "${query}"`}
+                            Search results for <b className="text-gray-800">"{query}"</b>
                         </p>
                     </div>
                 )}

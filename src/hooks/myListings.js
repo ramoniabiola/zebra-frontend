@@ -15,8 +15,6 @@ import {
 } from "../redux/myListingSlice";
 import { useEffect, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
-
 
 
 // FETCH USER POSTED ACTIVE LISTINGS CUSTOM HOOK
@@ -74,7 +72,6 @@ export const useUpdateMyListing = () => {
 
 // CREATE NEW LISTING CUSTOM HOOK
 export const useCreateNewListing = () => {
-    const navigate = useNavigate();
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -90,10 +87,8 @@ export const useCreateNewListing = () => {
             if(response.status >= 200 && response.status < 300) {
                 dispatch(createNewListingSuccess(response.data));
                 setSuccess(true);
-                setTimeout(() => setSuccess(false), 10000);
                 setError(null);
                 setIsLoading(false);
-                navigate('/dashboard');
             } else {
                 // If the response status is not in the success range, handle the error
                 throw new Error(response.data?.error || 'Listing publish failed...');
@@ -106,7 +101,7 @@ export const useCreateNewListing = () => {
         }
     };
 
-    return { createNewListing, success, isLoading, error };
+    return { createNewListing, success, setSuccess, isLoading, error };
 };
 
 

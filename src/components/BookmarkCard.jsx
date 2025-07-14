@@ -16,9 +16,9 @@ const BookmarkCard = ({ apartment }) => {
     const [isHovered, setIsHovered] = useState(false);
     const totalImages = bookmark?.uploadedImages?.length || 0;
     const { toggleBookmark, error, setError } = useToggleBookmark();
-    const bookmarked = useSelector((state) => state.isBookmarked?.apartments || []);
+    const bookmarked = useSelector((state) => state.bookmarks?.items?.bookmarks || []);
     const isBookmarked = bookmarked.some(
-        (b) => b?.apartmentId === bookmark._id
+        (b) => b?.apartmentId._id === bookmark._id
     );
     const navigate = useNavigate()
 

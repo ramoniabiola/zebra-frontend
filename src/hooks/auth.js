@@ -5,11 +5,11 @@ import {
     registerUserSuccess, registerUserFailure, 
     setLogout
 } from "../redux/authSlice";
-import { clearBookmark } from "../redux/bookmarkSlice";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { useGetUserBookmarks } from "./bookmarks";
+import { clearBookmarks } from "../redux/bookmarkSlice";
 
 
 // LOGIN CUSTOM HOOK 
@@ -56,7 +56,6 @@ export const useLogin = () => {
 export const useRegisterUser = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const navigate = useNavigate();
     const [success, setSuccess] = useState(false);
 
 
@@ -73,8 +72,7 @@ export const useRegisterUser = () => {
                 setError(null);
                 setIsLoading(false);
                 setSuccess(true);
-                setTimeout(() => setSuccess(false), 5000);
-                navigate('/login');
+                
             } else { 
                 // If the response status is not in the success range, handle the error
                 throw new Error(response.data?.error || 'Something went wrong...');
@@ -87,17 +85,21 @@ export const useRegisterUser = () => {
         }      
     };
     
-    return { registerUser, success, error, setError, isLoading };
+    return { registerUser, success, setSuccess, error, setError, isLoading };
 };
+
+
 
 
 // LOGOUT CUSTOM HOOK
 export const useLogout = () => {
     const dispatch = useDispatch(); 
+    const navigate = useNavigate()
 
     const handleLogout = async () => {
         dispatch(setLogout());
-        dispatch(clearBookmark());
+        dispatch(clearBookmarks())
+        navigate('/');
     };
 
     return { handleLogout };

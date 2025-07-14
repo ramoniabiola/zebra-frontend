@@ -25,7 +25,7 @@ const ApartmentInfo = () => {
   const [isHovered, setIsHovered] = useState(false);
   const userId = useSelector((state) => state.auth.user?._id);
   const { toggleBookmark, error, setError } = useToggleBookmark();
-  const bookmarked = useSelector((state) => state.isBookmarked?.apartments || []);
+  const bookmarked = useSelector((state) => state.bookmarks?.items?.bookmarks || []);
  
   
   const navigate = useNavigate();
@@ -82,7 +82,7 @@ const ApartmentInfo = () => {
 
 
   const isBookmarked = bookmarked.some(
-    (b) => b?.apartmentId === apartment._id
+    (b) => b?.apartmentId._id === apartment._id
   );
 
   const handleToggleBookmark = async () => {
