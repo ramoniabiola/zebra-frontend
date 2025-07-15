@@ -1,4 +1,4 @@
-  import { useState } from 'react';
+  import { useEffect, useState } from 'react';
   import { ArrowLeft, Edit, MapPin, Phone, User, Home, CheckCircle, Bed, Bath, Square, Wifi, Car, Zap, Shield, Waves, Coffee, ChevronLeft, ChevronRight, Loader2, X, AlertCircle } from 'lucide-react';
   import { useDispatch } from 'react-redux';
   import {  useCreateNewListing } from "../hooks/myListings";

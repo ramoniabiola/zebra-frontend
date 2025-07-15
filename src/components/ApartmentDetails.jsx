@@ -4,9 +4,9 @@ import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { formatDistanceToNow } from 'date-fns';
 import { useToggleBookmark } from "../hooks/bookmarks";
 import { useSelector } from "react-redux";
+import { formatCustomTimeAgo } from "../utils/time-format/TimeFormat";
 
 
 const ApartmentDetails   = ({ apartment }) => {
@@ -15,7 +15,9 @@ const ApartmentDetails   = ({ apartment }) => {
     const [showAuthDialog, setShowAuthDialog] = useState(false);
     const totalImages = apartment.uploadedImages?.length || 0;
     const navigate = useNavigate()
-    const userId = useSelector((state) => state.auth.user?._id);
+    const user = useSelector((state) => state.auth.user);
+    const userId = user?._id
+    const userRole = user?.role
     const { toggleBookmark, error, setError } = useToggleBookmark();
     const bookmarked = useSelector((state) => state.bookmarks.items?.bookmarks || []);
     const isBookmarked = bookmarked.some(
@@ -31,9 +33,10 @@ const ApartmentDetails   = ({ apartment }) => {
         }).format(price);
     };  
 
+
     //Time Formatting
     const timeAgo = apartment.createdAt
-    ? formatDistanceToNow(new Date(apartment.createdAt), { addSuffix: true })
+    ? formatCustomTimeAgo(new Date(apartment.createdAt), { addSuffix: true })
     : "some time ago";
 
 
@@ -208,23 +211,29 @@ const ApartmentDetails   = ({ apartment }) => {
 
 
                     {/* Heart Icon */}
-                    <div 
-                        onClick={handleToggleBookmark}
-                    >
-                        {
-                            isBookmarked ? (  
-                                <>   
-                                    <HeartSolid className="w-12 h-12 text-rose-500 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
-                                    <HeartOutline className="w-12 h-12 text-gray-50 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
-                                </> 
-                            ) : (
-                                <>   
-                                    <HeartSolid className="w-12 h-12 text-black/35 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
-                                    <HeartOutline className="w-12 h-12 text-gray-50 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
-                                </>
-                            )
-                        }   
-                    </div>
+                    {
+                        !userRole || userRole === "tenant" ? (
+                            <div 
+                                onClick={handleToggleBookmark}
+                            >
+                                {
+                                    isBookmarked ? (  
+                                        <>   
+                                            <HeartSolid className="w-12 h-12 text-rose-500 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
+                                            <HeartOutline className="w-12 h-12 text-gray-50 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
+                                        </> 
+                                    ) : (
+                                        <>   
+                                            <HeartSolid className="w-12 h-12 text-black/35 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
+                                            <HeartOutline className="w-12 h-12 text-gray-50 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
+                                        </>
+                                    )
+                                }   
+                            </div>
+                        ) : (
+                            <></>
+                        )
+                    }     
                 </div> 
 
                 {/* Apartment Info */}

@@ -3,10 +3,10 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { AlertCircle, Calendar, MapPin, X } from 'lucide-react';
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
-import { formatDistanceToNow } from 'date-fns';
 import { useNavigate } from "react-router-dom";
 import { useToggleBookmark } from "../hooks/bookmarks";
 import { useSelector } from "react-redux";
+import { formatCustomTimeAgo } from "../utils/time-format/TimeFormat";
 
 
 
@@ -34,7 +34,7 @@ const BookmarkCard = ({ apartment }) => {
     
     //Time Formatting
     const timeAgo = bookmark.createdAt
-    ? formatDistanceToNow(new Date(bookmark.createdAt), { addSuffix: true })
+    ? formatCustomTimeAgo(new Date(bookmark.createdAt), { addSuffix: true })
     : "some time ago";
 
 

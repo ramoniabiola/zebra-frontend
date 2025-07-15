@@ -1,4 +1,4 @@
- import { loginApi, registerUserApi } from "../api/auth";
+import { loginApi, registerUserApi } from "../api/auth";
 import {
     loginLoading, loginSuccess, 
     loginFailure, registerUserLoading, 
@@ -17,7 +17,7 @@ export const useLogin = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const { getUserBookmarks } = useGetUserBookmarks(); // or use a global bookmarks thunk
+    const { getUserBookmarks } = useGetUserBookmarks(); 
 
   
     const login = async (dispatch, credentials) => {

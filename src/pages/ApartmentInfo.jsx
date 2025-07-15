@@ -23,7 +23,9 @@ const ApartmentInfo = () => {
   const [showAuthDialog, setShowAuthDialog] = useState(false);
   const totalImages = apartment?.uploadedImages?.length || 0;
   const [isHovered, setIsHovered] = useState(false);
-  const userId = useSelector((state) => state.auth.user?._id);
+  const user = useSelector((state) => state.auth.user);
+  const userId = user?._id
+  const userRole = user?.role
   const { toggleBookmark, error, setError } = useToggleBookmark();
   const bookmarked = useSelector((state) => state.bookmarks?.items?.bookmarks || []);
  
@@ -296,23 +298,29 @@ const ApartmentInfo = () => {
               </div>
 
               {/* Heart Icon */}
-              <div 
-                onClick={handleToggleBookmark}
-              >
-                {
-                  isBookmarked ? (  
-                    <>   
-                      <HeartSolid className="w-12 h-12 text-rose-500 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
-                      <HeartOutline className="w-12 h-12 text-gray-50 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
-                    </> 
-                  ) : (
-                    <>   
-                      <HeartSolid className="w-12 h-12 text-black/35 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
-                      <HeartOutline className="w-12 h-12 text-gray-50 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
-                    </>
-                  )
-                }   
-              </div>
+              {
+                !userRole || userRole === "tenant"  ? (
+                  <div 
+                   onClick={handleToggleBookmark}
+                  >
+                    {
+                      isBookmarked ? (  
+                        <>   
+                          <HeartSolid className="w-12 h-12 text-rose-500 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
+                          <HeartOutline className="w-12 h-12 text-gray-50 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
+                        </> 
+                      ) : (
+                        <>   
+                          <HeartSolid className="w-12 h-12 text-black/35 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
+                          <HeartOutline className="w-12 h-12 text-gray-50 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
+                        </>
+                      )
+                    }   
+                  </div>
+                ) : (
+                  <></>
+                )
+              }
             </div>
 
 
