@@ -356,7 +356,7 @@ const CreateNewListing = () => {
           <div className="flex items-center gap-3">
             <button 
               onClick={() => window.history.back()}
-              className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors duration-200"
+              className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors duration-200 cursor-pointer"
             >
               <ArrowLeft className="w-5 h-5 text-gray-600" />
             </button>

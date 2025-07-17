@@ -1,11 +1,8 @@
-import { fetchMyListingsApi, createNewListingApi, updateMyListingApi, deactivateMyListingApi } from "../api/myListings";
+import { fetchMyListingsApi, createNewListingApi, deactivateMyListingApi } from "../api/myListings";
 import {
     getMyListingsSuccess,
     getMyListingsLoading,
     getMyListingsError,
-    updateMyListingSuccess,
-    updateMyListingLoading,
-    updateMyListingError,
     createNewListingSuccess,
     createNewListingLoading,
     createNewListingFailure,
@@ -13,60 +10,44 @@ import {
     deactivateMyListingLoading,
     deactivateMyListingError
 } from "../redux/myListingSlice";
-import { useEffect, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 
 // FETCH USER POSTED ACTIVE LISTINGS CUSTOM HOOK
 export const useGetMyListings = () => {
     const dispatch = useDispatch();
-    const { listings, loading, error } = useSelector((state) => state.myListings);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null)
 
-    useEffect(() => {
-        const fetchMyListings = async () => {
-            dispatch(getMyListingsLoading());
-            try {
-                const response = await fetchMyListingsApi();
-                dispatch(getMyListingsSuccess(response.data));
-            } catch (err) {
-                dispatch(
-                    getMyListingsError(err.response?.data?.message || "Failed to fetch your listings")
-                );
-            }
-        };
-
-        fetchMyListings();
-    }, [dispatch]);
-
-    return { listings, loading, error };
-};
-
-
-
-// UPDATE AN EXISTING LISTING CUSTOM HOOK
-export const useUpdateMyListing = () => {
-    const dispatch = useDispatch();
-    const { loading, error } = useSelector((state) => state.myListings);
-    const [success, setSuccess] = useState(false);
-
-
-    const updateMyListing = useCallback(async (id, data) => {
-        dispatch(updateMyListingLoading())
+    const fetchMyListings = async (userId) => {
+        dispatch(getMyListingsLoading());
+        setIsLoading(true);
+        setError(null)
 
         try {
-            const response = await updateMyListingApi(id, data);
-            dispatch(updateMyListingSuccess(response.data));
-            setSuccess(true);
-            setTimeout(() => setSuccess(false), 4000);
-        } catch (err) {
+            const response = await fetchMyListingsApi(userId);
+            if(response.status >= 200 && response.status < 300) {
+                dispatch(getMyListingsSuccess(response.data));
+                setError(null);
+                setIsLoading(false);
+            } else {
+                // If the response status is not in the success range, handle the error
+                throw new Error(response.data?.error || 'Failed to fetch your listings');
+            }
+        } catch (error) {
+            // If there's an error, set the error state to display 
+            setError(error.response?.data?.error || 'Failed to fetch your listings'); 
+            setIsLoading(false);
             dispatch(
-                updateMyListingError(err.response?.data?.message || "Failed to update your listings")
-            );
+                getMyListingsError(error.response?.data?.message || "Failed to fetch your listings")
+            );   
         }
-    }, [dispatch]);
+    };
 
-    return { updateMyListing, success, loading, error };
+    return { fetchMyListings, isLoading, error };
 };
+
 
 
 

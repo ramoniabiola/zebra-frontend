@@ -3,7 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 const myDeactivatedListingsSlice = createSlice({
     name: "myDeactivatedListings",
     initialState: {
-        deactivatedListings: [],
+        deactivatedListings: {
+            currentPage: 0,
+            totalPages: 0,
+            totalListings: 0,
+            listingsPerPage: 0,
+            apartments: [],
+        },
         loading: false,
         error: null,
     },
@@ -35,7 +41,7 @@ const myDeactivatedListingsSlice = createSlice({
         
         reactivateMyListingSuccess: (state, action) => {
           const id = action.payload;
-          const index = state.listings.findIndex((item) => item._id === id);
+          const index = state.deactivatedListings.apartments.findIndex((item) => item._id === id);
           if (index !== -1) {
             state.listings[index].isAvailable = true;
           }

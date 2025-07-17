@@ -3,7 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 const myListingsSlice = createSlice({
     name: "myListings",
     initialState: {
-        listings: [],
+        listings: {
+            currentPage: 0,
+            totalPages: 0,
+            totalListings: 0,
+            listingsPerPage: 0,
+            apartments: [],
+        },
         loading: false,
         error: null,
     },
@@ -26,26 +32,6 @@ const myListingsSlice = createSlice({
             state.error = action.payload;
         },
 
-        // UPDATE MY-LISTING
-        updateMyListingLoading: (state) => {
-            state.loading = true;
-            state.error = null;
-        },
-
-        updateMyListingSuccess: (state, action) => {
-            const updated = action.payload;
-            const index = state.listings.findIndex((item) => item._id === updated._id);
-            if (index !== -1) {
-                state.listings[index] = updated;
-            }
-        },
-
-        updateMyListingError: (state, action) => {
-            state.loading = false;
-            state.error = action.payload;
-        },
-
-
         // CREATE NEW LISTING
         createNewListingLoading: (state) => {
             state.loading = true;
@@ -54,7 +40,7 @@ const myListingsSlice = createSlice({
 
         createNewListingSuccess: (state, action) => {
             state.loading = false;
-            state.listings.unshift(action.payload); 
+            state.listings.apartments.unshift(action.payload); 
         },
 
         createNewListingFailure: (state, action) => {
@@ -71,9 +57,9 @@ const myListingsSlice = createSlice({
 
         deactivateMyListingSuccess: (state, action) => {
             const id = action.payload;
-            const index = state.listings.findIndex((item) => item._id === id);
+            const index = state.listings.apartments.findIndex((item) => item._id === id);
             if (index !== -1) {
-              state.listings[index].isAvailable = false;
+              state.listings.apartments[index].isAvailable = false;
             }
         },
 
@@ -88,9 +74,6 @@ export const {
     getMyListingsSuccess,
     getMyListingsLoading,
     getMyListingsError,
-    updateMyListingSuccess,
-    updateMyListingLoading,
-    updateMyListingError,
     createNewListingSuccess,
     createNewListingLoading,
     createNewListingFailure,

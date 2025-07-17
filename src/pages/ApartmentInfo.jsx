@@ -28,8 +28,7 @@ const ApartmentInfo = () => {
   const userRole = user?.role
   const { toggleBookmark, error, setError } = useToggleBookmark();
   const bookmarked = useSelector((state) => state.bookmarks?.items?.bookmarks || []);
- 
-  
+
   const navigate = useNavigate();
 
   
@@ -98,8 +97,6 @@ const ApartmentInfo = () => {
     await toggleBookmark(apartment._id, isBookmarked);
   }
    
-    
-
 
   const handleDialogClose = () => {
     setShowAuthDialog(false);
