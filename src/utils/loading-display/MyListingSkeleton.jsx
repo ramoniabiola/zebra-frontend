@@ -20,7 +20,7 @@ const MyListingSkeleton = () => {
         </div>
 
         {/* CONTENT SKELETON */}
-        <div className="bg-white w-full flex flex-col ml-4 gap-4 mb-8">
+        <div className="bg-white w-full flex flex-col gap-4 mb-8">
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
                 {/* Main Info Section */}
                 <div className="lg:col-span-2 space-y-6">

@@ -87,30 +87,41 @@ export const useCreateNewListing = () => {
 
 
 
-
 // DEACTIVATE MY-LISTING
 export const useDeactivateMyListing = () => {
     const dispatch = useDispatch();
-    const { loading, error } = useSelector((state) => state.myListings);
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 
     
-    const deactivateMyListing = useCallback(async (id) => {
+    const deactivateMyListing = async (apartmentId) => {
         dispatch(deactivateMyListingLoading())
+        setIsLoading(true);
+        setError(null)
 
         try {
-            await deactivateMyListingApi(id);
-            dispatch(deactivateMyListingSuccess(id));
-            setSuccess(true);
-            setTimeout(() => setSuccess(false), 4000);
-        } catch (err) {
+            const response = await deactivateMyListingApi(apartmentId);
+            if(response.status >= 200 && response.status < 300) {
+                dispatch(deactivateMyListingSuccess(apartmentId));
+                setSuccess(true);
+                setError(null);
+                setIsLoading(false);
+            } else {
+                // If the response status is not in the success range, handle the error
+                throw new Error(response.data?.error || 'Failed to deactivate listing');
+            }  
+        } catch (error) {
+            // If there's an error, set the error state to display 
+            setError(error.response?.data?.error || 'Failed to deactivate listing'); 
+            setIsLoading(false);
             dispatch(
-                deactivateMyListingError(err.response?.data?.message || "Failed to deactivate your listings")
+                deactivateMyListingError(error.response?.data?.message || "Failed to deactivate listing")
             );
         }
-    }, [dispatch]);
+    }
 
-    return { deactivateMyListing, success, loading, error };
+    return { deactivateMyListing, success, setSuccess, isLoading, error };
 };
 
 

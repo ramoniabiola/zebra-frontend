@@ -182,7 +182,7 @@ const BookmarkCard = ({ apartment }) => {
                 <div className="flex items-center justify-between mt-2 pt-4 px-1.5 border-t border-gray-100">
                    <h3 className="text-xl font-bold text-slate-900">
                        {formatPrice(bookmark.price)}
-                       <span className="text-sm font-normal text-slate-500 ml-1">yearly</span>
+                       <span className="text-sm font-normal text-slate-500 ml-1">{apartment.payment_frequency}</span>
                    </h3>
                    
                    <div className="flex items-center gap-1.5 text-gray-400">

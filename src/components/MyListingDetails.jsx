@@ -59,6 +59,7 @@ const MyListingDetails = ({ apartment }) => {
             const optimizedUrl = image.includes("/upload/") 
             ? image.replace("/upload/", "/upload/f_auto,q_auto/")
             : image;
+
             return (
               <img 
                 key={index}
@@ -67,8 +68,7 @@ const MyListingDetails = ({ apartment }) => {
                 className="w-full h-full object-cover rounded-lg"
               />
             )
-          }
-          )}
+          })}
         </div>
         {/* Left and right image slider navigatiom */}
         {isHovered && currentImg > 0 && (
@@ -121,7 +121,7 @@ const MyListingDetails = ({ apartment }) => {
         <div className="flex items-center justify-between mt-2 pt-4 px-1.5 border-t border-gray-100">
           <h3 className="text-xl font-bold text-slate-900">
             {formatPrice(apartment.price)}
-            <span className="text-sm font-normal text-slate-500 ml-1">yearly</span>
+            <span className="text-sm font-normal text-slate-500 ml-1">{apartment.payment_frequency}</span>
           </h3>
                    
           <div className="flex items-center gap-1.5 text-gray-400">

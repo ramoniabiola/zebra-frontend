@@ -7,7 +7,7 @@ const Step1_ApartmentInfo = ({ formData, handleChange, errors }) => {
     <div className="space-y-8">
       <div className="text-center mb-8">
         <h2 className="text-2xl font-bold text-gray-800">Apartment Information</h2>
-        <p className="text-gray-500">Tell us about the property</p>
+        <p className="text-gray-500">Tell us about the apartment</p>
       </div>
       
       <div className="space-y-6">

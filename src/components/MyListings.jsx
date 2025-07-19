@@ -44,7 +44,7 @@ const MyListings = () => {
       } else {
         // Fetch all listings using the hook
         await fetchMyListings(userId);
-        // The hook will update Redux state, which we'll use in useEffect
+    
       }
     } catch (error) {
       if (error.response?.status === 404) {
@@ -131,7 +131,7 @@ const MyListings = () => {
     <div className="w-full h-full flex flex-col items-start justify-center mt-2">
       {/* ACTIVE LISTINGS SEARCH INPUT FIELD */}
       <div className="w-full h-20 flex items-center justify-center bg-white">
-        <div className="relative bg-white w-11/12 h-8/12 border-2 border-stone-200 rounded-xl">
+        <div className="relative bg-stone-50 w-11/12 h-8/12 border-2 border-stone-200 rounded-xl">
           <input
             value={searchQuery}
             onChange={handleSearchChange}
@@ -180,6 +180,7 @@ const MyListings = () => {
         ) : (
           <MyListingsPlaceholder />
         )}
+
         {/* Show more button - only for non-search results */}
         {!error && !isLoading && displayedListings?.length > 0 && !query && (
           <div className="w-full h-full mt-12 flex flex-col items-center justify-center gap-24">

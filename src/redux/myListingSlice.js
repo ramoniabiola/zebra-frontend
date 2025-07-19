@@ -48,7 +48,6 @@ const myListingsSlice = createSlice({
             state.error = action.payload;
         },
 
-
         // DEACTIVATE MY-LISTING
         deactivateMyListingLoading: (state) => {
             state.loading = true;
@@ -56,11 +55,14 @@ const myListingsSlice = createSlice({
         },
 
         deactivateMyListingSuccess: (state, action) => {
-            const id = action.payload;
-            const index = state.listings.apartments.findIndex((item) => item._id === id);
-            if (index !== -1) {
-              state.listings.apartments[index].isAvailable = false;
-            }
+            const apartmentId = action.payload;
+            // Remove the deactivated apartment from the array
+            state.listings.apartments = state.listings.apartments.filter(
+                (apartment) => apartment._id !== apartmentId
+            );
+            // Update the total count
+            state.listings.totalListings = state.listings.totalListings - 1;
+            state.loading = false;
         },
 
         deactivateMyListingError: (state, action) => {
