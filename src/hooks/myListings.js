@@ -10,8 +10,8 @@ import {
     deactivateMyListingLoading,
     deactivateMyListingError
 } from "../redux/myListingSlice";
-import { useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 
 // FETCH USER POSTED ACTIVE LISTINGS CUSTOM HOOK

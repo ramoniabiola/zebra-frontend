@@ -23,6 +23,14 @@ const ApartmentDetails   = ({ apartment }) => {
     const isBookmarked = bookmarked.some(
         (b) => b?.apartmentId._id === apartment._id
     );
+    const { createdAt, updatedAt, isAvailable } = apartment;
+
+    let reactivationTime = null;
+
+    if (isAvailable && updatedAt !== createdAt) {
+        reactivationTime = formatCustomTimeAgo(updatedAt); 
+    }
+
 
     // Price Formatting
     const formatPrice = (price) => {
@@ -33,6 +41,10 @@ const ApartmentDetails   = ({ apartment }) => {
         }).format(price);
     };  
 
+
+
+
+    
 
     //Time Formatting
     const timeAgo = apartment.createdAt
@@ -237,7 +249,7 @@ const ApartmentDetails   = ({ apartment }) => {
                 </div> 
 
                 {/* Apartment Info */}
-                <div onClick={() => navigate(`/apartment/${apartment._id}`)} className="w-full mt-4 flex flex-col gap-2.5 text-left">
+                <div onClick={() => navigate(`/apartment/${apartment._id}`)} className="w-full mt-4 flex flex-col gap-2 text-left">
                     <div className="flex items-start justify-between gap-3">
                         <h1 className="text-xl   font-semibold text-slate-900 leading-tight group-hover:text-slate-900 transition-colors">
                             {apartment.title}
@@ -250,6 +262,16 @@ const ApartmentDetails   = ({ apartment }) => {
                     </div>
 
                     <p className="text-sm text-slate-500 leading-relaxed">{apartment.apartment_type}</p>
+
+                    {/* If the apartment was unavailable but now available */}
+                    {reactivationTime && (
+                    <span 
+                        className="w-full px-3 py-2 bg-gradient-to-l from-sky-50 to-cyan-100 text-cyan-800 text-xs font-medium rounded-lg border border-dashed border-cyan-300 tracking-widest"
+                    >
+                       Reactivated: <span className="text-cyan-700">{reactivationTime}</span>
+                    </span>
+                    )}
+                    
                     {error && (
                         <ErrorAlert 
                             onClose={() => setError(null)} 

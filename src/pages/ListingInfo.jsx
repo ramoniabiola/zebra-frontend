@@ -94,12 +94,12 @@ const ListingInfo = () => {
   useEffect(() => {
     if (success) {
 
-      // After 3 seconds, close modal 
+      // After 4 seconds, close modal 
       const timer = setTimeout(() => {
         setShowSubmitModal(false);
         setSuccess(false);
         navigate('/dashboard');
-      }, 3000);
+      }, 4000);
     
       return () => clearTimeout(timer);
     }
@@ -180,7 +180,7 @@ const ListingInfo = () => {
                   <CheckCircle className="w-8 h-8 text-green-600" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                 ✅ Listing Successfully Deactivated!
+                 Listing Successfully Deactivated!
                 </h3>
                 <p className="text-gray-600">
                   Your listing has been taken offline and is no longer visible to potential tenants.

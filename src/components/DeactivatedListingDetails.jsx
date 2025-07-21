@@ -104,7 +104,7 @@ const DeactivatedListingDetails = ({ apartment }) => {
         )}
       </div>
       {/* Apartment Info */}
-      <div onClick={() => navigate(`/deactivated-listing/${apartment._id}`)} className="w-full mt-4 flex flex-col gap-1 text-left">
+      <div onClick={() => navigate(`/deactivated-listing/${apartment._id}`)} className="w-full mt-4 flex flex-col gap-2 text-left">
         <div className="flex items-start justify-between gap-3">
           <h1 className="text-xl   font-semibold text-slate-900 leading-tight group-hover:text-slate-900 transition-colors">
             {apartment.title}

@@ -37,15 +37,18 @@ const myDeactivatedListingsSlice = createSlice({
            state.loading = true; 
            state.error = null;
         },
-        
-        
+
         reactivateMyListingSuccess: (state, action) => {
-          const id = action.payload;
-          const index = state.deactivatedListings.apartments.findIndex((item) => item._id === id);
-          if (index !== -1) {
-            state.listings[index].isAvailable = true;
-          }
+            const apartmentId = action.payload;
+            // Remove the reactivated apartment from the array
+            state.deactivatedListings.apartments = state.deactivatedListings.apartments.filter(
+                (apartment) => apartment._id !== apartmentId
+            );
+            // Update the total count
+            state.deactivatedListings.totalListings = state.deactivatedListings.totalListings - 1;
+            state.loading = false;
         },
+
 
         reactivateMyListingError: (state, action) => {
             state.loading = false;

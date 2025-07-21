@@ -1,14 +1,11 @@
-import { fetchMyDeactivatedListingsApi, reactivateMyListingApi } from "../api/myDeactivatedListings";
+import { fetchMyDeactivatedListingsApi } from "../api/myDeactivatedListings";
 import {
     getMyDeactivatedListingsSuccess,
     getMyDeactivatedListingsLoading,
-    getMyDeactivatedListingsError,
-    reactivateMyListingSuccess,
-    reactivateMyListingLoading,
-    reactivateMyListingError
+    getMyDeactivatedListingsError
 } from "../redux/myDeactivatedListingsSlice";
-import { useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 
 // FETCH USER DEACTIVATED LISTINGS CUSTOM HOOK
@@ -46,30 +43,5 @@ export const useGetMyDeactivatedListings = () => {
 };
 
 
-
-// REACTIVATE MY-LISTING
-export const useReactivateMyListing = () => {
-    const dispatch = useDispatch();
-    const { loading, error } = useSelector((state) => state.myDeactivatedListings);
-    const [success, setSuccess] = useState(false);
-
-    
-    const reactivateMyListing = useCallback(async (id) => {
-        dispatch(reactivateMyListingLoading())
-
-        try {
-            await reactivateMyListingApi(id);
-            dispatch(reactivateMyListingSuccess(id));
-            setSuccess(true);
-            setTimeout(() => setSuccess(false), 4000);
-        } catch (err) {
-            dispatch(
-                reactivateMyListingError(err.response?.data?.message || "Failed to reactivate your listings")
-            );
-        }
-    }, [dispatch]);
-
-    return { reactivateMyListing, success, loading, error };
-};
 
 
