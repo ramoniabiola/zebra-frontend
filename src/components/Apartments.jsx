@@ -14,14 +14,19 @@ const Apartments = () => {
  
   
   useEffect(() => {
-    fetchApartments();
-    
-  }, [fetchApartments]);
+    const sortMap = {
+      new: "recent",
+      apartments: "random",
+      "top-locations": "popular", 
+    };
+
+    fetchApartments({ sortBy: sortMap[activeTab] });
+  }, [fetchApartments, activeTab]);
 
   
   
   const handleRetry = () => {
-    fetchApartments();
+    fetchApartments({ sortBy: sortMap[activeTab] });
   };
 
  
@@ -87,16 +92,16 @@ const Apartments = () => {
           ) : isLoading ? 
           (
             <ApartmentDetailsSkeleton cards={4} />
-          ) : apartments?.listings?.length > 0 ? 
+          ) : apartments?.length > 0 ? 
           (
-            apartments?.listings?.map((apartment) => 
+            apartments?.map((apartment) => 
               <ApartmentDetails  apartment={apartment}  key={apartment._id} /> 
             )
           ) : (
           <p className="text-gray-500 text-sm">No apartments found.</p>
         )}
 
-        {!error && !isLoading && apartments?.listings?.length > 0 && (
+        {!error && !isLoading && apartments?.length > 0 && (
           <div className="w-full h-full mt-12 flex flex-col items-center justify-center gap-24">
             <button className="px-4 py-2 text-white text-lg font-bold border-8 border-double bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 rounded-full cursor-pointer focus:invisible">
               Show more

@@ -16,17 +16,22 @@ const BookmarkCard = ({ apartment }) => {
     const [isHovered, setIsHovered] = useState(false);
     const totalImages = bookmark?.uploadedImages?.length || 0;
     const { toggleBookmark, error, setError } = useToggleBookmark();
+    const [errorAlert, setErrorAlert] = useState(false)
     const bookmarked = useSelector((state) => state.bookmarks?.items?.bookmarks || []);
     const isBookmarked = bookmarked.some(
         (b) => b?.apartmentId._id === bookmark._id
     );
     const navigate = useNavigate();
-    const { createdAt, updatedAt, isAvailable } = apartment;
-    
+
+ 
+    // Time Formatting
+    const { createdAt, updatedAt, isAvailable } = bookmark; 
     let reactivationTime = null;
 
     if (isAvailable && updatedAt !== createdAt) {
         reactivationTime = formatCustomTimeAgo(updatedAt); 
+    } else {
+        reactivationTime = formatCustomTimeAgo(createdAt); 
     }
 
 
@@ -39,10 +44,7 @@ const BookmarkCard = ({ apartment }) => {
         }).format(price);
     };  
     
-    //Time Formatting
-    const timeAgo = bookmark.createdAt
-    ? formatCustomTimeAgo(new Date(bookmark.createdAt), { addSuffix: true })
-    : "some time ago";
+    
 
 
     
@@ -50,7 +52,19 @@ const BookmarkCard = ({ apartment }) => {
 
        await toggleBookmark(bookmark._id, isBookmarked);
     }
-   
+
+
+    const handleNavigation = () => {
+        if(!bookmark.isAvailable) {
+            setErrorAlert(true)
+            // Auto-hide after 5 seconds
+            setTimeout(() => setErrorAlert(false), 5000);
+        } else {
+            navigate(`/apartment/${bookmark._id}`)
+            setErrorAlert(false)
+        }
+    }
+  
     
     
     const handleNext = () => {
@@ -66,8 +80,8 @@ const BookmarkCard = ({ apartment }) => {
     };
 
 
-    // Error Alert Component
-    const ErrorAlert = ({ onClose }) => (
+    // Error alert for toggle effect Component
+    const ToggleErrorAlert = ({ onClose }) => (
         <div className="p-2 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3 animate-in slide-in-from-top-2 duration-300">
             <AlertCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
             <div className="flex-1">
@@ -79,6 +93,21 @@ const BookmarkCard = ({ apartment }) => {
                 </button>
             )}
         </ div>
+    );
+
+    // Error alert for a bookmarked dactivated listing.
+    const AvailableErrorMessage = ({ onClose }) => (
+        <div className="p-2 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3 mt-2">
+            <AlertCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
+            <div className="flex-1">
+                <p className="text-sm text-red-700 font-medium">{`This listing "${bookmark.title}" is no more vacant, kindly remove from wishlist.`}</p>
+            </div>
+            {onClose && (
+                <button onClick={onClose} className="text-red-400 hover:text-red-600">
+                    <X className="w-4 h-4" />
+                </button>
+            )}
+        </div>
     );
         
 
@@ -168,7 +197,7 @@ const BookmarkCard = ({ apartment }) => {
             </div>
 
             {/* Apartment Info */}
-            <div onClick={() => navigate(`/apartment/${bookmark._id}`)} className="w-full mt-4 flex flex-col gap-2 text-left">
+            <div onClick={handleNavigation} className="w-full mt-4 flex flex-col gap-2 text-left">
                   <div className="flex items-start justify-between gap-3">
                     <h1 className="text-xl   font-semibold text-slate-900 leading-tight group-hover:text-slate-900 transition-colors">
                         {bookmark.title}
@@ -181,27 +210,24 @@ const BookmarkCard = ({ apartment }) => {
                 </div>
                 
                 <p className="text-sm text-slate-500 leading-relaxed">{bookmark.apartment_type}</p>
-                
-                {/* If the apartment was unavailable but now available */}
-                {reactivationTime && (
-                    <span 
-                        className="w-full px-3 py-2 bg-gradient-to-l from-sky-50 to-cyan-100 text-cyan-800 text-xs font-medium rounded-lg border border-dashed border-cyan-300 tracking-widest"
-                    >
-                       Reactivated: <span className="text-cyan-700">{reactivationTime}</span>
-                    </span>
-                )}
 
                 {!bookmark.isAvailable && (
                     <span 
-                        className="w-2/5 px-3 py-2 bg-gradient-to-r from-red-50 to-rose-50 text-rose-800 text-xs font-medium rounded-lg border border-dashed border-rose-300 tracking-widest"
+                        className="w-3/5 px-3 py-2 bg-gradient-to-r from-red-50 to-rose-200 text-rose-900 text-xs font-semibold rounded [clip-path:polygon(0_0,100%_0,85%_100%,0%_100%)] tracking-widest"
                     >
                         Not Available   
                     </span>
                 )}
 
                 {error && (
-                    <ErrorAlert 
+                    <ToggleErrorAlert 
                         onClose={() => setError(null)} 
+                    />
+                )}
+
+                {errorAlert && (
+                    <AvailableErrorMessage 
+                        onClose={() => setErrorAlert(false)} 
                     />
                 )}
                 <div className="flex items-center justify-between mt-2 pt-4 px-1.5 border-t border-gray-100">
@@ -212,7 +238,7 @@ const BookmarkCard = ({ apartment }) => {
                    
                    <div className="flex items-center gap-1.5 text-gray-400">
                        <Calendar className="w-3.5 h-3.5" />
-                       <span className="text-xs font-medium">{timeAgo}</span>
+                       <span className="text-xs font-medium">{reactivationTime}</span>
                    </div>
                 </div>
             </div>

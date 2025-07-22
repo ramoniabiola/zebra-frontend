@@ -4,12 +4,16 @@ const apartmentSlice = createSlice({
     name: "apartments",
     initialState: {
         list: [],
+        total: 0,
+        hasMore: false,
         loading: false,
         error: null,
     },
     reducers: {
         getApartmentsSuccess: (state, action) => {
-            state.list = action.payload;
+            state.list = action.payload.listings;
+            state.total = action.payload.total;
+            state.hasMore = action.payload.hasMore;
             state.loading = false;
             state.error = null;
         },

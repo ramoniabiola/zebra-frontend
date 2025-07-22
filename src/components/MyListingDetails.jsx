@@ -10,13 +10,15 @@ const MyListingDetails = ({ apartment }) => {
   const totalImages = apartment?.uploadedImages?.length || 0;
   const navigate = useNavigate();
 
-
+  // Time Formatting
   const { createdAt, updatedAt, isAvailable } = apartment;
       
   let reactivationTime = null;
 
   if (isAvailable && updatedAt !== createdAt) {
     reactivationTime = formatCustomTimeAgo(updatedAt); 
+  } else {
+    reactivationTime = formatCustomTimeAgo(createdAt); 
   }
   
 
@@ -30,13 +32,7 @@ const MyListingDetails = ({ apartment }) => {
     }).format(price);
   };  
   
-  
-  //Time Formatting
-  const timeAgo = apartment.createdAt
-  ? formatCustomTimeAgo(new Date(apartment.createdAt), { addSuffix: true })
-  : "some time ago";
-  
- 
+
   
 
   const handleNext = () => {
@@ -128,15 +124,6 @@ const MyListingDetails = ({ apartment }) => {
         </div>
                 
         <p className="text-sm text-slate-500 leading-relaxed">{apartment.apartment_type}</p>
-        {/* If the apartment was unavailable but now available */}
-        {reactivationTime && (
-          <span 
-            className="w-full px-3 py-2 bg-gradient-to-l from-sky-50 to-cyan-100 text-cyan-800 text-xs font-medium rounded-lg border border-dashed border-cyan-300 tracking-widest"
-          >
-            Reactivated: <span className="text-cyan-700">{reactivationTime}</span>
-          </span>
-        )}
-
         <div className="flex items-center justify-between mt-2 pt-4 px-1.5 border-t border-gray-100">
           <h3 className="text-xl font-bold text-slate-900">
             {formatPrice(apartment.price)}
@@ -145,7 +132,7 @@ const MyListingDetails = ({ apartment }) => {
                    
           <div className="flex items-center gap-1.5 text-gray-400">
             <Calendar className="w-3.5 h-3.5" />
-            <span className="text-xs font-medium">{timeAgo}</span>
+            <span className="text-xs font-medium">{reactivationTime}</span>
           </div>
         </div>
       </div>

@@ -13,36 +13,38 @@ export const useGetApartments = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
-    
 
-    const fetchApartments = useCallback(async () => {
-        dispatch(getApartmentsLoading());
-        setIsLoading(true);
-        setError(null)
+    const fetchApartments = useCallback(
+        async ({ sortBy = "recent", page = 1, limit = 10 } = {}) => {
+            dispatch(getApartmentsLoading());
+            setIsLoading(true);
+            setError(null);
 
-        try {
-            const response = await fetchApartmentsApi();
-            if(response.status >= 200 && response.status < 300) {
-                dispatch(getApartmentsSuccess(response.data));
-                setError(null);
-            } else {
-                // If the response status is not in the success range, handle the error
-                throw new Error(response.data?.error || 'Failed to fetch apartments');
+            try {
+                const response = await fetchApartmentsApi({ sortBy, page, limit });
+
+                if (response.status >= 200 && response.status < 300) {
+                    dispatch(getApartmentsSuccess(response.data));
+                    setError(null);
+                } else {
+                    throw new Error(response.data?.error || "Failed to fetch apartments");
+                }
+            } catch (error) {
+                setError("Failed to fetch apartments");
+                dispatch(
+                    getApartmentsError(
+                        error.response?.data?.message || "Failed to fetch apartments"
+                    )
+                );
+            } finally {
+                setIsLoading(false);
             }
-        } catch (error) {
-             // If there's an error, set the error state to display 
-            setError('Failed to fetch apartments'); 
-            dispatch(
-                getApartmentsError(
-                    error.response?.data?.message || "Failed to fetch apartments"
-                )
-            );
-        } finally {
-            setIsLoading(false);
-        }
-    }, [dispatch])  
+        },
+        [dispatch]
+    );
 
     return { fetchApartments, isLoading, error };
 };
+
 
 
