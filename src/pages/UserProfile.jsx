@@ -32,6 +32,11 @@ const UserProfile = () => {
   const [previewUrl, setPreviewUrl] = useState(null);
   const navigate = useNavigate();
 
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+  
   
   // DATE OF BIRTH FORMATTING
   const formatDateOfBirth = (dateString) => {

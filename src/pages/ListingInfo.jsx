@@ -26,6 +26,9 @@ const ListingInfo = () => {
   const navigate = useNavigate();
 
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [apartmentId]);
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('en-NG', {
@@ -319,7 +322,7 @@ const ListingInfo = () => {
                 >   
                   {/* Image slider */}
                   <div
-                    className="w-full h-full flex transition-transform duration-500 ease-in-out"
+                    className="flex h-full transition-transform duration-500 ease-in-out"
                     style={{
                       transform: `translateX(${currentImg * - 100}%)`,
                     }}
@@ -330,10 +333,10 @@ const ListingInfo = () => {
                       : image;
                       return(
                         <img
-                        key={index}
-                        src={optimizedUrl}
-                        alt={`apartment-${index}`}
-                        className="w-full h-full object-cover"
+                          key={index}
+                          src={optimizedUrl}
+                          alt={`apartment-${index}`}
+                          className="min-w-full flex-shrink-0 h-full object-cover"
                         />
                       )
                     })}
@@ -356,7 +359,7 @@ const ListingInfo = () => {
               </div>
                 
               {/* Action Buttons */}
-              <div className="flex items-center gap-3 mb-4 justify-start ml-2">
+              <div className="flex items-center gap-3 mb-4 justify-start px-2">
                 <button 
                   onClick={() => setShowConfirmModal(true)}
                   className="flex items-center font-semibold gap-2 px-4 py-2 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-lg hover:from-red-600 hover:to-rose-700 transition-all duration-200 shadow-sm cursor-pointer focus:invisible"
@@ -367,7 +370,7 @@ const ListingInfo = () => {
               </div>
                 
               {/* Property Details */}
-              <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
+              <div className='min-w-full grid grid-cols-1 lg:grid-cols-2 gap-8'>
 
                 {/* Main Info */}
                 <div className="lg:col-span-2 space-y-6">
@@ -424,7 +427,7 @@ const ListingInfo = () => {
                   {/* Amenities */}
                   <div className="bg-white px-3 py-8">
                     <h2 className="text-2xl text-center font-bold text-gray-800 mb-8">Amenities & Features</h2>
-                    <div className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <InfoCard 
                         icon={Home} 
                         label="Furnished Status" 
@@ -439,12 +442,11 @@ const ListingInfo = () => {
                   </div>
                 </div>
                 
-                {/* Sidebar */}
-                <div className="space-y-6">
+                <div className="lg:col-span-2 space-y-6">
                   {/* Pricing */}
                   <div className="bg-white px-3 py-8">
                     <h2 className="text-2xl text-center font-bold text-gray-800 mb-8">Pricing</h2>
-                    <div className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <InfoCard 
                         icon={DollarSign} 
                         label="Rent Price" 
@@ -471,7 +473,7 @@ const ListingInfo = () => {
                   {/* Contact */}
                   <div className="bg-white px-3 py-8">
                     <h2 className="text-2xl text-center font-bold text-gray-800 mb-8">Contact</h2>
-                    <div className='space-y-6'>
+                    <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                       <InfoCard 
                         icon={User} 
                         label="Contact Name" 

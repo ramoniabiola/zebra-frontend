@@ -2,10 +2,16 @@ import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import Footerbar from "../components/Footerbar";
 import Footer from "../components/Footer";
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
 
 
 const NotificationPage = () => {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
+    
 
     
     return (
@@ -23,7 +29,7 @@ const NotificationPage = () => {
 
 
             {/* Notification List */}
-            <div className="w-full flex flex-col gap-6 px-4 mt-12 mb-8 cursor-pointer">
+            <div className="w-11/12 px-2 flex flex-col items-start justify-center gap-6 mx-auto mt-12 mb-8 cursor-pointer">
                 {/* Single Notification Card */}
                 {[1, 2, 3].map((_, i) => (
                     <div

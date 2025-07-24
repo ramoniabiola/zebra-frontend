@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 import {
   UserCircleIcon
 } from "@heroicons/react/24/solid";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import MyListings from "../components/MyListings";
 import DeactivatedListings from "../components/DeactivatedListings";
 import { useNavigate } from "react-router-dom";
@@ -22,26 +22,10 @@ const MyDashboard = () => {
   const [error, setError] = useState(null)
   const [userStats, setUserStats] = useState({})
   const user = useSelector((state) => state.auth?.user);
-  
 
-  const tabRefs = {
-    "My Listings": useRef(null),
-    "Deactivated Listings": useRef(null),
-  };
-  const underlineRef = useRef(null);
-
-  
   useEffect(() => {
-    const activeElement = tabRefs[activeTab]?.current;
-    const underline = underlineRef.current;
-
-    if (activeElement && underline) {
-      const padding = 6;
-      underline.style.width = `${activeElement.offsetWidth - padding * 2}px`;
-      underline.style.left = `${activeElement.offsetLeft + padding}px`;
-    }
-  }, [activeTab]);
-
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
 
   //GET USER LISTINGS STATS
@@ -207,26 +191,27 @@ const MyDashboard = () => {
           <div className="border-b border-gray-200">
             <div className="relative flex items-center justify-center gap-8 px-6">
               {["My Listings", "Deactivated Listings"].map((tab) => (
-                <button
+                <h2
                   key={tab}
-                  ref={tabRefs[tab]}
                   onClick={() => setActiveTab(tab)}
-                  className={`relative py-4 text-lg transition-all duration-300 cursor-pointer focus:invisible ${
+                  className={`relative py-4 text-lg transition-all font-normal duration-300 cursor-pointer focus:invisible ${
                     activeTab === tab 
-                      ? "text-cyan-600 font-semibold" 
-                      : "text-gray-400 font-normal hover:text-gray-600"
+                      ? "text-cyan-600" 
+                      : "text-gray-400  hover:text-gray-600"
                   }`}
                 >
                   {tab}
-                </button>
+
+                  {/* Animated Underline */}
+                  {activeTab === tab && (
+                    <span
+                      className="absolute bottom-0 w-full left-0 h-1.5 bg-cyan-600 rounded-full transition-all duration-300 ease-out"   
+                    />
+                  )}
+                </h2>
               ))}
 
-              {/* Animated Underline */}
-              <span
-                ref={underlineRef}
-                className="absolute bottom-0 h-1.5 bg-cyan-600 rounded-full transition-all duration-300 ease-out"
-                style={{ left: 0, width: 0 }}
-              />
+              
             </div>
           </div>
         </div>

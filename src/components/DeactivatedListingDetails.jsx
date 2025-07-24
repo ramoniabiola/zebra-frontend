@@ -49,9 +49,9 @@ const DeactivatedListingDetails = ({ apartment }) => {
       >
          {/* Image Slider */}
         <div 
-          className="h-full w-[322px] flex transition-transform duration-600 ease-[cubic-bezier(0.4, 0, 0.2, 1)]"
+          className="h-full w-full flex transition-transform duration-600 ease-[cubic-bezier(0.4, 0, 0.2, 1)]"
           style={{
-            transform: `translateX(${currentImg * - 322}px)`,
+            transform: `translateX(${currentImg * 100}%)`,
           }}
         >
           {apartment?.uploadedImages.map((image, index) => {
@@ -64,7 +64,7 @@ const DeactivatedListingDetails = ({ apartment }) => {
                 key={index}
                 src={optimizedUrl}
                 alt={`apartment-${index}`}
-                className="w-full h-full object-cover rounded-lg"
+                className="min-w-full flex-shrink-0 h-full object-cover"
               />
             )
           })}

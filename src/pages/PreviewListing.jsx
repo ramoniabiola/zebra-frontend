@@ -13,6 +13,13 @@ const PreviewListing = ({ formData, onBackToStep }) => {
   const { createNewListing, success, setSuccess, isLoading, error } = useCreateNewListing()
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+  
+
+
   // Amenity icons mapping
   const amenityIcons = {
     'WiFi': Wifi,
@@ -190,9 +197,9 @@ const PreviewListing = ({ formData, onBackToStep }) => {
   return (
     <div className="w-full min-h-screen bg-gradient-to-br from-gray-50 to-white">
       {/* Header */}
-      <div className="bg-white border-b border-gray-100 sticky top-0 z-10">
+      <div className="bg-white border-b border-gray-100 sticky top-0 z-0">
         <div className="max-w-4xl mx-auto px-4 py-4">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1">
             <button 
               onClick={() => onBackToStep(4)}
               className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors duration-200 cursor-pointer"
@@ -230,7 +237,7 @@ const PreviewListing = ({ formData, onBackToStep }) => {
                       key={index}
                       src={image}
                       alt={`apartment-${index}`}
-                      className="w-full h-full object-cover"
+                      className="min-w-full flex-shrink-0 h-full object-cover"
                     />
                   ))}
                 </div> 

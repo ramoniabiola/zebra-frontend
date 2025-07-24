@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 import Footer from "../components/Footer";
 import Footerbar from "../components/Footerbar";
@@ -44,6 +44,11 @@ const landlordFaqs = [
 const SupportPage = () => {
   const [activeTab, setActiveTab] = useState("Tenant");
   const [openIndex, setOpenIndex] = useState(null);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+  
 
   const toggleAccordion = (index) => {
     setOpenIndex(openIndex === index ? null : index);

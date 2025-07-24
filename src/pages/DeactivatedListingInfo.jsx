@@ -163,6 +163,10 @@ const DeactivatedListingInfo = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [apartmentId]);
+
 
 
   const formatPrice = (price) => {
@@ -766,9 +770,9 @@ const DeactivatedListingInfo = () => {
                     onMouseLeave={() => setIsHovered(false)}
                   >   
                     <div
-                      className="w-full h-full flex transition-transform duration-500 ease-in-out"
+                      className="flex h-full transition-transform duration-500 ease-in-out"
                       style={{
-                        transform: `translateX(${currentImg * -100}%)`,
+                        transform: `translateX(${currentImg * - 100}%)`,
                       }}
                     >
                       {apartment?.uploadedImages?.map((image, index) => {
@@ -781,7 +785,7 @@ const DeactivatedListingInfo = () => {
                           key={index}
                           src={optimizedUrl}
                           alt={`apartment-${index}`}
-                          className="w-full h-full object-cover"
+                          className="min-w-full flex-shrink-0 h-full object-cover"
                           />
                         )
                       })}
@@ -804,13 +808,13 @@ const DeactivatedListingInfo = () => {
               </div>
               
               {/* Action Buttons */}
-              <div className={`flex items-center gap-3 mb-4 ${!editMode ? "justify-start ml-2" : "ml-9"}`}>
+              <div className={`flex items-center gap-3 mb-4 ${!editMode ? "justify-start ml-2" : "ml-12"}`}>
                 {editMode ? (
                   <>
                     <button 
                       onClick={handleReactivation}
                       disabled={isReactivating || getAllImages().length < 5}
-                      className={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition-all duration-200 shadow-sm focus:invisible cursor-pointer ${
+                      className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 shadow-sm focus:invisible cursor-pointer ${
                         isReactivating || getAllImages().length < 5
                           ? 'bg-gray-400 text-white cursor-not-allowed'
                           : 'bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700'
@@ -838,7 +842,7 @@ const DeactivatedListingInfo = () => {
                     </button>
                   </>
                 ) : (
-                  <div className="flex items-center gap-3 justify-start ml-2">
+                  <div className="flex items-center gap-3 justify-start">
                     <button 
                       onClick={() => setEditMode(true)}
                       className="flex items-center font-semibold gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-200 shadow-sm cursor-pointer focus:invisible"

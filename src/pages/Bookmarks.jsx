@@ -29,6 +29,11 @@ const Bookmarks = () => {
     const [searchQuery, setSearchQuery] = useState('');
 
 
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
+
+
 
     // Unified function to fetch bookmarks (either all or filtered)
     const fetchBookmarks = async (searchTerm = null) => {

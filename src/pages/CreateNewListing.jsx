@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Step1_ApartmentInfo from './steps/Step1_ApartmentInfo';
 import Step2_PricingDuration from './steps/Step2_PricingDuration';
 import Step3_ContactAmenities from './steps/Step3_ContactAmenities';
@@ -42,6 +42,10 @@ const CreateNewListing = () => {
     images: [],
     uploadedImages: [], // Store uploaded image URLs
   });
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   
 
   // Apartment data error validation handler

@@ -57,7 +57,7 @@ const Apartments = () => {
   );
 
   return (
-    <div className="h-full w-full flex flex-col items-start justify-center">
+    <div className="h-full min-w-full flex flex-col items-start justify-center">
       {/* APARTMENT LISTING OPTIONS */}
       <div className="fixed top-32 z-30 h-20 w-full flex items-center justify-around bg-white shadow-md py-2">
         {tabs.map((tab) => (
@@ -82,10 +82,10 @@ const Apartments = () => {
             </h2>
           </div>
         ))}
-      </div>
+      </div> 
 
       {/* APARTMENT LISTINGS */}
-      <div className="mt-[12rem] w-full h-full flex flex-col items-center justify-center px-4 overflow-y-auto scroll-smooth mb-12">
+      <div className="mt-[12rem] min-w-full h-full flex flex-col items-center justify-center px-4 overflow-y-auto scroll-smooth mb-12">
         {error ? 
           (
             <ErrorDisplay />

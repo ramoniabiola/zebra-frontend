@@ -32,6 +32,10 @@ const ApartmentInfo = () => {
   const navigate = useNavigate();
 
   
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [apartmentId]);
+
 
   // Amenity icons mapping
   const amenityIcons = {
@@ -221,7 +225,7 @@ const ApartmentInfo = () => {
 
   return (
     <>
-      <div className="h-full w-full overflow-hidden flex flex-col items-start justify-items-start">
+      <div className="h-full w-full overflow-hidden flex flex-col items-start justify-items-center">
         {errorMessage ? 
         (
           <ErrorDisplay />
@@ -249,7 +253,7 @@ const ApartmentInfo = () => {
             >
               {/* Image slider */}
               <div
-                className="w-full h-full flex transition-transform duration-500 ease-in-out"
+                className="flex h-full transition-transform duration-500 ease-in-out"
                 style={{
                   transform: `translateX(${currentImg * - 100}%)`,
                 }}
@@ -263,7 +267,7 @@ const ApartmentInfo = () => {
                     key={index}
                     src={optimizedUrl}
                     alt={`apartment-${index}`}
-                    className="w-full h-full object-cover"
+                    className="min-w-full flex-shrink-0 h-full object-cover"
                     />
                   )
                 })}
@@ -322,7 +326,7 @@ const ApartmentInfo = () => {
 
 
             {/* APARTMENT INFORMATION */}
-            <div className="bg-white w-full h-full flex flex-col items-start justify-center ml-4 mr-4 gap-4 mb-8">
+            <div className="bg-white min-w-full h-full flex flex-col items-start justify-start px-4 gap-4 mb-8">
 
               {/* Add to bookmark error notification  */}
               {error && (
@@ -351,7 +355,7 @@ const ApartmentInfo = () => {
                       </span>
                     )}
                   </div>
-                  <h1 className="text-[28px] font-semibold text-gray-900 mb-4 leading-tight pr-2">{apartment.title}</h1>
+                  <h1 className="text-[28px] font-semibold text-gray-900 mb-4 leading-tight pr-4">{apartment.title}</h1>
                   <div className="flex items-center gap-2 text-gray-600 mb-2">
                     <MapPin className="w-5 h-5 text-cyan-500" />
                     <span className="font-medium">{apartment.location}</span>
@@ -364,7 +368,7 @@ const ApartmentInfo = () => {
               </div>
                 
               {/* Property Stats */}
-              <div className="grid grid-cols-3 gap-1.5 mb-4 mr-7">
+              <div className="min-w-full grid grid-cols-3 gap-1.5 mb-4">
                 <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-4 rounded-2xl text-center border border-cyan-100">
                   <Bed className="w-8 h-8 text-cyan-600 mx-auto mb-2" />
                   <div className="text-2xl font-bold text-gray-800 mb-1">{apartment.bedrooms}</div>
@@ -407,9 +411,9 @@ const ApartmentInfo = () => {
 
               {/* Amenities Grid */}
               {apartment.apartment_amenities && apartment.apartment_amenities.length > 0 && (
-                <div>
-                  <h3 className="text-xl   font-bold text-center text-gray-800 mb-6 mr-8">Amenities & Features</h3>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mr-7">
+                <div className="min-w-full">
+                  <h3 className="text-xl font-bold text-center text-gray-800 mb-8">Amenities & Features</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                     {apartment.apartment_amenities.map((amenity, idx) => {
                       const IconComponent = amenityIcons[amenity] || Home;
                       return (
@@ -433,10 +437,10 @@ const ApartmentInfo = () => {
               )}
 
               {/* Contact Information */}
-              <div className="border-b pb-8 border-gray-100 mt-8">
-                  <h3 className="text-xl font-bold text-gray-800 text-center mb-6">Contact Info</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-4 py-4 pl-4 pr-24 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-2xl border border-cyan-100">
+              <div className="min-w-full mt-12 border-b border-gray-100 pb-8">
+                <h3 className="text-xl font-bold text-center text-gray-800 mb-8">Contact Info</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-2xl border border-cyan-100">
                     <div className="w-12 h-12 bg-gradient-to-r from-cyan-400 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
                       <User className="w-6 h-6 text-white" />
                     </div>
@@ -458,8 +462,8 @@ const ApartmentInfo = () => {
               </div>
             
               {/* Report Button */}
-              <div className="pt-6">
-                <button className="w-full flex items-center justify-center gap-3 bg-red-50 hover:bg-red-100 text-red-600 font-semibold py-3 px-18 rounded-lg transition-all duration-300 border border-red-200 hover:border-red-300 cursor-pointer">
+              <div className="mt-8 min-w-full">
+                <button className="w-full flex items-center justify-center gap-3 bg-red-50 hover:bg-red-100 text-red-600 font-semibold p-3 rounded-lg transition-all duration-300 border border-red-200 hover:border-red-300 cursor-pointer focus:invisible">
                   <AlertTriangle className="w-5 h-5" />
                   Report This Listing
                 </button>

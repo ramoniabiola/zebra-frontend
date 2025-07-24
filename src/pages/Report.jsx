@@ -1,22 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Footerbar from "../components/Footerbar";
 
 
 
 const Report = () => {
-  const [reason, setReason] = useState("");
-  const [otherReason, setOtherReason] = useState("");
-  const [comments, setComments] = useState("");
-  const [contactInfo, setContactInfo] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+    const [reason, setReason] = useState("");
+    const [otherReason, setOtherReason] = useState("");
+    const [comments, setComments] = useState("");
+    const [contactInfo, setContactInfo] = useState("");
+    const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Here you'd send to backend
-    console.log({ reason, otherReason, comments, contactInfo });
-    setSubmitted(true);
-  };
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
+  
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Here you'd send to backend
+        console.log({ reason, otherReason, comments, contactInfo });
+        setSubmitted(true);
+    };
 
 
 

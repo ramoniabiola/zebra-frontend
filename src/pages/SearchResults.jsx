@@ -20,6 +20,11 @@ const SearchResults = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
+    
+
 
     const getApartments = async () => {
         setIsLoading(true);
@@ -85,7 +90,7 @@ const SearchResults = () => {
     return (
         <div className="w-full h-full flex flex-col items-start justify-center">
             <Search2 />
-            <div className="w-full h-full flex flex-col items-center justify-start mt-28">
+            <div className="w-full px-2 h-full flex flex-col items-center justify-start mt-28">
                 <h1 
                     className={`${query ? 'text-xl text-center text-gray-600 font-semibold' : 'hidden'}`}>
                     Search results for "<b className="text-gray-800">{query}</b>"

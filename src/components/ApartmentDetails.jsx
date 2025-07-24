@@ -163,9 +163,9 @@ const ApartmentDetails   = ({ apartment }) => {
                 >
                     {/* Image Slider */}
                     <div 
-                        className="h-full w-[322px] flex transition-transform duration-600 ease-[cubic-bezier(0.4, 0, 0.2, 1)]"
+                        className="h-full w-full flex transition-transform duration-600 ease-[cubic-bezier(0.4, 0, 0.2, 1)]"
                         style={{
-                            transform: `translateX(${currentImg * - 322}px)`,
+                            transform: `translateX(-${currentImg * 100}%)`
                         }}
                     >
                         {apartment.uploadedImages.map((image, index) => {
@@ -178,7 +178,7 @@ const ApartmentDetails   = ({ apartment }) => {
                                 key={index}
                                 src={optimizedUrl}
                                 alt={`apartment-${index}`}
-                                className="w-full h-full object-cover rounded-lg"
+                                className="min-w-full flex-shrink-0 h-full object-cover"
                                 />
                             )
                         })}
@@ -258,6 +258,14 @@ const ApartmentDetails   = ({ apartment }) => {
                     </div>
 
                     <p className="text-sm text-slate-500 leading-relaxed">{apartment.apartment_type}</p>
+
+                    {apartment.furnished && (
+                        <span 
+                            className="w-3/5 px-3 py-2 bg-gradient-to-r from-cyan-50 to-blue-200 text-cyan-900 text-xs font-bold rounded [clip-path:polygon(0_0,100%_0,85%_100%,0%_100%)] tracking-widest"
+                        >
+                            Top Deal  
+                        </span>
+                    )}
                 
                     {error && (
                         <ErrorAlert 
