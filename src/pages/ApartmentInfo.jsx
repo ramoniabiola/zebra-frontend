@@ -463,7 +463,10 @@ const ApartmentInfo = () => {
             
               {/* Report Button */}
               <div className="mt-8 min-w-full">
-                <button className="w-full flex items-center justify-center gap-3 bg-red-50 hover:bg-red-100 text-red-600 font-semibold p-3 rounded-lg transition-all duration-300 border border-red-200 hover:border-red-300 cursor-pointer focus:invisible">
+                <button 
+                  onClick={() => navigate("/report")}
+                  className="w-full flex items-center justify-center gap-2 bg-red-50 hover:bg-red-100 text-red-600 font-semibold p-3 rounded-lg transition-all duration-300 border border-red-200 hover:border-red-300 cursor-pointer focus:invisible"
+                >
                   <AlertTriangle className="w-5 h-5" />
                   Report This Listing
                 </button>

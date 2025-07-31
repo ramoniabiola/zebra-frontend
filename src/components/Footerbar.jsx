@@ -131,7 +131,7 @@ const Footerbar = () => {
 
   return (
     <div
-      className={`fixed bottom-0 w-full h-20 bg-white shadow-[0_-3px_10px_-4px_rgba(0,0,0,0.15)] z-50 flex items-center justify-around transition-opacity duration-300 ${
+      className={`fixed bottom-0 w-full h-18 bg-white shadow-[0_-3px_10px_-4px_rgba(0,0,0,0.15)] z-50 flex items-center justify-around transition-opacity duration-300 ${
         isBeyondScreen ? "opacity-70" : "opacity-100"
       }`}
     >

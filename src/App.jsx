@@ -18,6 +18,8 @@ import NotificationPage from './pages/NotificationPage';
 import SupportPage from './pages/SupportPage';
 import Report from './pages/Report';
 import DeactivatedListingInfo from './pages/DeactivatedListingInfo';
+import AboutUs from './pages/AboutUs';
+import ListAnApartment from './pages/ListAnApartment';
 
 
 
@@ -44,9 +46,11 @@ function App() {
           <Route path="/search" element={<SearchResults />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/notifications" element={<NotificationPage />} />
-
-          {/* Security & Inquiry */}
+ 
+          {/* Security & Inquiry Section */}
           <Route path="/support" element={<SupportPage />} />
+          <Route path="/AboutUs" element={<AboutUs />} />
+          <Route path="/List-an-apartment" element={<ListAnApartment />} />
           <Route path="/report" element={<Report />} />
         </Routes>
       </Router>

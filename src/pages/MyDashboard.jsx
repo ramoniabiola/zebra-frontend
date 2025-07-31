@@ -93,9 +93,9 @@ const MyDashboard = () => {
         </div>
         <div className="ring-4 p-[3px] ring-cyan-600 rounded-full">
           {user.profile_picture ? (
-            <img src={user.profile_picture} alt="avatar" className="w-12 h-12 rounded-full object-cover cursor-pointer" />
+            <img src={user.profile_picture} alt="avatar" className="w-13 h-13 rounded-full object-cover cursor-pointer" />
           ) : (
-            <UserCircleIcon className="w-14 h-14 text-cyan-500 cursor-pointer" />
+            <UserCircleIcon className="w-16 h-16 text-cyan-500 cursor-pointer" />
           )}
         </div>
       </div>
@@ -171,7 +171,7 @@ const MyDashboard = () => {
         )}
 
         {/* Create New Listing Button */}
-        <div className="mb-1 px-1">
+        <div className="mb-1 px-2">
           <button 
             onClick={() => navigate("/create-listing")} 
             className="w-full bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-3 group focus:invisible cursor-pointer" 
@@ -209,9 +209,7 @@ const MyDashboard = () => {
                     />
                   )}
                 </h2>
-              ))}
-
-              
+              ))} 
             </div>
           </div>
         </div>

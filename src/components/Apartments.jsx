@@ -26,7 +26,7 @@ const Apartments = () => {
   
   
   const handleRetry = () => {
-    fetchApartments({ sortBy: sortMap[activeTab] });
+    fetchApartments();
   };
 
  

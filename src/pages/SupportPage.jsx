@@ -14,7 +14,7 @@ const tenantFaqs = [
   },
   { 
     question: "How do I contact a landlord or agent?", 
-    answer: "Open the apartment info page and click the 'Contact' button to send a message or call directly." 
+    answer: "Open the apartment info page, scroll down and copy the Contact Information  to send a message or call directly." 
   },
   { 
     question: "I forgot my password. What should I do?", 
@@ -29,20 +29,20 @@ const tenantFaqs = [
 const landlordFaqs = [
   { 
     question: "How do I list an apartment?", 
-    answer: "Go to your dashboard and click 'Add Apartment', then fill in all necessary details." 
+    answer: "Go to your dashboard and click 'Create New Listing', then fill in all necessary details." 
   },
   { 
-    question: "Can I edit or deactivate a listing?", 
-    answer: "Yes, navigate to your dashboard, click on any of your listings and use the Update listing button or Deactivate button options for your listings." 
+    question: "Can I  deactivate a listing?",  
+    answer: "Yes, navigate to your dashboard, click on any of your listings and use the 'Deactivate listing'  button option to deactivate a listing." 
   },  
    { 
     question: "Can I Reactivate a listing?", 
-    answer: "Yes, navigate to your dashboard, click on the Deactivated Listing tab then click on any of the deactivated listings to see the details of the listing you want to reactivate, scroll down and click on the Reactivate button." 
+    answer: "Yes, navigate to your dashboard, click on the Deactivated Listing tab then click on any of the deactivated listings to see the details of the listing you want to reactivate, click on the Reactivate button." 
   },  
 ];
 
 const SupportPage = () => {
-  const [activeTab, setActiveTab] = useState("Tenant");
+  const [activeTab, setActiveTab] = useState("House-Hunters");
   const [openIndex, setOpenIndex] = useState(null);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const SupportPage = () => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  const faqs = activeTab === "Tenant" ? tenantFaqs : landlordFaqs;
+  const faqs = activeTab === "House-Hunters" ? tenantFaqs : landlordFaqs;
 
   return (
     <div className="w-full h-full flex flex-col items-start justify-start">
@@ -62,8 +62,8 @@ const SupportPage = () => {
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Support & FAQ</h1>
 
         {/* Tab Switcher */}
-        <div className="w-full flex items-center justify-center gap-11 mb-16">
-          {["Tenant", "Landlord / Agent"].map(tab => (
+        <div className="w-full flex items-center justify-center gap-8 mb-16">
+          {["House-Hunters", "Landlord / Agencies"].map(tab => (
             <span
               key={tab}
               onClick={() => { setActiveTab(tab); setOpenIndex(null); }}

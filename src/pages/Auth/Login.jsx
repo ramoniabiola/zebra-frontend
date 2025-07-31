@@ -34,8 +34,8 @@ const Login = () => {
   };
 
 
-   // Validation function
-    const validateForm = () => {
+  // Validation function
+  const validateForm = () => {
     const errors = {};
     const requiredFields = ['email', 'password'];
     
@@ -210,13 +210,13 @@ const Login = () => {
     <div className="min-h-screen bg-white flex flex-col justify-center px-6 py-10">
       {/* App Name   */}
       <h1 
-        className="text-4xl text-slate-900 font-extrabold text-center mb-4">zebr
-        <span className="text-cyan-600">a</span>
+        className="text-3xl text-slate-900 font-extrabold cursor-pointer text-center mb-4 tracking-tighter">T
+        <span className="text-cyan-600">o-</span>Let
       </h1>
 
       {/* Welcome message */}
-      <h2 className="text-xl text-center font-bold text-gray-600 mb-1">Welcome back to Zebra!</h2>
-      <p className=" text-center text-gray-600 mb-8">Sign in to your account to continue</p>
+      <h2 className="text-xl text-center font-semibold text-gray-500 tracking-wider">Welcome back to To-Let!</h2>
+      <h3 className="text-sm text-center font-normal italic text-gray-400 mb-8">The hub of property renting...</h3>
             
       {/* Form */}
       <form className="space-y-6 max-w-md mx-auto w-full">

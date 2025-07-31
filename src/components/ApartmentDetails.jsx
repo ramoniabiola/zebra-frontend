@@ -261,7 +261,7 @@ const ApartmentDetails   = ({ apartment }) => {
 
                     {apartment.furnished && (
                         <span 
-                            className="w-3/5 px-3 py-2 bg-gradient-to-r from-cyan-50 to-blue-200 text-cyan-900 text-xs font-bold rounded [clip-path:polygon(0_0,100%_0,85%_100%,0%_100%)] tracking-widest"
+                            className="w-2/5 px-3 py-2 bg-gradient-to-r from-blue-100 to-cyan-200 text-cyan-900 text-xs font-bold rounded [clip-path:polygon(0_0,100%_0,85%_100%,0%_100%)] tracking-widest"
                         >
                             Top Deal  
                         </span>

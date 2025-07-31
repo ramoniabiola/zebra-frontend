@@ -53,6 +53,76 @@ const InfoCard = ({ icon: Icon, label, value, name, editable = true, editMode, e
   </div>
 );
 
+const ApartmentTypeCard = ({ 
+  icon: Icon, 
+  label, 
+  value, 
+  name, 
+  editable = true, 
+  editMode, 
+  editedData, 
+  handleChange,
+}) => {
+  const apartmentTypeOptions = [
+    { value: "", label: "Select Apartment Type" },
+    { value: "self-contained", label: "Self-contained" },
+    { value: "1-bedroom", label: "1 Bedroom" },
+    { value: "2-bedroom", label: "2 Bedroom" },
+    { value: "3-bedroom", label: "3 Bedroom" },
+    { value: "4-bedroom", label: "4 Bedroom" },
+    { value: "5-bedroom", label: "5 Bedroom" },
+    { value: "semi-detached-duplex", label: "Semi-detached Duplex" },
+    { value: "duplex", label: "Duplex" },
+    { value: "studio", label: "Studio" },
+    { value: "mini-flat", label: "Mini-Flat" },
+    { value: "shared-apartment", label: "Shared Apartment" }
+  ];
+
+  // Get display label for the current value
+  const getDisplayValue = (val) => {
+    const option = apartmentTypeOptions.find(opt => opt.value === val);
+    return option ? option.label : val;
+  };
+
+  return (
+    <div className="bg-white rounded-lg p-4 border border-gray-100">
+      <div className="flex items-start gap-4">
+        <div className="flex-shrink-0">
+          <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-400 rounded-xl flex items-center justify-center">
+            <Icon className="w-6 h-6 text-white" />
+          </div>
+        </div>
+        <div className="flex-1 min-w-0">
+          <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">
+            {label}
+          </label>
+          {editMode && editable ? (
+            <div>
+              <select
+                name={name}
+                value={editedData[name] || ''}
+                onChange={handleChange}
+                className="mt-2 w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              >
+                {apartmentTypeOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : (
+            <p className="mt-2 text-lg font-semibold text-gray-900 break-words">
+              {getDisplayValue(value) || 'Not specified'}
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
 // Move AmenitiesCard component OUTSIDE of the main component
 const AmenitiesCard = ({ icon: Icon, label, apartment_amenities, editable = true, editMode, handleAmenityAdd, handleAmenityRemove, apartment }) => {
   const [newAmenity, setNewAmenity] = useState('');
@@ -872,7 +942,7 @@ const DeactivatedListingInfo = () => {
                           handleChange={handleChange}
                         />
                       </div>
-                      <InfoCard 
+                      <ApartmentTypeCard
                         icon={Home} 
                         label="Type" 
                         value={editedData.apartment_type} 

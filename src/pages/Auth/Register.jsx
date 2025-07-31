@@ -104,7 +104,6 @@ const Register = () => {
         
         // Perform registerUser action
         await registerUser(dispatch, formData);  
-        console.log(formData)
     };
 
     
@@ -154,7 +153,7 @@ const Register = () => {
                     <CheckCircle className="w-8 h-8 text-green-500" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-800 mb-2">Account Created!</h3>
-                <p className="text-gray-600 mb-4">Welcome to Zebra! Redirecting to login page...</p>
+                <p className="text-gray-600 mb-4">Welcome to To-Let!, the hub of apartment renting, Redirecting to login page...</p>
             </div>
         </div>
     );
@@ -279,12 +278,13 @@ const Register = () => {
             
             {/* App Name / Logo */}
             <h1 
-              className="text-4xl text-slate-900 font-extrabold text-center mb-4">zebr
-              <span className="text-cyan-600">a</span>
+              className="text-3xl text-slate-900 font-extrabold cursor-pointer text-center mb-4 tracking-tighter">T
+              <span className="text-cyan-600">o-</span>Let
             </h1>
 
             {/* Welcome Message */}
-            <h2 className="text-2xl font-bold text-center text-gray-600 mb-2">Create Your Account</h2>
+            <h2 className="text-2xl font-semibold text-center text-gray-500 tracking-wider">Create Your Account</h2>
+            <h3 className="text-sm text-center font-normal italic text-gray-400 mb-3">The hub of property renting...</h3>
             <p className="text-gray-600 text-center text-sm">Join thousands of users finding their perfect home</p>
 
             {/* Form */}

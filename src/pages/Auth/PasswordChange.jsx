@@ -89,12 +89,11 @@ const PasswordChange = () => {
         <div className="min-h-screen bg-white flex flex-col justify-center px-6 py-10">
             {/* App Name */}
             <h1 
-                className="text-4xl text-slate-900 font-extrabold text-center mb-4">zebr
-                <span className="text-cyan-600">a</span>
+                className="text-3xl text-slate-900 font-extrabold cursor-pointer text-center mb-4 tracking-tighter">T
+                <span className="text-cyan-600">o-</span>Let
             </h1>
-
             {/* Welcome message */}
-            <h2 className="text-xl text-center font-bold text-gray-600 mb-1">Change Your Password</h2>
+            <h2 className="text-xl text-center font-bold text-gray-500 mb-1">Change Your Password</h2>
             <p className="text-center text-gray-600 mb-8">Enter your new password to secure your account</p>
                 
             {/* Form */}
