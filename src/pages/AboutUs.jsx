@@ -32,7 +32,7 @@ const AboutUs = () => {
                 <div className="w-full px-4 mt-2">
                     <div className="px-2 py-2">
                         <p className="text-slate-700 opacity-90 font-semibold text-lg leading-relaxed text-center">
-                            Revolutionizing apartment hunting in Nigeria by connecting landlords, housing agencies and tenants seamlessly
+                            Revolutionizing apartment hunting and renting process in Nigeria by connecting landlords, housing agencies and tenants seamlessly
                         </p>
                     </div>
                 </div>

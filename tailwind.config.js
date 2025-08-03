@@ -2,9 +2,9 @@ module.exports = {
     theme: {
       extend: {
         fontFamily: {
-          sans: ['DM Sans', 'sans-serif'],
-          heading: ['Boldonse', 'serif']
+          'sans': ['Inter', 'system-ui', 'sans-serif'],
+          'heading': ['Poppins', 'Inter', 'sans-serif'], 
         },
       },
     },
-  }
+}

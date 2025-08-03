@@ -5,7 +5,7 @@ const Navbar = () => {
     <nav className="w-full h-16 flex items-center justify-between bg-white px-8 fixed top-0 left-0 z-50">
       <Link to="/">
           <h1 
-            className="text-3xl text-slate-900 font-extrabold cursor-pointer tracking-tighter">T
+            className="text-[2.1rem] text-slate-900 font-extrabold cursor-pointer tracking-tight mt-1 text-shadow-lg">T
             <span className="text-cyan-600">o-</span>Let
           </h1>
       </Link>

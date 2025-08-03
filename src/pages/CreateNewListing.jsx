@@ -372,7 +372,7 @@ const CreateNewListing = () => {
         </div>
       </div>
   
-      <div className="max-w-4xl mx-auto px-4 py-8 mt-20">
+      <div className="max-w-4xl mx-2 px-4 py-8 mt-20">
         {/* Step Indicator */}
         <StepIndicator currentStep={step} />
   

@@ -198,24 +198,25 @@ const Login = () => {
               >
             {show ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
-          </div>
-          {hasError && (
-            <p className={`text-rose-500 text-xs mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
-          )}
+        </div>
+        {hasError && (
+          <p className={`text-rose-500 text-xs mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
+        )}
       </div>
     );
   };
   
+
   return (
     <div className="min-h-screen bg-white flex flex-col justify-center px-6 py-10">
       {/* App Name   */}
       <h1 
-        className="text-3xl text-slate-900 font-extrabold cursor-pointer text-center mb-4 tracking-tighter">T
+        className="text-[2.1rem] text-slate-900 font-extrabold cursor-pointer text-center mb-2 tracking-tight text-shadow-lg">T
         <span className="text-cyan-600">o-</span>Let
       </h1>
 
       {/* Welcome message */}
-      <h2 className="text-xl text-center font-semibold text-gray-500 tracking-wider">Welcome back to To-Let!</h2>
+      <h2 className="text-xl text-center font-semibold text-gray-500 tracking-widest">Welcome back to To-Let!</h2>
       <h3 className="text-sm text-center font-normal italic text-gray-400 mb-8">The hub of property renting...</h3>
             
       {/* Form */}

@@ -139,7 +139,7 @@ const UserProfile = () => {
   const handleUpdateUser = async () => {
     setShowSubmitModal(true);
   
-    await updateUser(user?._id, inputs, file);
+    await updateUser(user?.email, inputs, file);
   };
 
 

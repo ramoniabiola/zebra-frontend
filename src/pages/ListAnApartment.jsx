@@ -1,17 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Footerbar from "../components/Footerbar";
-import { HomeIcon, UserPlusIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, UserPlusIcon, PlusCircleIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { HousePlus, X } from "lucide-react";
+import { HousePlus, X, UserX } from "lucide-react";
 
 
 
 const ListAnApartment = () => {
     const [showAuthDialog, setShowAuthDialog] = useState(false);
+    const [showUnauthorizedDialog, setShowUnauthorizedDialog] = useState(false);
     const user = useSelector((state) => state.auth.user);
-    const userId = user?._id
+    const userId = user?._id;
+    const userRole = user?.role;
     const navigate = useNavigate();
 
     
@@ -25,15 +27,23 @@ const ListAnApartment = () => {
     const handleNavigation = () => {
         if(!userId) {
            setShowAuthDialog(true)
-        } else {
-            setShowAuthDialog(false)
+        } else if(userRole === "tenant") {
+            setShowUnauthorizedDialog(true)
+        } else if(userRole === "landlord" || userRole === "agent") {
             navigate("/dashboard")
+        } else {
+            // Handle other roles or unexpected cases
+            setShowUnauthorizedDialog(true)
         }
     }
 
 
     const handleDialogClose = () => {
         setShowAuthDialog(false);
+    }
+
+    const handleUnauthorizedDialogClose = () => {
+        setShowUnauthorizedDialog(false);
     }
 
 
@@ -44,6 +54,11 @@ const ListAnApartment = () => {
 
     const handleRegisterNavigation = () => {
         setShowAuthDialog(false);
+        navigate('/register');
+    }
+
+    const handleCreateLandlordAccount = () => {
+        setShowUnauthorizedDialog(false);
         navigate('/register');
     }
   
@@ -97,6 +112,70 @@ const ListAnApartment = () => {
         </div>
     );
 
+    // Unauthorized Dialog Component for Tenants
+    const UnauthorizedDialog = () => (
+        <div className="fixed inset-0 bg-black/20 bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 max-w-md w-11/12 mx-4 relative">
+                {/* Close button */}
+                <button
+                    onClick={handleUnauthorizedDialogClose}
+                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+                >
+                    <X className="w-5 h-5" />
+                </button>
+                
+                {/* Dialog content */}
+                <div className="text-center">
+                    <div className="mb-4">
+                        <div className="w-16 h-16 bg-gradient-to-b from-amber-500 to-orange-600  rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <UserX  className="w-8 h-8 text-white"  />
+                        </div>
+                        <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                            Access Not Authorized
+                        </h2>
+                        <p className="text-gray-600 text-sm leading-relaxed">
+                            Your current account is registered as a <span className="font-semibold text-gray-800">Tenant</span>. Only landlords and agencies can list properties on this platform.
+                        </p>
+                    </div>
+                    
+                    {/* Info section */}
+                    <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
+                        <div className="flex items-start">
+                            <ExclamationTriangleIcon className="w-5 h-5 text-amber-600 mt-0.5 mr-2 flex-shrink-0" />
+                            <div className="text-left">
+                                <p className="text-sm text-amber-800 font-medium mb-1">
+                                    Tenant Account Limitation
+                                </p>
+                                <p className="text-xs text-amber-700">
+                                    Tenant accounts are designed for browsing and applying for properties, not for listing them.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Action buttons */}
+                    <div className="flex flex-col gap-3 mt-6">
+                        <button
+                            onClick={handleCreateLandlordAccount}
+                            className="w-full shadow-lg bg-green-600 text-white py-2.5 px-4 rounded-lg font-medium hover:bg-green-700 transition-colors cursor-pointer"
+                        >
+                            Create Landlord/Agent Account
+                        </button>
+                        <button
+                            onClick={handleUnauthorizedDialogClose}
+                            className="w-full border shadow-lg border-gray-300 text-gray-700 py-2 px-4 rounded-lg font-medium hover:bg-gray-50 transition-colors cursor-pointer"
+                        >
+                            Continue as Tenant
+                        </button>
+                    </div>
+                    <p className="text-xs text-gray-500 mt-4">
+                        Need to list properties? Create a landlord or agent account instead.
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
+
   
 
     
@@ -127,7 +206,10 @@ const ListAnApartment = () => {
                             <p className="text-gray-600 mb-4 text-sm">
                                 Navigate to your dashboard to list your vacant properties
                             </p>
-                            <button onClick={handleNavigation} className="w-3/4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-3 px-4 rounded-lg font-medium hover:from-cyan-600 hover:to-blue-600 transition-all duration-200 shadow-lg">
+                            <button 
+                                onClick={handleNavigation} 
+                                className="w-3/4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-3 px-4 rounded-lg font-medium hover:from-cyan-600 hover:to-blue-600 transition-all duration-200 shadow-lg"
+                            >
                                 Go to myDashboard
                             </button>
                         </div>
@@ -140,7 +222,10 @@ const ListAnApartment = () => {
                             <p className="text-gray-600 mb-4 text-sm">
                                 Register as an Agency or Landlord to start publishing your vacant listings
                             </p>
-                            <button onClick={() => navigate("/register")} className="w-3/4 bg-gradient-to-r from-green-500 to-emerald-500 text-white py-3 px-4 rounded-lg font-medium hover:from-green-600 hover:to-emerald-600 transition-all duration-200 shadow-lg">
+                            <button 
+                                onClick={() => navigate("/register")} 
+                                className="w-3/4 bg-gradient-to-r from-green-500 to-emerald-500 text-white py-3 px-4 rounded-lg font-medium hover:from-green-600 hover:to-emerald-600 transition-all duration-200 shadow-lg"
+                            >
                                 Register Now
                             </button>
                         </div>
@@ -152,6 +237,9 @@ const ListAnApartment = () => {
 
             {/* Authentication Dialog */}
             {showAuthDialog && <AuthDialog />}
+            
+            {/* Unauthorized Dialog for Tenants */}
+            {showUnauthorizedDialog && <UnauthorizedDialog />}
         </>
     )
 }

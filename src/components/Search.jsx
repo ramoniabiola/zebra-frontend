@@ -28,11 +28,10 @@ const Search = () => {
 
 
   return (
-    <header className="w-full h-20 pt-4 flex items-center justify-center fixed top-12 left-0 z-40 bg-white">
-      <div className="relative bg-white w-11/12 h-10/12 shadow-[0_5px_15px_0_rgba(0,0,0,0.15)] rounded-xl">  
+    <header className="w-full h-18 pt-4 flex items-center justify-center fixed top-16 left-0 z-40 bg-white">
+      <div className="relative bg-white w-11/12 h-full py-4 shadow-[0_5px_15px_0_rgba(0,0,0,0.15)] rounded-xl">  
         <input
           value={searchQuery}
-          
           onChange={handleSearchChange}
           onKeyDown={handleKeyPress}
           type="text"

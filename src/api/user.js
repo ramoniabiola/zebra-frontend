@@ -1,7 +1,7 @@
 import API from "./index";
 
 
-export const updateUserApi = (userId, credentials) => API.put(`/user/${userId}`, credentials)
+export const updateUserApi = (userEmail, credentials) => API.put(`/user/${userEmail}`, credentials)
 
 // Fixed uploadUserImageApi function
 export const uploadUserImageApi = (image) => {

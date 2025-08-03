@@ -85,7 +85,7 @@ export const useRegisterUser = () => {
         }      
     };
     
-    return { registerUser, success, setSuccess, error, setError, isLoading };
+    return { registerUser, success, setSuccess, error, isLoading };
 };
 
 

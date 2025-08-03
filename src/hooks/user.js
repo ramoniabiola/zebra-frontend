@@ -14,7 +14,7 @@ export const useUpdateUser = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 
-    const updateUser = async (userId, userData, profileImage = null) => {
+    const updateUser = async (userEmail, userData, profileImage = null) => {
         dispatch(updateUserLoading());
         setIsLoading(true);
 
@@ -35,8 +35,8 @@ export const useUpdateUser = () => {
                 }
             }
 
-          // Call API to update user
-            const response = await updateUserApi(userId, updatedUserData);
+            // Call API to update user
+            const response = await updateUserApi(userEmail, updatedUserData);
             if (response.status >= 200 && response.status < 300) {
                 dispatch(updateUserSuccess(response.data));
                 setError(null);

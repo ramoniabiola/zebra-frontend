@@ -59,7 +59,7 @@ const Apartments = () => {
   return (
     <div className="h-full min-w-full flex flex-col items-start justify-center">
       {/* APARTMENT LISTING OPTIONS */}
-      <div className="fixed top-32 z-30 h-20 w-full flex items-center justify-around bg-white shadow-md py-2">
+      <div className="fixed top-34 z-30 h-20 w-full flex items-center justify-around bg-white shadow-md py-2">
         {tabs.map((tab) => (
           <div
             key={tab.id}

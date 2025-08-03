@@ -17,10 +17,11 @@ const Register = () => {
     });
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [showSubmitModal, setShowSubmitModal] = useState(false);
     const [focusedField, setFocusedField] = useState("");
     const [fieldErrors, setFieldErrors] = useState({});
     const [shakingFields, setShakingFields] = useState({}); // Track which fields should shake
-    const { registerUser, error, setError, setSuccess, success, isLoading } = useRegisterUser();
+    const { registerUser, error, setSuccess, success, isLoading } = useRegisterUser();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     
@@ -100,6 +101,7 @@ const Register = () => {
        
         setFieldErrors({});
         setShakingFields({});
+        setShowSubmitModal(true)
 
         
         // Perform registerUser action
@@ -133,9 +135,11 @@ const Register = () => {
     
     useEffect(() => {
         if (success) {
-            // After 4 seconds, close modal and clear status
+            
+            // After 4 seconds, close modal
             const timer = setTimeout(() => {
                 setSuccess(false);
+                setShowSubmitModal(false)
                 navigate('/login');
             }, 4000);
         
@@ -145,37 +149,77 @@ const Register = () => {
     
 
 
-    // Success Modal Component
-    const SuccessModal = () => (
-        <div className="fixed inset-0 bg-black/50 bg-opacity-100 flex items-center justify-center z-50 animate-fadeIn">
-            <div className="bg-white rounded-2xl p-8 max-w-sm mx-4 text-center animate-slideUp">
-                <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <CheckCircle className="w-8 h-8 text-green-500" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-800 mb-2">Account Created!</h3>
-                <p className="text-gray-600 mb-4">Welcome to To-Let!, the hub of apartment renting, Redirecting to login page...</p>
-            </div>
-        </div>
-    );
+    const SubmitModal = () => {
+        if (!showSubmitModal) return null;
 
+        return (
+            <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative">
+                    {!isLoading && (
+                        <button
+                            onClick={() => setShowSubmitModal(false)}
+                            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer"
+                        >
+                            <X className="w-5 h-5" />
+                        </button>
+                    )}
+                    <div className="text-center">
+                        {isLoading && (
+                            <>
+                                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+                                </div>
+                                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                                    Creating Your Account
+                                </h3>
+                                <p className="text-gray-600">
+                                    Please wait while we set up your new account...
+                                </p>
+                            </>
+                        )}
 
-    const ErrorAlert = ({ message, onClose }) => (
-        <div className="fixed top-4 left-4 right-4 bg-red-50 border border-red-200 rounded-lg p-4 shadow-lg z-50 animate-slideInRight max-w-sm">
-            <div className="flex items-start">
-                <AlertCircle className="w-5 h-5 text-red-500 mr-3 mt-0.5 flex-shrink-0" />
-                <div className="flex-1">
-                    <p className="text-sm font-medium text-red-800">Registration Failed</p>
-                    <p className="text-sm text-red-600 mt-1">{message}</p>
+                        {success && (
+                            <>
+                                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <CheckCircle className="w-8 h-8 text-green-600" />
+                                </div>
+                                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                                    Account Created Successfully!
+                                </h3>
+                                <p className="text-gray-600">
+                                    🎉 Welcome! Your account has been created successfully. You can now log in with your credentials.
+                                </p>
+                            </>
+                        )}
+
+                        {error && (
+                            <>
+                                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <AlertCircle className="w-8 h-8 text-red-600" />
+                                </div>
+                                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                                    Registration Failed
+                                </h3>
+                                <p className="text-gray-600 mb-4">
+                                    We couldn't create your account. Please check your information and try again.
+                                    <br />
+                                    <span className="text-sm text-gray-500 mt-2 block">
+                                        Error: {error}
+                                    </span>
+                                </p>
+                                <button
+                                    onClick={handleSubmit}
+                                    className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200 cursor-pointer"
+                                >
+                                    Try Again
+                                </button>
+                            </>
+                        )}
+                    </div>
                 </div>
-                <button
-                    onClick={onClose}
-                    className="ml-3 text-red-400 hover:text-red-600 transition-colors"
-                >
-                    <X className="w-4 h-4" />
-                </button>
             </div>
-        </div>
-    );
+        );
+    };
 
 
     const InputField = ({ icon: Icon, type, name, placeholder, value, required = false }) => {
@@ -269,209 +313,208 @@ const Register = () => {
 
 
     return (
-        <div className="w-full min-h-screen bg-white flex flex-col items-center px-4 py-6">
-            {/* Success Modal */}
-            {success && <SuccessModal />}
-            
-            {/* Error Alert */}
-            {error && <ErrorAlert message={error} onClose={() => setError(null)} />}
-            
-            {/* App Name / Logo */}
-            <h1 
-              className="text-3xl text-slate-900 font-extrabold cursor-pointer text-center mb-4 tracking-tighter">T
-              <span className="text-cyan-600">o-</span>Let
-            </h1>
+        <>
+            <div className="w-full min-h-screen bg-white flex flex-col items-center px-4 py-6">
 
-            {/* Welcome Message */}
-            <h2 className="text-2xl font-semibold text-center text-gray-500 tracking-wider">Create Your Account</h2>
-            <h3 className="text-sm text-center font-normal italic text-gray-400 mb-3">The hub of property renting...</h3>
-            <p className="text-gray-600 text-center text-sm">Join thousands of users finding their perfect home</p>
+                {/* App Name / Logo */}
+                <h1 
+                  className="text-[2.1rem] text-slate-900 font-extrabold cursor-pointer text-center mb-2 tracking-tight text-shadow-lg">T
+                  <span className="text-cyan-600">o-</span>Let
+                </h1>
 
-            {/* Form */}
-            <div className="w-full max-w-md space-y-6 mt-8">
-                <InputField
-                    icon={User}
-                    type="text"
-                    name="full_name"
-                    placeholder="Full Name"
-                    value={formData.full_name}
-                    required
-                />
+                {/* Welcome Message */}
+                <h2 className="text-2xl font-semibold text-center text-gray-500 tracking-wider">Create Your Account</h2>
+                <h3 className="text-sm text-center font-normal italic text-gray-400 mb-3">The hub of property renting...</h3>
+                <p className="text-gray-600 text-center text-sm">Join thousands of users finding their perfect home</p>
 
-                <InputField
-                    icon={UserCheck}
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={formData.username}
-                    required
-                />
-                <InputField
-                    icon={Mail}
-                    type="text"
-                    name="email"
-                    placeholder="Email Address"
-                    value={formData.email}
-                    required
-                />
-                <InputField
-                    icon={Phone}
-                    type="text"
-                    name="phone"
-                    placeholder="Phone Number"
-                    value={formData.phone}
-                />
-                <PasswordField
-                    name="password"
-                    placeholder="Password"
-                    value={formData.password}
-                    show={showPassword}
-                    setShow={setShowPassword}
-                />
-                <PasswordField
-                    name="confirmPassword"
-                    placeholder="Confirm Password"
-                    value={formData.confirmPassword}
-                    show={showConfirmPassword}
-                    setShow={setShowConfirmPassword}
-                />
+                {/* Form */}
+                <div className="w-full max-w-md space-y-6 mt-8">
+                    <InputField
+                        icon={User}
+                        type="text"
+                        name="full_name"
+                        placeholder="Full Name"
+                        value={formData.full_name}
+                        required
+                    />
 
-                {/* Role Selector */}
-                <div className="space-y-3">
-                    <label className="block text-sm font-semibold mb-3 text-gray-600">
-                        Register as:
-                    </label>
-                    <div className={`grid grid-cols-3 gap-3 ${shakingFields.role ? 'animate-shake' : ''}`}>
-                        {["tenant", "landlord", "agent"].map((roleOption) => (
-                            <label 
-                                key={roleOption} 
-                                className={`relative flex flex-col items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
-                                    fieldErrors.role
-                                        ? 'border-rose-500 hover:border-rose-600'
-                                        : formData.role === roleOption
-                                            ? 'border-cyan-500 bg-cyan-50 shadow-md'
-                                            : 'border-gray-200 hover:border-cyan-300 hover:bg-gray-50'
-                                }`}
-                            >
-                                <input
-                                    type="radio"
-                                    name="role"
-                                    value={roleOption}
-                                    checked={formData.role === roleOption}
-                                    onChange={handleChange}
-                                    className="sr-only"
-                                />
-                                <div className={`w-4 h-4 rounded-full border-2 mb-2 transition-all duration-300 ${
-                                    fieldErrors.role
-                                        ? 'border-rose-500'
-                                        : formData.role === roleOption
-                                            ? 'border-cyan-500 bg-cyan-500'
-                                            : 'border-gray-300'
-                                }`}>
-                                    {formData.role === roleOption && (
-                                        <div className="w-full h-full rounded-full bg-white scale-50"></div>
-                                    )}
-                                </div>
-                                <span className={`text-sm font-medium capitalize ${
-                                    fieldErrors.role
-                                        ? 'text-rose-600'
-                                        : formData.role === roleOption 
-                                            ? 'text-cyan-700' 
-                                            : 'text-gray-600'
-                                }`}>
-                                    {roleOption}
-                                </span>
-                            </label>
-                        ))}
+                    <InputField
+                        icon={UserCheck}
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        value={formData.username}
+                        required
+                    />
+                    <InputField
+                        icon={Mail}
+                        type="text"
+                        name="email"
+                        placeholder="Email Address"
+                        value={formData.email}
+                        required
+                    />
+                    <InputField
+                        icon={Phone}
+                        type="text"
+                        name="phone"
+                        placeholder="Phone Number"
+                        value={formData.phone}
+                    />
+                    <PasswordField
+                        name="password"
+                        placeholder="Password"
+                        value={formData.password}
+                        show={showPassword}
+                        setShow={setShowPassword}
+                    />
+                    <PasswordField
+                        name="confirmPassword"
+                        placeholder="Confirm Password"
+                        value={formData.confirmPassword}
+                        show={showConfirmPassword}
+                        setShow={setShowConfirmPassword}
+                    />
+
+                    {/* Role Selector */}
+                    <div className="space-y-3">
+                        <label className="block text-sm font-semibold mb-3 text-gray-600">
+                            Register as:
+                        </label>
+                        <div className={`grid grid-cols-3 gap-3 ${shakingFields.role ? 'animate-shake' : ''}`}>
+                            {["tenant", "landlord", "agent"].map((roleOption) => (
+                                <label 
+                                    key={roleOption} 
+                                    className={`relative flex flex-col items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
+                                        fieldErrors.role
+                                            ? 'border-rose-500 hover:border-rose-600'
+                                            : formData.role === roleOption
+                                                ? 'border-cyan-500 bg-cyan-50 shadow-md'
+                                                : 'border-gray-200 hover:border-cyan-300 hover:bg-gray-50'
+                                    }`}
+                                >
+                                    <input
+                                        type="radio"
+                                        name="role"
+                                        value={roleOption}
+                                        checked={formData.role === roleOption}
+                                        onChange={handleChange}
+                                        className="sr-only"
+                                    />
+                                    <div className={`w-4 h-4 rounded-full border-2 mb-2 transition-all duration-300 ${
+                                        fieldErrors.role
+                                            ? 'border-rose-500'
+                                            : formData.role === roleOption
+                                                ? 'border-cyan-500 bg-cyan-500'
+                                                : 'border-gray-300'
+                                    }`}>
+                                        {formData.role === roleOption && (
+                                            <div className="w-full h-full rounded-full bg-white scale-50"></div>
+                                        )}
+                                    </div>
+                                    <span className={`text-sm font-medium capitalize ${
+                                        fieldErrors.role
+                                            ? 'text-rose-600'
+                                            : formData.role === roleOption 
+                                                ? 'text-cyan-700' 
+                                                : 'text-gray-600'
+                                    }`}>
+                                        {roleOption}
+                                    </span>
+                                </label>
+                            ))}
+                        </div>
+                        {fieldErrors.role && (
+                            <p className="text-rose-500 text-xs mt-1 animate-slideDown">{fieldErrors.role}</p>
+                        )}
                     </div>
-                    {fieldErrors.role && (
-                        <p className="text-rose-500 text-xs mt-1 animate-slideDown">{fieldErrors.role}</p>
-                    )}
+
+                    {/* Submit */}
+                    <button
+                        id="submit-btn"
+                        type="submit"
+                        disabled={isLoading}
+                        onClick={handleSubmit}
+                        className={`w-full py-3.5 rounded-xl text-lg font-semibold transition-all duration-300 transform shadow-lg flex items-center justify-center space-x-2 focus:invisible ${
+                            isLoading 
+                                ? 'bg-gray-400 cursor-not-allowed' 
+                                : 'bg-gradient-to-r from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 hover:scale-101 hover:shadow-xl cursor-pointer'
+                        } text-white`}
+                    >
+                       {isLoading ? (
+                            <>
+                                <Loader2 className="w-5 h-5 text-white animate-spin" />
+                                <span>Creating Account...</span>
+                            </>
+                        ) : (
+                            <span>Create Account</span>
+                        )}
+                    </button>
                 </div>
 
-                {/* Submit */}
-                <button
-                    id="submit-btn"
-                    type="submit"
-                    disabled={isLoading}
-                    onClick={handleSubmit}
-                    className={`w-full py-3.5 rounded-xl text-lg font-semibold transition-all duration-300 transform shadow-lg flex items-center justify-center space-x-2 focus:invisible ${
-                        isLoading 
-                            ? 'bg-gray-400 cursor-not-allowed' 
-                            : 'bg-gradient-to-r from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 hover:scale-101 hover:shadow-xl cursor-pointer'
-                    } text-white`}
-                >
-                   {isLoading ? (
-                        <>
-                            <Loader2 className="w-5 h-5 text-white animate-spin" />
-                            <span>Creating Account...</span>
-                        </>
-                    ) : (
-                        <span>Create Account</span>
-                    )}
-                </button>
+                {/* Login Link */}
+                <div className="text-center mt-8 mb-24">
+                    <p className="text-gray-600">
+                        Already have an account?{" "}
+                        <span onClick={() => navigate("/login")} className="text-cyan-600 font-semibold hover:text-cyan-700 transition-colors duration-300 hover:underline cursor-pointer">
+                            Sign in here
+                        </span>
+                    </p>
+                </div>
+
+                {/* Custom Styles */}
+                <style jsx="true">{`
+                    @keyframes shake {
+                        0%, 100% { transform: translateX(0); }
+                        25% { transform: translateX(-5px); }
+                        75% { transform: translateX(5px); }
+                    }
+
+                    @keyframes fadeIn {
+                        from { opacity: 0; }
+                        to { opacity: 1; }
+                    }
+
+                    @keyframes slideUp {
+                        from { transform: translateY(20px); opacity: 0; }
+                        to { transform: translateY(0); opacity: 1; }
+                    }
+
+                    @keyframes slideDown {
+                        from { transform: translateY(-10px); opacity: 0; }
+                        to { transform: translateY(0); opacity: 1; }
+                    }
+
+                    @keyframes slideInRight {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+
+                    .animate-shake {
+                        animation: shake 0.5s ease-in-out;
+                    }
+
+                    .animate-fadeIn {
+                        animation: fadeIn 0.3s ease-out;
+                    }
+
+                    .animate-slideUp {
+                        animation: slideUp 0.4s ease-out;
+                    }
+
+                    .animate-slideDown {
+                        animation: slideDown 0.3s ease-out;
+                    }
+
+                    .animate-slideInRight {
+                        animation: slideInRight 0.4s ease-out;
+                    }
+                `}</style>
             </div>
 
-            {/* Login Link */}
-            <div className="text-center mt-8 mb-24">
-                <p className="text-gray-600">
-                    Already have an account?{" "}
-                    <span onClick={() => navigate("/login")} className="text-cyan-600 font-semibold hover:text-cyan-700 transition-colors duration-300 hover:underline cursor-pointer">
-                        Sign in here
-                    </span>
-                </p>
-            </div>
-
-            {/* Custom Styles */}
-            <style jsx="true">{`
-                @keyframes shake {
-                    0%, 100% { transform: translateX(0); }
-                    25% { transform: translateX(-5px); }
-                    75% { transform: translateX(5px); }
-                }
-                
-                @keyframes fadeIn {
-                    from { opacity: 0; }
-                    to { opacity: 1; }
-                }
-                
-                @keyframes slideUp {
-                    from { transform: translateY(20px); opacity: 0; }
-                    to { transform: translateY(0); opacity: 1; }
-                }
-                
-                @keyframes slideDown {
-                    from { transform: translateY(-10px); opacity: 0; }
-                    to { transform: translateY(0); opacity: 1; }
-                }
-                
-                @keyframes slideInRight {
-                    from { transform: translateX(100%); opacity: 0; }
-                    to { transform: translateX(0); opacity: 1; }
-                }
-                
-                .animate-shake {
-                    animation: shake 0.5s ease-in-out;
-                }
-                
-                .animate-fadeIn {
-                    animation: fadeIn 0.3s ease-out;
-                }
-                
-                .animate-slideUp {
-                    animation: slideUp 0.4s ease-out;
-                }
-                
-                .animate-slideDown {
-                    animation: slideDown 0.3s ease-out;
-                }
-                
-                .animate-slideInRight {
-                    animation: slideInRight 0.4s ease-out;
-                }
-            `}</style>
-        </div>
-    );
-};
+            <SubmitModal />
+        </>
+    );  
+};  
 
 export default Register;

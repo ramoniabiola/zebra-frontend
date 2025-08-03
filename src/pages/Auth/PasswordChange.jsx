@@ -1,25 +1,80 @@
 import { useState, useRef, useEffect } from "react";
-import { Eye, EyeOff, Lock, ArrowRight, Shield } from "lucide-react";
+import { Eye, EyeOff, Lock, ArrowRight, Shield, Mail, X, Loader2, CheckCircle, AlertCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useUpdateUser } from "../../hooks/user";
 
 const PasswordChange = () => {
     const [formData, setFormData] = useState({
+        email: "",
         newPassword: "",
         confirmPassword: ""
     });
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [showSubmitModal, setShowSubmitModal] = useState(false);
     const [focusedField, setFocusedField] = useState("");
+    const [fieldErrors, setFieldErrors] = useState({});
+    const [shakingFields, setShakingFields] = useState({}); // Track which fields shoulds
+    const { updateUser, isLoading, error, setSuccess, success, clearStatus } = useUpdateUser();
     const navigate =  useNavigate();
 
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+
+        // Clear field error when user starts typing
+        if (fieldErrors[e.target.name]) {
+          setFieldErrors(prev => ({...prev, [e.target.name]: ""}));
+        }
+
+        // Clear shaking state when user starts typing
+        if (shakingFields[e.target.name]) {
+          setShakingFields(prev => ({...prev, [e.target.name]: false}));
+        }
     };
+
+
+
+    // Validation function
+    const validateForm = () => {
+        const errors = {};
+        const requiredFields = ['email', 'newPassword', 'confirmPassword'];
+
+        requiredFields.forEach(field => {
+          if (!formData[field].trim()) {
+            errors[field] = `${field.replace('_', ' ')} is required`;   
+          }
+        });
+
+        // Email validation
+        if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
+          errors.email = "Please enter a valid email address";
+        }
+
+        // New password validation
+        if (formData.newPassword && formData.newPassword.length < 6) {
+          errors.newPassword = "New password must be at least 6 characters";
+        }
+
+        // Confirm password validation
+        if (formData.confirmPassword && formData.confirmPassword.length < 6) {
+          errors.confirmPassword = "Confirm password must match new password";
+        }
+
+        // Password match validation
+        if (formData.newPassword && formData.confirmPassword && 
+            formData.newPassword !== formData.confirmPassword) {
+            errors.confirmPassword = "Passwords do not match";
+        }
+
+        return errors;
+    }
+
 
 
     // Create refs for each input field
     const inputRefs = {
+        email: useRef(null),
         newPassword: useRef(null),
         confirmPassword: useRef(null),
     };
@@ -38,119 +93,342 @@ const PasswordChange = () => {
     }, [focusedField, formData]); // Re-run when formData changes to maintain focus
 
 
-    const handlePasswordChange = (e) => {
-        e.preventDefault();
-        if (formData.newPassword !== formData.confirmPassword) {
-            alert("Passwords do not match!");
-            return;
-        }
-        // Trigger password update API here later
-        console.log("Password updated:", formData);
-    };
-    
 
-    const PasswordField = ({ name, placeholder, value, show, setShow, icon: Icon = Lock }) => (
-        <div className="relative group">
-            <div className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-300 ${
-                focusedField === name ? 'text-cyan-500' : 'text-gray-400'
-            }`}>
-                <Icon size={20} />
+    const handlePasswordChange = async (e) => {
+        e.preventDefault();
+
+        const errors = validateForm();
+
+        if(Object.keys(errors).length > 0) {
+            setFieldErrors(errors);
+            
+            // Set shaking state for fields with errors
+            const newShakingFields = {};
+            Object.keys(errors).forEach(field => {
+              newShakingFields[field] = true;
+            });
+            setShakingFields(newShakingFields);
+
+            // Clear shaking state after animation completes
+            setTimeout(() => {
+              setShakingFields({});
+            }, 500);
+
+            // Shake animation for submit button
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn?.classList.add('animate-shake');
+            setTimeout(() => submitBtn?.classList.remove('animate-shake'), 500);
+
+          return;
+        }
+
+        setFieldErrors({});
+        setShakingFields({});
+        setShowSubmitModal(true);
+
+        const newPasswordData = {
+            password: formData.newPassword
+        }
+
+        // Perform password change action
+        await updateUser(formData.email, newPasswordData);
+    };
+
+    
+    // Handle update success/error
+    useEffect(() => {
+        if (success) {
+
+            // After 4 seconds, close modal and clear status
+            const timer = setTimeout(() => {
+                setShowSubmitModal(false);
+                setSuccess(false);
+                clearStatus();
+                navigate("/login")
+            }, 4000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [success, clearStatus, navigate]);
+
+
+    const PasswordField = ({ name, placeholder, value, show, setShow, icon: Icon = Lock }) => {
+        const hasError = fieldErrors[name];
+        const shouldShake = shakingFields[name];
+
+        return (
+            <div className={`relative group ${shouldShake ? 'animate-shake' : ''}`}>
+                <div className="relative group">
+                    <div className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-300 z-10 ${
+                            hasError ? 'text-rose-500' :
+                            focusedField === name ? 'text-cyan-500' : 'text-gray-400'
+                        }`}
+                    >
+                        <Icon size={20} />
+                    </div>
+                    <input
+                        ref={inputRefs[name]}
+                        type={show ? "text" : "password"}
+                        name={name}
+                        placeholder={placeholder}
+                        value={value}
+                        onChange={handleChange}
+                        onFocus={() => setFocusedField(name)}
+                        onBlur={() => setFocusedField("")}
+                        required
+                        className={`w-full pl-12 pr-12 py-4 bg-gray-50 border-2 rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
+                            hasError 
+                                ? 'border-rose-500 shadow-md shadow-rose-500/20' 
+                                : focusedField === name 
+                                    ? 'border-cyan-500 shadow-lg shadow-cyan-500/20' 
+                                    : 'border-gray-200 hover:border-gray-300'
+                        } placeholder-gray-400`}
+                    />
+                    <button
+                        type="button"
+                        onMouseDown={(e) => {
+                            e.preventDefault(); // Prevent input from losing focus
+                            setShow(!show);
+                        }}
+                        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-cyan-500 transition-colors duration-300"
+                    >
+                        {show ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </button>
+                </div>
+                {hasError && (
+                    <p className={`text-rose-500 text-xs mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
+                )}
             </div>
-            <input
-                ref={inputRefs[name]}
-                type={show ? "text" : "password"}
-                name={name}
-                placeholder={placeholder}
-                value={value}
-                onChange={handleChange}
-                onFocus={() => setFocusedField(name)}
-                onBlur={() => setFocusedField("")}
-                required
-                className={`w-full pl-12 pr-12 py-4 bg-gray-50 border-2 rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
-                    focusedField === name 
-                        ? 'border-cyan-500 shadow-lg shadow-cyan-500/20' 
-                        : 'border-gray-200 hover:border-gray-300'
-                } placeholder-gray-400`}
-            />
-            <button
-                type="button"
-                onMouseDown={(e) => {
-                    e.preventDefault(); // Prevent input from losing focus
-                    setShow(!show);
-                }}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-cyan-500 transition-colors duration-300"
-            >
-                {show ? <EyeOff size={20} /> : <Eye size={20} />}
-            </button>
-        </div>
-    );
+        )   
+    };
+
+    const InputField = ({ icon: Icon, type, name, placeholder, value, required = false }) => {
+        const hasError = fieldErrors[name];
+        const shouldShake = shakingFields[name];
+        
+        return (
+            <div className={`relative group ${shouldShake ? 'animate-shake' : ''}`}>
+                <div className="relative">
+                    <div className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-300 z-10 ${
+                            hasError ? 'text-rose-500' :
+                            focusedField === name ? 'text-cyan-500' : 'text-gray-400'
+                        }`}
+                    >
+                        <Icon size={20} />
+                    </div>
+                    <input
+                        ref={inputRefs[name]}
+                        type={type}
+                        name={name}
+                        placeholder={placeholder}
+                        value={value}
+                        onChange={handleChange}
+                        onFocus={() => setFocusedField(name)}
+                        onBlur={() => setFocusedField("")}
+                        required={required}
+                        className={`w-full pl-12 pr-12 py-4 bg-gray-50 border-2 rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
+                            hasError 
+                                ? 'border-rose-500 shadow-md shadow-rose-500/20' 
+                                : focusedField === name 
+                                    ? 'border-cyan-500 shadow-lg shadow-cyan-500/20' 
+                                    : 'border-gray-200 hover:border-gray-300'
+                        } placeholder-gray-400`}
+                    />
+                </div>
+                {hasError && (
+                    <p className={`text-rose-500 text-xs mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
+                )}
+            </div>
+        );
+    };
+
+
+    const SubmitModal = () => {
+        if (!showSubmitModal) return null;
+
+        return (
+            <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative">
+                    {!isLoading && (
+                        <button
+                            onClick={() => setShowSubmitModal(false)}
+                            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer"
+                        >
+                            <X className="w-5 h-5" />
+                        </button>
+                    )}
+                    <div className="text-center">
+                        {isLoading && (
+                            <>
+                                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+                                </div>
+                                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                                    Changing Your Password
+                                </h3>
+                                <p className="text-gray-600">
+                                    Please wait while we update your password securely...
+                                </p>
+                            </>
+                        )}
+
+                        {success && (
+                            <>
+                                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <CheckCircle className="w-8 h-8 text-green-600" />
+                                </div>
+                                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                                    Password Changed Successfully!
+                                </h3>
+                                <p className="text-gray-600">
+                                    Your password has been updated successfully. Please use your new password future logins.
+                                </p>
+                            </>
+                        )}
+
+                        {error && (
+                            <>
+                                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <AlertCircle className="w-8 h-8 text-red-600" />
+                                </div>
+                                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                                    Password Change Failed
+                                </h3>
+                                <p className="text-gray-600 mb-4">
+                                    We couldn't update your password. Please check your current password and try again.
+                                    <br />
+                                    <span className="text-sm text-gray-500 mt-2 block">
+                                        Error: {error}
+                                    </span>
+                                </p>
+                                <button
+                                    onClick={handlePasswordChange}
+                                    className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200 cursor-pointer"
+                                >
+                                    Try Again
+                                </button>
+                            </>
+                        )}
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+
 
     return (
-        <div className="min-h-screen bg-white flex flex-col justify-center px-6 py-10">
-            {/* App Name */}
-            <h1 
-                className="text-3xl text-slate-900 font-extrabold cursor-pointer text-center mb-4 tracking-tighter">T
-                <span className="text-cyan-600">o-</span>Let
-            </h1>
-            {/* Welcome message */}
-            <h2 className="text-xl text-center font-bold text-gray-500 mb-1">Change Your Password</h2>
-            <p className="text-center text-gray-600 mb-8">Enter your new password to secure your account</p>
-                
-            {/* Form */}
-            <div className="space-y-6 max-w-md mx-auto w-full">
-                <PasswordField
-                    name="newPassword"
-                    placeholder="Enter new password"
-                    value={formData.newPassword}
-                    show={showNewPassword}
-                    setShow={setShowNewPassword}
-                    icon={Lock}
-                />
-                
-                <PasswordField 
-                    name="confirmPassword"
-                    placeholder="Confirm new password"
-                    value={formData.confirmPassword}
-                    show={showConfirmPassword}
-                    setShow={setShowConfirmPassword}
-                    icon={Shield}
-                />
+        <>
+            <div className="min-h-screen bg-white flex flex-col justify-center px-6 py-10">
+                {/* App Name */}
+                <h1 
+                    className="text-[2.1rem] text-slate-900 font-extrabold cursor-pointer text-center mb-2 tracking-tight text-shadow-lg">T
+                    <span className="text-cyan-600">o-</span>Let
+                </h1>
+                {/* Welcome message */}
+                <h2 className="text-xl text-center font-semibold text-gray-500 mb-1">Change Your Password</h2>
+                <p className="text-center text-gray-500 mb-8 italic">Enter registered email and your new password to secure your account</p>
 
-                {/* Password Match Indicator */}
-                {formData.newPassword && formData.confirmPassword && (
-                    <div className={`text-sm font-medium ${
-                        formData.newPassword === formData.confirmPassword 
-                            ? 'text-green-600' 
-                            : 'text-red-600'
-                    }`}>
-                        {formData.newPassword === formData.confirmPassword 
-                            ? '✓ Passwords match' 
-                            : '✗ Passwords do not match'
-                        }
-                    </div>
-                )}
+                {/* Form */}
+                <div className="space-y-6 max-w-md mx-auto w-full">
+                    <InputField
+                        icon={Mail}
+                        type="text"
+                        name="email"
+                        placeholder="you@example.com"
+                        value={formData.email}
+                        required
+                    />
 
-                {/* Submit Button */}
-                <button
-                    type="button"
-                    onClick={handlePasswordChange}
-                    className="w-full bg-gradient-to-r from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 text-white py-4 rounded-xl text-lg font-bold transition-all duration-300 transform hover:scale-[1.01] hover:shadow-lg shadow-cyan-500/25 focus:outline-none focus:ring-4 focus:ring-cyan-500/30 flex items-center justify-center space-x-2 group cursor-pointer"
-                >
-                    <span>Update Password</span>
-                    <ArrowRight size={20} className="transform group-hover:translate-x-1 transition-transform duration-300" />
-                </button>
+                    <PasswordField
+                        name="newPassword"
+                        placeholder="Enter new password"
+                        value={formData.newPassword}
+                        show={showNewPassword}
+                        setShow={setShowNewPassword}
+                        icon={Lock}
+                    />
+
+                    <PasswordField 
+                        name="confirmPassword"
+                        placeholder="Confirm new password"
+                        value={formData.confirmPassword}
+                        show={showConfirmPassword}
+                        setShow={setShowConfirmPassword}
+                        icon={Shield}
+                    />
+
+                    {/* Password Match Indicator */}
+                    {formData.newPassword && formData.confirmPassword && (
+                        <div className={`text-sm font-medium ${
+                            formData.newPassword === formData.confirmPassword 
+                                ? 'text-green-600' 
+                                : 'text-red-600'
+                        }`}>
+                            {formData.newPassword === formData.confirmPassword 
+                                ? '✓ Passwords match' 
+                                : '✗ Passwords do not match'
+                            }
+                        </div>
+                    )}
+
+                    {/* Submit Button */}
+                    <button
+                        id="submit-btn"
+                        type="submit"
+                        disabled={isLoading} 
+                        onClick={handlePasswordChange}
+                        className="w-full bg-gradient-to-r from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 text-white py-4 rounded-xl text-lg font-bold transition-all duration-300 transform hover:scale-[1.01] hover:shadow-lg shadow-cyan-500/25 focus:outline-none focus:ring-4 focus:ring-cyan-500/30 flex items-center justify-center space-x-2 group cursor-pointer"
+                    >
+                        {isLoading ? (
+                            <>
+                              <Loader2 className="w-5 h-5 text-white animate-spin" />
+                              <span>Updating Password...</span>
+                            </>
+                        ) : (
+                            <>
+                              <span>Update Password</span>
+                              <ArrowRight size={20} className="transform group-hover:translate-x-1 transition-transform duration-300" />
+                            </>
+                        )}
+                    </button>
+                </div>
+
+                {/* Back to Login Link */}
+                <div className="text-center mt-8">
+                    <p className="text-gray-600">
+                        Remember your password?{" "}
+                        <span onClick={() => navigate("/login")} className="text-cyan-600 font-semibold hover:text-cyan-700 transition-colors duration-300 hover:underline cursor-pointer">
+                            Back to Login
+                        </span>
+                    </p>
+                </div>
+
+
+                {/* Custom Styles */}
+                <style jsx="true">{
+                  `
+                    @keyframes shake {
+                      0%, 100% { transform: translateX(0); }
+                      25% { transform: translateX(-5px); }
+                      75% { transform: translateX(5px); }
+                    }
+                    @keyframes slideDown {
+                      from { transform: translateY(-10px); opacity: 0; }
+                      to { transform: translateY(0); opacity: 1; }
+                    }
+                    .animate-shake {
+                      animation: shake 0.5s ease-in-out;
+                    }
+                    .animate-slideDown {
+                      animation: slideDown 0.3s ease-out;
+                    }
+                  `}
+                </style>
             </div>
 
-            {/* Back to Login Link */}
-            <div className="text-center mt-8">
-                <p className="text-gray-600">
-                    Remember your password?{" "}
-                    <span onClick={() => navigate("/login")} className="text-cyan-600 font-semibold hover:text-cyan-700 transition-colors duration-300 hover:underline cursor-pointer">
-                        Back to Login
-                    </span>
-                </p>
-            </div>
-        </div>
+            <SubmitModal />
+        </>
     );
 };
 

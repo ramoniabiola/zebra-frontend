@@ -151,7 +151,7 @@ const Footerbar = () => {
               </span>
             )}
           </div>
-          <h2 className="text-xs font-medium mt-1">{tab.label}</h2>
+          <h2 className="text-xs font-medium font-sans mt-1">{tab.label}</h2>
         </div>
       ))}
     </div>
