@@ -303,9 +303,9 @@ const UserProfile = () => {
           </div>
 
           {/* USER PROFILE DETAILS */}
-          <div className="w-11/12 mx-auto mt-8  p-6 bg-white border-1 border-stone-100 rounded-xl shadow-sm">
+          <div className="w-11/12 mx-auto mt-8 p-6 bg-white border-1 border-stone-100 rounded-xl shadow-sm">
             {/* Profile Image */}
-            <div className="flex flex-col items-center mb-6">
+            <div className="flex flex-col items-center justify-items-center mb-6">
               <div className="relative w-28 h-28 mb-4">
                 {previewUrl || user?.profile_picture ? (
                 <img
@@ -336,7 +336,7 @@ const UserProfile = () => {
                   </div>
                 )}
               </div>
-              <h1 className="text-3xl font-bold text-gray-700 mb-0.5">{user?.full_name || "Full Name"}</h1>
+              <h1 className="text-3xl text-center font-bold text-gray-700 mb-1">{user?.full_name || "Full Name"}</h1>
               <p className="text-gray-500 text-lg mb-4.5">{user?.email || "Email not available"}</p>
               <button
                 onClick={() => editMode ? handleCancelEdit() : setEditMode(true)}

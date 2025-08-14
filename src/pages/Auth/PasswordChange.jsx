@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from "react";
-import { Eye, EyeOff, Lock, ArrowRight, Shield, Mail, X, Loader2, CheckCircle, AlertCircle } from "lucide-react";
+import { Eye, EyeOff, Lock, ArrowRight, Shield, Mail, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useUpdateUser } from "../../hooks/user";
+import PasswordChangeVerificationPage from "./PasswordChangeVerificationPage";
+import { sendVerificationCodeApi } from "../../api/auth";
 
 const PasswordChange = () => {
     const [formData, setFormData] = useState({
@@ -9,13 +10,15 @@ const PasswordChange = () => {
         newPassword: "",
         confirmPassword: ""
     });
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false)
+
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [showSubmitModal, setShowSubmitModal] = useState(false);
     const [focusedField, setFocusedField] = useState("");
     const [fieldErrors, setFieldErrors] = useState({});
     const [shakingFields, setShakingFields] = useState({}); // Track which fields shoulds
-    const { updateUser, isLoading, error, setSuccess, success, clearStatus } = useUpdateUser();
+    const [showVerificationPage, setShowVerificationPage] = useState(false);
     const navigate =  useNavigate();
 
 
@@ -92,6 +95,32 @@ const PasswordChange = () => {
         }
     }, [focusedField, formData]); // Re-run when formData changes to maintain focus
 
+    
+    const sendVerificationCode = async () => {
+        setIsLoading(true);
+        setError(null)
+
+        try{
+
+            const userEmail = {
+                email: formData.email
+            }
+
+            const response = await sendVerificationCodeApi(userEmail);
+            if(response.status >= 200 && response.status < 300) {
+                setError(null);
+                setIsLoading(false);
+
+            } else {
+                // If the response status is not in the success range, handle the error
+                throw new Error(response.data.error);
+            }
+        }catch(error){
+            setIsLoading(false)
+            setError(error.response?.data?.error || "Failed to send verification code, please try again by clicking the resend button")
+        }
+    }
+
 
 
     const handlePasswordChange = async (e) => {
@@ -124,32 +153,30 @@ const PasswordChange = () => {
 
         setFieldErrors({});
         setShakingFields({});
-        setShowSubmitModal(true);
+       
 
-        const newPasswordData = {
-            password: formData.newPassword
-        }
 
-        // Perform password change action
-        await updateUser(formData.email, newPasswordData);
+        
+        //Invoke send-verification-code function and navigate to the passwordchange-verification-page
+        sendVerificationCode();
+        setShowVerificationPage(true);
     };
 
+
+
+    if (showVerificationPage) {
+        return (
+            <PasswordChangeVerificationPage
+                formData={formData}
+                sendVerificationCode={sendVerificationCode}
+                sendVerificationCodeError={error}
+                setSendVerificationCodeError={setError}
+            />
+        );
+    }
+
     
-    // Handle update success/error
-    useEffect(() => {
-        if (success) {
-
-            // After 4 seconds, close modal and clear status
-            const timer = setTimeout(() => {
-                setShowSubmitModal(false);
-                setSuccess(false);
-                clearStatus();
-                navigate("/login")
-            }, 4000);
-
-            return () => clearTimeout(timer);
-        }
-    }, [success, clearStatus, navigate]);
+   
 
 
     const PasswordField = ({ name, placeholder, value, show, setShow, icon: Icon = Lock }) => {
@@ -242,78 +269,6 @@ const PasswordChange = () => {
         );
     };
 
-
-    const SubmitModal = () => {
-        if (!showSubmitModal) return null;
-
-        return (
-            <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
-                <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative">
-                    {!isLoading && (
-                        <button
-                            onClick={() => setShowSubmitModal(false)}
-                            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer"
-                        >
-                            <X className="w-5 h-5" />
-                        </button>
-                    )}
-                    <div className="text-center">
-                        {isLoading && (
-                            <>
-                                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
-                                </div>
-                                <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                                    Changing Your Password
-                                </h3>
-                                <p className="text-gray-600">
-                                    Please wait while we update your password securely...
-                                </p>
-                            </>
-                        )}
-
-                        {success && (
-                            <>
-                                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <CheckCircle className="w-8 h-8 text-green-600" />
-                                </div>
-                                <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                                    Password Changed Successfully!
-                                </h3>
-                                <p className="text-gray-600">
-                                    Your password has been updated successfully. Please use your new password future logins.
-                                </p>
-                            </>
-                        )}
-
-                        {error && (
-                            <>
-                                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <AlertCircle className="w-8 h-8 text-red-600" />
-                                </div>
-                                <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                                    Password Change Failed
-                                </h3>
-                                <p className="text-gray-600 mb-4">
-                                    We couldn't update your password. Please check your current password and try again.
-                                    <br />
-                                    <span className="text-sm text-gray-500 mt-2 block">
-                                        Error: {error}
-                                    </span>
-                                </p>
-                                <button
-                                    onClick={handlePasswordChange}
-                                    className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200 cursor-pointer"
-                                >
-                                    Try Again
-                                </button>
-                            </>
-                        )}
-                    </div>
-                </div>
-            </div>
-        );
-    };
 
 
 
@@ -426,8 +381,6 @@ const PasswordChange = () => {
                   `}
                 </style>
             </div>
-
-            <SubmitModal />
         </>
     );
 };

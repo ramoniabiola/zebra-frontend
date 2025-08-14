@@ -176,7 +176,7 @@ const PreviewListing = ({ formData, onBackToStep }) => {
                   Don't worry - these things happen! Let's give it another shot.
                   <br />
                   <span className="text-sm text-gray-500 mt-2 block">
-                    Error: {error}
+                    Error:  <b className="text-gray-700">{error}</b>
                   </span>
                 </p>
                 <button

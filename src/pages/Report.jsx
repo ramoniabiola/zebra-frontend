@@ -79,7 +79,7 @@ const Report = () => {
                 {/* Contact Info (optional) */}
                 <div>
                     <label className="block text-lg font-medium text-gray-700 mb-2">
-                        Your Contact Info (optional)
+                        Your Contact Info
                     </label>
                     <input
                         type="text"

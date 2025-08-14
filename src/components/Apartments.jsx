@@ -45,7 +45,7 @@ const Apartments = () => {
         Something went wrong
       </h3>
       <p className="text-gray-600 mb-4">
-        {error?.message || "Failed to load apartments"}
+        {error || "Failed to load apartments"}
       </p>
       <button
         onClick={handleRetry}

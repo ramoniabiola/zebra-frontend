@@ -70,8 +70,8 @@ const ApartmentInfo = () => {
       }
     }catch(error){
       setIsLoading(false)
-      console.log(error.response?.data?.message)
-      setErrorMessage(error.response?.data?.message || "Failed to fetch apartment")
+      console.log(error.response?.data?.error)
+      setErrorMessage(error.response?.data?.error || "Failed to fetch apartment")
     }
   }
 
@@ -195,7 +195,7 @@ const ApartmentInfo = () => {
         Something went wrong
       </h3>
       <p className="text-gray-600 mb-4">
-        {errorMessage?.message || "Failed to fetch apartment"}
+        {errorMessage || "Failed to fetch apartment"}
       </p>
       <button
         onClick={handleRetry}

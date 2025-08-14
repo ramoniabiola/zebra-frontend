@@ -47,7 +47,7 @@ const SearchResults = () => {
               setError(`Apartments "${query}" not found...`);
             } else {
               // 500 - Internal Server Error (or any other error)
-              setError(error.response?.data?.message || 'Internal server error');
+              setError(error.response?.data?.error || 'Internal server error');
             }
             
         }

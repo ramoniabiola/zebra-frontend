@@ -46,7 +46,7 @@ export const useUpdateUser = () => {
                 throw new Error(response.data?.error || 'Something went wrong...');
             }
         } catch (error) {
-            const errorMessage = error.response?.data?.message || error.message || 'Failed to update user';
+            const errorMessage = error.response?.data?.error || 'Failed to update user';
             setError(errorMessage);
             dispatch(updateUserFailure(errorMessage));
             setIsLoading(false);

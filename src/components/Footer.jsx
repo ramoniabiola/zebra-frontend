@@ -12,13 +12,13 @@ const Footer = () => {
     const navigate = useNavigate();
     
   return (
-    <footer className="w-full h-full bg-stone-100 flex flex-col text-stone-900 items-start justify-center px-6 pt-4 pb-24 gap-8">
+    <footer className="w-full h-full bg-slate-50 flex flex-col text-slate-900 items-start justify-center px-6 pt-4 pb-24 gap-8">
         <div className="w-full flex flex-col gap-2">
             <h1 
                 className="text-3xl text-slate-900 font-extrabold pt-1 tracking-tight text-shadow-lg">T
                 <span className="text-cyan-600">o-</span>Let
             </h1>
-            <p className="text-lg font-normal italic text-stone-600">"Making a seamless and easy apartment renting experience..."</p>
+            <p className="text-lg font-normal italic text-slate-600">"Making a seamless and easy apartment renting experience..."</p>
         </div>
 
         {/* Quick Links */}

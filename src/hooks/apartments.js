@@ -30,10 +30,10 @@ export const useGetApartments = () => {
                     throw new Error(response.data?.error || "Failed to fetch apartments");
                 }
             } catch (error) {
-                setError("Failed to fetch apartments");
+                setError( error.response?.data?.error || "Failed to fetch apartments");
                 dispatch(
                     getApartmentsError(
-                        error.response?.data?.message || "Failed to fetch apartments"
+                        error.response?.data?.error || "Failed to fetch apartments"
                     )
                 );
             } finally {

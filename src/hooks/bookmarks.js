@@ -30,14 +30,14 @@ export const useGetUserBookmarks = () => {
         } catch (error) {
             if (error.response?.status === 404) {
               // 404 - Not Found
-              setError(error.response?.data?.message);
+              setError(error.response?.data?.error);
             } else {
               // 500 - Internal Server Error (or any other error)
-              setError(error.response?.data?.message || 'Internal server error');
+              setError(error.response?.data?.error || 'Internal server error');
             }
             dispatch(
                 getBookmarksFailure(
-                    error.response?.data?.message || "Failed to fetch your bookmarks"
+                    error.response?.data?.error || "Failed to fetch your bookmarks"
                 )  
             );
         } finally {
@@ -86,8 +86,6 @@ export const useToggleBookmark = () => {
             
             const errMsg =
                 error?.response?.data?.error ||
-                error?.response?.data?.message ||
-                error.message ||
                 "Something went wrong with bookmark action.";
             
             setError(errMsg);

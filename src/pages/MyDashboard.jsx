@@ -45,7 +45,7 @@ const MyDashboard = () => {
       }
     }catch(error){
       setIsLoading(false)
-      setError(error.response?.data?.message || "Failed to fetch user listings stats")
+      setError(error.response?.data?.error || "Failed to fetch user listings stats")
     }
   }
 
@@ -70,7 +70,7 @@ const MyDashboard = () => {
         Something went wrong
       </h3>
       <p className="text-gray-600 text-sm mb-4">
-        {error?.message || "Failed to fetch user listings stats"}
+        {error || "Failed to fetch user listings stats"}
       </p>
       <button
         onClick={handleRetry}
@@ -86,16 +86,16 @@ const MyDashboard = () => {
   return (
     <div className="w-full min-h-screen flex flex-col items-start justify-start bg-white">
       {/* Welcome section with avatar */}
-      <div className="w-full flex items-center justify-between px-6 py-8 pt-10">
+      <div className="w-full flex items-center  justify-between px-6 py-8 pt-10">
         <div className="flex flex-col gap-1">
-          <h2 className="text-xl font-semibold text-cyan-900 tracking-widest">Welcome back!</h2>
-          <h1 className="text-3xl font-bold text-cyan-950 tracking-widest">{user?.username}</h1>
+          <h2 className="text-lg font-semibold text-cyan-900 tracking-widest">Welcome back!</h2>
+          <h1 className="text-2xl font-bold text-cyan-950 tracking-widest">{user?.username}</h1>
         </div>
         <div className="ring-4 p-[3px] ring-cyan-600 rounded-full">
           {user.profile_picture ? (
-            <img src={user.profile_picture} alt="avatar" className="w-13 h-13 rounded-full object-cover cursor-pointer" />
+            <img src={user.profile_picture} alt="avatar" className="w-12 h-12 rounded-full object-cover cursor-pointer" />
           ) : (
-            <UserCircleIcon className="w-16 h-16 text-cyan-500 cursor-pointer" />
+            <UserCircleIcon className="w-15 h-15 text-cyan-500 cursor-pointer" />
           )}
         </div>
       </div>

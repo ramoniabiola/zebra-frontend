@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
-import { Eye, EyeOff, User, Mail, Phone, Lock, UserCheck, CheckCircle, X, AlertCircle, Loader2 } from "lucide-react";
+import { Eye, EyeOff, User, Mail, Phone, Lock, UserCheck, Loader2 } from "lucide-react";
+import { sendVerificationCodeApi } from "../../api/auth";
+import RegistrationVerificationPage from "./RegistrationVerificationPage";
 import { useNavigate } from "react-router-dom";
-import { useRegisterUser } from "../../hooks/auth";
-import { useDispatch } from "react-redux";
 
 
 const Register = () => {
@@ -10,21 +10,26 @@ const Register = () => {
         full_name: "",
         username: "",
         email: "",
-        phone: "",
+        phone_no: "",
         password: "",
         confirmPassword: "",
         role: "",
     });
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false)
+
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [showSubmitModal, setShowSubmitModal] = useState(false);
     const [focusedField, setFocusedField] = useState("");
     const [fieldErrors, setFieldErrors] = useState({});
+    const [showVerificationPage, setShowVerificationPage] = useState(false);
     const [shakingFields, setShakingFields] = useState({}); // Track which fields should shake
-    const { registerUser, error, setSuccess, success, isLoading } = useRegisterUser();
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const  navigate = useNavigate();
     
+    
+
+
+  
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -43,7 +48,7 @@ const Register = () => {
     // Validation function
     const validateForm = () => {
         const errors = {};
-        const requiredFields = ['full_name', 'username', 'email', 'phone', 'password', 'confirmPassword', 'role'];
+        const requiredFields = ['full_name', 'username', 'email', 'phone_no', 'password', 'confirmPassword', 'role'];
         
         requiredFields.forEach(field => {
             if (!formData[field].trim()) {
@@ -71,7 +76,35 @@ const Register = () => {
         return errors;
     }
 
-    const handleSubmit = async (e) => {
+
+
+    const sendVerificationCode = async () => {
+        setIsLoading(true);
+        setError(null)
+
+        try{
+
+            const userEmail = {
+                email: formData.email
+            }
+
+            const response = await sendVerificationCodeApi(userEmail);
+            if(response.status >= 200 && response.status < 300) {
+                setError(null);
+                setIsLoading(false);
+
+            } else {
+                // If the response status is not in the success range, handle the error
+                throw new Error(response.data.error);
+            }
+        }catch(error){
+            setIsLoading(false)
+            setError(error.response?.data?.error || "Failed to send verification code, please try again by clicking the resend button")
+        }
+    }
+
+
+    const handleUserRegistration = async (e) => {
         e.preventDefault();
 
         const errors = validateForm();
@@ -101,11 +134,11 @@ const Register = () => {
        
         setFieldErrors({});
         setShakingFields({});
-        setShowSubmitModal(true)
+      
 
-        
-        // Perform registerUser action
-        await registerUser(dispatch, formData);  
+        //Invoke send-verification-code function and navigate to the registration-verification-page
+        sendVerificationCode();
+        setShowVerificationPage(true);
     };
 
     
@@ -114,7 +147,7 @@ const Register = () => {
         full_name: useRef(null),
         username: useRef(null),
         email: useRef(null),
-        phone: useRef(null),
+        phone_no: useRef(null),
         password: useRef(null),
         confirmPassword: useRef(null),
     };
@@ -133,93 +166,17 @@ const Register = () => {
 
 
     
-    useEffect(() => {
-        if (success) {
-            
-            // After 4 seconds, close modal
-            const timer = setTimeout(() => {
-                setSuccess(false);
-                setShowSubmitModal(false)
-                navigate('/login');
-            }, 4000);
-        
-            return () => clearTimeout(timer);
-        }
-    }, [success, navigate]);
-    
-
-
-    const SubmitModal = () => {
-        if (!showSubmitModal) return null;
-
+    if (showVerificationPage) {
         return (
-            <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
-                <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative">
-                    {!isLoading && (
-                        <button
-                            onClick={() => setShowSubmitModal(false)}
-                            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer"
-                        >
-                            <X className="w-5 h-5" />
-                        </button>
-                    )}
-                    <div className="text-center">
-                        {isLoading && (
-                            <>
-                                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
-                                </div>
-                                <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                                    Creating Your Account
-                                </h3>
-                                <p className="text-gray-600">
-                                    Please wait while we set up your new account...
-                                </p>
-                            </>
-                        )}
-
-                        {success && (
-                            <>
-                                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <CheckCircle className="w-8 h-8 text-green-600" />
-                                </div>
-                                <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                                    Account Created Successfully!
-                                </h3>
-                                <p className="text-gray-600">
-                                    🎉 Welcome! Your account has been created successfully. You can now log in with your credentials.
-                                </p>
-                            </>
-                        )}
-
-                        {error && (
-                            <>
-                                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <AlertCircle className="w-8 h-8 text-red-600" />
-                                </div>
-                                <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                                    Registration Failed
-                                </h3>
-                                <p className="text-gray-600 mb-4">
-                                    We couldn't create your account. Please check your information and try again.
-                                    <br />
-                                    <span className="text-sm text-gray-500 mt-2 block">
-                                        Error: {error}
-                                    </span>
-                                </p>
-                                <button
-                                    onClick={handleSubmit}
-                                    className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200 cursor-pointer"
-                                >
-                                    Try Again
-                                </button>
-                            </>
-                        )}
-                    </div>
-                </div>
-            </div>
+            <RegistrationVerificationPage
+                formData={formData}
+                sendVerificationCode={sendVerificationCode}
+                sendVerificationCodeError={error}
+                setSendVerificationCodeError={setError}
+            />
         );
-    };
+    }
+
 
 
     const InputField = ({ icon: Icon, type, name, placeholder, value, required = false }) => {
@@ -318,7 +275,7 @@ const Register = () => {
 
                 {/* App Name / Logo */}
                 <h1 
-                  className="text-[2.1rem] text-slate-900 font-extrabold cursor-pointer text-center mb-2 tracking-tight text-shadow-lg">T
+                  className="text-[2rem] text-slate-900 font-extrabold cursor-pointer text-center mb-1 tracking-tight text-shadow-lg">T
                   <span className="text-cyan-600">o-</span>Let
                 </h1>
 
@@ -346,6 +303,7 @@ const Register = () => {
                         value={formData.username}
                         required
                     />
+
                     <InputField
                         icon={Mail}
                         type="text"
@@ -354,13 +312,15 @@ const Register = () => {
                         value={formData.email}
                         required
                     />
+
                     <InputField
                         icon={Phone}
                         type="text"
-                        name="phone"
+                        name="phone_no"
                         placeholder="Phone Number"
-                        value={formData.phone}
+                        value={formData.phone_no}
                     />
+
                     <PasswordField
                         name="password"
                         placeholder="Password"
@@ -368,6 +328,7 @@ const Register = () => {
                         show={showPassword}
                         setShow={setShowPassword}
                     />
+                    
                     <PasswordField
                         name="confirmPassword"
                         placeholder="Confirm Password"
@@ -425,7 +386,7 @@ const Register = () => {
                             ))}
                         </div>
                         {fieldErrors.role && (
-                            <p className="text-rose-500 text-xs mt-1 animate-slideDown">{fieldErrors.role}</p>
+                            <p className="text-rose-500 text-sm mt-1 animate-slideDown">{fieldErrors.role}</p>
                         )}
                     </div>
 
@@ -434,7 +395,7 @@ const Register = () => {
                         id="submit-btn"
                         type="submit"
                         disabled={isLoading}
-                        onClick={handleSubmit}
+                        onClick={handleUserRegistration}
                         className={`w-full py-3.5 rounded-xl text-lg font-semibold transition-all duration-300 transform shadow-lg flex items-center justify-center space-x-2 focus:invisible ${
                             isLoading 
                                 ? 'bg-gray-400 cursor-not-allowed' 
@@ -511,8 +472,6 @@ const Register = () => {
                     }
                 `}</style>
             </div>
-
-            <SubmitModal />
         </>
     );  
 };  

@@ -34,7 +34,7 @@ export const useGetMyDeactivatedListings = () => {
             setError(error.response?.data?.error || 'Failed to fetch deactivated listings'); 
             setIsLoading(false);
             dispatch(
-                getMyDeactivatedListingsError(err.response?.data?.message || "Failed to fetch  deactivated listings")
+                getMyDeactivatedListingsError(err.response?.data?.error || "Failed to fetch  deactivated listings")
             );   
         }
     };

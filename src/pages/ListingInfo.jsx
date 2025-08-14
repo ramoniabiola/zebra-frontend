@@ -56,8 +56,8 @@ const ListingInfo = () => {
       }
     }catch(error){
       setIsLoading(false)
-      console.log(error.response?.data?.message)
-      setError(error.response?.data?.message || "Failed to fetch listings")
+      console.log(error.response?.data?.error)
+      setError(error.response?.data?.error || "Failed to fetch listings")
     }
   }
 
@@ -203,7 +203,7 @@ const ListingInfo = () => {
                   We couldn't deactivate your listing. Please try again.
                   <br />
                   <span className="text-sm text-gray-500 mt-2 block">
-                    Error: {deactivateError}
+                    Error:  <b className="text-gray-700">{error}</b>
                   </span>
                 </p>
                 <button
@@ -233,7 +233,7 @@ const ListingInfo = () => {
         Something went wrong
       </h3>
       <p className="text-gray-600 mb-4">
-        {error?.message || "Failed to fetch listing"}
+        {error || "Failed to fetch listing"}
       </p>
       <button
         onClick={handleRetry}

@@ -40,7 +40,7 @@ export const useGetMyListings = () => {
             setError(error.response?.data?.error || 'Failed to fetch your listings'); 
             setIsLoading(false);
             dispatch(
-                getMyListingsError(error.response?.data?.message || "Failed to fetch your listings")
+                getMyListingsError(error.response?.data?.error || "Failed to fetch your listings")
             );   
         }
     };
@@ -78,7 +78,7 @@ export const useCreateNewListing = () => {
             // If there's an error, set the error state to display 
             setError(error.response?.data?.error || 'Listing publish failed!'); 
             setIsLoading(false);
-            dispatch(createNewListingFailure(error.response?.data?.message || "Listing publish failed!"));
+            dispatch(createNewListingFailure(error.response?.data?.error || "Listing publish failed!"));
         }
     };
 
@@ -116,7 +116,7 @@ export const useDeactivateMyListing = () => {
             setError(error.response?.data?.error || 'Failed to deactivate listing'); 
             setIsLoading(false);
             dispatch(
-                deactivateMyListingError(error.response?.data?.message || "Failed to deactivate listing")
+                deactivateMyListingError(error.response?.data?.error || "Failed to deactivate listing")
             );
         }
     }

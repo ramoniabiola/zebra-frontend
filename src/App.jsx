@@ -20,6 +20,7 @@ import Report from './pages/Report';
 import DeactivatedListingInfo from './pages/DeactivatedListingInfo';
 import AboutUs from './pages/AboutUs';
 import ListAnApartment from './pages/ListAnApartment';
+import RegistrationVerificationPage from './pages/Auth/RegistrationVerificationPage';
 
 
 
@@ -35,6 +36,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/change-password" element={<PasswordChange />} />
+            <Route path="/auth-verification" element={<RegistrationVerificationPage />} />
 
             {/* Core Section */}
             <Route path="/" element={<Homepage />} />

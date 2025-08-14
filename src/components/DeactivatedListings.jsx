@@ -52,7 +52,7 @@ const DeactivatedListings = () => {
       if (error.response?.status === 404) {
         setError(`Deactivated listing "${searchTerm}" not found...`);
       } else {
-        setError(error.response?.data?.message || 'Internal server error');
+        setError(error.response?.data?.error || 'Internal server error');
       }
     } finally {
       setIsLoading(false);

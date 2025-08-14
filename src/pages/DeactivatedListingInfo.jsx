@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Footerbar from '../components/Footerbar';
 import Footer from '../components/Footer';
 import { ArrowLeft, ChevronRight, ChevronLeft, X, Plus, MapPin, Phone, Home, Calendar, DollarSign, Users, Bath, Square, User, RotateCcw, CheckCircle, Upload, Loader2, AlertCircle } from 'lucide-react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { data, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMyDeactivatedListingByIdApi, reactivateMyListingApi } from '../api/myDeactivatedListings';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
@@ -263,7 +263,7 @@ const DeactivatedListingInfo = () => {
       }
     }catch(error){
       setLoading(false)
-      setErrorMessage(error.response?.data?.message || "Failed to fetch deactivated listing")
+      setErrorMessage(error.response?.data?.error || "Failed to fetch deactivated listing")
     }
   }
 
@@ -446,7 +446,7 @@ const DeactivatedListingInfo = () => {
           if (uploadResponse.status === 200 && uploadResponse.data.uploadedImages) {
             finalImageUrls = [...finalImageUrls, ...uploadResponse.data.uploadedImages];
           } else {
-            throw new Error(uploadResponse.data?.message || 'Failed to upload new images');
+            throw new Error(uploadResponse.data?.error|| 'Failed to upload new images');
           }
         } catch (uploadError) {
           throw new Error(`Image upload failed: ${uploadError.message}`);
@@ -483,7 +483,7 @@ const DeactivatedListingInfo = () => {
       console.error('Reactivation error:', error);
 
       // Set user-friendly error message
-      const errorMessage = error.message || 'Failed to reactivate listing. Please try again.';
+      const errorMessage = error.response?.data?.error  || 'Failed to reactivate listing. Please try again.';
       setError(errorMessage);
       setIsLoading(false);
       setSuccess(false);
@@ -535,7 +535,7 @@ const DeactivatedListingInfo = () => {
         Something went wrong
       </h3>
       <p className="text-gray-600 mb-4">
-        {errorMessage?.message || "Failed to fetch listing"}
+        {errorMessage || "Failed to fetch listing"}
       </p>
       <button
         onClick={handleRetry}
