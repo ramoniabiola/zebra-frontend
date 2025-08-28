@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { fetchUserStatsApi } from "../api/myListings";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import DashboardSkeleton from "../utils/loading-display/dashboardSkeleton";
+import { compactNumber } from "../utils/numbers-format/FormatNumber"
 
 
 
@@ -93,7 +94,7 @@ const MyDashboard = () => {
         </div>
         <div className="ring-4 p-[3px] ring-cyan-600 rounded-full">
           {user.profile_picture ? (
-            <img src={user.profile_picture} alt="avatar" className="w-12 h-12 rounded-full object-cover cursor-pointer" />
+            <img src={user.profile_picture} alt="avatar" className="w-14 h-14 rounded-full object-cover cursor-pointer" />
           ) : (
             <UserCircleIcon className="w-15 h-15 text-cyan-500 cursor-pointer" />
           )}
@@ -119,8 +120,8 @@ const MyDashboard = () => {
                 </div>
               </div>
               <div className="space-y-1">
-                <p className="text-sm text-center font-medium text-gray-600 tracking-wider">Active Listings</p>
-                <h2 className="text-xl font-bold font-sans text-center text-gray-800">{userStats.activeListings}</h2>
+                <p className="text-sm text-center font-medium text-gray-600 tracking-wider">Available Listings</p>
+                <h2 className="text-xl font-bold font-sans text-center text-gray-800">{compactNumber(userStats.activeListings)}</h2>
               </div>
             </div>
  
@@ -135,7 +136,7 @@ const MyDashboard = () => {
               </div> 
               <div className="space-y-1">
                 <p className="text-sm text-center font-medium text-gray-600 tracking-wider">Total Listings</p>
-                <h2 className="text-xl font-bold font-sans text-center text-gray-800">{userStats.totalListings}</h2>
+                <h2 className="text-xl font-bold font-sans text-center text-gray-800">{compactNumber(userStats.totalListings)}</h2>
               </div>
             </div>
 
@@ -163,8 +164,8 @@ const MyDashboard = () => {
                 </div>    
               </div> 
               <div className="space-y-1">
-                <p className="text-sm text-center font-medium text-gray-600 tracking-wider">Inactive Listings</p>
-                <h2 className="text-xl font-bold font-sans text-center text-gray-800">{userStats.deactivatedListings}</h2>
+                <p className="text-sm text-center font-medium text-gray-600 tracking-wider">Rented Listings</p>
+                <h2 className="text-xl font-bold font-sans text-center text-gray-800">{compactNumber(userStats.deactivatedListings)}</h2>
               </div>
             </div>
           </div>

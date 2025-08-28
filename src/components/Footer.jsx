@@ -25,8 +25,8 @@ const Footer = () => {
         <div className="w-full flex flex-col">
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-3 text-lg">
-                <li onClick={() => navigate("/AboutUs")} className="hover:underline">How It Works</li>
-                <li onClick={() => navigate("/list-an-apartment")} className="hover:underline">List a Vacant Apartment (for landlords/agencies)</li>
+                <li onClick={() => navigate("/AboutUs")} className="hover:underline cursor-pointer">How It Works</li>
+                <li onClick={() => navigate("/list-an-apartment")} className="hover:underlinev cursor-pointer">List a Vacant Apartment (for landlords/agencies)</li>
                 <li onClick={() => navigate("/support")} className="hover:underline cursor-pointer">FAQs / Help Center</li>
            </ul> 
            <hr className="w-11/12 text-stone-200 mt-8" />

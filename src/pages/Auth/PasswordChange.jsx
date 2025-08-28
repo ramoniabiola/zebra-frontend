@@ -153,10 +153,8 @@ const PasswordChange = () => {
 
         setFieldErrors({});
         setShakingFields({});
-       
 
 
-        
         //Invoke send-verification-code function and navigate to the passwordchange-verification-page
         sendVerificationCode();
         setShowVerificationPage(true);

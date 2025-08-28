@@ -20,6 +20,7 @@ import {
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useLocation } from 'react-router-dom';
+import useNotifications from "../hooks/notifications";
 
 
 const Footerbar = () => {
@@ -28,6 +29,7 @@ const Footerbar = () => {
   const navigate = useNavigate()
   const currentPath = location.pathname;
   const user = useSelector((state) => state.auth.user)
+  const { unreadCount } = useNotifications(user);
   
 
   
@@ -124,9 +126,6 @@ const Footerbar = () => {
   
 
   
-  // Fake Notification value
-  const notificationCount = 3;
-
 
 
   return (
@@ -145,9 +144,9 @@ const Footerbar = () => {
         >
           <div className="relative">
             {tab.icon(activeTab === tab.id)}
-            {(tab.id === "notifications" && notificationCount > 0) && (
+            {(tab.id === "notifications" && unreadCount > 0) && (
               <span className="absolute -top-1.5 -right-3.5 bg-red-500 text-white text-xs rounded-full px-2">
-                {notificationCount}
+                {unreadCount > 99 ? '99+' : unreadCount}
               </span>
             )}
           </div>

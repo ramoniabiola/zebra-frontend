@@ -4,11 +4,11 @@ const MyDeactivatedListingsPlaceholder = () => {
     return (
         <div className="h-full w-full flex flex-col items-center justify-center text-center py-16 px-4 mt-20">
             <div className="relative mb-8">
-                <div className="w-20 h-20 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center shadow-lg">
+                <div className="w-20 h-20 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full flex items-center justify-center shadow-lg">
                     <ArchiveBoxIcon className="w-10 h-10 text-gray-700" />
                 </div>
-                <div className="absolute -top-1 -right-1 w-8 h-8 bg-gradient-to-br from-stone-200 to-stone-300 rounded-full flex items-center justify-center shadow-md">
-                    <EyeSlashIcon className="w-4 h-4 text-stone-800" />
+                <div className="absolute -top-1 -right-1 w-8 h-8 bg-gradient-to-br from-neutral-100 to-neutral-300 rounded-full flex items-center justify-center shadow-md">
+                    <EyeSlashIcon className="w-4 h-4 text-neutral-800" />
                 </div>
             </div>
 

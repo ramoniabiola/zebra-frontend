@@ -7,7 +7,7 @@ const SearchPlaceholder = () => {
                 <div className="w-20 h-20 bg-gradient-to-br from-cyan-100 to-cyan-200 rounded-full flex items-center justify-center shadow-lg">
                     <MagnifyingGlassIcon className="w-10 h-10 text-cyan-600" />
                 </div>
-                <div className="absolute -top-1 -right-1 w-8 h-8 bg-gradient-to-br from-blue-200 to-blue-300 rounded-full flex items-center justify-center shadow-md">
+                <div className="absolute -top-1 -right-1 w-8 h-8 bg-gradient-to-br from-blue-100 to-blue-300 rounded-full flex items-center justify-center shadow-md">
                     <HomeIcon className="w-4 h-4 text-blue-800" />
                 </div>
             </div>

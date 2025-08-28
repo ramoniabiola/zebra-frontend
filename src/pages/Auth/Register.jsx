@@ -92,7 +92,6 @@ const Register = () => {
             if(response.status >= 200 && response.status < 300) {
                 setError(null);
                 setIsLoading(false);
-
             } else {
                 // If the response status is not in the success range, handle the error
                 throw new Error(response.data.error);

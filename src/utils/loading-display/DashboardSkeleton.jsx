@@ -13,7 +13,7 @@ const DashboardSkeleton = () => {
           </div>
           <div className="">
             <div className="flex justify-center">
-              <Skeleton height={12} width={70} />
+              <Skeleton height={12} width={80} />
             </div>
             <div className="flex justify-center"> 
               <Skeleton height={20} width={24} />

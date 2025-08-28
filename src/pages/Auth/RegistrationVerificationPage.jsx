@@ -344,7 +344,7 @@ const RegistrationVerificationPage = ({formData, sendVerificationCode, sendVerif
     ${disabled 
       ? 'bg-gray-400 cursor-not-allowed'
       : 'bg-gradient-to-r from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 hover:scale-101 hover:shadow-xl cursor-pointer'}
-    text-white
+    text-white 
   `;
 
 
@@ -458,6 +458,7 @@ const RegistrationVerificationPage = ({formData, sendVerificationCode, sendVerif
               className={`flex items-center space-x-2 mx-auto text-sm font-semibold transition-colors duration-300 ${
                 resendCooldown > 0
                   ? 'text-gray-400 cursor-not-allowed'
+                  : verifyCodeSuccess ? 'text-gray-400 cursor-not-allowed'
                   : 'text-cyan-600 hover:text-cyan-700 cursor-pointer'
               }`}
             >

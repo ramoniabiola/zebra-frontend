@@ -16,6 +16,7 @@ import bookmarkReducer from './bookmarkSlice';
 import apartmentReducer from './apartmentSlice';
 import myListingsReducer from './myListingSlice';
 import myDeactivatedListingsReducer from './myDeactivatedListingsSlice';
+import notificationsReducer from './notificationSlice'
 
 // Combine all your reducers
 const rootReducer = combineReducers({
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   apartments: apartmentReducer,
   myListings: myListingsReducer,
   myDeactivatedListings: myDeactivatedListingsReducer,
+  notifications: notificationsReducer
 });
 
 // Persist configuration (only auth + bookmarks)

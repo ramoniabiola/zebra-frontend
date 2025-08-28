@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ChevronRightIcon, ChevronLeftIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
-import { Bed, Bath, Wifi, Car, Square, AlertTriangle, Phone, ArrowLeft, MapPin, Zap, Shield, Waves, Coffee, Home, User, AlertCircle, X } from "lucide-react";
+import { Bed, Bath, Wifi, Car, Square, AlertTriangle, Phone, ArrowLeft, MapPin, Zap, Shield, Waves, Coffee, Home, User, AlertCircle, X, Copy, Check } from "lucide-react";
 import { CheckBadgeIcon }from "@heroicons/react/24/solid";
 import Footer from "../components/Footer";
 import { useNavigate, useParams } from 'react-router-dom';
@@ -21,6 +21,8 @@ const ApartmentInfo = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
   const [showAuthDialog, setShowAuthDialog] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [copyError, SetCopyError] = useState(null);
   const totalImages = apartment?.uploadedImages?.length || 0;
   const [isHovered, setIsHovered] = useState(false);
   const user = useSelector((state) => state.auth.user);
@@ -138,6 +140,27 @@ const ApartmentInfo = () => {
     }).format(price);
   };
 
+
+  const copyToClipboard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      SetCopyError(null); // Clear any previous errors
+
+      // Reset the copied state after 2 seconds
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy contact number: ', err);
+      SetCopyError('Failed to copy contact number!');
+
+      // Auto-clear error after 4 seconds
+      setTimeout(() => {
+        SetCopyError(null);
+      }, 4000);
+    }
+  };
    
   // Authentication Dialog Component
   const AuthDialog = () => (
@@ -215,6 +238,25 @@ const ApartmentInfo = () => {
       </div>
       {onClose && (
         <button onClick={onClose} className="text-red-400 hover:text-red-600">
+          <X className="w-4 h-4" />
+        </button>
+      )}
+    </div>
+  );
+
+  // Contact Number copy Error Alert
+  const CopyErrorAlert = ({ error, onClose }) => (
+    <div className="mb-4 p-2 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3 animate-in slide-in-from-top-2 duration-300">
+      <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
+      <div className="flex-1">
+        <p className="text-sm text-red-700 font-medium">Copy Failed</p>
+        <p className="text-sm text-red-600">{error}</p>
+      </div>
+      {onClose && (
+        <button 
+          onClick={onClose} 
+          className="text-red-400 hover:text-red-600 transition-colors"
+        >
           <X className="w-4 h-4" />
         </button>
       )}
@@ -439,8 +481,17 @@ const ApartmentInfo = () => {
               {/* Contact Information */}
               <div className="min-w-full mt-12 border-b border-gray-100 pb-8">
                 <h3 className="text-xl font-bold text-center text-gray-800 mb-8">Contact Info</h3>
+
+                {/* Show copy error if it exists */}
+                 {copyError && (
+                  <CopyErrorAlert 
+                    error={copyError}
+                    onClose={() => SetCopyError(null)} 
+                  />
+                )}
+                
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-2xl border border-cyan-100">
+                  <div className="flex items-center gap-4 px-4 py-4 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-2xl border border-cyan-100">
                     <div className="w-12 h-12 bg-gradient-to-r from-cyan-400 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
                       <User className="w-6 h-6 text-white" />
                     </div>
@@ -449,14 +500,34 @@ const ApartmentInfo = () => {
                       <p className="text-sm text-gray-600">Property Contact</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4 py-4 pl-4 pr-24 bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl border border-emerald-100">
+                  <div className="flex items-center gap-4 py-4 px-4 bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl border border-emerald-100">
                     <div className="w-12 h-12 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
                       <Phone className="w-6 h-6 text-white" />
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <p className="font-semibold text-gray-800">{apartment.contact_phone}</p>
                       <p className="text-sm text-gray-600">Phone Number</p>
                     </div>
+                    <button
+                      onClick={() => copyToClipboard(apartment.contact_phone)}
+                      className={`px-3.5 py-2 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 cursor-pointer ${
+                        copied
+                          ? 'bg-green-100 text-green-700 hover:bg-green-200'
+                          : 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200'
+                      }`}
+                    >
+                      {copied ? (
+                        <>
+                          <Check className="w-4 h-4" />
+                          Copied!
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-4 h-4" />
+                          Copy
+                        </>
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>

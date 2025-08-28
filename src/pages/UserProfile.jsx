@@ -18,7 +18,6 @@ const UserProfile = () => {
   const user = useSelector((state) => state.auth?.user)
   const { handleLogout } = useLogout();
   const { updateUser, isLoading, error, setSuccess, success, clearStatus } = useUpdateUser();
-
   const [inputs, setInputs] = useState({
     full_name: user?.full_name || '',
     username: user?.username || '',
@@ -292,7 +291,7 @@ const UserProfile = () => {
       <div className="w-full h-full flex flex-col items-start justify-start">
         <div className="w-full h-full flex flex-col items-start justify-center gap-4 mb-12">
           {/* HEADING AND BACK ICON */}
-          <div className="w-full h-16 flex items-center justify-start gap-4 pl-2 pt-4 bg-white">
+          <div className="w-full h-16 flex items-center justify-start gap-2 pl-2 pt-4 bg-white">
             <div 
               className="w-12 h-12  mt-1 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-colors duration-200 cursor-pointer"
               onClick={() => navigate(-1)}

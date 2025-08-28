@@ -202,18 +202,18 @@ const CreateNewListing = () => {
         setUploadStatus('success');
         setImagesUploaded(true);
 
-        // Auto close modal after 2 seconds on success
+        // Auto close modal after 3 seconds on success
         setTimeout(() => {
           setShowUploadModal(false);
         }, 3000);  
       } else { 
         // If the response status is not in the success range, handle the error
         throw new Error(response.data?.error || 'Upload failed');
-      }  
+      }   
     } catch (error) {
-      console.error('Upload error:', error.message);
+      console.error('Upload error:', error.response?.data?.error);
       setUploadStatus('error');
-      setUploadError('Failed to upload images. Please try again.');
+      setUploadError(error.response?.data?.error || 'Failed to upload images. Please try again.');
     }
   };
 
