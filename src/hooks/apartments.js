@@ -15,7 +15,7 @@ export const useGetApartments = () => {
     const dispatch = useDispatch();
 
     const fetchApartments = useCallback(
-        async ({ sortBy = "recent", page = 1, limit = 10 } = {}) => {
+        async ({ sortBy = "recent", page = 1, limit = 20 } = {}) => {
             dispatch(getApartmentsLoading());
             setIsLoading(true);
             setError(null);
@@ -24,7 +24,14 @@ export const useGetApartments = () => {
                 const response = await fetchApartmentsApi({ sortBy, page, limit });
 
                 if (response.status >= 200 && response.status < 300) {
-                    dispatch(getApartmentsSuccess(response.data));
+                    dispatch(
+                        getApartmentsSuccess({
+                            listings: response.data.listings,
+                            total: response.data.total,
+                            hasMore: response.data.hasMore,
+                            page,
+                        })
+                    );
                     setError(null);
                 } else {
                     throw new Error(response.data?.error || "Failed to fetch apartments");

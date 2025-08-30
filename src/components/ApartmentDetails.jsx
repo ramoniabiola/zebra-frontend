@@ -1,6 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { AlertCircle, Calendar, MapPin, X } from 'lucide-react';
-import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
+import { HeartIcon as HeartSolid, TagIcon } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -232,7 +232,7 @@ const ApartmentDetails   = ({ apartment }) => {
                                         </> 
                                     ) : (
                                         <>   
-                                            <HeartSolid className="w-12 h-12 text-black/35 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
+                                            <HeartSolid className="w-12 h-12 text-black/50 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
                                             <HeartOutline className="w-12 h-12 text-gray-50 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
                                         </>
                                     )
@@ -261,8 +261,9 @@ const ApartmentDetails   = ({ apartment }) => {
 
                     {apartment.furnished && (
                         <span 
-                            className="w-2/5 px-3 py-2 bg-gradient-to-r from-blue-100 to-cyan-200 text-cyan-900 text-xs font-bold rounded [clip-path:polygon(0_0,100%_0,85%_100%,0%_100%)] tracking-widest"
+                            className="w-2/5 flex items-center gap-1 px-3 py-2 bg-gradient-to-r from-blue-100 to-cyan-200 text-cyan-900 text-xs font-bold rounded [clip-path:polygon(0_0,100%_0,85%_100%,0%_100%)] tracking-widest"
                         >
+                            <TagIcon className="w-4 h-4" />
                             Top Deal  
                         </span>
                     )}

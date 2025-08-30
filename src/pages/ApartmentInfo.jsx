@@ -354,7 +354,7 @@ const ApartmentInfo = () => {
                         </> 
                       ) : (
                         <>   
-                          <HeartSolid className="w-12 h-12 text-black/35 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
+                          <HeartSolid className="w-12 h-12 text-black/50 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
                           <HeartOutline className="w-12 h-12 text-gray-50 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
                         </>
                       )
@@ -424,7 +424,7 @@ const ApartmentInfo = () => {
                 {apartment.apartment_size && (
                   <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-2xl text-center border border-purple-100">
                     <Square className="w-8 h-8 text-purple-600 mx-auto mb-2" />
-                    <div className="text-xl font-bold text-gray-800 mb-1">{apartment.apartment_size}</div>
+                    <div className="text-2xl font-bold text-gray-800 mb-1">{apartment.apartment_size}</div>
                     <div className="text-sm text-gray-600">sq ft</div>
                   </div>
                 )}
@@ -510,7 +510,7 @@ const ApartmentInfo = () => {
                     </div>
                     <button
                       onClick={() => copyToClipboard(apartment.contact_phone)}
-                      className={`px-3.5 py-2 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 cursor-pointer ${
+                      className={`px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 cursor-pointer ${
                         copied
                           ? 'bg-green-100 text-green-700 hover:bg-green-200'
                           : 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200'

@@ -11,12 +11,25 @@ const apartmentSlice = createSlice({
     },
     reducers: {
         getApartmentsSuccess: (state, action) => {
-            state.list = action.payload.listings;
-            state.total = action.payload.total;
-            state.hasMore = action.payload.hasMore;
+            const { listings, total, hasMore, page } = action.payload;
+
+            // Merge with deduplication by _id
+            const newList = [
+                ...state.list,
+                ...listings.filter(
+                    (apt) => !state.list.some((existing) => existing._id === apt._id)
+                ),
+            ];
+        
+            state.list = newList;
+            state.total = total;
+            state.hasMore = hasMore;
+            state.page = page;
             state.loading = false;
             state.error = null;
         },
+
+       
         getApartmentsLoading: (state) => {
             state.loading = true;
             state.error = null;
@@ -26,6 +39,15 @@ const apartmentSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         },
+
+        resetApartments: (state) => {
+            state.list = [];
+            state.total = 0;
+            state.page = 1;
+            state.hasMore = true;
+            state.loading = false;
+            state.error = null;
+        },
     },
 });
 
@@ -33,6 +55,7 @@ export const {
     getApartmentsSuccess,
     getApartmentsLoading,
     getApartmentsError,
+    resetApartments
 } = apartmentSlice.actions;
 
 export default apartmentSlice.reducer;
