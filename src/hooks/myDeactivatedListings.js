@@ -4,7 +4,7 @@ import {
     getMyDeactivatedListingsLoading,
     getMyDeactivatedListingsError
 } from "../redux/myDeactivatedListingsSlice";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 
 
@@ -14,17 +14,24 @@ export const useGetMyDeactivatedListings = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null)
 
-    const fetchMyDeactivatedListings = async (userId) => {
+    const fetchMyDeactivatedListings = useCallback(async (userId, page = 1, limit = 10) => {
         dispatch(getMyDeactivatedListingsLoading());
         setIsLoading(true);
         setError(null)
 
         try {
-            const response = await fetchMyDeactivatedListingsApi(userId);
+            const response = await fetchMyDeactivatedListingsApi(userId, page, limit);
+
             if(response.status >= 200 && response.status < 300) {
-                dispatch(getMyDeactivatedListingsSuccess(response.data));
-                setError(null);
-                setIsLoading(false);
+                const { currentPage, totalPages, totalListings, listingsPerPage, apartments } = response.data;
+
+                dispatch(getMyDeactivatedListingsSuccess({
+                    currentPage,
+                    totalPages,
+                    totalListings,
+                    listingsPerPage,
+                    apartments,
+                }));
             } else {
                 // If the response status is not in the success range, handle the error
                 throw new Error(response.data?.error || 'Failed to fetch  deactivated listings');
@@ -32,15 +39,20 @@ export const useGetMyDeactivatedListings = () => {
         } catch (err) {
             // If there's an error, set the error state to display 
             setError(error.response?.data?.error || 'Failed to fetch deactivated listings'); 
-            setIsLoading(false);
             dispatch(
                 getMyDeactivatedListingsError(err.response?.data?.error || "Failed to fetch  deactivated listings")
             );   
+        } finally {
+            setIsLoading(false);
         }
-    };
+    }, [dispatch]);
 
     return { fetchMyDeactivatedListings, isLoading, error };
 };
+
+
+
+
 
 
 

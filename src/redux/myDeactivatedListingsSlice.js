@@ -22,7 +22,13 @@ const myDeactivatedListingsSlice = createSlice({
         },
 
         getMyDeactivatedListingsSuccess: (state, action) => {
-            state.deactivatedListings = action.payload;
+            const {currentPage, totalPages, totalListings, listingsPerPage, apartments } = action.payload; 
+
+            state.deactivatedListings.currentPage = currentPage;
+            state.deactivatedListings.totalPages = totalPages;
+            state.deactivatedListings.totalListings = totalListings;
+            state.deactivatedListings.listingsPerPage = listingsPerPage;
+            state.deactivatedListings.apartments = apartments;
             state.loading = false;
             state.error = null;
         },

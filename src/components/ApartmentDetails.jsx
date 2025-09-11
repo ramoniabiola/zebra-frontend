@@ -21,9 +21,10 @@ const ApartmentDetails   = ({ apartment }) => {
     const { toggleBookmark, error, setError } = useToggleBookmark();
     const bookmarked = useSelector((state) => state.bookmarks.items?.bookmarks || []);
     const isBookmarked = bookmarked.some(
-        (b) => b?.apartmentId._id === apartment._id
+        (b) => b?.apartmentId?._id === apartment._id
     );
 
+    
 
 
     // Time Formatting 
@@ -51,13 +52,13 @@ const ApartmentDetails   = ({ apartment }) => {
    
     const handleNext = () => {
         if (currentImg < totalImages - 1) {
-          setCurrentImg((prev) => prev + 1);
+            setCurrentImg((prev) => prev + 1);
         }
     };
   
     const handlePrev = () => {
         if (currentImg > 0) {
-          setCurrentImg((prev) => prev - 1);
+            setCurrentImg((prev) => prev - 1);
         }
     };
     
@@ -227,7 +228,7 @@ const ApartmentDetails   = ({ apartment }) => {
                                 {
                                     isBookmarked ? (  
                                         <>   
-                                            <HeartSolid className="w-12 h-12 text-rose-500 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
+                                            <HeartSolid className="w-12 h-12 text-rose-600 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
                                             <HeartOutline className="w-12 h-12 text-gray-50 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
                                         </> 
                                     ) : (

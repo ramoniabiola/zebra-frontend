@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { AlertCircle, Calendar, MapPin, X } from 'lucide-react';
+import { AlertCircle, Ban, Calendar, MapPin, TagIcon, X } from 'lucide-react';
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
@@ -19,11 +19,12 @@ const BookmarkCard = ({ apartment }) => {
     const [errorAlert, setErrorAlert] = useState(false)
     const bookmarked = useSelector((state) => state.bookmarks?.items?.bookmarks || []);
     const isBookmarked = bookmarked.some(
-        (b) => b?.apartmentId._id === bookmark._id
+        (b) => b?.apartmentId?._id === bookmark?._id
     );
     const navigate = useNavigate();
 
- 
+
+
     // Time Formatting
     const { createdAt, updatedAt, isAvailable } = bookmark; 
     let reactivationTime = null;
@@ -213,9 +214,10 @@ const BookmarkCard = ({ apartment }) => {
 
                 {!bookmark.isAvailable && (
                     <span 
-                        className="w-3/5 px-3 py-2 bg-gradient-to-r from-red-50 to-rose-200 text-rose-900 text-xs font-semibold rounded [clip-path:polygon(0_0,100%_0,85%_100%,0%_100%)] tracking-widest"
+                        className="w-3/5 flex items-center gap-2 px-3 py-2.5 bg-gradient-to-r from-orange-100 to-rose-200 text-rose-900 text-xs font-semibold rounded [clip-path:polygon(0_0,100%_0,85%_100%,0%_100%)] tracking-wider"
                     >
-                        Not Available   
+                        <Ban className="w-4 h-4" />
+                        No longer available! 
                     </span>
                 )}
 

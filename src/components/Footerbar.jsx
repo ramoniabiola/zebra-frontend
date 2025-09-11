@@ -7,7 +7,6 @@ import {
   Squares2X2Icon as DashboardOuline,
   UserCircleIcon as UserCircleOutline
 } from "@heroicons/react/24/outline";
-
 import {
   BellIcon as BellSolid,
   HeartIcon as HeartSolid,

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Footerbar from '../components/Footerbar';
 import Footer from '../components/Footer';
-import { ArrowLeft, ChevronRight, ChevronLeft, Trash2, MapPin, Phone, Home, Calendar, DollarSign, Users, Bath, Square, User, CheckCircle, Loader2, AlertTriangle, X } from 'lucide-react';
+import { ArrowLeft, ChevronRight, ChevronLeft, Trash2, MapPin, Phone, Home, Calendar, DollarSign, Users, Bath, Square, User, CheckCircle, Loader2, AlertTriangle, X, RotateCcw } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
@@ -237,8 +237,9 @@ const ListingInfo = () => {
       </p>
       <button
         onClick={handleRetry}
-        className="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded transition-colors cursor-pointer"
+        className="px-3 py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5  focus:invisible cursor-pointer"
       >
+        <RotateCcw className="w-4 h-4" />
         Try Again
       </button>
     </div>

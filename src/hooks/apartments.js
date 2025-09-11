@@ -8,7 +8,7 @@ import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 
 
-//  FETCH  ALL APARTMENTS CUSTOM HOOK (with optional query)
+// FETCH  ALL APARTMENTS CUSTOM HOOK (with optional query)
 export const useGetApartments = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -16,13 +16,16 @@ export const useGetApartments = () => {
 
     const fetchApartments = useCallback(
         async ({ sortBy = "recent", page = 1, limit = 20 } = {}) => {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 10000); // 10s timeout
+
+
             dispatch(getApartmentsLoading());
             setIsLoading(true);
             setError(null);
 
             try {
                 const response = await fetchApartmentsApi({ sortBy, page, limit });
-
                 if (response.status >= 200 && response.status < 300) {
                     dispatch(
                         getApartmentsSuccess({
@@ -37,13 +40,16 @@ export const useGetApartments = () => {
                     throw new Error(response.data?.error || "Failed to fetch apartments");
                 }
             } catch (error) {
-                setError( error.response?.data?.error || "Failed to fetch apartments");
+                if (error.name === "AbortError") {
+                    setError("Request timed out. Please check your connection.");
+                } else {
+                    setError(error.response?.data?.error || "Failed to fetch apartments");
+                }
                 dispatch(
-                    getApartmentsError(
-                        error.response?.data?.error || "Failed to fetch apartments"
-                    )
+                    getApartmentsError(error.response?.data?.error)
                 );
             } finally {
+                clearTimeout(timeout);
                 setIsLoading(false);
             }
         },

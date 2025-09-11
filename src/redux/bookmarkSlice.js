@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { createSelector } from "@reduxjs/toolkit";
 
 // Slice
 const bookmarkSlice = createSlice({
@@ -10,6 +11,7 @@ const bookmarkSlice = createSlice({
             totalPages: 0,
             bookmarks: [],
         },
+        limit: 2,
         loading: false,
         error: null,
     },
@@ -22,13 +24,18 @@ const bookmarkSlice = createSlice({
         },
         getBookmarksSuccess: (state, action) => {
             state.loading = false;
-            state.items = action.payload;
+            state.items.totalBookmarks = action.payload.length;
+            state.items.totalPages = Math.ceil(action.payload.length / state.limit); 
+            state.items.bookmarks = action.payload; 
         },
         getBookmarksFailure: (state, action) => {
             state.loading = false;
             state.error = action.payload;
         },
 
+        setCurrentPage: (state, action) => {
+            state.items.currentPage = action.payload;
+        },
 
         // ADD BOOKMARK
         addBookmarkLoading: (state) => {
@@ -61,6 +68,7 @@ const bookmarkSlice = createSlice({
             state.loading = true;
             state.error = null;
         },
+
         removeBookmarkSuccess: (state, action) => {
             state.loading = false;
             // action.payload should be the apartmentId to remove
@@ -71,11 +79,18 @@ const bookmarkSlice = createSlice({
                 (bookmark) => bookmark.apartmentId._id !== apartmentId
             );
             
-            // Update total count if item was actually removed
+            // Update total count if item was removed
             if (state.items.bookmarks.length < initialLength) {
                 state.items.totalBookmarks -= 1;
+                state.items.totalPages = Math.ceil(state.items.totalBookmarks / state.limit);
+
+                if (state.items.currentPage > state.items.totalPages) {
+                    state.items.currentPage = state.items.totalPages || 1;
+                }
+
             }
         },
+
         removeBookmarkFailure: (state, action) => {
             state.loading = false;
             state.error = action.payload;
@@ -97,15 +112,10 @@ const bookmarkSlice = createSlice({
             state.loading = false;
             state.error = null;
         },
-
-        // SET PAGINATION INFO (useful for updating pagination without full refetch)
-        setPaginationInfo: (state, action) => {
-            const { currentPage, totalPages } = action.payload;
-            state.items.currentPage = currentPage;
-            state.items.totalPages = totalPages;
-        },
     } 
 });
+
+
 
 export const {
     getBookmarksLoading,
@@ -117,8 +127,23 @@ export const {
     removeBookmarkLoading,
     removeBookmarkSuccess,
     removeBookmarkFailure,
+    setCurrentPage,
     clearError,
     clearBookmarks,
-    setPaginationInfo,
 } = bookmarkSlice.actions;
 export default bookmarkSlice.reducer;
+
+
+export const selectPaginatedBookmarks = createSelector(
+    [
+        (state) => state.bookmarks.items.bookmarks,
+        (state) => state.bookmarks.items.currentPage,
+        (state) => state.bookmarks.limit,
+    ],
+    (bookmarks, currentPage, limit) => {
+        const start = (currentPage - 1) * limit;
+        const end = start + limit;
+        return bookmarks.slice(start, end);
+    }
+);
+

@@ -6,7 +6,7 @@ const ApartmentDetailsSkeleton2 = ({ cards }) => {
         Array(cards).fill(0).map((_, i) =>
             <div 
                 key={i} 
-                className='w-11/12 h-auto flex flex-col items-center justify-start mb-8 relative mt-12'
+                className='w-11/12 h-auto flex flex-col items-center justify-start mb-8 relative mt-4'
             >
                 {/* Skeleton Container with fade effect */}
                 <div className="relative w-full h-[310px] rounded-xl overflow-hidden">

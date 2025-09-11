@@ -2,10 +2,12 @@ import { ExclamationTriangleIcon, HomeIcon, MapIcon, SparklesIcon } from "@heroi
 import { useEffect, useRef, useState } from "react";
 import ApartmentDetails from "./ApartmentDetails";
 import { useGetApartments } from "../hooks/apartments";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ApartmentDetailsSkeleton from "../utils/loading-display/ApartmentDetailsSkeleton";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, RotateCcw } from "lucide-react";
 import ApartmentDetailsSkeleton2 from "../utils/loading-display/ApartmentDetailsSkeleton2";
+import { clearApartmentsError } from "../redux/apartmentSlice";
+
 
 const Apartments = () => {
   const [activeTab, setActiveTab] = useState("new"); // default active
@@ -15,6 +17,7 @@ const Apartments = () => {
   const [hovered, setHovered] = useState(null);
   const { fetchApartments, isLoading, error } = useGetApartments();
   const { list: apartments, hasMore } = useSelector((state) => state.apartments);
+  const dispatch = useDispatch();
 
   const limit = 5;
 
@@ -33,19 +36,19 @@ const Apartments = () => {
 
   // Fetch whenever page or tab changes
   useEffect(() => {
-    if (!page) return;
+    if (!page || error) return;
 
     fetchApartments({
       sortBy: sortMap[activeTab],
       page,
       limit,
     });
-  }, [page, activeTab, fetchApartments]);
+  }, [page, activeTab, fetchApartments, error]);
 
 
   // Infinite scroll observer → only updates page
   useEffect(() => {
-    if (!hasMore || isLoading) return;
+    if (!hasMore || isLoading || error) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -61,7 +64,7 @@ const Apartments = () => {
     return () => {
       if (observerRef.current) observer.unobserve(observerRef.current);
     };
-  }, [hasMore, isLoading]);
+  }, [hasMore, isLoading, error]);
 
 
   // Scroll-to-top button visibility
@@ -80,6 +83,8 @@ const Apartments = () => {
 
 
   const handleRetry = () => {
+    dispatch(clearApartmentsError());
+
     fetchApartments({
       sortBy: sortMap[activeTab],
       page,
@@ -107,8 +112,9 @@ const Apartments = () => {
       </p>
       <button
         onClick={handleRetry}
-        className="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded-md transition-colors cursor-pointer"
+        className="px-3 py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5  focus:invisible cursor-pointer"
       >
+        <RotateCcw className="w-4 h-4" />
         Try Again
       </button>
     </div>
@@ -149,7 +155,7 @@ const Apartments = () => {
 
       {/* APARTMENT LISTINGS */}
       <div className="mt-[12rem] min-w-full h-full flex flex-col items-center justify-center px-4 overflow-y-auto scroll-smooth mb-12">
-        {error ? (
+        {error && page === 1 ? (
           <ErrorDisplay />
         ) : isLoading && page === 1 ? (
           <ApartmentDetailsSkeleton cards={4} />
@@ -165,8 +171,27 @@ const Apartments = () => {
             {isLoading && page > 1 && (
               <ApartmentDetailsSkeleton2 cards={1} />
             )}
+
+            {error && page > 1 && (
+              <div className="w-full flex flex-col items-center py-4">
+                <ExclamationTriangleIcon className="w-10 h-10 text-red-500 mx-auto mb-2" />
+                <h3 className="text-md font-semibold text-gray-800 mb-1">
+                  Something went wrong
+                </h3>
+                <p className="text-gray-600 text-sm mb-4">
+                  {error || "Failed to load apartments"}
+                </p>
+                <button
+                  onClick={handleRetry}
+                  className="px-3 py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5  focus:invisible cursor-pointer"
+                >
+                  <RotateCcw className="w-4 h-4" />
+                  Try Again
+                </button>
+              </div>
+            )}
           </>
-        ) : (
+        ) : ( 
           <p className="text-gray-500 text-sm">No apartments found.</p>
         )}
       </div>
@@ -181,19 +206,23 @@ const Apartments = () => {
         </button>
       )}
 
+
       {/* Custom Styles */}
       <style jsx="true">{`
         @keyframes slideUp {
           from { transform: translateY(40px); opacity: 0; }
           to { transform: translateY(0); opacity: 1; }
         }
+
         @keyframes slideDown {
           from { transform: translateY(0); opacity: 1; }
           to { transform: translateY(40px); opacity: 0; }
         }
+
         .animate-slideUp {
           animation: slideUp 0.3s ease-out forwards;
         }
+
         .animate-slideDown {
           animation: slideDown 0.3s ease-in forwards;
         }

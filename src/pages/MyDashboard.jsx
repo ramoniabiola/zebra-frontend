@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import MyListings from "../components/MyListings";
 import DeactivatedListings from "../components/DeactivatedListings";
 import { useNavigate } from "react-router-dom";
-import { FileText, Home, PauseCircle, Plus, UserRound } from "lucide-react";
+import { Component, FileText, Home, Landmark, LayoutDashboard, PauseCircle, Plus, RotateCcw, UserRound, UserRoundCheck } from "lucide-react";
 import { useSelector } from "react-redux";
 import { fetchUserStatsApi } from "../api/myListings";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
@@ -75,8 +75,9 @@ const MyDashboard = () => {
       </p>
       <button
         onClick={handleRetry}
-        className="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded  transition-colors cursor-pointer"
+        className="px-3 py-2 bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5  focus:invisible cursor-pointer"
       >
+        <RotateCcw className="w-4 h-4" />
         Try Again
       </button>
     </div>
@@ -87,12 +88,12 @@ const MyDashboard = () => {
   return (
     <div className="w-full min-h-screen flex flex-col items-start justify-start bg-white">
       {/* Welcome section with avatar */}
-      <div className="w-full flex items-center  justify-between px-6 py-8 pt-10">
+      <div className="w-full flex items-center justify-between px-6 py-8 pt-10">
         <div className="flex flex-col gap-1">
           <h2 className="text-lg font-semibold text-cyan-900 tracking-widest">Welcome back!</h2>
           <h1 className="text-2xl font-bold text-cyan-950 tracking-widest">{user?.username}</h1>
         </div>
-        <div className="ring-4 p-[3px] ring-cyan-600 rounded-full">
+        <div className="ring-4 p-[3px] ring-cyan-500 rounded-full">
           {user.profile_picture ? (
             <img src={user.profile_picture} alt="avatar" className="w-14 h-14 rounded-full object-cover cursor-pointer" />
           ) : (
@@ -102,80 +103,75 @@ const MyDashboard = () => {
       </div>
 
       {/* STATS CARD - 2 per row (2x2) */}
-      <div className="w-full px-1 py-2 bg-gradient-to-br from-gray-50 to-white">
+      <div className="w-full px-1 py-2 bg-gray-50">
         {error ? (
           <ErrorDisplay />
         ) : isLoading ?
         (
           <DashboardSkeleton /> 
         ) : (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-1 mb-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4 mb-12 px-2">
             {/* Active Listings */}
-            <div className="flex flex-col items-center justify-center py-2 px-4 ">
-              <div className="flex items-center justify-between mb-3">
-                <div className="p-2 rounded-xl bg-gradient-to-t from-violet-50 to-violet-100 border-2 border-violet-200 shadow-lg">
-                  <Home 
-                    className="w-6 h-6 text-violet-600" 
-                  />
-                </div>
+            <div className="flex items-center justify-between py-3 px-3 rounded-lg bg-gradient-to-r from-cyan-600 to-cyan-400 shadow-lg hover:shadow-xl transition-shadow">
+              <div className="flex flex-col gap-2">
+                <h2 className="text-xl font-bold font-sans text-white">{compactNumber(userStats.activeListings)}</h2>
+                <p className="text-xs font-medium text-white/80 tracking-widest">Active Listings</p>
               </div>
-              <div className="space-y-1">
-                <p className="text-sm text-center font-medium text-gray-600 tracking-wider">Available Listings</p>
-                <h2 className="text-xl font-bold font-sans text-center text-gray-800">{compactNumber(userStats.activeListings)}</h2>
+              <div className="items-center mb-4">
+                <Landmark 
+                  className="w-7 h-7 text-white/95" 
+                />
               </div>
             </div>
  
             {/* Total Listings */}
-            <div className="flex flex-col items-center justify-center py-2 px-4">
-              <div className="flex items-center justify-between mb-3">
-                <div className="p-2 rounded-xl bg-gradient-to-t from-amber-50 to-amber-100 border-2 border-amber-200 shadow-lg">
-                  <FileText 
-                    className="w-6 h-6 text-amber-600" 
-                    />
-                </div>    
-              </div> 
-              <div className="space-y-1">
-                <p className="text-sm text-center font-medium text-gray-600 tracking-wider">Total Listings</p>
-                <h2 className="text-xl font-bold font-sans text-center text-gray-800">{compactNumber(userStats.totalListings)}</h2>
+            <div className="flex items-center justify-between py-3  px-3 rounded-lg bg-gradient-to-r from-cyan-700 to-cyan-400 shadow-lg hover:shadow-xl transition-shadow">
+              <div className="flex flex-col gap-2">
+                <h2 className="text-xl font-bold font-sans text-white">{compactNumber(userStats.totalListings)}</h2>
+                <p className="text-xs font-medium text-white/80 tracking-widest">Total Listings</p>
+              </div>
+              <div className="items-center mb-4">
+                <Component
+                  className="w-7 h-7 text-white/95" 
+                />
               </div>
             </div>
+        
 
             {/* User Role */}
-            <div className="flex flex-col items-center justify-center py-2 px-4">
-              <div className="flex items-center justify-between mb-3">
-                <div className="p-2 rounded-xl bg-gradient-to-b from-emerald-50 to-emerald-100 border-2 border-emerald-200 shadow-lg">
-                  <UserRound className="w-6 h-6 text-emerald-600" />
-                </div>  
+            <div className="flex items-center justify-between py-3 px-3 rounded-lg bg-gradient-to-r from-cyan-700 to-cyan-400 shadow-lg hover:shadow-xl transition-shadow">
+              <div className="flex flex-col gap-2">
+                <h2 className="text-xl font-bold font-sans text-white">{user.role}</h2>
+                <p className="text-xs font-medium text-white/80 tracking-widest">User Role</p>
               </div>
-              <div className="space-y-1">
-                <p className="text-sm text-center font-medium  text-gray-600 tracking-wider">User Role</p>
-                <h2 className="text-lg font-bold text-center text-gray-800 tracking-wide">{user.role}</h2>  
+              <div className="items-center mb-4">
+                <UserRoundCheck
+                  className="w-7 h-7 text-white/95" 
+                />
               </div>
             </div>
-
+            
 
             {/*Deactivated Listings */}
-            <div className="flex flex-col items-center justify-center py-2 px-4">
-              <div className="flex items-center justify-between mb-3">
-                <div className="p-2 rounded-xl bg-gradient-to-b from-rose-50 to-rose-100 border-2 border-rose-200 shadow-lg">
-                  <PauseCircle
-                    className="w-6 h-6 text-rose-600" 
-                    />
-                </div>    
-              </div> 
-              <div className="space-y-1">
-                <p className="text-sm text-center font-medium text-gray-600 tracking-wider">Rented Listings</p>
-                <h2 className="text-xl font-bold font-sans text-center text-gray-800">{compactNumber(userStats.deactivatedListings)}</h2>
+            <div className="flex items-center justify-between py-3 px-3 rounded-lg bg-gradient-to-r from-cyan-600 to-cyan-400 shadow-lg hover:shadow-xl transition-shadow">
+              <div className="flex flex-col gap-2">
+                <h2 className="text-xl font-bold font-sans text-white">{compactNumber(userStats.deactivatedListings)}</h2>
+                <p className="text-xs font-medium text-white/80 tracking-widest">Rented Listings</p>
+              </div>
+              <div className="items-center mb-4">
+                <PauseCircle
+                  className="w-7 h-7 text-white/95" 
+                />
               </div>
             </div>
           </div>
         )}
 
         {/* Create New Listing Button */}
-        <div className="mb-1 px-2">
+        <div className="px-2 bg-gray-50">
           <button 
             onClick={() => navigate("/create-listing")} 
-            className="w-full bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-3 group focus:invisible cursor-pointer" 
+            className="w-full bg-gradient-to-r from-cyan-700 to-cyan-500 hover:from-cyan-800 hover:to-cyan-600 text-white font-semibold py-2.5 rounded-lg transition-all duration-200 flex items-center justify-center gap-3 group focus:invisible cursor-pointer" 
           >
            <div className="p-1 bg-white/20 rounded-lg group-hover:bg-white/30 transition-colors">
               <Plus size={20} strokeWidth={2} className="text-white" />
@@ -186,16 +182,16 @@ const MyDashboard = () => {
       </div>
 
       {/*APARTMENT LISTING DISPLAY*/}
-      <div className="w-full h-full flex flex-col items-start justify-center mt-6">
+      <div className="w-full h-full flex flex-col items-start justify-center">
         {/* Tab Navigation */}
-        <div className="w-full">
+        <div className="w-full bg-gray-50">
           <div className="border-b border-gray-200">
             <div className="relative flex items-center justify-center gap-8 px-6">
               {["My Listings", "Deactivated Listings"].map((tab) => (
                 <h2
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`relative py-4 text-lg transition-all font-normal duration-300 cursor-pointer focus:invisible ${
+                  className={`relative py-4 text-lg transition-all font-medium duration-300 cursor-pointer focus:invisible ${
                     activeTab === tab 
                       ? "text-cyan-600" 
                       : "text-gray-400  hover:text-gray-600"

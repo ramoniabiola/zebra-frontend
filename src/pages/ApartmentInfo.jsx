@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ChevronRightIcon, ChevronLeftIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
-import { Bed, Bath, Wifi, Car, Square, AlertTriangle, Phone, ArrowLeft, MapPin, Zap, Shield, Waves, Coffee, Home, User, AlertCircle, X, Copy, Check } from "lucide-react";
+import { Bed, Bath, Wifi, Car, Square, AlertTriangle, Phone, ArrowLeft, MapPin, Zap, Shield, Waves, Coffee, Home, User, AlertCircle, X, Copy, Check, RotateCcw } from "lucide-react";
 import { CheckBadgeIcon }from "@heroicons/react/24/solid";
 import Footer from "../components/Footer";
 import { useNavigate, useParams } from 'react-router-dom';
@@ -89,7 +89,7 @@ const ApartmentInfo = () => {
 
 
   const isBookmarked = bookmarked.some(
-    (b) => b?.apartmentId._id === apartment._id
+    (b) => b?.apartmentId?._id === apartment._id
   );
 
   const handleToggleBookmark = async () => {
@@ -222,9 +222,10 @@ const ApartmentInfo = () => {
       </p>
       <button
         onClick={handleRetry}
-        className="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded transition-colors cursor-pointer"
+        className="px-3 py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white text-base tracking-wider font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5  focus:invisible cursor-pointer"
       >
-        Try Again
+        <RotateCcw className="w-4 h-4" />
+        Retry
       </button>
     </div>
   );
@@ -441,9 +442,9 @@ const ApartmentInfo = () => {
                   </div>
                   <p className="text-gray-600 mt-4">{apartment.duration}</p>
                   {apartment.service_charge && (
-                    <div className='flex items-center justify-start bg-gradient-to-r from-yellow-50 to-amber-50 p-3 mt-4 gap-2 rounded-xl border border-yellow-100'>
-                      <p className='text-base text-yellow-800'>Service Charge:</p>
-                      <p className="text-xl text-yellow-900 font-bold tracking-wide">
+                    <div className='flex items-center justify-start bg-gradient-to-r from-orange-50 to-orange-50 p-3 mt-4 gap-2 rounded-xl border border-orange-100 tracking-wider'>
+                      <p className='text-base text-orange-800'>Service Charge:</p>
+                      <p className="text-xl text-orange-900 font-bold tracking-widest">
                         {formatPrice(apartment.service_charge)}
                       </p>
                     </div>

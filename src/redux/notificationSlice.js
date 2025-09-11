@@ -9,7 +9,7 @@ const notificationSlice = createSlice({
             page: 0,
             limit: 0,
         },
-        unreadCount: 0, // 🔹 new state for distinguishing unread
+        unreadCount: 0, // new state for distinguishing unread
         loading: false,
         error: null,
     },

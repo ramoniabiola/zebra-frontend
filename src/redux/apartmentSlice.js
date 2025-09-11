@@ -15,11 +15,12 @@ const apartmentSlice = createSlice({
 
             // Merge with deduplication by _id
             const newList = [
-                ...state.list,
                 ...listings.filter(
                     (apt) => !state.list.some((existing) => existing._id === apt._id)
                 ),
+                ...state.list,
             ];
+
         
             state.list = newList;
             state.total = total;
@@ -48,6 +49,10 @@ const apartmentSlice = createSlice({
             state.loading = false;
             state.error = null;
         },
+
+        clearApartmentsError: (state) => {
+            state.error = null;
+        }
     },
 });
 
@@ -55,7 +60,8 @@ export const {
     getApartmentsSuccess,
     getApartmentsLoading,
     getApartmentsError,
-    resetApartments
+    resetApartments,
+    clearApartmentsError
 } = apartmentSlice.actions;
 
 export default apartmentSlice.reducer;

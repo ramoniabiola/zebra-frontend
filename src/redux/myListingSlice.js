@@ -22,7 +22,13 @@ const myListingsSlice = createSlice({
         },
 
         getMyListingsSuccess: (state, action) => {
-            state.listings = action.payload;
+            const {currentPage, totalPages, totalListings, listingsPerPage, apartments } = action.payload; 
+
+            state.listings.currentPage = currentPage;
+            state.listings.totalPages = totalPages;
+            state.listings.totalListings = totalListings;
+            state.listings.listingsPerPage = listingsPerPage;
+            state.listings.apartments = apartments;
             state.loading = false;
             state.error = null;
         },
