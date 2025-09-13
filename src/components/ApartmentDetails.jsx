@@ -4,12 +4,11 @@ import { HeartIcon as HeartSolid, TagIcon } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useToggleBookmark } from "../hooks/bookmarks";
 import { useSelector } from "react-redux";
 import { formatCustomTimeAgo } from "../utils/time-format/TimeFormat";
 
 
-const ApartmentDetails   = ({ apartment }) => {
+const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
     const [currentImg, setCurrentImg] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
     const [showAuthDialog, setShowAuthDialog] = useState(false);
@@ -18,7 +17,6 @@ const ApartmentDetails   = ({ apartment }) => {
     const user = useSelector((state) => state.auth.user);
     const userId = user?._id
     const userRole = user?.role
-    const { toggleBookmark, error, setError } = useToggleBookmark();
     const bookmarked = useSelector((state) => state.bookmarks.items?.bookmarks || []);
     const isBookmarked = bookmarked.some(
         (b) => b?.apartmentId?._id === apartment._id

@@ -7,6 +7,8 @@ import ApartmentDetailsSkeleton from "../utils/loading-display/ApartmentDetailsS
 import { ArrowUp, RotateCcw } from "lucide-react";
 import ApartmentDetailsSkeleton2 from "../utils/loading-display/ApartmentDetailsSkeleton2";
 import { clearApartmentsError } from "../redux/apartmentSlice";
+import { useToggleBookmark } from "../hooks/bookmarks";
+import ToggleSuccess from "../utils/pop-display/ToggleSuccess";
 
 
 const Apartments = () => {
@@ -16,6 +18,7 @@ const Apartments = () => {
   const observerRef = useRef(null);
   const [hovered, setHovered] = useState(null);
   const { fetchApartments, isLoading, error } = useGetApartments();
+  const { toggleBookmark, success, error: toggleError, setError, animateOut } = useToggleBookmark();
   const { list: apartments, hasMore } = useSelector((state) => state.apartments);
   const dispatch = useDispatch();
 
@@ -162,7 +165,13 @@ const Apartments = () => {
         ) : apartments?.length > 0 ? (
           <>
             {apartments?.map((apartment, idx) => (
-              <ApartmentDetails key={`${apartment._id}-${idx}`} apartment={apartment} />
+              <ApartmentDetails 
+                key={`${apartment._id}-${idx}`} 
+                apartment={apartment} 
+                toggleBookmark={toggleBookmark}
+                error={toggleError}
+                setError={setError}
+              />
             ))}
 
             {/* Infinite scroll trigger */}
@@ -195,6 +204,11 @@ const Apartments = () => {
           <p className="text-gray-500 text-sm">No apartments found.</p>
         )}
       </div>
+      <ToggleSuccess
+        message={success} 
+        animateOut={animateOut} 
+        offset="bottom-38"
+      />  
 
       {/* Back to top button */}
       {showScrollTop && (

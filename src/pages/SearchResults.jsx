@@ -9,6 +9,8 @@ import { useLocation } from "react-router-dom";
 import { fetchApartmentBySearchApi } from "../api/apartments";
 import SearchPlaceholder from "../utils/placeholders/SearchPlaceholder";
 import { ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
+import { useToggleBookmark } from "../hooks/bookmarks";
+import ToggleSuccess from "../utils/pop-display/ToggleSuccess";
 
 
 const useQuery = () => {
@@ -26,6 +28,7 @@ const SearchResults = () => {
     const [lastAttemptedPage, setLastAttemptedPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+    const { toggleBookmark, success, error: toggleError, setError: setToggleError, animateOut } = useToggleBookmark();
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -119,7 +122,14 @@ const SearchResults = () => {
                     ) : apartments?.length > 0 ? (
                     <>
                         {apartments.map((apartment, idx) => (
-                            <ApartmentDetails key={`${apartment._id}-${idx}`} apartment={apartment} />
+                            <ApartmentDetails 
+                            key={`${apartment._id}-${idx}`} 
+                            apartment={apartment} 
+                            toggleBookmark={toggleBookmark}
+                            error={toggleError}
+                            setError={setToggleError}
+                            offset="bottom-24"
+                        />
                         ))}
 
                          {/* Pagination Controls */}
@@ -165,6 +175,11 @@ const SearchResults = () => {
                         <SearchPlaceholder />
                     )}
                 </div>
+
+                <ToggleSuccess
+                    message={success} 
+                    animateOut={animateOut} 
+                />  
             </div>
 
             <Footerbar />

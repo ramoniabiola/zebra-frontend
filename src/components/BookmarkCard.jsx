@@ -1,21 +1,19 @@
 import { useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { AlertCircle, Ban, Calendar, MapPin, TagIcon, X } from 'lucide-react';
+import { AlertCircle, Ban, Calendar, MapPin, X } from 'lucide-react';
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
-import { useToggleBookmark } from "../hooks/bookmarks";
 import { useSelector } from "react-redux";
 import { formatCustomTimeAgo } from "../utils/time-format/TimeFormat";
 
 
 
-const BookmarkCard = ({ apartment }) => {
+const BookmarkCard = ({ apartment, toggleBookmark, error, setError }) => {
     const bookmark = apartment?.apartmentId;
     const [currentImg, setCurrentImg] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
     const totalImages = bookmark?.uploadedImages?.length || 0;
-    const { toggleBookmark, error, setError } = useToggleBookmark();
     const [errorAlert, setErrorAlert] = useState(false)
     const bookmarked = useSelector((state) => state.bookmarks?.items?.bookmarks || []);
     const isBookmarked = bookmarked.some(
@@ -95,6 +93,8 @@ const BookmarkCard = ({ apartment }) => {
             )}
         </ div>
     );
+
+
 
     // Error alert for a bookmarked dactivated listing.
     const AvailableErrorMessage = ({ onClose }) => (

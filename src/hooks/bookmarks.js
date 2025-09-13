@@ -42,6 +42,9 @@ export const useGetUserBookmarks = () => {
 export const useToggleBookmark = () => {
     const dispatch = useDispatch();
     const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null); 
+    const [animateOut, setAnimateOut] = useState(false); // track slide out
+
 
     const toggleBookmark = async (apartmentId, isBookmarked) => {
         try {
@@ -50,10 +53,12 @@ export const useToggleBookmark = () => {
             if (isBookmarked) {
                 // Remove bookmark
                 response = await removeBookmarkApi(apartmentId);
-            
                 if (response.status >= 200 && response.status < 300) {
                     // Pass the apartmentId to the reducer
                     dispatch(removeBookmarkSuccess(apartmentId));
+
+                    // set success message
+                    setSuccess("Removed from wishlist!");
                 } else {
                     throw new Error("Failed to remove from wishlist.");
                 }   
@@ -63,6 +68,9 @@ export const useToggleBookmark = () => {
                 if (response.status >= 200 && response.status < 300) {
                     // Pass the apartmentId to the reducer
                     dispatch(addBookmarkSuccess(response.data));
+
+                    // set success message
+                    setSuccess("Added to wishlist!");
                 } else {
                     throw new Error("Failed to add to wishlist.");
                 }
@@ -70,6 +78,15 @@ export const useToggleBookmark = () => {
         
             setError(null);
             dispatch(clearError())
+
+            // Auto-slide out after 2s
+            setTimeout(() => {
+                setAnimateOut(true);
+                setTimeout(() => {
+                    setSuccess(null);
+                    setAnimateOut(false); // reset
+                }, 900); // matches slideOut animation duration
+            }, 2000);
         } catch (error) {
             console.error('Bookmark toggle error:', error);
             
@@ -86,10 +103,10 @@ export const useToggleBookmark = () => {
                 dispatch(addBookmarkFailure(errMsg));
             }
         
-            // Auto-clear error after 4s
-            setTimeout(() => setError(null), 4000);
+            // Auto-clear error after 3s
+            setTimeout(() => setError(null), 3000);
         }
     }
 
-    return { toggleBookmark, error, setError };
+    return { toggleBookmark, error, setError, success, setSuccess, animateOut };
 };

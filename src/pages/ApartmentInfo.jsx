@@ -11,6 +11,7 @@ import { fetchApartmentByIdApi } from "../api/apartments";
 import ApartmentInfoSkeleton from "../utils/loading-display/ApartmentInfoSkeleton";
 import { useSelector } from "react-redux";
 import { useToggleBookmark } from "../hooks/bookmarks";
+import ToggleSuccess from "../utils/pop-display/ToggleSuccess";
 
 
 
@@ -28,7 +29,7 @@ const ApartmentInfo = () => {
   const user = useSelector((state) => state.auth.user);
   const userId = user?._id
   const userRole = user?.role
-  const { toggleBookmark, error, setError } = useToggleBookmark();
+  const { toggleBookmark, error, setError, success, animateOut } = useToggleBookmark();
   const bookmarked = useSelector((state) => state.bookmarks?.items?.bookmarks || []);
 
   const navigate = useNavigate();
@@ -543,6 +544,11 @@ const ApartmentInfo = () => {
                   Report This Listing
                 </button>
               </div>
+
+              <ToggleSuccess
+                message={success} 
+                animateOut={animateOut} 
+              />  
             </div> 
           </>
         )}

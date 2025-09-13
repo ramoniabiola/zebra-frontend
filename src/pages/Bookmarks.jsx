@@ -4,18 +4,22 @@ import { useNavigate } from "react-router-dom";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import BookmarkCard from "../components/BookmarkCard";
 import WishlistPlaceholder from "../utils/placeholders/WishlistPlaceholder";
+import ToggleSuccess from "../utils/pop-display/ToggleSuccess";
 import Footer from "../components/Footer";
 import Footerbar from "../components/Footerbar";
-import { useGetUserBookmarks } from "../hooks/bookmarks";
+import { useGetUserBookmarks, useToggleBookmark } from "../hooks/bookmarks";
 import { selectPaginatedBookmarks, setCurrentPage } from "../redux/bookmarkSlice";
 import BookmarkCardSkeleton from "../utils/loading-display/BookmarkCardSkeleton";
 import { ArrowLeft, ChevronLeft, ChevronRight, MoreVertical, RotateCcw, Trash2 } from "lucide-react";
+
+
 
 
 const Bookmarks = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { getUserBookmarks, isLoading, error } = useGetUserBookmarks();
+    const { toggleBookmark, success, error: toggleError, setError, animateOut } = useToggleBookmark();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -27,8 +31,6 @@ const Bookmarks = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
         getUserBookmarks(); // load ALL bookmarks once
     }, [getUserBookmarks]);
-
-
 
 
     // Close dropdown when clicking outside
@@ -114,7 +116,7 @@ const Bookmarks = () => {
                                             <Trash2 className="w-4 h-4 text-red-600" />
                                         </div>
                                         <div>
-                                            <div className="font-medium text-base">Clear all wishlists</div>
+                                            <div className="font-medium text-base">Clear all wishlist</div>
                                         </div>
                                     </button>
                                 </div>
@@ -132,7 +134,14 @@ const Bookmarks = () => {
                     ) : totalBookmarks > 0 ? (
                         <>
                             {paginatedBookmarks.map((apartment) => (
-                                <BookmarkCard apartment={apartment} key={apartment._id} />
+                                <BookmarkCard 
+                                    apartment={apartment} 
+                                    key={apartment._id} 
+                                    toggleBookmark={toggleBookmark}
+                                    error={toggleError}
+                                    setError={setError}
+                                    offset="bottom-24"
+                                />
                             ))}
 
                             {/* Pagination Controls */}
@@ -178,6 +187,10 @@ const Bookmarks = () => {
                         <WishlistPlaceholder />
                     )}
                 </div>
+                <ToggleSuccess 
+                    message={success} 
+                    animateOut={animateOut} 
+                />  
             </div>
             <Footerbar />
             <Footer />

@@ -47,11 +47,11 @@ const DeactivatedListingDetails = ({ apartment }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-         {/* Image Slider */}
+        {/* Image Slider */}
         <div 
           className="h-full w-full flex transition-transform duration-600 ease-[cubic-bezier(0.4, 0, 0.2, 1)]"
           style={{
-            transform: `translateX(${currentImg * 100}%)`,
+            transform: `translateX(${currentImg * - 100}%)`,
           }}
         >
           {apartment?.uploadedImages.map((image, index) => {
@@ -69,7 +69,6 @@ const DeactivatedListingDetails = ({ apartment }) => {
             )
           })}
         </div>
-
         {/* Left and right image slider navigatiom */}
         {isHovered && currentImg > 0 && (
         <button
@@ -93,16 +92,17 @@ const DeactivatedListingDetails = ({ apartment }) => {
           <div className="absolute bottom-3.5 left-1/2 transform -translate-x-1/2 flex gap-1.5">
             {apartment?.uploadedImages.map((_, index) => (
               <div
-                  key={index}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    index === currentImg ? "bg-white scale-110" : "bg-white opacity-50"
-                  }`}
+                key={index}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  index === currentImg ? "bg-white scale-110" : "bg-white opacity-50"
+                }`}
               >
               </div>
             ))}
           </div>
         )}
       </div>
+
       {/* Apartment Info */}
       <div onClick={() => navigate(`/deactivated-listing/${apartment._id}`)} className="w-full mt-4 flex flex-col gap-2 text-left">
         <div className="flex items-start justify-between gap-3">
