@@ -75,10 +75,10 @@ const MyDashboard = () => {
       </p>
       <button
         onClick={handleRetry}
-        className="px-3 py-2 bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5  focus:invisible cursor-pointer"
+        className="px-3 py-2 bg-cyan-600 hover:bg-cyan-700 text-white text-sm tracking-widest font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5  focus:invisible cursor-pointer"
       >
         <RotateCcw className="w-4 h-4" />
-        Try Again
+        Retry
       </button>
     </div>
   );

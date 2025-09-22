@@ -12,6 +12,7 @@ import ApartmentInfoSkeleton from "../utils/loading-display/ApartmentInfoSkeleto
 import { useSelector } from "react-redux";
 import { useToggleBookmark } from "../hooks/bookmarks";
 import ToggleSuccess from "../utils/pop-display/ToggleSuccess";
+import DotNavigation from "../utils/pop-display/DotNavigation";
 
 
 
@@ -328,20 +329,18 @@ const ApartmentInfo = () => {
                   <ChevronRightIcon className="w-6 h-6 text-gray-600" />
                 </button>
               )}
-              {/* Image Indicators */}
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-1.5">
-                {apartment?.uploadedImages?.map((_, index) => (
-                  <button
-                  key={index}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    index === currentImg 
-                      ? 'bg-white scale-110' 
-                      : 'bg-white opacity-50'
-                    }`}
-                  />
-                ))}
-              </div>
 
+              {/* Image Indicators */}
+              {totalImages > 1 && (
+                <DotNavigation
+                  apartment={apartment}
+                  totalImages={totalImages}
+                  currentImg={currentImg}
+                  setCurrentImg={setCurrentImg}
+                />
+              )}
+
+                               
               {/* Heart Icon */}
               {
                 !userRole || userRole === "tenant"  ? (

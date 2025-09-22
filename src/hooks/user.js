@@ -5,8 +5,6 @@ import {
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-
-
 // Updated useUpdateUser hook
 export const useUpdateUser = () => {
     const dispatch = useDispatch();
@@ -31,7 +29,11 @@ export const useUpdateUser = () => {
                     if (imageError.response?.status === 413) {
                         throw new Error('Image file is too large. Please choose a smaller image (max 5MB).');
                     }
-                    throw new Error('Failed to upload image. Please try again.');
+                    // preserve backend message if provided
+                    const serverMessage =
+                        imageError.response?.data?.error ||
+                        'Failed to upload image. Please try again.';
+                    throw new Error(serverMessage);
                 }
             }
 
@@ -46,7 +48,7 @@ export const useUpdateUser = () => {
                 throw new Error(response.data?.error || 'Something went wrong...');
             }
         } catch (error) {
-            const errorMessage = error.response?.data?.error || 'Failed to update user';
+            const errorMessage = error.response?.data?.error || error.message || 'Failed to update user';
             setError(errorMessage);
             dispatch(updateUserFailure(errorMessage));
             setIsLoading(false);
@@ -55,6 +57,7 @@ export const useUpdateUser = () => {
 
     const clearStatus = () => {
         dispatch(clearUpdateStatus());
+        setError(null);
     };
 
     return {

@@ -29,6 +29,8 @@ const Footerbar = () => {
   const currentPath = location.pathname;
   const user = useSelector((state) => state.auth.user)
   const { unreadCount } = useNotifications(user);
+  const { totalBookmarks } = useSelector((state) => state.bookmarks.items);
+  
   
 
   
@@ -144,8 +146,13 @@ const Footerbar = () => {
           <div className="relative">
             {tab.icon(activeTab === tab.id)}
             {(tab.id === "notifications" && unreadCount > 0) && (
-              <span className="absolute -top-1.5 -right-3.5 bg-red-500 text-white text-xs rounded-full px-2">
+              <span className="absolute -top-1.5 -right-3.5 bg-rose-500 text-white text-xs rounded-full px-2">
                 {unreadCount > 99 ? '99+' : unreadCount}
+              </span>
+            )}
+            {(tab.id === "whishlists" && totalBookmarks > 0) && (
+              <span className="absolute -top-1.5 -right-3.5 bg-rose-500 text-white text-xs rounded-full px-2">
+                {totalBookmarks > 99 ? '99+' : totalBookmarks}
               </span>
             )}
           </div>

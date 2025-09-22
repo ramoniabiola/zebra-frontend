@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import API from "../api";
 import { socket } from "../lib/socket";
@@ -13,24 +13,20 @@ import {
   markAllNotificationsAsReadError,
 } from "../redux/notificationSlice";
 
-
 export default function useNotifications(user) {
   const dispatch = useDispatch();
-  const { loading, error, unreadCount } = useSelector((state) => state.notifications);
+  const { items, loading, error, unreadCount } = useSelector((s) => s.notifications);
+  const [page, setPage] = useState(1);
   const mounted = useRef(false);
 
-  // Connect socket + register user
+  // === SOCKET HANDLING ===
   useEffect(() => {
     if (!user?._id) return;
-
     if (!socket.connected) socket.connect();
 
     socket.emit("registerUser", user._id);
 
-    const onNew = (notif) => {
-      dispatch(addNotification(notif));
-    };
-
+    const onNew = (notif) => dispatch(addNotification(notif));
     socket.on("newNotification", onNew);
 
     return () => {
@@ -39,26 +35,25 @@ export default function useNotifications(user) {
     };
   }, [user?._id, dispatch]);
 
-  
-  // Initial fetch
+  // === FETCH PAGINATED NOTIFICATIONS ===
+  const fetchNotifications = async (pageNum = 1) => {
+    try {
+      dispatch(getNotificationsLoading());
+      const { data } = await API.get(`/notifications?page=${pageNum}&limit=10`);
+      dispatch(getNotificationsSuccess(data));
+      setPage(pageNum);
+    } catch (err) {
+      dispatch(getNotificationsError(err.response?.data?.error || "Failed to fetch notifications"));
+    }
+  };
+
   useEffect(() => {
     if (!user?._id || mounted.current) return;
     mounted.current = true;
+    fetchNotifications(1);
+  }, [user?._id]);
 
-    const fetchNotifications = async () => {
-      try {
-        dispatch(getNotificationsLoading());
-        const { data } = await API.get("/notifications/");
-        dispatch(getNotificationsSuccess(data));
-      } catch (err) {
-        dispatch(getNotificationsError(err.response?.data?.error || "Failed to fetch notifications"));
-      }
-    };
-
-    fetchNotifications();
-  }, [user?._id, dispatch]);
-
-  // Mark single as read
+  // === MARK AS READ ===
   const markAsRead = async (id) => {
     try {
       const { data } = await API.patch(`/notifications/${id}/read`);
@@ -68,10 +63,9 @@ export default function useNotifications(user) {
     }
   };
 
-  // Mark all as read
   const markAllAsRead = async () => {
     try {
-      await API.patch(`/notifications/read-all`, {}, { withCredentials: true });
+      await API.patch(`/notifications/read-all`);
       dispatch(markAllNotificationsAsReadSuccess());
     } catch (err) {
       dispatch(markAllNotificationsAsReadError(err.response?.data?.error || "Failed to mark all as read"));
@@ -79,10 +73,14 @@ export default function useNotifications(user) {
   };
 
   return {
+    items, // { notifications, total, page, limit, totalPages }
     loading,
     error,
-    unreadCount, 
+    unreadCount,
+    fetchNotifications,
     markAsRead,
     markAllAsRead,
+    page,
+    setPage,
   };
 }

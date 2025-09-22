@@ -6,6 +6,8 @@ import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { formatCustomTimeAgo } from "../utils/time-format/TimeFormat";
+import ApartmentImagesPlaceholder from "../utils/placeholders/ApartmentImagesPlaceholder";
+import DotNavigation from "../utils/pop-display/DotNavigation";
 
 
 
@@ -121,27 +123,29 @@ const BookmarkCard = ({ apartment, toggleBookmark, error, setError }) => {
                 onMouseLeave={() => setIsHovered(false)}
             >
                 {/* Image Slider */}
-                <div 
-                    className="h-full w-full flex transition-transform duration-600 ease-[cubic-bezier(0.4, 0, 0.2, 1)]"
-                    style={{
-                        transform: `translateX(-${currentImg * 100}%)`,
-                    }}
-                >
-                    {bookmark.uploadedImages.map((image, index) => {
-                        const optimizedUrl = image.includes("/upload/") 
-                        ? image.replace("/upload/", "/upload/f_auto,q_auto/")
-                        : image;
-
-                        return (
-                            <img 
-                            key={index}
-                            src={optimizedUrl}
-                            alt={`apartment-${index}`}
-                            className="min-w-full flex-shrink-0 h-full object-cover"
-                            />
-                        )
-                    })}
-                </div>
+                {bookmark.uploadedImages.length === 0 ? (
+                    <ApartmentImagesPlaceholder />
+                ) : (
+                    <div 
+                        className="h-full w-full flex transition-transform duration-600 ease-[cubic-bezier(0.4, 0, 0.2, 1)]"
+                        style={{ transform: `translateX(-${currentImg * 100}%)` }}
+                    >
+                        {bookmark.uploadedImages.map((image, index) => {
+                            const optimizedUrl = image.includes("/upload/") 
+                            ? image.replace("/upload/", "/upload/f_auto,q_auto/")
+                            : image;
+                        
+                            return (
+                                <img 
+                                    key={index}
+                                    src={optimizedUrl}
+                                    alt={`apartment-${index}`}
+                                    className="min-w-full flex-shrink-0 h-full object-cover rounded-md"
+                                />
+                            );
+                        })}
+                    </div>
+                )}
                 
                 {/* Left and right image slider navigatiom */}
                 {isHovered && currentImg > 0 && (
@@ -160,20 +164,15 @@ const BookmarkCard = ({ apartment, toggleBookmark, error, setError }) => {
                         <ChevronRightIcon className="w-6 h-6 text-gray-700" />
                     </button>
                 )}
-                
+
                 {/* Dots Navigation */}
                 {totalImages > 1 && (
-                    <div className="absolute bottom-3.5 left-1/2 transform -translate-x-1/2 flex gap-1.5">
-                        {bookmark.uploadedImages.map((_, index) => (
-                            <div
-                                key={index}
-                                className={`w-2 h-2 rounded-full transition-all ${
-                                  index === currentImg ? "bg-white scale-110" : "bg-white opacity-50"
-                                }`}
-                            >
-                            </div>
-                        ))}
-                    </div>
+                    <DotNavigation 
+                        apartment={bookmark}
+                        totalImages={totalImages}
+                        currentImg={currentImg}
+                        setCurrentImg={setCurrentImg}
+                    />
                 )}
 
 

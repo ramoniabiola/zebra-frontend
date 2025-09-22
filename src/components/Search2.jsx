@@ -28,7 +28,7 @@ const Search2 = () => {
 
   return (
     <header className="w-full h-22 pt-6 flex items-center justify-center fixed top-0 left-0 z-40 bg-white">
-      <div className="relative bg-gray-100 border border-gray-200  w-11/12 h-10/12 rounded-xl">  
+      <div className="relative bg-gray-100  w-11/12 h-10/12 rounded-xl">  
         <input
           value={searchQuery}
           onChange={handleSearchChange}

@@ -3,6 +3,8 @@ import { Calendar, MapPin } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { formatCustomTimeAgo } from "../utils/time-format/TimeFormat";
+import ApartmentImagesPlaceholder from "../utils/placeholders/ApartmentImagesPlaceholder";
+import DotNavigation from "../utils/pop-display/DotNavigation";
 
 const MyListingDetails = ({ apartment }) => {
   const [currentImg, setCurrentImg] = useState(0);
@@ -55,27 +57,31 @@ const MyListingDetails = ({ apartment }) => {
         onMouseLeave={() => setIsHovered(false)}
       >
         {/* Image Slider */}
-        <div 
-          className="h-full w-full flex transition-transform duration-600 ease-[cubic-bezier(0.4, 0, 0.2, 1)]"
-          style={{
-            transform: `translateX(${currentImg * - 100}%)`,
-          }}
-        >
-          {apartment?.uploadedImages.map((image, index) => {
-            const optimizedUrl = image.includes("/upload/") 
-            ? image.replace("/upload/", "/upload/f_auto,q_auto/")
-            : image;
+        {apartment?.uploadedImages.length === 0 ? (
+          <ApartmentImagesPlaceholder />
+        ) : (
+          <div 
+            className="h-full w-full flex transition-transform duration-600 ease-[cubic-bezier(0.4, 0, 0.2, 1)]"
+            style={{ transform: `translateX(-${currentImg * 100}%)` }}
+          >
+            {apartment?.uploadedImages.map((image, index) => {
+              const optimizedUrl = image.includes("/upload/") 
+              ? image.replace("/upload/", "/upload/f_auto,q_auto/")
+              : image;
+          
+              return (
+                <img 
+                  key={index}
+                  src={optimizedUrl}
+                  alt={`apartment-${index}`}
+                  className="min-w-full flex-shrink-0 h-full object-cover rounded-md"
+                />
+              );
+            })}
+          </div>
+        )}
 
-            return (
-              <img 
-                key={index}
-                src={optimizedUrl}
-                alt={`apartment-${index}`}
-                className="min-w-full flex-shrink-0 h-full object-cover"
-              />
-            )
-          })}
-        </div>
+
         {/* Left and right image slider navigatiom */}
         {isHovered && currentImg > 0 && (
         <button
@@ -96,17 +102,12 @@ const MyListingDetails = ({ apartment }) => {
 
         {/* Dots Navigation */}
         {totalImages > 1 && (
-          <div className="absolute bottom-3.5 left-1/2 transform -translate-x-1/2 flex gap-1.5">
-            {apartment?.uploadedImages.map((_, index) => (
-              <div
-                key={index}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  index === currentImg ? "bg-white scale-110" : "bg-white opacity-50"
-                }`}
-              >
-              </div>
-            ))}
-          </div>
+          <DotNavigation
+            apartment={apartment}
+            totalImages={totalImages}
+            currentImg={currentImg}
+            setCurrentImg={setCurrentImg}
+          />
         )}
       </div>
 

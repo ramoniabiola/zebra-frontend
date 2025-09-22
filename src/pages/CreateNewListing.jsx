@@ -166,11 +166,35 @@ const CreateNewListing = () => {
     }));
   };
 
+  // Handle image swapping/reordering
+  const handleImageReorder = (fromIndex, toIndex) => {
+    setFormData(prev => {
+      const newImages = [...prev.images];
+
+      const temp = newImages[fromIndex];
+      newImages[fromIndex] = newImages[toIndex];
+      newImages[toIndex] = temp;
+
+      return {
+        ...prev,
+        images: newImages
+      };
+    });
+  };
+
 
 
   // Apartment Images upload to cloud handler
   const handleUploadImages = async () => {
+
     // Validate images before upload
+    if (formData.images.length > 15) {
+      setErrors({ images: 'Exceeded maximum requirement of 15 images' });
+      setShowError(true);
+      setTimeout(() => setShowError(false), 5000);
+      return;
+    }
+
     if (formData.images.length < 5) {
       setErrors({ images: 'At least 5 images are required' });
       setShowError(true);
@@ -178,6 +202,7 @@ const CreateNewListing = () => {
       return;
     }
 
+  
     setUploadStatus('uploading');
     setShowUploadModal(true);
     setUploadError('');
@@ -245,6 +270,7 @@ const CreateNewListing = () => {
             handleFileChange={handleFileChange}
             handleRemoveImage={handleRemoveImage}
             handleImageDrop={handleImageDrop}
+            handleImageReorder={handleImageReorder}
             errors={errors} 
             showError={showError}
             imagesUploaded={imagesUploaded}
@@ -372,7 +398,7 @@ const CreateNewListing = () => {
         </div>
       </div>
   
-      <div className="max-w-4xl mx-2 px-4 py-8 mt-20">
+      <div className="max-w-4xl mx-4 py-8 mt-20">
         {/* Step Indicator */}
         <StepIndicator currentStep={step} />
   
