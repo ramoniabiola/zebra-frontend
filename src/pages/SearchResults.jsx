@@ -114,7 +114,7 @@ const SearchResults = () => {
                     Search results for "<b className="text-gray-800">{query}</b>"
                 </h1>
 
-                <div className="w-full h-full flex flex-col items-center justify-center px-4 mb-12">
+                <div className="w-full h-full flex flex-col items-center justify-center px-2 mb-12">
                     {error && page >= 1  ? (
                         <ErrorDisplay />
                     ) : isLoading && page >= 1  ? (

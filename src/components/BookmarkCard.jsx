@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { AlertCircle, Ban, Calendar, MapPin, X } from 'lucide-react';
+import { AlertCircle, Ban, Calendar, ChevronLeft, ChevronRight, MapPin, X } from 'lucide-react';
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
@@ -118,7 +117,7 @@ const BookmarkCard = ({ apartment, toggleBookmark, error, setError }) => {
     return (
         <div className='w-11/12 h-auto flex flex-col items-center justify-start bg-white relative mb-24 cursor-pointer'>  
             <div 
-                className="w-full h-[310px] relative overflow-hidden rounded-xl"
+                className="w-full h-[310px] relative overflow-hidden rounded-2xl"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
@@ -153,7 +152,7 @@ const BookmarkCard = ({ apartment, toggleBookmark, error, setError }) => {
                         onClick={handlePrev}
                         className="absolute top-1/2 left-3 transform -translate-y-1/2 bg-white p-2 rounded-full opacity-90 shadow hover:bg-gray-100 transition cursor-pointer"
                     >
-                        <ChevronLeftIcon className="w-6 h-6 text-gray-700" />
+                        <ChevronLeft strokeWidth={3} className="w-6 h-6 text-gray-400" />
                     </button>
                 )}
                 {isHovered && currentImg < totalImages - 1 && (
@@ -161,7 +160,7 @@ const BookmarkCard = ({ apartment, toggleBookmark, error, setError }) => {
                         onClick={handleNext}
                         className="absolute top-1/2 right-3 transform -translate-y-1/2 bg-white p-2 rounded-full opacity-90 shadow hover:bg-gray-100 transition cursor-pointer"
                     >
-                        <ChevronRightIcon className="w-6 h-6 text-gray-700" />
+                        <ChevronRight strokeWidth={3} className="w-6 h-6 text-gray-400" />
                     </button>
                 )}
 
@@ -209,7 +208,7 @@ const BookmarkCard = ({ apartment, toggleBookmark, error, setError }) => {
                     <h4 className="text-sm font-medium">{bookmark.location}</h4>
                 </div>
                 
-                <p className="text-sm text-slate-500 leading-relaxed">{bookmark.apartment_type}</p>
+                <p className="text-sm text-slate-500 leading-relaxed tracking-widest">{bookmark.apartment_type}</p>
 
                 {!bookmark.isAvailable && (
                     <span 

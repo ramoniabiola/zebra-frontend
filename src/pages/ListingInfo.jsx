@@ -344,12 +344,12 @@ const ListingInfo = () => {
                   </div> 
                   {isHovered && currentImg > 0 && (
                     <button onClick={handlePrev} className="absolute left-2 top-1/2 -translate-y-1/2 bg-white opacity-90 p-2 rounded-full shadow cursor-pointer">
-                      <ChevronLeft className="w-6 h-6 text-gray-600" />
+                      <ChevronLeft strokeWidth={3} className="w-6 h-6 text-gray-400" />
                     </button>
                   )}
                   {isHovered && currentImg < totalImages - 1 && (
                     <button onClick={handleNext} className="absolute right-2 top-1/2 -translate-y-1/2 bg-white opacity-90 p-2 rounded-full shadow cursor-pointer">
-                      <ChevronRight className="w-6 h-6 text-gray-600" />
+                      <ChevronRight strokeWidth={3} className="w-6 h-6 text-gray-400" />
                     </button>
                   )}
                   {/* Image Count */}

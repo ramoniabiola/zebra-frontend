@@ -187,7 +187,7 @@ const Step4_UploadImages = ({
     setDraggedIndex(null);
     setDragOverIndex(null);
   };
-  
+
 
   const shouldShowError = showError && errors?.images;
 
@@ -292,10 +292,7 @@ const Step4_UploadImages = ({
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
             {formData.images.map((file, idx) => {
               const isFile = file instanceof File;
-              const isDraggedOver =
-                dragOverIndex === idx &&
-                (draggedIndex !== idx || touchCurrentIndex !== idx);
-
+              const isDraggedOver = dragOverIndex === idx && (draggedIndex !== idx || touchCurrentIndex !== idx);
               const isDraggingThis = draggedIndex === idx || (isDragging && touchStartIndex === idx);
 
               return (
@@ -363,23 +360,25 @@ const Step4_UploadImages = ({
                   )}
 
                   {/* Remove Button */}
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleRemoveImage(idx);
-                    }}
-                    type="button"
-                    className={`absolute -top-2 -right-2 w-8 h-8 bg-rose-500/70 hover:bg-rose-600/70 text-white rounded-full 
-                      flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 
-                      cursor-pointer transition-all duration-200 ${
-                        isTouchDevice
-                          ? "opacity-100"
-                          : "opacity-0 group-hover:opacity-100"
-                      }`}
-                    title="Remove image"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
+                  {imagesUploaded ? null : (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleRemoveImage(idx);
+                      }}
+                      type="button"
+                      className={`absolute -top-2 -right-2 w-8 h-8 bg-rose-500/70 hover:bg-rose-600/70 text-white rounded-full 
+                        flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 
+                        cursor-pointer transition-all duration-200 ${
+                          isTouchDevice
+                            ? "opacity-100"
+                            : "opacity-0 group-hover:opacity-100"
+                        }`}
+                      title="Remove image"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
 
                   {/* Index indicator */}
                   <div className="absolute top-2 left-2 w-6 h-6 bg-black/50 text-white text-xs rounded-full flex items-center justify-center">
@@ -395,7 +394,7 @@ const Step4_UploadImages = ({
               <p className="text-sm text-sky-700 leading-6">
                 <span className="font-medium"><b>Tip:</b></span> The first image will be your main listing photo. 
                 To rearrange images, {isTouchDevice ? 'press and hold an image for half a second, then drag it onto another image to swap their positions' : 'simply drag and drop one image onto another to swap their positions'}. 
-                You can also remove and re-add images if needed. Make sure all images are clear and high-quality before clicking <b>"Upload"</b>.
+                You can also remove and re-add images if needed. Make sure all images are clear and high-quality before clicking <b>"Upload"</b>. Note that images can no longer be updated or position rearranged when successfully uploaded.
               </p>
             </div>
           )} 

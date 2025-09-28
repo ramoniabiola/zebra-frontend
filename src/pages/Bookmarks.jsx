@@ -91,7 +91,7 @@ const Bookmarks = () => {
                         <h1 className="font-bold text-gray-900 text-3xl">WishLists</h1>
                     </div>
 
-                    {totalBookmarks > 0 && (
+                    {totalBookmarks > 0 && !error && !isLoading && (
                         <div className="relative" ref={dropdownRef}>
                             <div 
                                 className={`w-12 h-12 mt-1 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-all duration-200 cursor-pointer ${isDropdownOpen ? 'bg-neutral-100 rotate-90' : ''}`}

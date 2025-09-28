@@ -1,5 +1,4 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { Calendar, MapPin } from "lucide-react";
+import { Calendar, ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { formatCustomTimeAgo } from "../utils/time-format/TimeFormat";
@@ -45,7 +44,7 @@ const DeactivatedListingDetails = ({ apartment }) => {
   return (
     <div className='w-11/12 h-auto flex flex-col items-center justify-start bg-white relative mt-8 mb-16 cursor-pointer'>  
       <div 
-        className="w-full h-[310px] relative overflow-hidden rounded-xl"
+        className="w-full h-[310px] relative overflow-hidden rounded-2xl"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -82,7 +81,7 @@ const DeactivatedListingDetails = ({ apartment }) => {
           onClick={handlePrev}
           className="absolute top-1/2 left-3 transform -translate-y-1/2 bg-white p-2 rounded-full opacity-90 shadow hover:bg-gray-100 transition cursor-pointer"
         >
-          <ChevronLeftIcon className="w-6 h-6 text-gray-700" />
+           <ChevronLeft strokeWidth={3} className="w-6 h-6 text-gray-400" />
         </button>
         )}
         {isHovered && currentImg < totalImages - 1 && (
@@ -90,7 +89,7 @@ const DeactivatedListingDetails = ({ apartment }) => {
             onClick={handleNext}
             className="absolute top-1/2 right-3 transform -translate-y-1/2 bg-white p-2 rounded-full opacity-90 shadow hover:bg-gray-100 transition cursor-pointer"
           >
-            <ChevronRightIcon className="w-6 h-6 text-gray-700" />
+            <ChevronRight strokeWidth={3} className="w-6 h-6 text-gray-400" />
           </button>
         )}
 
@@ -118,7 +117,7 @@ const DeactivatedListingDetails = ({ apartment }) => {
           <h4 className="text-sm font-medium">{apartment.location}</h4>
         </div>
                 
-        <p className="text-sm text-slate-500 leading-relaxed">{apartment.apartment_type}</p>
+        <p className="text-sm text-slate-500 leading-relaxed tracking-widest">{apartment.apartment_type}</p>
         <div className="flex items-center justify-between mt-2 pt-4 px-1.5 border-t border-gray-100">
           <h3 className="text-xl font-bold text-slate-900">
             {formatPrice(apartment.price)}

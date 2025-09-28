@@ -188,7 +188,7 @@ const DeactivatedListings = () => {
       )}
 
       {/* Listings */}
-      <div className="w-full h-full flex flex-col items-center justify-center px-4 overflow-y-auto scroll-smooth mb-12">
+      <div className="w-full h-full flex flex-col items-center justify-center px-3 overflow-y-auto scroll-smooth mb-12">
         {error ? (
           <ErrorDisplay />
         ) : isLoading ? (

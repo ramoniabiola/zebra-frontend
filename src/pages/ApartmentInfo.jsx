@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { ChevronRightIcon, ChevronLeftIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
-import { Bed, Bath, Wifi, Car, Square, AlertTriangle, Phone, ArrowLeft, MapPin, Zap, Shield, Waves, Coffee, Home, User, AlertCircle, X, Copy, Check, RotateCcw } from "lucide-react";
-import { CheckBadgeIcon }from "@heroicons/react/24/solid";
+import { Bed, Bath, Wifi, Car, Square, AlertTriangle, Phone, ArrowLeft, MapPin, Zap, Shield, Waves, Coffee, Home, User, AlertCircle, X, Copy, Check, RotateCcw, ChevronLeft, ChevronRight } from "lucide-react";
 import Footer from "../components/Footer";
 import { useNavigate, useParams } from 'react-router-dom';
 import Footerbar from "../components/Footerbar";
@@ -13,6 +12,7 @@ import { useSelector } from "react-redux";
 import { useToggleBookmark } from "../hooks/bookmarks";
 import ToggleSuccess from "../utils/pop-display/ToggleSuccess";
 import DotNavigation from "../utils/pop-display/DotNavigation";
+import { formatPhoneNumber } from "../utils/contact-format/PhoneNumberFormat";
 
 
 
@@ -321,12 +321,12 @@ const ApartmentInfo = () => {
               {/* Navigation Arrows */}
               {isHovered && currentImg > 0 && (
                 <button onClick={handlePrev} className="absolute left-2 top-1/2 -translate-y-1/2 bg-white opacity-70 p-2 rounded-full shadow cursor-pointer">
-                  <ChevronLeftIcon className="w-6 h-6 text-gray-600" />
+                   <ChevronLeft strokeWidth={3} className="w-6 h-6 text-gray-400" />
                 </button>
               )}
               {isHovered && currentImg < totalImages - 1 && (
                 <button onClick={handleNext} className="absolute right-2 top-1/2 -translate-y-1/2 bg-white opacity-70 p-2 rounded-full shadow cursor-pointer">
-                  <ChevronRightIcon className="w-6 h-6 text-gray-600" />
+                  <ChevronRight strokeWidth={3} className="w-6 h-6 text-gray-400" />
                 </button>
               )}
 
@@ -378,14 +378,7 @@ const ApartmentInfo = () => {
                 />
               )}
 
-              {/* Verified Badge(if premium is subscribed)*/}
-              {/* {apartment.verified_listing && (
-                <div className="flex items-center justify-center px-2 py-1 bg-teal-500 gap-1 rounded-lg">
-                  <CheckBadgeIcon className="w-5 h-5 text-white" />
-                    <h3 className="text-sm font-mono text-white">Verified</h3>
-                </div>
-              )}  */}
-
+              {/* Title and Location */}
               <div className="flex justify-start items-start mb-6">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-4">
@@ -506,11 +499,11 @@ const ApartmentInfo = () => {
                       <Phone className="w-6 h-6 text-white" />
                     </div>
                     <div className="flex-1">
-                      <p className="font-semibold text-gray-800">{apartment.contact_phone}</p>
+                      <p className="font-semibold text-gray-800">{formatPhoneNumber(apartment.contact_phone)}</p>
                       <p className="text-sm text-gray-600">Phone Number</p>
                     </div>
                     <button
-                      onClick={() => copyToClipboard(apartment.contact_phone)}
+                      onClick={() => copyToClipboard(formatPhoneNumber(apartment.contact_phone))}
                       className={`px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 cursor-pointer ${
                         copied
                           ? 'bg-green-100 text-green-700 hover:bg-green-200'

@@ -257,14 +257,6 @@ const PreviewListing = ({ formData, onBackToStep }) => {
                 {currentImg + 1} / {totalImages}
               </div>
             </div>
-            {/* Edit Images Button */}
-            <button
-              onClick={() => onBackToStep(4)}
-              className="absolute top-4 right-4 bg-white bg-opacity-90 hover:bg-opacity-100 px-3 py-2 rounded-lg shadow-lg flex items-center gap-2 text-sm font-medium text-gray-700 transition-all duration-200 cursor-pointer"
-            >
-              <Edit className="w-4 h-4" />
-              Edit Images
-            </button>
           </div>
           <div className="py-8 px-3">
 

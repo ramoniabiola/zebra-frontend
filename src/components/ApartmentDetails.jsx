@@ -1,5 +1,4 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { AlertCircle, Calendar, MapPin, X } from 'lucide-react';
+import { AlertCircle, Calendar, ChevronLeft, ChevronRight, MapPin, X } from 'lucide-react';
 import { HeartIcon as HeartSolid, TagIcon } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { useState } from "react";
@@ -158,7 +157,7 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
         <>
             <div className='w-11/12 h-auto flex flex-col items-center justify-start bg-white mb-12 relative mt-12 cursor-pointer'>  
                 <div 
-                    className="w-full h-[310px] relative overflow-hidden rounded-xl"
+                    className="w-full h-[310px] relative overflow-hidden rounded-2xl"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                 >
@@ -194,7 +193,7 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
                     onClick={handlePrev}
                     className="absolute top-1/2 left-3 transform -translate-y-1/2 bg-white p-2 rounded-full opacity-80 shadow hover:bg-gray-100 transition cursor-pointer"
                     >
-                        <ChevronLeftIcon className="w-6 h-6 text-gray-700" />
+                        <ChevronLeft strokeWidth={3} className="w-6 h-6 text-gray-400" />
                     </button>
                     )}
                     {isHovered && currentImg < totalImages - 1 && (
@@ -202,7 +201,7 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
                         onClick={handleNext}
                         className="absolute top-1/2 right-3 transform -translate-y-1/2 bg-white p-2 rounded-full opacity-80 shadow hover:bg-gray-100 transition cursor-pointer"
                         >
-                            <ChevronRightIcon className="w-6 h-6 text-gray-700" />
+                            <ChevronRight strokeWidth={3} className="w-6 h-6 text-gray-400" />
                         </button>
                     )}
 
@@ -240,13 +239,23 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
                         ) : (
                             <></>
                         )
-                    }     
+                    }    
+
+
+                    {apartment.furnished && (
+                        <div className="absolute top-5 left-3 z-10 ">
+                            <span className="flex items-center gap-1.5 px-4 py-1.5 bg-white/90 backdrop-blur-sm text-[16px] font-bold rounded-full shadow-md border-2  border-stone-300">
+                                <TagIcon className="w-4 h-4 text-stone-700" />
+                                <span className="text-stone-700 tracking-widest">Premium</span>
+                            </span>
+                        </div>
+                    )}
                 </div> 
 
                 {/* Apartment Info */}
                 <div onClick={() => navigate(`/apartment/${apartment._id}`)} className="w-full mt-4 flex flex-col gap-2 text-left">
                     <div className="flex items-start justify-between gap-3">
-                        <h1 className="text-xl   font-semibold text-slate-900 leading-tight group-hover:text-slate-900 transition-colors">
+                        <h1 className="text-xl font-semibold text-slate-900 leading-tight group-hover:text-slate-900 transition-colors">
                             {apartment.title}
                         </h1>
                     </div>
@@ -256,16 +265,7 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
                         <h4 className="text-sm font-medium">{apartment.location}</h4>
                     </div>
 
-                    <p className="text-sm text-slate-500 leading-relaxed">{apartment.apartment_type}</p>
-
-                    {apartment.furnished && (
-                        <span 
-                            className="w-2/5 flex items-center gap-1 px-3 py-2 bg-gradient-to-r from-blue-100 to-cyan-200 text-cyan-900 text-xs font-bold rounded [clip-path:polygon(0_0,100%_0,85%_100%,0%_100%)] tracking-widest"
-                        >
-                            <TagIcon className="w-4 h-4" />
-                            Top Deal  
-                        </span>
-                    )}
+                    <p className="text-sm text-slate-500 leading-relaxed tracking-widest">{apartment.apartment_type}</p>
                 
                     {error && (
                         <ErrorAlert 

@@ -127,7 +127,7 @@ const Apartments = () => {
   return (
     <div className="h-full min-w-full flex flex-col items-start justify-center">
       {/* APARTMENT LISTING OPTIONS */}
-      <div className="fixed top-34 z-30 h-20 w-full flex items-center justify-around bg-white shadow-md py-2">
+      <div className="fixed top-34 z-30 h-20 w-full flex items-center justify-between px-8 bg-white shadow-md py-2">
         {tabs.map((tab) => (
           <div
             key={tab.id}
@@ -157,7 +157,7 @@ const Apartments = () => {
       </div>
 
       {/* APARTMENT LISTINGS */}
-      <div className="mt-[12rem] min-w-full h-full flex flex-col items-center justify-center px-4 overflow-y-auto scroll-smooth mb-12">
+      <div className="mt-[12rem] min-w-full h-full flex flex-col items-center justify-center px-3 overflow-y-auto scroll-smooth mb-12">
         {error && page === 1 ? (
           <ErrorDisplay />
         ) : isLoading && page === 1 ? (

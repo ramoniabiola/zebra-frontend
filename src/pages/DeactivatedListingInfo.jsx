@@ -1,18 +1,23 @@
 import { useEffect, useState } from 'react'
 import Footerbar from '../components/Footerbar';
 import Footer from '../components/Footer';
-import { ArrowLeft, ChevronRight, ChevronLeft, X, Plus, MapPin, Phone, Home, Calendar, DollarSign, Users, Bath, Square, User, RotateCcw, CheckCircle, Upload, Loader2, AlertCircle } from 'lucide-react';
+import { ArrowLeft, MapPin, Phone, Home, Calendar, DollarSign, Users, Bath, Square, User, Plus } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMyDeactivatedListingByIdApi, reactivateMyListingApi } from '../api/myDeactivatedListings';
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import MyListingSkeleton from '../utils/loading-display/MyListingSkeleton';
 import { uploadApartmentImagesApi } from '../api/apartments';
 import { reactivateMyListingLoading, reactivateMyListingSuccess, reactivateMyListingError } from '../redux/myDeactivatedListingsSlice';
 
+// Import extracted components
+import ImageGallery from '../components/ImageGallery';
+import ReactivationModal from '../utils/modal/ReactivationModal';
+import ErrorAlert from '../utils/error-display/ErrorAlert';
+import ErrorDisplay from '../utils/error-display/ErrorDisplay';
+import ActionButtons from '../utils/buttons/ActionButtons';
 
 
-// Move InfoCard component OUTSIDE of the main component
+// InfoCard component (kept here as it's specific to this page)
 const InfoCard = ({ icon: Icon, label, value, name, editable = true, editMode, editedData, handleChange }) => (
   <div className="bg-white rounded-lg p-4 border border-gray-100">
     <div className="flex items-start gap-4">
@@ -78,7 +83,6 @@ const ApartmentTypeCard = ({
     { value: "shared-apartment", label: "Shared Apartment" }
   ];
 
-  // Get display label for the current value
   const getDisplayValue = (val) => {
     const option = apartmentTypeOptions.find(opt => opt.value === val);
     return option ? option.label : val;
@@ -122,11 +126,8 @@ const ApartmentTypeCard = ({
   );
 };
 
-
-// Move AmenitiesCard component OUTSIDE of the main component
 const AmenitiesCard = ({ icon: Icon, label, apartment_amenities, editable = true, editMode, handleAmenityAdd, handleAmenityRemove, apartment }) => {
   const [newAmenity, setNewAmenity] = useState('');
-
 
   const handleAddAmenity = (e) => {
     e.preventDefault();
@@ -204,76 +205,64 @@ const AmenitiesCard = ({ icon: Icon, label, apartment_amenities, editable = true
 
 
 const DeactivatedListingInfo = () => {
-  const { id: apartmentId } = useParams();
+  const { id: apartmentId } = useParams()
+  const user = useSelector(state => state.auth?.user)
+  const userId = user?._id
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  // get deactivated listing states
-  const [apartment, setApartment] = useState({}) 
+  // fetch states
+  const [apartment, setApartment] = useState({})
   const [loading, setLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
 
-  // listing reactivation states
-  const [isLoading, setIsLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(null);
+  // edit/reactivation states
+  const [editMode, setEditMode] = useState(false)
+  const [isReactivating, setIsReactivating] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState(0)
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(null)
+  const [showReactivationModal, setShowReactivationModal] = useState(false)
 
-  const [editMode, setEditMode] = useState(false);
-  const [currentImg, setCurrentImg] = useState(0);
-  const [isReactivating, setIsReactivating] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const user = useSelector((state) => state.auth?.user);
-  const userId = user?._id
-  const [isHovered, setIsHovered] = useState(false);
-  const [editedData, setEditedData] = useState({});
-  const [newImages, setNewImages] = useState([]); // Track new file uploads separately
-  const [imagesToRemove, setImagesToRemove] = useState([]); // Track images to remove
-  const [showReactivationModal, setShowReactivationModal] = useState(false);
-
-  // reactivation data validation error alert
-  const [validationError, setValidationError] = useState(null);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // form states
+  const [editedData, setEditedData] = useState({})
+  const [imageList, setImageList] = useState([]) // single source of truth
+  const [validationError, setValidationError] = useState(null)
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [apartmentId]);
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [apartmentId])
 
-
-
-  const formatPrice = (price) => {
-    return new Intl.NumberFormat('en-NG', {
+  const formatPrice = (price) =>
+    new Intl.NumberFormat('en-NG', {
       style: 'currency',
       currency: 'NGN',
       minimumFractionDigits: 0
-    }).format(price);
-  };
-
+    }).format(price)
 
   const getDeactivatedListing = async () => {
-    setLoading(true);
+    setLoading(true)
     setErrorMessage(null)
-
-    try{
-      const response = await fetchMyDeactivatedListingByIdApi(userId, apartmentId);
-      if(response.status >= 200 && response.status < 300) {
-        setApartment(response.data);
-        setErrorMessage(null);
-        setLoading(false);
+    try {
+      const response = await fetchMyDeactivatedListingByIdApi(userId, apartmentId)
+      if (response.status >= 200 && response.status < 300) {
+        setApartment(response.data)
+        setLoading(false)
       } else {
-        throw new Error(response.data.error || "Failed to fetch deactivated listing");
+        throw new Error(response.data.error || 'Failed to fetch deactivated listing')
       }
-    }catch(error){
+    } catch (error) {
       setLoading(false)
-      setErrorMessage(error.response?.data?.error || "Failed to fetch deactivated listing")
+      setErrorMessage(error.response?.data?.error || 'Failed to fetch deactivated listing')
     }
   }
 
-  useEffect(() => { 
-    getDeactivatedListing();
-  }, [apartmentId]);
+  useEffect(() => {
+    getDeactivatedListing()
+  }, [apartmentId])
 
-  const handleRetry = () => {
-    getDeactivatedListing();
-  };
+
+  const handleRetry = () => getDeactivatedListing()
 
   useEffect(() => {
     if (apartment && Object.keys(apartment).length > 0) {
@@ -292,404 +281,160 @@ const DeactivatedListingInfo = () => {
         bedrooms: apartment.bedrooms || '',
         bathrooms: apartment.bathrooms || '',
         furnished: apartment.furnished || false,
-        service_charge: apartment.service_charge || '',
-        uploadedImages: apartment.uploadedImages || [],
-      });
-      // Reset tracking arrays when apartment data loads
-      setNewImages([]);
-      setImagesToRemove([]);
+        service_charge: apartment.service_charge || ''
+      })
+      setImageList(apartment.uploadedImages || []) // load initial images into unified list
     }
-  }, [apartment]);
-
+  }, [apartment])
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEditedData(prev => ({ 
-      ...prev,
-      [name]: value,
-    }));
-  };
+    const { name, value } = e.target
+    setEditedData(prev => ({ ...prev, [name]: value }))
+  }
 
 
 
-  // Enhanced image handling
+  // ---------- Image handling ----------
   const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
-    if (!files.length) return;
-  
-    // Add new files to tracking array
-    setNewImages(prev => [...prev, ...files]);
-  };
+    const files = Array.from(e.target.files)
+    if (!files.length) return
+    setImageList(prev => [...prev, ...files]) // add new files directly
+  }
 
-  
+  const handleImageReorder = (fromIndex, toIndex) => {
+    setImageList(prev => {
+      const updated = [...prev]
+      const [moved] = updated.splice(fromIndex, 1)
+      updated.splice(toIndex, 0, moved)
+      return updated
+    })
+  }
 
   const handleRemoveImage = (index) => {
-    const imageToRemove = editedData.uploadedImages[index];
-    
-    // Check if it's an existing URL or a new File
-    if (typeof imageToRemove === 'string') {
-      // It's an existing URL - add to removal list
-      setImagesToRemove(prev => [...prev, imageToRemove]);
-    } else {
+    setImageList(prev => prev.filter((_, i) => i !== index))
+  }
 
-      // It's a new File - remove from newImages array
-      const fileIndex = newImages.findIndex(file => file === imageToRemove);
-      if (fileIndex > -1) {
-        setNewImages(prev => prev.filter((_, i) => i !== fileIndex));
-      }
-    }
-    
-    // Remove from editedData
-    setEditedData(prev => ({
-      ...prev,
-      uploadedImages: prev.uploadedImages.filter((_, i) => i !== index)
-    }));
-  };
+  const getAllImages = () => imageList
+  
 
-  // Get total images including existing and new ones
-  const getAllImages = () => {
-    const existingImages = editedData.uploadedImages.filter(img => 
-      typeof img === 'string' && !imagesToRemove.includes(img)
-    );
-    return [...existingImages, ...newImages];
-  };
-
-  const totalImages = editMode ? getAllImages().length : (apartment?.uploadedImages?.length || 0);
-
-
-  const handleNext = () => {
-    if (currentImg < totalImages - 1) {
-      setCurrentImg((prev) => prev + 1);
-    }
-  };
-   
-  const handlePrev = () => {
-    if (currentImg > 0) {
-      setCurrentImg((prev) => prev - 1);
-    }
-  };
-
+  // ---------- Amenities ----------
   const handleAmenityAdd = (newAmenity) => {
     if (newAmenity.trim() && !editedData.apartment_amenities.includes(newAmenity.trim())) {
       setEditedData(prev => ({
         ...prev,
         apartment_amenities: [...prev.apartment_amenities, newAmenity.trim()]
-      }));
+      }))
     }
-  }; 
+  }
 
   const handleAmenityRemove = (amenityToRemove) => {
     setEditedData(prev => ({
       ...prev,
-      apartment_amenities: prev.apartment_amenities.filter(amenity => amenity !== amenityToRemove)
-    }));
-  };
+      apartment_amenities: prev.apartment_amenities.filter(a => a !== amenityToRemove)
+    }))
+  }
 
-
-
-  // Enhanced reactivation with validation and image upload
+  // ---------- Reactivation ----------
   const handleReactivation = async () => {
-
     try {
-      // Reset states at the beginning
-      setValidationError(null);
-      setError(null);
+      setValidationError(null)
+      setError(null)
 
-      // Validation - Images
-      const allImages = getAllImages();
+      const allImages = getAllImages()
+      if (allImages.length > 15) {
+        setValidationError(`Max 15 images allowed. You currently have ${allImages.length}.`)
+        return
+      }
       if (allImages.length < 5) {
-        setValidationError(`Please add at least 5 images. You currently have ${allImages.length} images.`);
-        return;
+        setValidationError(`Please add at least 5 images. You currently have ${allImages.length}.`)
+        return
       }
 
-      // Validate required fields
-      const requiredFields = ['title', 'apartment_type', 'price', 'location', 'apartment_address', 'contact_phone', 'contact_name'];
-      const missingFields = requiredFields.filter(field => !editedData[field]?.toString().trim());
-
-      if (missingFields.length > 0) {
-        setValidationError(`Please fill in all required fields: ${missingFields.join(', ')}`);
-        return;
+      const requiredFields = ['title', 'apartment_type', 'price', 'location', 'apartment_address', 'contact_phone', 'contact_name']
+      const missing = requiredFields.filter(field => !editedData[field]?.toString().trim())
+      if (missing.length > 0) {
+        setValidationError(`Please fill in all required fields: ${missing.join(', ')}`)
+        return
       }
 
-      // Initialize loading states
-      setIsReactivating(true);
-      setUploadProgress(0);
-      setIsLoading(true);
-      setShowReactivationModal(true);
-      dispatch(reactivateMyListingLoading());
+      setIsReactivating(true)
+      setUploadProgress(0)
+      setShowReactivationModal(true)
+      dispatch(reactivateMyListingLoading())
 
-      let finalImageUrls = [];
+      // Split URLs vs Files
+      const existingImages = imageList.filter(img => typeof img === 'string')
+      const newImages = imageList.filter(img => img instanceof File)
 
-      // Keep existing images that weren't removed
-      const existingImages = editedData.uploadedImages.filter(img => 
-        typeof img === 'string' && !imagesToRemove.includes(img)
-      );
+      let finalImageUrls = [...existingImages]
 
-      finalImageUrls = [...existingImages];
-
-      // Upload new images if any
       if (newImages.length > 0) {
-        setUploadProgress(20);
+        setUploadProgress(20)
+        const formData = new FormData()
+        newImages.forEach(file => formData.append('images', file))
 
-        try {
-          // Create FormData for new images
-          const formData = new FormData();
-          newImages.forEach(file => {
-            formData.append('images', file);
-          });
+        const uploadResponse = await uploadApartmentImagesApi(formData, (progress) => {
+          setUploadProgress(20 + (progress * 0.6))
+        })
 
-          // Upload to Cloudinary
-          const uploadResponse = await uploadApartmentImagesApi(formData, (progress) => {
-            setUploadProgress(20 + (progress * 0.6)); // 20% to 80%
-          });
-          
-          if (uploadResponse.status === 200 && uploadResponse.data.uploadedImages) {
-            finalImageUrls = [...finalImageUrls, ...uploadResponse.data.uploadedImages];
-          } else {
-            throw new Error(uploadResponse.data?.error|| 'Failed to upload new images');
-          }
-        } catch (uploadError) {
-          throw new Error(`Image upload failed: ${uploadError.message}`);
+        if (uploadResponse.status === 200 && uploadResponse.data.uploadedImages) {
+          finalImageUrls = [...finalImageUrls, ...uploadResponse.data.uploadedImages]
+        } else {
+          throw new Error(uploadResponse.data?.error || 'Failed to upload images')
         }
       }
 
-      setUploadProgress(80);
-
-      // Prepare data for reactivation
-      const reactivationData = {
-        ...editedData,
-        uploadedImages: finalImageUrls,
-      };
-
-      // Call reactivation API
-      const response = await reactivateMyListingApi(apartmentId, reactivationData);
-      setUploadProgress(100);
+      setUploadProgress(80)
+      const reactivationData = { ...editedData, uploadedImages: finalImageUrls }
+      const response = await reactivateMyListingApi(apartmentId, reactivationData)
+      setUploadProgress(100)
 
       if (response.status >= 200 && response.status < 300) {
-        // Success handling
-        dispatch(reactivateMyListingSuccess(apartmentId));
-        setSuccess(true);
-        setIsLoading(false);
-
-        // Optional: Clear temporary states
-        setNewImages([]);
-        setImagesToRemove([]);
-
+        dispatch(reactivateMyListingSuccess(apartmentId))
+        setSuccess(true)
+        setImageList([]) // reset after success if you want
       } else {
-        throw new Error(response.data?.error || response.data?.message || 'Failed to reactivate listing');
+        throw new Error(response.data?.error || response.data?.message || 'Failed to reactivate listing')
       }
-
-    } catch (error) {
-      console.error('Reactivation error:', error);
-
-      // Set user-friendly error message
-      const errorMessage = error.response?.data?.error  || 'Failed to reactivate listing. Please try again.';
-      setError(errorMessage);
-      setIsLoading(false);
-      setSuccess(false);
-
-      // Dispatch error to Redux
-      dispatch(reactivateMyListingError(errorMessage));
-
+    } catch (err) {
+      const msg = err.response?.data?.error || 'Failed to reactivate listing. Please try again.'
+      setError(msg)
+      setSuccess(false)
+      dispatch(reactivateMyListingError(msg))
     } finally {
-      // Always reset these states
-      setIsReactivating(false);
-      setUploadProgress(0);
+      setIsReactivating(false)
+      setUploadProgress(0)
     }
-  };
-
+  }
 
   const handleCancel = () => {
-    setEditMode(false);
-    // Reset to original apartment data
-    setEditedData({
-      title: apartment.title || '',
-      apartment_type: apartment.apartment_type || '',
-      price: apartment.price || '',
-      payment_frequency: apartment.payment_frequency || '',
-      duration: apartment.duration || '',
-      location: apartment.location || '',
-      apartment_address: apartment.apartment_address || '',
-      nearest_landmark: apartment.nearest_landmark || '',
-      contact_phone: apartment.contact_phone || '',
-      contact_name: apartment.contact_name || '',
-      apartment_amenities: apartment.apartment_amenities || [],
-      bedrooms: apartment.bedrooms || '',
-      bathrooms: apartment.bathrooms || '',
-      furnished: apartment.furnished || false,
-      service_charge: apartment.service_charge || '',
-      uploadedImages: apartment.uploadedImages || [],
-    });
-    
-    // Clear tracking arrays
-    setNewImages([]);
-    setImagesToRemove([]);
-  };
+    setEditMode(false)
+    setEditedData({ ...apartment })
+    setImageList(apartment.uploadedImages || [])
+  }
 
-
-  // Error Display
-  const ErrorDisplay = () => (
-    <div className="h-screen w-full flex flex-col items-center justify-center text-center py-8">
-      <ExclamationTriangleIcon className="w-12 h-12 text-red-500 mx-auto mb-4" />
-      <h3 className="text-lg font-semibold text-gray-800 mb-1">
-        Something went wrong
-      </h3>
-      <p className="text-gray-600 mb-4">
-        {errorMessage || "Failed to fetch listing"}
-      </p>
-      <button
-        onClick={handleRetry}
-        className="px-3 py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5  focus:invisible cursor-pointer"
-      >
-        <RotateCcw className="w-4 h-4" />
-        Try Again
-      </button>
-    </div>
-  );
-
-
-  // Apartment Reactivation Modal
-  const ReactivationModal = () => {
-    if (!showReactivationModal) return null;
-  
-    return (
-      <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 relative">
-          {!isLoading && (
-            <button
-              onClick={() => setShowReactivationModal(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer"
-            >
-              <X />
-            </button>
-          )}
-
-          <div className="text-center">
-            {isLoading && (
-              <>
-                <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Loader2
-                   className="w-8 h-8 text-sky-600 animate-spin" />
-                </div>
-            
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                  Reactivating Your Apartment Listing
-                </h3>
-            
-                <p className="text-gray-600 mb-4">
-                  Please wait while we restore your listing and make it available to potential tenants...
-                </p>
-            
-                <div className="text-sm text-gray-500">
-                  Updating availability status and refreshing listing details...
-                </div>
-              </>
-            )}
-
-            {success && (
-              <>
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-green-600" />
-                </div>
-            
-                <h3 className="text-xl font-semibold text-green-800 mb-2">
-                  🎉 Apartment Successfully Reactivated!
-                </h3>
-            
-                <p className="text-gray-600 mb-4">
-                  Great news! Your apartment listing is now active and visible to potential tenants. You should start receiving inquiries soon!
-                </p>
-            
-                <div className="bg-green-50 p-3 rounded-lg text-sm text-green-700 mb-4">
-                  Your listing will appear in search results and tenant recommendations immediately.
-                </div>
-              </>
-            )}
-
-            {error && (
-              <>
-                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <AlertCircle className="w-8 h-8 text-red-600" />
-                </div>
-            
-                <h3 className="text-xl font-semibold text-red-800 mb-2">
-                  Reactivation Failed
-                </h3>
-            
-                <p className="text-gray-600 mb-4">
-                  We couldn't reactivate your apartment listing right now. This might be due to a temporary issue.
-                </p>
-            
-                {error && (
-                  <div className="bg-red-50 p-3 rounded-lg text-sm text-red-700 mb-4">
-                    <strong>Error Details:</strong> {error}
-                  </div>
-                )}
-
-                <div className="flex gap-4 justify-center">
-                  <button
-                    onClick={() => {
-                      setError(null);
-                      handleReactivation(); // Retry function
-                    }}
-                    className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors cursor-pointer"
-                  >
-                    Try Again
-                  </button>
-                  
-                  <button
-                    onClick={() => setShowReactivationModal(false)}
-                    className="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-300 transition-colors cursor-pointer"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  };
-
+  const handleRetryReactivation = () => {
+    setError(null)
+    handleReactivation()
+  }
 
   useEffect(() => {
     if (success) {
-      // After 4 seconds, close modal 
       const timer = setTimeout(() => {
-        setShowReactivationModal(false);
-        setSuccess(false);
-        navigate('/dashboard');
-      }, 4000);
-    
-      return () => clearTimeout(timer);
+        setShowReactivationModal(false)
+        setSuccess(false)
+        navigate('/dashboard')
+      }, 4000)
+      return () => clearTimeout(timer)
     }
-  }, [success, navigate]);
-
-
-  // Error Alert Component
-  const ErrorAlert = ({ message, onClose }) => (
-    <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
-      <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
-      <div className="flex-1">
-        <p className="text-sm text-red-700 font-medium">{message}</p>
-      </div>
-      {onClose && (
-        <button onClick={onClose} className="text-red-400 hover:text-red-600">
-          <X className="w-4 h-4" />
-        </button>
-      )}
-    </div>
-  );
-
-
+  }, [success, navigate])
 
 
   return (
     <>
       <div className="bg-white w-full h-full flex flex-col items-start justify-center min-h-screen">
         {errorMessage ? (
-          <ErrorDisplay />
+          <ErrorDisplay message={errorMessage} onRetry={handleRetry} />
         ) : loading ? 
         (
           <MyListingSkeleton />
@@ -710,221 +455,43 @@ const DeactivatedListingInfo = () => {
             <div className='w-full h-full flex flex-col items-start justify-center mb-8'>
               {/* Images */}
               <div className="w-full flex flex-col items-start justify-center">
-                {editMode ? (
-                  <div className="p-8 w-full">
-                    {/* Error Alert */}
-                    {validationError && (
-                      <ErrorAlert 
-                        message={validationError} 
-                        onClose={() => setValidationError(false)} 
-                      />
-                    )}
-
-
-                    <h3 className="text-lg text-center font-semibold text-gray-900 mb-6">
-                      Apartment Images ({getAllImages().length}/5 minimum)
-                    </h3>
-                
-                    {/* Current Images Display */}
-                    {getAllImages().length > 0 && (
-                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
-                        {/* Existing URLs */}
-                        {editedData.uploadedImages
-                          .filter(img => typeof img === 'string' && !imagesToRemove.includes(img))
-                          .map((imageUrl, idx) => (
-                          <div key={`existing-${idx}`} className="relative group">
-                            <img
-                              src={imageUrl}
-                              alt={`existing-${idx}`}
-                              className="w-full h-32 object-cover rounded-lg border border-gray-200"
-                            />
-                            <button
-                              onClick={() => {
-                                const originalIndex = editedData.uploadedImages.findIndex(img => img === imageUrl);
-                                handleRemoveImage(originalIndex);
-                              }}
-                              className="absolute -top-2 -right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-lg cursor-pointer"
-                            >
-                              <X className="w-4 h-4" />
-                            </button>
-                            <div className="absolute bottom-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded">
-                              Existing
-                            </div>
-                          </div>
-                        ))}
-                        
-                        {/* New Files */}
-                        {newImages.map((file, idx) => {
-                          const imageUrl = URL.createObjectURL(file);
-                          return (
-                            <div key={`new-${idx}`} className="relative group">
-                              <img
-                                src={imageUrl}
-                                alt={`new-${idx}`}
-                                className="w-full h-32 object-cover rounded-lg border border-gray-200"
-                              />
-                              <button
-                                onClick={() => {
-                                  setNewImages(prev => prev.filter((_, i) => i !== idx));
-                                }}
-                                className="absolute -top-2 -right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-lg cursor-pointer"
-                              >
-                                <X className="w-4 h-4" />
-                              </button>
-                              <div className="absolute bottom-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">
-                                New
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    )}
-
-                    {/* Upload Area */}
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-cyan-400 transition-colors duration-200">
-                      <div className="flex flex-col items-center">
-                        <Upload className="w-12 h-12 text-gray-400 mb-4" />
-                        <label className="cursor-pointer">
-                          <span className="text-cyan-400 hover:text-cyan-500 hover:underline font-medium">Upload new images</span>
-                          <span className="text-gray-500"> or drag and drop</span>
-                          <input
-                            type="file"
-                            multiple
-                            accept="image/*"
-                            onChange={handleImageChange}
-                            className="hidden"
-                          />
-                        </label>
-                        <p className="text-sm text-gray-400 mt-2">PNG, JPG up to 10MB each</p>
-                      </div>
-                    </div>
-
-                    {/* Progress Bar for Upload */}
-                    {isReactivating && uploadProgress > 0 && (
-                      <div className="mt-4 w-full">
-                        <div className="flex justify-between text-sm text-gray-600 mb-2">
-                          <span>Uploading and reactivating...</span>
-                          <span>{uploadProgress}%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div 
-                            className="bg-cyan-600 h-2 rounded-full transition-all duration-300"
-                            style={{ width: `${uploadProgress}%` }}
-                          ></div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Info Tips */}
-                    <div className="mt-8 space-y-4">
-                      <div className="p-4 bg-sky-50 border border-sky-200 rounded-xl">
-                        <p className="text-sm text-sky-700 leading-6">
-                          <span className="font-medium">Tip:</span> The first image will be used as the main listing photo. 
-                          You can re-order images by removing and re-adding them in your preferred order. A minimum of <b>5</b> images is required.
-                        </p>
-                      </div>
-                      
-                      {getAllImages().length < 5 && (
-                        <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl">
-                          <p className="text-sm text-amber-700">
-                            <span className="font-medium">Warning:</span> You need at least 5 images to reactivate the listing. 
-                            Currently you have {getAllImages().length} images.
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ) : (
-                  <div 
-                    className="relative w-full h-[280px] overflow-hidden mb-4"
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
-                  >   
-                    <div
-                      className="flex h-full transition-transform duration-500 ease-in-out"
-                      style={{
-                        transform: `translateX(${currentImg * - 100}%)`,
-                      }}
-                    >
-                      {apartment?.uploadedImages?.map((image, index) => {
-                        const optimizedUrl = image.includes("/upload/") 
-                        ? image.replace("/upload/", "/upload/f_auto,q_auto/")
-                        : image;
-
-                        return(
-                          <img
-                          key={index}
-                          src={optimizedUrl}
-                          alt={`apartment-${index}`}
-                          className="min-w-full flex-shrink-0 h-full object-cover"
-                          />
-                        )
-                      })}
-                    </div> 
-                    {isHovered && currentImg > 0 && (
-                      <button onClick={handlePrev} className="absolute left-2 top-1/2 -translate-y-1/2 bg-white opacity-90 p-2 rounded-full shadow cursor-pointer">
-                        <ChevronLeft className="w-6 h-6 text-gray-600" />
-                      </button>
-                    )}
-                    {isHovered && currentImg < totalImages - 1 && (
-                      <button onClick={handleNext} className="absolute right-2 top-1/2 -translate-y-1/2 bg-white opacity-90 p-2 rounded-full shadow cursor-pointer">
-                        <ChevronRight className="w-6 h-6 text-gray-600" />
-                      </button>
-                    )}
-                    <div className="absolute bottom-4 right-4 bg-black/50 text-white text-sm font-bold px-3 py-[4px] rounded">
-                      {currentImg + 1} / {totalImages}
-                    </div>
+                {/* Error Alert */}
+                {validationError && (
+                  <div className="w-full px-8 pt-8">
+                    <ErrorAlert 
+                      message={validationError} 
+                      onClose={() => setValidationError(false)} 
+                    />
                   </div>
                 )}
+
+                <ImageGallery
+                  imageList={imageList}                // unified array of all images (existing + new)
+                  editMode={editMode}                  // toggle between view and edit modes
+                  onImageChange={handleImageChange}    // add new images
+                  onRemoveImage={handleRemoveImage}    // remove by index
+                  onImageReorder={handleImageReorder}  // drag-and-swap reorder
+                  uploadProgress={uploadProgress}      // progress during upload
+                  isReactivating={isReactivating}      // disable controls when reactivating
+                />
+
               </div>
+
               
               {/* Action Buttons */}
-              <div className={`flex items-center gap-3 mb-4 ${!editMode ? "justify-start ml-2" : "ml-12"}`}>
-                {editMode ? (
-                  <>
-                    <button 
-                      onClick={handleReactivation}
-                      disabled={isReactivating || getAllImages().length < 5}
-                      className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 shadow-sm focus:invisible cursor-pointer ${
-                        isReactivating || getAllImages().length < 5
-                          ? 'bg-gray-400 text-white cursor-not-allowed'
-                          : 'bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700'
-                      }`}
-                    >
-                      {isReactivating ? (
-                        <>
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                          Reactivating...
-                        </>
-                      ) : (
-                        <>
-                          <CheckCircle className="w-4 h-4" />
-                          Reactivate Listing
-                        </>
-                      )}
-                    </button>
-                    <button 
-                      onClick={handleCancel}
-                      disabled={isReactivating}
-                      className="flex items-center gap-1.5 px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-all duration-200 cursor-pointer focus:invisible disabled:opacity-50"
-                    >
-                      <X className="w-4 h-4" />
-                      Cancel
-                    </button>
-                  </>
-                ) : (
-                  <div className="flex items-center gap-3 justify-start">
-                    <button 
-                      onClick={() => setEditMode(true)}
-                      className="flex items-center font-semibold gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-200 shadow-sm cursor-pointer focus:invisible"
-                    >
-                      <RotateCcw strokeWidth={2} className="w-4 h-4" />
-                      Reactivate Listing
-                    </button>
-                  </div>
-                )}
+              <div className={`flex items-center gap-3 mb-4 ${!editMode ? "justify-start" : ""}`}>
+                <ActionButtons
+                  editMode={editMode}
+                  onEdit={() => setEditMode(true)}
+                  onSave={handleReactivation}
+                  onCancel={handleCancel}
+                  isLoading={isReactivating}
+                  //disabled={getAllImages().length < 5}
+                  saveLabel="Reactivate Listing"
+                />
               </div>
               
+
               {/* Property Details */}
               <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
                 {/* Main Info */}
@@ -1118,7 +685,14 @@ const DeactivatedListingInfo = () => {
       </div>
 
       {/* Reactivation Modal */}
-      <ReactivationModal />
+      <ReactivationModal
+        show={showReactivationModal}
+        onClose={() => setShowReactivationModal(false)}
+        isLoading={isReactivating}
+        success={success}
+        error={error}
+        onRetry={handleRetryReactivation}
+      />
     </>
   );
 }
