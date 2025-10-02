@@ -279,7 +279,7 @@ const Register = () => {
                 </h1>
 
                 {/* Welcome Message */}
-                <h2 className="text-2xl font-semibold text-center text-gray-500 tracking-wider">Create Your Account</h2>
+                <h2 className="text-xl font-semibold text-center text-gray-400 tracking-wider mb-1">Create Your Account</h2>
                 <h3 className="text-sm text-center font-normal italic text-gray-400 mb-3">The hub of property renting...</h3>
                 <p className="text-gray-600 text-center text-sm">Join thousands of users finding their perfect home</p>
 
@@ -413,7 +413,7 @@ const Register = () => {
                 </div>
 
                 {/* Login Link */}
-                <div className="text-center mt-8 mb-24">
+                <div className="text-center mt-6 mb-24">
                     <p className="text-gray-600">
                         Already have an account?{" "}
                         <span onClick={() => navigate("/login")} className="text-cyan-600 font-semibold hover:text-cyan-700 transition-colors duration-300 hover:underline cursor-pointer">

@@ -279,7 +279,7 @@ const PasswordChange = () => {
                     <span className="text-cyan-600">o-</span>Let
                 </h1>
                 {/* Welcome message */}
-                <h2 className="text-xl text-center font-semibold text-gray-500 mb-1">Change Your Password</h2>
+                <h2 className="text-xl text-center font-semibold text-gray-400 mb-1">Change Your Password</h2>
                 <p className="text-center text-gray-500 mb-8 italic">Enter registered email and your new password to secure your account</p>
 
                 {/* Form */}

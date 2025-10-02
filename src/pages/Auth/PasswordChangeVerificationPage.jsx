@@ -368,7 +368,7 @@ const PasswordChangeVerificationPage = ({formData, sendVerificationCode, sendVer
         </h1>
           
         {/* Welcome Message */}
-        <h2 className="text-xl font-semibold text-center text-gray-500 tracking-wider mb-1">Verify Your Email</h2>
+        <h2 className="text-xl font-semibold text-center text-gray-400 tracking-wider mb-1">Verify Your Email</h2>
         <h3 className="text-sm text-center font-normal italic text-gray-400 mb-6">Almost there...</h3>
           
         {/* Email Icon */}

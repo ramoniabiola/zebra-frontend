@@ -216,7 +216,7 @@ const Login = () => {
       </h1>
 
       {/* Welcome message */}
-      <h2 className="text-xl text-center font-semibold text-gray-500 tracking-widest">Welcome back to To-Let!</h2>
+      <h2 className="text-xl text-center font-semibold text-gray-400 tracking-widest">Welcome back to To-Let!</h2>
       <h3 className="text-sm text-center font-normal italic text-gray-400 mb-8">The hub of property renting...</h3>
             
       {/* Form */}

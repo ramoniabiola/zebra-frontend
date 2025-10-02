@@ -36,7 +36,7 @@ const Search = () => {
           onKeyDown={handleKeyPress}
           type="text"
           placeholder="Search an apartment..."
-          className="w-full h-full pl-4 rounded-md outline-none text-lg font-semibold text-gray-900 placeholder-gray-400" 
+          className="w-full h-full pl-4 rounded-md outline-none text-lg font-semibold text-gray-900 placeholder-gray-400 focus:placeholder-gray-300" 
         />
         <SearchIcon 
           onClick={handleSearch}
