@@ -42,7 +42,7 @@ const landlordFaqs = [
 ];
 
 const SupportPage = () => {
-  const [activeTab, setActiveTab] = useState("House-Hunters");
+  const [activeTab, setActiveTab] = useState("Tenant");
   const [openIndex, setOpenIndex] = useState(null);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const SupportPage = () => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  const faqs = activeTab === "House-Hunters" ? tenantFaqs : landlordFaqs;
+  const faqs = activeTab === "Tenant" ? tenantFaqs : landlordFaqs;
 
   return (
     <div className="w-full h-full flex flex-col items-start justify-start">
@@ -63,7 +63,7 @@ const SupportPage = () => {
 
         {/* Tab Switcher */}
         <div className="w-full flex items-center justify-center gap-8 mb-16">
-          {["House-Hunters", "Landlord / Agencies"].map(tab => (
+          {["Tenant", "Landlord / Agencies"].map(tab => (
             <span
               key={tab}
               onClick={() => { setActiveTab(tab); setOpenIndex(null); }}

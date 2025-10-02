@@ -363,6 +363,7 @@ const ListingInfo = () => {
               <div className="flex items-center gap-3 mb-4 justify-start px-2">
                 <button 
                   onClick={() => setShowConfirmModal(true)}
+                  disabled={success}
                   className="flex items-center font-semibold gap-2 px-4 py-2 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-lg hover:from-red-600 hover:to-rose-700 transition-all duration-200 shadow-sm cursor-pointer focus:invisible"
                 >
                   <Trash2 className="w-4 h-4" />

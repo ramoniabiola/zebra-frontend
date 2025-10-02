@@ -7,7 +7,7 @@ import WishlistPlaceholder from "../utils/placeholders/WishlistPlaceholder";
 import ToggleSuccess from "../utils/pop-display/ToggleSuccess";
 import Footer from "../components/Footer";
 import Footerbar from "../components/Footerbar";
-import { useGetUserBookmarks, useToggleBookmark } from "../hooks/bookmarks";
+import { useClearAllUserBookmarks, useGetUserBookmarks, useToggleBookmark } from "../hooks/bookmarks";
 import { selectPaginatedBookmarks, setCurrentPage } from "../redux/bookmarkSlice";
 import BookmarkCardSkeleton from "../utils/loading-display/BookmarkCardSkeleton";
 import { ArrowLeft, ChevronLeft, ChevronRight, MoreVertical, RotateCcw, Trash2 } from "lucide-react";
@@ -18,8 +18,11 @@ import { ArrowLeft, ChevronLeft, ChevronRight, MoreVertical, RotateCcw, Trash2 }
 const Bookmarks = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [showErrorModal, setShowErrorModal] = useState(false);
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
     const { getUserBookmarks, isLoading, error } = useGetUserBookmarks();
     const { toggleBookmark, success, error: toggleError, setError, animateOut } = useToggleBookmark();
+    const { clearAllUserBookmark, error: clearError } = useClearAllUserBookmarks();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -47,15 +50,102 @@ const Bookmarks = () => {
         };
     }, []);
 
-    // const handleClearAllWishlists = () => {
-    //     // Add your clear wishlists logic here
-    //     console.log("Clearing all wishlists...");
-    //     setIsDropdownOpen(false);
-    // };
+
+    const handleClearAllWishlist = async () => {
+        setShowConfirmModal(false);  
+
+        await clearAllUserBookmark(); 
+    };
+
+
+    const handleRetry = () => {
+        setShowErrorModal(false); 
+        handleClearAllWishlist();
+    }
+
 
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
+
+
+
+
+    const ConfirmModal = () => {
+        if (!showConfirmModal) return null;
+
+        return (
+            <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
+                    <div className="text-center mb-6">
+                        <div className="w-16 h-16 bg-gradient-to-r from-rose-500 to-rose-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <Trash2 className="w-8 h-8 text-white" />
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-800 mb-2">
+                            Clear All Wishlist?
+                        </h3>
+                        <p className="text-gray-600">
+                            Are you sure you want to remove all apartment from your wishlist? 
+                            This action cannot be undone.
+                        </p>
+                    </div>
+                    <div className="flex gap-3">
+                        <button
+                            onClick={() => setShowConfirmModal(false)}
+                            className="flex-1 px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all duration-200 cursor-pointer"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            onClick={handleClearAllWishlist}
+                            className="flex-1 px-4 py-3 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 text-white font-semibold rounded-xl transition-all duration-200 cursor-pointer"
+                        >
+                            Clear All
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+
+    const ErrorModal = () => {
+        if (!showErrorModal) return null;
+        return (
+          <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative">
+                <button
+                  onClick={() => setShowErrorModal(false)}
+                  className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+             
+                <div className="text-center">
+                    <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <AlertCircle className="w-8 h-8 text-red-600" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                      Update Failed
+                    </h3>
+                    <p className="text-gray-600 mb-4">
+                      We couldn't clear all your wishlist. Please try again.
+                      <br />
+                      <span className="text-sm text-gray-500 mt-2 block">
+                        Error: <b>{clearError}</b>
+                      </span>
+                    </p>
+                    <button
+                      onClick={handleRetry}
+                      className="px-6 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold tracking-widest rounded-lg transition-colors duration-200 cursor-pointer"
+                    >
+                      Retry
+                    </button>
+                </div>
+            </div>
+          </div>
+        );
+      };
 
 
     
@@ -77,124 +167,135 @@ const Bookmarks = () => {
 
 
     return (
-        <div className="w-full h-full flex flex-col items-start justify-center">
-            <div className="w-full h-full flex flex-col items-start justify-center gap-4">
-                {/* Header */}
-                <div className="w-full h-16 flex items-center justify-between px-2 pt-4 bg-white">
-                    <div className="flex items-center gap-2">
-                        <div
-                            className="w-12 h-12 mt-1 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-colors duration-200 cursor-pointer"
-                            onClick={() => navigate(-1)}
-                        >
-                            <ArrowLeft className="w-6 h-6" />
+        <>
+            <div className="w-full h-full flex flex-col items-start justify-center">
+                <div className="w-full h-full flex flex-col items-start justify-center gap-4">
+                    {/* Header */}
+                    <div className="w-full h-16 flex items-center justify-between px-2 pt-4 bg-white">
+                        <div className="flex items-center gap-2">
+                            <div
+                                className="w-12 h-12 mt-1 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-colors duration-200 cursor-pointer"
+                                onClick={() => navigate(-1)}
+                            >
+                                <ArrowLeft className="w-6 h-6" />
+                            </div>
+                            <h1 className="font-bold text-gray-900 text-3xl">WishLists</h1>
                         </div>
-                        <h1 className="font-bold text-gray-900 text-3xl">WishLists</h1>
+
+                        {totalBookmarks > 0 && !error && !isLoading && (
+                            <div className="relative" ref={dropdownRef}>
+                                <div 
+                                    className={`w-12 h-12 mt-1 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-all duration-200 cursor-pointer ${isDropdownOpen ? 'bg-neutral-100 rotate-90' : ''}`}
+                                    onClick={toggleDropdown}
+                                >
+                                    <MoreVertical className="w-6 h-6" />
+                                </div>
+
+                                {/* Dropdown Menu */}
+                                <div className={`absolute right-0 top-14 w-56 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transition-all duration-300 ease-out transform origin-top-right z-50 ${
+                                    isDropdownOpen 
+                                        ? 'opacity-100 scale-100 translate-y-0' 
+                                        : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
+                                }`}>
+                                    <div className="py-2 px-2">
+                                        <button
+                                            onClick={() => {
+                                                setIsDropdownOpen(false);   
+                                                setShowConfirmModal(true);  
+                                            }}
+                                            className="w-full px-2 py-3 text-left text-gray-500 hover:bg-neutral-50 rounded-xl  transition-colors duration-200 flex items-center gap-3 group cursor-pointer"
+                                        >
+                                            <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 group-hover:bg-red-200  transition-colors duration-200">
+                                                <Trash2 className="w-4 h-4 text-red-600" />
+                                            </div>
+                                            <div>
+                                                <div className="font-medium text-base">Clear all wishlist</div>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
-                    {totalBookmarks > 0 && !error && !isLoading && (
-                        <div className="relative" ref={dropdownRef}>
-                            <div 
-                                className={`w-12 h-12 mt-1 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-all duration-200 cursor-pointer ${isDropdownOpen ? 'bg-neutral-100 rotate-90' : ''}`}
-                                onClick={toggleDropdown}
-                            >
-                                <MoreVertical className="w-6 h-6" />
-                            </div>
+                    {/* Content */}
+                    <div className="w-full h-full flex flex-col items-center justify-center px-4 overflow-y-auto scroll-smooth mt-12 mb-12">
+                        {error ? (
+                            <ErrorDisplay />
+                        ) : isLoading ? (
+                            <BookmarkCardSkeleton cards={2} />
+                        ) : totalBookmarks > 0 ? (
+                            <>
+                                {paginatedBookmarks.map((apartment) => (
+                                    <BookmarkCard 
+                                        apartment={apartment} 
+                                        key={apartment._id} 
+                                        toggleBookmark={toggleBookmark}
+                                        error={toggleError}
+                                        setError={setError}
+                                        offset="bottom-24"
+                                    />
+                                ))}
 
-                            {/* Dropdown Menu */}
-                            <div className={`absolute right-0 top-14 w-56 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transition-all duration-300 ease-out transform origin-top-right z-50 ${
-                                isDropdownOpen 
-                                    ? 'opacity-100 scale-100 translate-y-0' 
-                                    : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
-                            }`}>
-                                <div className="py-2 px-2">
-                                    <button
-                                        //onClick={handleClearAllWishlists}
-                                        disabled={isLoading || error}
-                                        className="w-full px-2 py-3 text-left text-gray-500 hover:bg-neutral-50 rounded-xl  transition-colors duration-200 flex items-center gap-3 group cursor-pointer"
-                                    >
-                                        <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 group-hover:bg-red-200  transition-colors duration-200">
-                                            <Trash2 className="w-4 h-4 text-red-600" />
-                                        </div>
-                                        <div>
-                                            <div className="font-medium text-base">Clear all wishlist</div>
-                                        </div>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
-
-                {/* Content */}
-                <div className="w-full h-full flex flex-col items-center justify-center px-4 overflow-y-auto scroll-smooth mt-12 mb-12">
-                    {error ? (
-                        <ErrorDisplay />
-                    ) : isLoading ? (
-                        <BookmarkCardSkeleton cards={2} />
-                    ) : totalBookmarks > 0 ? (
-                        <>
-                            {paginatedBookmarks.map((apartment) => (
-                                <BookmarkCard 
-                                    apartment={apartment} 
-                                    key={apartment._id} 
-                                    toggleBookmark={toggleBookmark}
-                                    error={toggleError}
-                                    setError={setError}
-                                    offset="bottom-24"
-                                />
-                            ))}
-
-                            {/* Pagination Controls */}
-                            {totalPages > 1 && (
-                                <div className="w-full flex items-center justify-center gap-4">   
-                                    <button
-                                        disabled={currentPage === 1}
-                                        onClick={() => dispatch(setCurrentPage(currentPage - 1))}
-                                        className="group relative overflow-hidden px-4 py-3 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-700 font-medium rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:hover:transform-none disabled:hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ease-out cursor-pointer"
-                                    >
-                                        <div className="flex items-center gap-2">
-                                            <ChevronLeft className="w-4 h-4 transform group-hover:-translate-x-1 transition-transform duration-300" />
-                                            <span>Prev</span>
-                                        </div>
-                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700"></div>
-                                    </button>
-
-                                    <div className="flex items-center gap-3 px-4 py-4 bg-white rounded-xl shadow-lg border border-gray-200">
-                                        <div className="flex items-center gap-2">
-                                            <div className="px-3 py-1 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white text-sm font-bold rounded-lg shadow-md">
-                                                {currentPage}
+                                {/* Pagination Controls */}
+                                {totalPages > 1 && (
+                                    <div className="w-full flex items-center justify-center gap-4">   
+                                        <button
+                                            disabled={currentPage === 1}
+                                            onClick={() => dispatch(setCurrentPage(currentPage - 1))}
+                                            className="group relative overflow-hidden px-4 py-3 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-700 font-medium rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:hover:transform-none disabled:hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ease-out cursor-pointer"
+                                        >
+                                            <div className="flex items-center gap-2">
+                                                <ChevronLeft className="w-4 h-4 transform group-hover:-translate-x-1 transition-transform duration-300" />
+                                                <span>Prev</span>
                                             </div>
-                                            <span className="text-sm text-gray-400">of</span>
-                                            <span className="text-sm text-gray-600 font-medium">{totalPages}</span>
-                                        </div>
-                                    </div>
+                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700"></div>
+                                        </button>
 
-                                    <button
-                                        disabled={currentPage === totalPages}
-                                        onClick={() => dispatch(setCurrentPage(currentPage + 1))}
-                                        className="group relative overflow-hidden px-4 py-3 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:hover:transform-none disabled:hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ease-out cursor-pointer"
-                                    >
-                                        <div className="flex items-center gap-2">
-                                            <span>Next</span>
-                                            <ChevronRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+                                        <div className="flex items-center gap-3 px-4 py-4 bg-white rounded-xl shadow-lg border border-gray-200">
+                                            <div className="flex items-center gap-2">
+                                                <div className="px-3 py-1 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white text-sm font-bold rounded-lg shadow-md">
+                                                    {currentPage}
+                                                </div>
+                                                <span className="text-sm text-gray-400">of</span>
+                                                <span className="text-sm text-gray-600 font-medium">{totalPages}</span>
+                                            </div>
                                         </div>
-                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700"></div>
-                                    </button>
-                                </div>
-                            )}
-                        </>
-                    ) : (
-                        <WishlistPlaceholder />
-                    )}
+
+                                        <button
+                                            disabled={currentPage === totalPages}
+                                            onClick={() => dispatch(setCurrentPage(currentPage + 1))}
+                                            className="group relative overflow-hidden px-4 py-3 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:hover:transform-none disabled:hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ease-out cursor-pointer"
+                                        >
+                                            <div className="flex items-center gap-2">
+                                                <span>Next</span>
+                                                <ChevronRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+                                            </div>
+                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700"></div>
+                                        </button>
+                                    </div>
+                                )}
+                            </>
+                        ) : (
+                            <WishlistPlaceholder />
+                        )}
+                    </div>
+                    <ToggleSuccess 
+                        message={success} 
+                        animateOut={animateOut} 
+                    />  
                 </div>
-                <ToggleSuccess 
-                    message={success} 
-                    animateOut={animateOut} 
-                />  
+                <Footerbar />
+                <Footer />
             </div>
-            <Footerbar />
-            <Footer />
-        </div>
+
+            {/* Modals */}
+            <ConfirmModal />
+
+            {clearError && (
+                <ErrorModal />
+            )}
+        </>
     );
 };
 

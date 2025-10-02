@@ -49,6 +49,7 @@ const ActionButtons = ({
         <div className="flex items-center gap-3 justify-start ml-2">
             <button 
                 onClick={onEdit}
+                disabled={disabled}
                 className="flex items-center font-semibold gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-200 shadow-sm cursor-pointer focus:invisible"
             >
                 <RotateCcw strokeWidth={2} className="w-4 h-4" />

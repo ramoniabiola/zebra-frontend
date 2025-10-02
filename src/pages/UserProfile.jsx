@@ -524,10 +524,10 @@ const UserProfile = () => {
             <div className="mt-8">
               <div className="flex items-center gap-3">
                 <span className="font-semibold text-lg text-gray-700">Role:</span>
-                <span className={`px-6 py-2 rounded-xl text-lg font-bold shadow-md ${
-                  user?.role === 'tenant' ? 'bg-rose-100 text-rose-800 border border-rose-200' :
-                  user?.role === 'landlord' ? 'bg-sky-100 text-sky-800 border border-sky-200' :
-                  'bg-amber-100 text-amber-800 border border-amber-200'
+                <span className={`px-6 py-2 rounded-xl text-lg font-bold shadow-md first-letter:uppercase tracking-wider ${
+                  user?.role === 'tenant' ? 'bg-gradient-to-br from-rose-100 to-rose-300 text-rose-800 border border-rose-400' :
+                  user?.role === 'landlord' ? 'bg-gradient-to-br from-emerald-100 to-emerald-300 text-emerald-800 border border-emerald-400' :
+                  'bg-gradient-to-br from-purple-100 to-purple-300 text-purple-800 border border-purple-400'
                 }`}>
                   {user?.role}
                 </span>

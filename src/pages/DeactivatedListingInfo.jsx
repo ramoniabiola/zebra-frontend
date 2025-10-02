@@ -240,6 +240,7 @@ const DeactivatedListingInfo = () => {
       minimumFractionDigits: 0
     }).format(price)
 
+
   const getDeactivatedListing = async () => {
     setLoading(true)
     setErrorMessage(null)
@@ -287,6 +288,7 @@ const DeactivatedListingInfo = () => {
     }
   }, [apartment])
 
+  
   const handleChange = (e) => {
     const { name, value } = e.target
     setEditedData(prev => ({ ...prev, [name]: value }))
@@ -486,7 +488,7 @@ const DeactivatedListingInfo = () => {
                   onSave={handleReactivation}
                   onCancel={handleCancel}
                   isLoading={isReactivating}
-                  //disabled={getAllImages().length < 5}
+                  disabled={success}
                   saveLabel="Reactivate Listing"
                 />
               </div>

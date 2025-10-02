@@ -1,7 +1,8 @@
-import { fetchUserBookmarksApi, addBookmarkApi, removeBookmarkApi } from "../api/bookmarks";
+import { fetchUserBookmarksApi, addBookmarkApi, removeBookmarkApi, clearAllUserBookmarkApi } from "../api/bookmarks";
 import {getBookmarksLoading, getBookmarksSuccess, getBookmarksFailure, 
     addBookmarkSuccess, removeBookmarkSuccess, addBookmarkFailure, 
-    removeBookmarkFailure, clearError } from "../redux/bookmarkSlice";
+    removeBookmarkFailure, clearError, 
+    clearBookmarks} from "../redux/bookmarkSlice";
 import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -109,4 +110,35 @@ export const useToggleBookmark = () => {
     }
 
     return { toggleBookmark, error, setError, success, setSuccess, animateOut };
+};
+
+
+// CLEAR ALL USER BOOKMARKS CUSTOM HOOK
+export const useClearAllUserBookmarks = () => {
+    const dispatch = useDispatch();
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const clearAllUserBookmark = async () => {
+        setIsLoading(true);
+        setError(null);
+        setSuccess(false);
+
+        try {
+            const response = await clearAllUserBookmarkApi(); // call backend
+            if (response.status >= 200 && response.status < 300) {
+                dispatch(clearBookmarks());   // update redux state instantly
+                setSuccess(true);
+            } else {
+                throw new Error(response.data?.error || "Failed to clear bookmarks");
+            }
+        } catch (err) {
+            setError(err.response?.data?.error || "Failed to clear bookmarks");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    return { clearAllUserBookmark, error, success, isLoading };
 };
