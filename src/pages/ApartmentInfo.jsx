@@ -455,7 +455,7 @@ const ApartmentInfo = () => {
                       return (
                         <div
                           key={idx}
-                          className="flex items-center gap-3 py-4 px-2 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200 hover:shadow-md transition-all duration-200"
+                          className="flex items-center gap-3 py-4 px-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200 hover:shadow-md transition-all duration-200"
                         >
                           <div className="w-10 h-10 bg-gradient-to-r from-cyan-400 to-cyan-500 rounded-full flex items-center justify-center shadow-lg flex-shrink-0">
                             <IconComponent className="w-5 h-5 text-white" />

@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import MyListings from "../components/MyListings";
 import DeactivatedListings from "../components/DeactivatedListings";
 import { useNavigate } from "react-router-dom";
-import { Component, FileText, Home, Landmark, LayoutDashboard, PauseCircle, Plus, RotateCcw, UserRound, UserRoundCheck } from "lucide-react";
+import { Component, Landmark, PauseCircle, Plus, RotateCcw, UserRoundCheck } from "lucide-react";
 import { useSelector } from "react-redux";
 import { fetchUserStatsApi } from "../api/myListings";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
@@ -141,7 +141,7 @@ const MyDashboard = () => {
             {/* User Role */}
             <div className="flex items-center justify-between py-3 px-3 rounded-lg bg-gradient-to-r from-cyan-700 to-cyan-400 shadow-lg hover:shadow-xl transition-shadow">
               <div className="flex flex-col gap-2">
-                <h2 className="text-xl font-bold font-sans text-white">{user.role}</h2>
+                <h2 className="text-xl font-bold font-sans text-white first-letter:uppercase">{user.role}</h2>
                 <p className="text-xs font-medium text-white/80 tracking-widest">User Role</p>
               </div>
               <div className="items-center mb-4">
