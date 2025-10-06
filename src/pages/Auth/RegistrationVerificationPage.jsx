@@ -355,8 +355,8 @@ const RegistrationVerificationPage = ({formData, sendVerificationCode, sendVerif
 
         {/* App Name / Logo */}
         <h1 
-          className="text-[2rem] text-slate-900 font-extrabold cursor-pointer text-center mt-20 mb-2 tracking-tight text-shadow-lg">T
-          <span className="text-cyan-600">o-</span>Let
+          className="text-[2rem] text-slate-900 font-extrabold cursor-pointer text-center mt-20 mb-2 tracking-tight text-shadow-lg">zebr
+          <span className="text-cyan-600">a</span>
         </h1>
           
         {/* Welcome Message */}

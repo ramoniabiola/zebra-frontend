@@ -274,11 +274,11 @@ const Register = () => {
 
                 {/* App Name / Logo */}
                 <h1 
-                  className="text-[2rem] text-slate-900 font-extrabold cursor-pointer text-center mb-1 tracking-tight text-shadow-lg">T
-                  <span className="text-cyan-600">o-</span>Let
+                  className="text-[2rem] text-slate-900 font-extrabold cursor-pointer text-center mb-1 tracking-tight text-shadow-lg">zebr
+                  <span className="text-cyan-600">a</span>
                 </h1>
 
-                {/* Welcome Message */}
+                {/* Welcome Message */} 
                 <h2 className="text-xl font-semibold text-center text-gray-400 tracking-wider mb-1">Create Your Account</h2>
                 <h3 className="text-sm text-center font-normal italic text-gray-400 mb-3">The hub of property renting...</h3>
                 <p className="text-gray-600 text-center text-sm">Join thousands of users finding their perfect home</p>
