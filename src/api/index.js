@@ -1,13 +1,12 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL:
-    import.meta.env.VITE_API_BASE_URL ||
-    (import.meta.env.DEV
-      ? "http://localhost:5000/api"
-      : "https://zebra-backend-6eu3.onrender.com/api"),
+  baseURL: import.meta.env.DEV
+    ? import.meta.env.VITE_API_BASE_URL_DEV
+    : import.meta.env.VITE_API_BASE_URL,
   withCredentials: true,
 });
+
 
 
 // Optional: Set auth token automatically if using JWT
