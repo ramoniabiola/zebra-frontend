@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const URL = "http://localhost:5000"; // backend server
+const URL = import.meta.env.BACKEND_URL;
 
 // Create only ONE socket connection globally
 export const socket = io(URL, {
