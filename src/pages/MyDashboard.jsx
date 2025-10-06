@@ -11,7 +11,7 @@ import { Component, Landmark, PauseCircle, Plus, RotateCcw, UserRoundCheck } fro
 import { useSelector } from "react-redux";
 import { fetchUserStatsApi } from "../api/myListings";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import DashboardSkeleton from "../utils/loading-display/dashboardSkeleton";
+import DashboardSkeleton from "../utils/loading-display/DashboardSkeleton";
 import { compactNumber } from "../utils/numbers-format/FormatNumber"
 
 
