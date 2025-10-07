@@ -7,3 +7,5 @@ export const socket = io(URL, {
   withCredentials: true,
   autoConnect: false, // important: prevents auto reconnection loop
 });
+
+

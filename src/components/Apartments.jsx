@@ -97,9 +97,9 @@ const Apartments = () => {
 
 
   const tabs = [
-    { id: "new", label: "New", icon: <SparklesIcon className="w-6 h-6" /> },
-    { id: "apartments", label: "Apartments", icon: <HomeIcon className="w-6 h-6" /> },
-    { id: "top-locations", label: "Top Locations", icon: <MapIcon className="w-6 h-6" /> },
+    { id: "new", label: "New", icon: <SparklesIcon className="w-5 h-5" /> },
+    { id: "apartments", label: "Apartments", icon: <HomeIcon className="w-5 h-5" /> },
+    { id: "top-locations", label: "Top Locations", icon: <MapIcon className="w-5 h-5" /> },
   ];
 
 
@@ -127,7 +127,7 @@ const Apartments = () => {
   return (
     <div className="h-full min-w-full flex flex-col items-start justify-center">
       {/* APARTMENT LISTING OPTIONS */}
-      <div className="fixed top-34 z-30 h-20 w-full flex items-center justify-between px-8 bg-white shadow-md py-2">
+      <div className="fixed top-26 z-30 h-18 w-full mt-1 flex items-center justify-between px-6 bg-white shadow-md py-1">
         {tabs.map((tab) => (
           <div
             key={tab.id}
@@ -139,14 +139,14 @@ const Apartments = () => {
             `}
           >
             {tab.icon}
-            <h2 className="text-md font-semibold relative mt-1">
+            <h2 className="text-sm font-semibold relative mt-1">
               {tab.label}
               {activeTab === tab.id && (
-                <span className="absolute -bottom-[10px] left-0 w-full h-[3px] bg-slate-800 rounded-full"></span>
+                <span className="absolute -bottom-[10px] left-0 w-full h-[2px] bg-slate-800 rounded-full"></span>
               )}
               {hovered === tab.id && (
                 <span
-                  className={`absolute -bottom-[10px] left-0 w-full h-[3px] ${
+                  className={`absolute -bottom-[10px] left-0 w-full h-[2px] ${
                     activeTab !== tab.id ? "bg-slate-200" : "bg-slate-700"
                   } transition-all duration-200 rounded-full`}
                 ></span>
@@ -157,7 +157,7 @@ const Apartments = () => {
       </div>
 
       {/* APARTMENT LISTINGS */}
-      <div className="mt-[12rem] min-w-full h-full flex flex-col items-center justify-center px-3 overflow-y-auto scroll-smooth mb-12">
+      <div className="mt-[10rem] min-w-full h-full flex flex-col items-center justify-center px-3 overflow-y-auto scroll-smooth mb-12">
         {error && page === 1 ? (
           <ErrorDisplay />
         ) : isLoading && page === 1 ? (
@@ -208,16 +208,16 @@ const Apartments = () => {
       <ToggleSuccess
         message={success} 
         animateOut={animateOut} 
-        offset="bottom-38"
+        offset="bottom-34"
       />  
 
       {/* Back to top button */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-24 z-20 right-4 bg-gradient-to-t from-cyan-300 to-cyan-500 hover:bg-gradient-to-t hover:from-cyan-400 hover:to-cyan-600 text-white shadow-md p-3 rounded-lg transition animate-slideUp cursor-pointer"
+          className="fixed bottom-20 z-20 right-4 bg-gradient-to-t from-cyan-300 to-cyan-500 hover:bg-gradient-to-t hover:from-cyan-400 hover:to-cyan-600 text-white shadow-md p-2.5 rounded-lg transition animate-slideUp cursor-pointer"
         >
-          <ArrowUp strokeWidth={3} className="w-5 h-5" />
+          <ArrowUp strokeWidth={3} className="w-4.5 h-4.5" />
         </button>
       )}
 

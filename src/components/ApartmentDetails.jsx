@@ -157,7 +157,7 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
         <>
             <div className='w-11/12 h-auto flex flex-col items-center justify-start bg-white mb-12 relative mt-12 cursor-pointer'>  
                 <div 
-                    className="w-full h-[310px] relative overflow-hidden rounded-2xl"
+                    className="w-full h-[300px] relative overflow-hidden rounded-2xl"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                 >
@@ -243,9 +243,9 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
 
 
                     {apartment.furnished && (
-                        <div className="absolute top-5 left-3 z-10 ">
-                            <span className="flex items-center gap-1.5 px-4 py-1.5 bg-white/90 backdrop-blur-sm text-[16px] font-bold rounded-full shadow-md border-2  border-stone-300">
-                                <TagIcon className="w-4 h-4 text-stone-700" />
+                        <div className="absolute top-3 left-3 z-10 ">
+                            <span className="flex items-center gap-1.5 px-4 py-1 bg-white/90 backdrop-blur-sm text-sm font-bold rounded-full shadow-md border-2  border-stone-300">
+                                <TagIcon className="w-3 h-3 text-stone-700" />
                                 <span className="text-stone-700 tracking-widest">Premium</span>
                             </span>
                         </div>
@@ -255,7 +255,7 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
                 {/* Apartment Info */}
                 <div onClick={() => navigate(`/apartment/${apartment._id}`)} className="w-full mt-4 flex flex-col gap-2 text-left">
                     <div className="flex items-start justify-between gap-3">
-                        <h1 className="text-xl font-semibold text-slate-900 leading-tight group-hover:text-slate-900 transition-colors">
+                        <h1 className="text-lg font-semibold text-slate-900 leading-tight group-hover:text-slate-900 transition-colors">
                             {apartment.title}
                         </h1>
                     </div>
@@ -275,7 +275,7 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
                     <div className="flex items-center justify-between mt-2 pt-4 px-1.5 border-t border-gray-100">
                        <h3 className="text-xl font-bold text-slate-900">
                             {formatPrice(apartment.price)}
-                           <span className="text-sm font-normal text-slate-500 ml-1">{apartment.payment_frequency}</span>
+                           <span className="text-xs font-normal text-slate-500 ml-1">{apartment.payment_frequency}</span>
                        </h3>
 
                        <div className="flex items-center gap-1.5 text-gray-400">

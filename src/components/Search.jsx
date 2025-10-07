@@ -28,15 +28,15 @@ const Search = () => {
 
 
   return (
-    <header className="w-full h-18 pt-3 flex items-center justify-center fixed top-16 left-0 z-40 bg-white">
-      <div className="relative bg-white w-11/12 h-full py-4 border border-gray-200 shadow-[0_5px_15px_0_rgba(0,0,0,0.15)] rounded-2xl">  
+    <header className="w-full h-16 pt-2.5 flex items-center justify-center fixed top-12 left-0 z-40 bg-white">
+      <div className="relative bg-white w-full mx-3 h-11/12 py-2 border border-gray-200 shadow-[0_5px_15px_0_rgba(0,0,0,0.15)] rounded-xl">  
         <input
           value={searchQuery}
           onChange={handleSearchChange}
           onKeyDown={handleKeyPress}
           type="text"
           placeholder="Search an apartment..."
-          className="w-full h-full pl-4 rounded-md outline-none text-lg font-semibold text-gray-900 placeholder-gray-400 focus:placeholder-gray-300" 
+          className="w-full h-full pl-4 rounded-md outline-none text-base font-semibold text-gray-800 placeholder-gray-400 focus:placeholder-gray-300" 
         />
         <SearchIcon 
           onClick={handleSearch}
