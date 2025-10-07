@@ -553,4 +553,6 @@ const ApartmentInfo = () => {
     </>
   )
 };
+
+
 export default ApartmentInfo;
