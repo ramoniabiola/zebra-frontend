@@ -215,16 +215,16 @@ const ApartmentInfo = () => {
   // Error Display
   const ErrorDisplay = () => (
     <div className="h-screen w-full flex flex-col items-center justify-center text-center py-8">
-      <ExclamationTriangleIcon className="w-12 h-12 text-red-500 mx-auto mb-4" />
-      <h3 className="text-lg font-semibold text-gray-800 mb-1">
+      <ExclamationTriangleIcon className="w-10 h-10 text-red-500 mx-auto mb-4" />
+      <h3 className="text-base font-semibold text-gray-800 mb-1">
         Something went wrong
       </h3>
-      <p className="text-gray-600 mb-4">
+      <p className="text-gray-600 text-sm mb-4">
         {errorMessage || "Failed to fetch apartment"}
       </p>
       <button
         onClick={handleRetry}
-        className="px-3 py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white text-base tracking-wider font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5  focus:invisible cursor-pointer"
+        className="px-3 py-2 bg-cyan-600 hover:bg-cyan-700 text-white text-base tracking-wider font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5  focus:invisible cursor-pointer"
       >
         <RotateCcw className="w-4 h-4" />
         Retry
@@ -280,12 +280,12 @@ const ApartmentInfo = () => {
         ) : (
           <>
             {/* NAVBAR */}
-            <div className="w-full h-20 flex items-center justify-start pl-2 gap-2 bg-white shadow">
-              <button onClick={() => navigate(-1)} className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full focus:invisible">
-                <ArrowLeft className="w-6 h-6 text-gray-700 cursor-pointer" />
+            <div className="w-full h-18 flex items-center justify-start pl-2 gap-2 bg-white shadow">
+              <button onClick={() => navigate(-1)} className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded-full focus:invisible">
+                <ArrowLeft className="w-5.5 h-5.5 text-gray-700 cursor-pointer" />
               </button>
               <div className=''>
-                <h1 className="text-xl font-bold text-gray-900 mb-0.5">Apartment Details</h1>
+                <h1 className="text-xl font-bold text-gray-900">Apartment Details</h1>
                 <p className="text-sm text-gray-500">Informations about the apartment</p>
               </div>
             </div>
@@ -391,12 +391,12 @@ const ApartmentInfo = () => {
                       </span>
                     )}
                   </div>
-                  <h1 className="text-[28px] font-semibold text-gray-900 mb-4 leading-tight pr-4">{apartment.title}</h1>
+                  <h1 className="text-[26px] font-semibold text-gray-900 mb-4 leading-tight pr-4">{apartment.title}</h1>
                   <div className="flex items-center gap-2 text-gray-600 mb-2">
                     <MapPin className="w-5 h-5 text-cyan-500" />
-                    <span className="font-medium">{apartment.location}</span>
+                    <span className="font-medium text-base">{apartment.location}</span>
                   </div>
-                  <p className="text-gray-600 mb-2">{apartment.apartment_address}</p>
+                  <p className="text-gray-600 text-base mb-2">{apartment.apartment_address}</p>
                   {apartment.nearest_landmark && (
                     <p className="text-sm text-gray-500">📍 Near {apartment.nearest_landmark}</p>
                   )}
@@ -404,20 +404,20 @@ const ApartmentInfo = () => {
               </div>
                 
               {/* Property Stats */}
-              <div className="min-w-full grid grid-cols-3 gap-1.5 mb-4">
+              <div className="min-w-full grid grid-cols-3 gap-1 mb-4">
                 <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-4 rounded-2xl text-center border border-cyan-100">
-                  <Bed className="w-8 h-8 text-cyan-600 mx-auto mb-2" />
+                  <Bed className="w-7 h-7 text-cyan-600 mx-auto mb-2" />
                   <div className="text-2xl font-bold text-gray-800 mb-1">{apartment.bedrooms}</div>
                   <div className="text-sm text-gray-600">Bedroom{apartment.bedrooms > 1 ? 's' : ''}</div>
                 </div>
                 <div className="bg-gradient-to-br from-emerald-50 to-green-50 p-4 rounded-2xl text-center border border-emerald-100">
-                  <Bath className="w-8 h-8 text-emerald-600 mx-auto mb-2" />
+                  <Bath className="w-7 h-7 text-emerald-600 mx-auto mb-2" />
                   <div className="text-2xl font-bold text-gray-800 mb-1">{apartment.bathrooms}</div>
                   <div className="text-sm text-gray-600">Bathroom{apartment.bathrooms > 1 ? 's' : ''}</div>
                 </div>
                 {apartment.apartment_size && (
                   <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-2xl text-center border border-purple-100">
-                    <Square className="w-8 h-8 text-purple-600 mx-auto mb-2" />
+                    <Square className="w-7 h-7 text-purple-600 mx-auto mb-2" />
                     <div className="text-2xl font-bold text-gray-800 mb-1">{apartment.apartment_size}</div>
                     <div className="text-sm text-gray-600">sq ft</div>
                   </div>
@@ -435,9 +435,9 @@ const ApartmentInfo = () => {
                   </div>
                   <p className="text-gray-600 mt-4">{apartment.duration}</p>
                   {apartment.service_charge && (
-                    <div className='flex items-center justify-start bg-gradient-to-r from-orange-50 to-orange-50 p-3 mt-4 gap-2 rounded-xl border border-orange-100 tracking-wider'>
-                      <p className='text-base text-orange-800'>Service Charge:</p>
-                      <p className="text-xl text-orange-900 font-bold tracking-widest">
+                    <div className='flex items-center justify-start bg-gradient-to-r from-orange-50 to-orange-50 px-3 py-2 mt-4 gap-2 rounded-xl border border-orange-100 tracking-wider'>
+                      <p className='text-sm text-orange-800'>Service Charge:</p>
+                      <p className="text-lg text-orange-900 font-bold tracking-widest">
                         {formatPrice(apartment.service_charge)}
                       </p>
                     </div>
@@ -448,16 +448,16 @@ const ApartmentInfo = () => {
               {/* Amenities Grid */}
               {apartment.apartment_amenities && apartment.apartment_amenities.length > 0 && (
                 <div className="min-w-full">
-                  <h3 className="text-xl font-bold text-center text-gray-800 mb-8">Amenities & Features</h3>
+                  <h3 className="text-lg font-bold text-center text-gray-800 mb-8">Amenities & Features</h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                     {apartment.apartment_amenities.map((amenity, idx) => {
                       const IconComponent = amenityIcons[amenity] || Home;
                       return (
                         <div
                           key={idx}
-                          className="flex items-center gap-3 py-4 px-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200 hover:shadow-md transition-all duration-200"
+                          className="flex items-center gap-3 py-3 px-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200 hover:shadow-md transition-all duration-200"
                         >
-                          <div className="w-10 h-10 bg-gradient-to-r from-cyan-400 to-cyan-500 rounded-full flex items-center justify-center shadow-lg flex-shrink-0">
+                          <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-cyan-500 rounded-full flex items-center justify-center shadow-lg flex-shrink-0">
                             <IconComponent className="w-5 h-5 text-white" />
                           </div>
                       
@@ -474,7 +474,7 @@ const ApartmentInfo = () => {
 
               {/* Contact Information */}
               <div className="min-w-full mt-12 border-b border-gray-100 pb-8">
-                <h3 className="text-xl font-bold text-center text-gray-800 mb-8">Contact Info</h3>
+                <h3 className="text-lg font-bold text-center text-gray-800 mb-8">Contact Info</h3>
 
                 {/* Show copy error if it exists */}
                  {copyError && (
@@ -485,18 +485,18 @@ const ApartmentInfo = () => {
                 )}
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center gap-4 px-4 py-4 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-2xl border border-cyan-100">
-                    <div className="w-12 h-12 bg-gradient-to-r from-cyan-400 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
-                      <User className="w-6 h-6 text-white" />
+                  <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-2xl border border-cyan-100">
+                    <div className="w-11 h-11 bg-gradient-to-r from-cyan-400 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
+                      <User className="w-5.5 h-5.5 text-white" />
                     </div>
                     <div>
                       <p className="font-semibold text-gray-800">{apartment.contact_name}</p>
                       <p className="text-sm text-gray-600">Property Contact</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4 py-4 px-4 bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl border border-emerald-100">
-                    <div className="w-12 h-12 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
-                      <Phone className="w-6 h-6 text-white" />
+                  <div className="flex items-center gap-3 py-4 px-4 bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl border border-emerald-100">
+                    <div className="w-11 h-11 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
+                      <Phone className="w-5.5 h-5.5 text-white" />
                     </div>
                     <div className="flex-1">
                       <p className="font-semibold text-gray-800">{formatPhoneNumber(apartment.contact_phone)}</p>
@@ -504,20 +504,20 @@ const ApartmentInfo = () => {
                     </div>
                     <button
                       onClick={() => copyToClipboard(formatPhoneNumber(apartment.contact_phone))}
-                      className={`px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 cursor-pointer ${
+                      className={`px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center gap-1 cursor-pointer ${
                         copied
-                          ? 'bg-green-100 text-green-700 hover:bg-green-200'
-                          : 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200'
+                          ? 'bg-green-100 text-green-700 text-sm hover:bg-green-200'
+                          : 'bg-emerald-100 text-emerald-700 text-sm hover:bg-emerald-200'
                       }`}
                     >
                       {copied ? (
                         <>
-                          <Check className="w-4 h-4" />
+                          <Check className="w-3 h-3" />
                           Copied!
                         </>
                       ) : (
                         <>
-                          <Copy className="w-4 h-4" />
+                          <Copy className="w-3 h-3" />
                           Copy
                         </>
                       )}
@@ -530,10 +530,10 @@ const ApartmentInfo = () => {
               <div className="mt-8 min-w-full">
                 <button 
                   onClick={() => navigate("/report")}
-                  className="w-full flex items-center justify-center gap-2 bg-red-50 hover:bg-red-100 text-red-600 font-semibold p-3 rounded-lg transition-all duration-300 border border-red-200 hover:border-red-300 cursor-pointer focus:invisible"
+                  className="w-full flex items-center justify-center gap-2 bg-red-50 hover:bg-red-100 text-sm text-red-600 font-semibold p-3 rounded-lg transition-all duration-300 border border-red-200 hover:border-red-300 cursor-pointer focus:invisible"
                 >
-                  <AlertTriangle className="w-5 h-5" />
-                  Report This Listing
+                  <AlertTriangle className="w-4.5 h-4.5" />
+                  Report this listing
                 </button>
               </div>
 
