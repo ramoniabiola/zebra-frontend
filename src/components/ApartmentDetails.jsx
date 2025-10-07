@@ -225,13 +225,13 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
                                 {
                                     isBookmarked ? (  
                                         <>   
-                                            <HeartSolid className="w-12 h-12 text-rose-600 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
-                                            <HeartOutline className="w-12 h-12 text-gray-50 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
+                                            <HeartSolid className="w-12 h-12 text-rose-600 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
+                                            <HeartOutline className="w-12 h-12 text-gray-50 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
                                         </> 
                                     ) : (
                                         <>   
-                                            <HeartSolid className="w-12 h-12 text-black/50 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
-                                            <HeartOutline className="w-12 h-12 text-gray-50 absolute top-4 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
+                                            <HeartSolid className="w-12 h-12 text-black/50 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
+                                            <HeartOutline className="w-12 h-12 text-gray-50 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
                                         </>
                                     )
                                 }   
@@ -243,7 +243,7 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
 
 
                     {apartment.furnished && (
-                        <div className="absolute top-3 left-3 z-10 ">
+                        <div className="absolute top-4 left-3 z-10 ">
                             <span className="flex items-center gap-1.5 px-4 py-1 bg-white/90 backdrop-blur-sm text-sm font-bold rounded-full shadow-md border-2  border-stone-300">
                                 <TagIcon className="w-3 h-3 text-stone-700" />
                                 <span className="text-stone-700 tracking-widest">Premium</span>

@@ -40,7 +40,7 @@ const Search = () => {
         />
         <SearchIcon 
           onClick={handleSearch}
-          size={24} 
+          size={20} 
           strokeWidth={3} 
           className="absolute right-4 h-6 w-6 top-1/2 transform -translate-y-1/2 font-extrabold text-slate-400 cursor-pointer" 
         />

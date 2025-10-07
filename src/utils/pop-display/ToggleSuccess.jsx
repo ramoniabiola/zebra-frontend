@@ -1,11 +1,11 @@
 // components/ToggleSuccess.jsx
-const ToggleSuccess = ({ message, animateOut, offset = "bottom-24" }) => {
+const ToggleSuccess = ({ message, animateOut, offset = "bottom-20" }) => {
     if (!message) return null;
 
     return (
         <div
             className={`
-                fixed ${offset} right-4 z-50 px-4 py-4 rounded-lg bg-cyan-100/70 backdrop-blur-sm  
+                fixed ${offset} right-4 z-50 px-4 py-3 rounded-lg bg-cyan-100/70 backdrop-blur-sm  
                 shadow-lg shadow-cyan-500/10 text-sm
                 text-cyan-700 font-medium tracking-normal
                 ${animateOut ? "animate-slideOutRight" : "animate-slideInRight"}

@@ -27,22 +27,26 @@ const Search2 = () => {
 
 
   return (
-    <header className="w-full h-22 pt-6 flex items-center justify-center fixed top-0 left-0 z-40 bg-white">
-      <div className="relative bg-gray-100  w-11/12 h-10/12 rounded-xl">  
-        <input
-          value={searchQuery}
-          onChange={handleSearchChange}
-          onKeyDown={handleKeyPress}
-          type="text"
-          placeholder="Search an apartment..."
-          className="w-full h-full pl-4 rounded-md outline-none text-lg font-semibold text-gray-900 placeholder-gray-400" 
-        />
-        <SearchIcon 
-          onClick={handleSearch}
-          size={24} 
-          strokeWidth={3} 
-          className="absolute right-4 h-6 w-6 top-1/2 transform -translate-y-1/2 font-extrabold text-gray-400 cursor-pointer" 
-        />
+    <header className="w-full h-20 pt-4 flex items-center justify-center fixed top-0 left-0 z-40 bg-white">
+      <div className="flex gap-1 w-full mx-3">  
+        <div className="bg-gray-100 flex-1 rounded-xl py-3">
+          <input
+            value={searchQuery}
+            onChange={handleSearchChange}
+            onKeyDown={handleKeyPress}
+            type="text"
+            placeholder="Search an apartment..."
+            className="w-full h-full pl-4 bg-transparent outline-none text-base font-semibold text-gray-900 placeholder-gray-400" 
+          />
+        </div>
+        <div className="bg-gray-100 rounded-xl py-3 px-4 flex items-center justify-center cursor-pointer">
+          <SearchIcon 
+            onClick={handleSearch}
+            size={20} 
+            strokeWidth={3} 
+            className="text-gray-400" 
+          />
+        </div>
       </div>
     </header>
   );

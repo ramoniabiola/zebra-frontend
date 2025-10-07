@@ -208,7 +208,7 @@ const Apartments = () => {
       <ToggleSuccess
         message={success} 
         animateOut={animateOut} 
-        offset="bottom-34"
+        offset="bottom-32"
       />  
 
       {/* Back to top button */}
