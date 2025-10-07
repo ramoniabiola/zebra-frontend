@@ -189,7 +189,7 @@ const Register = () => {
                         hasError ? 'text-rose-500' :
                         focusedField === name ? 'text-cyan-500' : 'text-gray-400'
                     }`}>
-                        <Icon size={20} />
+                        <Icon size={18} />
                     </div>
                     <input
                         ref={inputRefs[name]}
@@ -201,7 +201,7 @@ const Register = () => {
                         onFocus={() => setFocusedField(name)}
                         onBlur={() => setFocusedField("")}
                         required={required}
-                        className={`w-full pl-12 pr-4 py-3.5 bg-gray-50 border-2 rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
+                        className={`w-full pl-12 pr-4 py-3 bg-gray-50 border rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
                             hasError 
                                 ? 'border-rose-500 shadow-md shadow-rose-500/20' 
                                 : focusedField === name 
@@ -229,7 +229,7 @@ const Register = () => {
                         hasError ? 'text-rose-500' :
                         focusedField === name ? 'text-cyan-500' : 'text-gray-400'
                     }`}>
-                        <Lock size={20} />
+                        <Lock size={18} />
                     </div>
                     <input
                         ref={inputRefs[name]}
@@ -241,7 +241,7 @@ const Register = () => {
                         onFocus={() => setFocusedField(name)}
                         onBlur={() => setFocusedField("")}
                         required
-                        className={`w-full pl-12 pr-12 py-3.5 bg-gray-50 border-2 rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
+                        className={`w-full pl-12 pr-12 py-3 bg-gray-50 border rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
                             hasError 
                                 ? 'border-rose-500 shadow-md shadow-rose-500/20' 
                                 : focusedField === name 
@@ -257,7 +257,7 @@ const Register = () => {
                         }}
                         className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-cyan-500 transition-colors duration-300 z-10"
                     >
-                        {show ? <EyeOff size={20} /> : <Eye size={20} />}
+                        {show ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
                 </div>
                 {hasError && (
@@ -279,8 +279,8 @@ const Register = () => {
                 </h1>
 
                 {/* Welcome Message */} 
-                <h2 className="text-xl font-semibold text-center text-gray-400 tracking-wider mb-1">Create Your Account</h2>
-                <h3 className="text-sm text-center font-normal italic text-gray-400 mb-3">The hub of property renting...</h3>
+                <h2 className="text-lg font-semibold text-center text-gray-400 tracking-wider mb-1">Create Your Account</h2>
+                <h3 className="text-xs text-center font-normal italic text-gray-400 mb-3">The hub of property renting...</h3>
                 <p className="text-gray-600 text-center text-sm">Join thousands of users finding their perfect home</p>
 
                 {/* Form */}
@@ -345,7 +345,7 @@ const Register = () => {
                             {["tenant", "landlord", "agent"].map((roleOption) => (
                                 <label 
                                     key={roleOption} 
-                                    className={`relative flex flex-col items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
+                                    className={`relative flex flex-col items-center p-2 rounded-xl border cursor-pointer transition-all duration-300 ${
                                         fieldErrors.role
                                             ? 'border-rose-500 hover:border-rose-600'
                                             : formData.role === roleOption
@@ -361,7 +361,7 @@ const Register = () => {
                                         onChange={handleChange}
                                         className="sr-only"
                                     />
-                                    <div className={`w-4 h-4 rounded-full border-2 mb-2 transition-all duration-300 ${
+                                    <div className={`w-3 h-3 rounded-full border mb-2 transition-all duration-300 ${
                                         fieldErrors.role
                                             ? 'border-rose-500'
                                             : formData.role === roleOption
@@ -372,7 +372,7 @@ const Register = () => {
                                             <div className="w-full h-full rounded-full bg-white scale-50"></div>
                                         )}
                                     </div>
-                                    <span className={`text-sm font-medium capitalize ${
+                                    <span className={`text-xs font-medium capitalize ${
                                         fieldErrors.role
                                             ? 'text-rose-600'
                                             : formData.role === roleOption 
@@ -385,7 +385,7 @@ const Register = () => {
                             ))}
                         </div>
                         {fieldErrors.role && (
-                            <p className="text-rose-500 text-sm mt-1 animate-slideDown">{fieldErrors.role}</p>
+                            <p className="text-rose-500 text-xs mt-1 animate-slideDown">{fieldErrors.role}</p>
                         )}
                     </div>
 
@@ -395,7 +395,7 @@ const Register = () => {
                         type="submit"
                         disabled={isLoading}
                         onClick={handleUserRegistration}
-                        className={`w-full py-3.5 rounded-xl text-lg font-semibold transition-all duration-300 transform shadow-lg flex items-center justify-center space-x-2 focus:invisible ${
+                        className={`w-full py-3 rounded-xl text-base font-semibold transition-all duration-300 transform shadow-lg flex items-center justify-center space-x-2 focus:invisible ${
                             isLoading 
                                 ? 'bg-gray-400 cursor-not-allowed' 
                                 : 'bg-gradient-to-r from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 hover:scale-101 hover:shadow-xl cursor-pointer'
@@ -403,7 +403,7 @@ const Register = () => {
                     >
                        {isLoading ? (
                             <>
-                                <Loader2 className="w-5 h-5 text-white animate-spin" />
+                                <Loader2 className="w-4.5 h-4.5 text-white animate-spin" />
                                 <span>Creating Account...</span>
                             </>
                         ) : (
@@ -414,7 +414,7 @@ const Register = () => {
 
                 {/* Login Link */}
                 <div className="text-center mt-6 mb-24">
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 text-sm">
                         Already have an account?{" "}
                         <span onClick={() => navigate("/login")} className="text-cyan-600 font-semibold hover:text-cyan-700 transition-colors duration-300 hover:underline cursor-pointer">
                             Sign in here

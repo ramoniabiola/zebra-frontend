@@ -78,13 +78,13 @@ const Bookmarks = () => {
             <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
                 <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
                     <div className="text-center mb-6">
-                        <div className="w-16 h-16 bg-gradient-to-r from-rose-500 to-rose-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <Trash2 className="w-8 h-8 text-white" />
+                        <div className="w-14 h-14 bg-gradient-to-r from-rose-500 to-rose-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <Trash2 className="w-7 h-7 text-white" />
                         </div>
-                        <h3 className="text-xl font-bold text-gray-800 mb-2">
+                        <h3 className="text-lg font-bold text-gray-800 mb-2">
                             Clear All Wishlist?
                         </h3>
-                        <p className="text-gray-600">
+                        <p className="text-gray-600 text-sm">
                             Are you sure you want to remove all apartment from your wishlist? 
                             This action cannot be undone.
                         </p>
@@ -92,13 +92,13 @@ const Bookmarks = () => {
                     <div className="flex gap-3">
                         <button
                             onClick={() => setShowConfirmModal(false)}
-                            className="flex-1 px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all duration-200 cursor-pointer"
+                            className="flex-1 px-2 py-2 bg-gray-100 text-sm hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all duration-200 cursor-pointer"
                         >
                             Cancel
                         </button>
                         <button
                             onClick={handleClearAllWishlist}
-                            className="flex-1 px-4 py-3 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 text-white font-semibold rounded-xl transition-all duration-200 cursor-pointer"
+                            className="flex-1 px-2 py-2 bg-gradient-to-r from-rose-600 to-rose-700 text-sm hover:from-rose-700 hover:to-rose-800 text-white font-semibold rounded-xl transition-all duration-200 cursor-pointer"
                         >
                             Clear All
                         </button>
@@ -122,13 +122,13 @@ const Bookmarks = () => {
                 </button>
              
                 <div className="text-center">
-                    <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                       <AlertCircle className="w-8 h-8 text-red-600" />
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                    <h3 className="text-base font-semibold text-gray-800 mb-2">
                       Update Failed
                     </h3>
-                    <p className="text-gray-600 mb-4">
+                    <p className="text-gray-600 mb-4 text-sm">
                       We couldn't clear all your wishlist. Please try again.
                       <br />
                       <span className="text-sm text-gray-500 mt-2 block">
@@ -137,7 +137,7 @@ const Bookmarks = () => {
                     </p>
                     <button
                       onClick={handleRetry}
-                      className="px-6 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold tracking-widest rounded-lg transition-colors duration-200 cursor-pointer"
+                      className="px-6 py-2 bg-sky-600 text-sm hover:bg-sky-700 text-white font-semibold tracking-widest rounded-lg transition-colors duration-200 cursor-pointer"
                     >
                       Retry
                     </button>
@@ -152,12 +152,12 @@ const Bookmarks = () => {
 
     const ErrorDisplay = () => (
         <div className="h-full w-full flex flex-col items-center justify-center text-center py-8 mt-40 mb-40">
-            <ExclamationTriangleIcon className="w-12 h-12 text-red-500 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-800 mb-1">Something went wrong</h3>
-            <p className="text-gray-600 font-semibold mb-4">{error}</p>
+            <ExclamationTriangleIcon className="w-10 h-10 text-red-500 mx-auto mb-4" />
+            <h3 className="text-base font-semibold text-gray-800 mb-1">Something went wrong</h3>
+            <p className="text-gray-600 text-sm font-semibold mb-4">{error}</p>
             <button
                 onClick={getUserBookmarks}
-                className="px-3 py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white text-sm tracking-widest font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5  focus:invisible cursor-pointer"
+                className="px-3 py-2 bg-cyan-600 hover:bg-cyan-700 text-white text-sm tracking-widest font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5  focus:invisible cursor-pointer"
             >
                 <RotateCcw className="w-4 h-4" />
                 Retry
@@ -171,28 +171,28 @@ const Bookmarks = () => {
             <div className="w-full h-full flex flex-col items-start justify-center">
                 <div className="w-full h-full flex flex-col items-start justify-center gap-4">
                     {/* Header */}
-                    <div className="w-full h-16 flex items-center justify-between px-2 pt-4 bg-white">
+                    <div className="w-full h-16 flex items-center justify-between px-2 bg-white">
                         <div className="flex items-center gap-2">
                             <div
                                 className="w-12 h-12 mt-1 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-colors duration-200 cursor-pointer"
                                 onClick={() => navigate(-1)}
                             >
-                                <ArrowLeft className="w-6 h-6" />
+                                <ArrowLeft className="w-5 h-5" />
                             </div>
-                            <h1 className="font-bold text-gray-900 text-3xl">WishLists</h1>
+                            <h1 className="font-bold text-gray-900 text-2xl">WishLists</h1>
                         </div>
 
                         {totalBookmarks > 0 && !error && !isLoading && (
                             <div className="relative" ref={dropdownRef}>
                                 <div 
-                                    className={`w-12 h-12 mt-1 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-all duration-200 cursor-pointer ${isDropdownOpen ? 'bg-neutral-100 rotate-90' : ''}`}
+                                    className={`w-10 h-10 mt-1 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-all duration-200 cursor-pointer ${isDropdownOpen ? 'bg-neutral-100 rotate-90' : ''}`}
                                     onClick={toggleDropdown}
                                 >
-                                    <MoreVertical className="w-6 h-6" />
+                                    <MoreVertical className="w-5 h-5" />
                                 </div>
 
                                 {/* Dropdown Menu */}
-                                <div className={`absolute right-0 top-14 w-56 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transition-all duration-300 ease-out transform origin-top-right z-50 ${
+                                <div className={`absolute right-0 top-12 w-56 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transition-all duration-300 ease-out transform origin-top-right z-50 ${
                                     isDropdownOpen 
                                         ? 'opacity-100 scale-100 translate-y-0' 
                                         : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
@@ -203,13 +203,13 @@ const Bookmarks = () => {
                                                 setIsDropdownOpen(false);   
                                                 setShowConfirmModal(true);  
                                             }}
-                                            className="w-full px-2 py-3 text-left text-gray-500 hover:bg-neutral-50 rounded-xl  transition-colors duration-200 flex items-center gap-3 group cursor-pointer"
+                                            className="w-full px-2 py-2 text-left text-gray-500 hover:bg-neutral-50 rounded-xl transition-colors duration-200 flex items-center gap-3 group cursor-pointer"
                                         >
-                                            <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 group-hover:bg-red-200  transition-colors duration-200">
-                                                <Trash2 className="w-4 h-4 text-red-600" />
+                                            <div className="w-6 h-6 flex items-center justify-center rounded-md bg-red-100 group-hover:bg-red-200  transition-colors duration-200">
+                                                <Trash2 className="w-3 h-3 text-red-600" />
                                             </div>
                                             <div>
-                                                <div className="font-medium text-base">Clear all wishlist</div>
+                                                <div className="font-medium text-sm">Clear all wishlist</div>
                                             </div>
                                         </button>
                                     </div>
@@ -219,7 +219,7 @@ const Bookmarks = () => {
                     </div>
 
                     {/* Content */}
-                    <div className="w-full h-full flex flex-col items-center justify-center px-4 overflow-y-auto scroll-smooth mt-12 mb-12">
+                    <div className="w-full h-full flex flex-col items-center justify-center px-4 overflow-y-auto scroll-smooth mt-10 mb-12">
                         {error ? (
                             <ErrorDisplay />
                         ) : isLoading ? (
@@ -238,40 +238,26 @@ const Bookmarks = () => {
                                 ))}
 
                                 {/* Pagination Controls */}
-                                {totalPages > 1 && (
-                                    <div className="w-full flex items-center justify-center gap-4">   
+                                {totalPages > 1 && (   
+                                    <div className="w-full flex items-center justify-center gap-12 py-6">
                                         <button
-                                            disabled={currentPage === 1}
+                                           disabled={currentPage === 1}
                                             onClick={() => dispatch(setCurrentPage(currentPage - 1))}
-                                            className="group relative overflow-hidden px-4 py-3 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-700 font-medium rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:hover:transform-none disabled:hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ease-out cursor-pointer"
+                                            className="px-4 py-3 rounded-lg bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
                                         >
-                                            <div className="flex items-center gap-2">
-                                                <ChevronLeft className="w-4 h-4 transform group-hover:-translate-x-1 transition-transform duration-300" />
-                                                <span>Prev</span>
-                                            </div>
-                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700"></div>
+                                            <ChevronLeft className="w-4 h-4" />
                                         </button>
-
-                                        <div className="flex items-center gap-3 px-4 py-4 bg-white rounded-xl shadow-lg border border-gray-200">
-                                            <div className="flex items-center gap-2">
-                                                <div className="px-3 py-1 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white text-sm font-bold rounded-lg shadow-md">
-                                                    {currentPage}
-                                                </div>
-                                                <span className="text-sm text-gray-400">of</span>
-                                                <span className="text-sm text-gray-600 font-medium">{totalPages}</span>
-                                            </div>
-                                        </div>
-
+                                    
+                                        <span className="text-sm text-gray-600 font-medium">
+                                           {currentPage} / {totalPages}
+                                        </span>
+                                    
                                         <button
                                             disabled={currentPage === totalPages}
                                             onClick={() => dispatch(setCurrentPage(currentPage + 1))}
-                                            className="group relative overflow-hidden px-4 py-3 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:hover:transform-none disabled:hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ease-out cursor-pointer"
+                                            className="px-4 py-3 rounded-lg bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
                                         >
-                                            <div className="flex items-center gap-2">
-                                                <span>Next</span>
-                                                <ChevronRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
-                                            </div>
-                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700"></div>
+                                            <ChevronRight className="w-4 h-4" />
                                         </button>
                                     </div>
                                 )}

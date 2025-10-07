@@ -189,7 +189,7 @@ const PasswordChange = () => {
                             focusedField === name ? 'text-cyan-500' : 'text-gray-400'
                         }`}
                     >
-                        <Icon size={20} />
+                        <Icon size={18} />
                     </div>
                     <input
                         ref={inputRefs[name]}
@@ -201,7 +201,7 @@ const PasswordChange = () => {
                         onFocus={() => setFocusedField(name)}
                         onBlur={() => setFocusedField("")}
                         required
-                        className={`w-full pl-12 pr-12 py-4 bg-gray-50 border-2 rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
+                        className={`w-full pl-12 pr-12 py-3 bg-gray-50 border rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
                             hasError 
                                 ? 'border-rose-500 shadow-md shadow-rose-500/20' 
                                 : focusedField === name 
@@ -217,7 +217,7 @@ const PasswordChange = () => {
                         }}
                         className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-cyan-500 transition-colors duration-300"
                     >
-                        {show ? <EyeOff size={20} /> : <Eye size={20} />}
+                        {show ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
                 </div>
                 {hasError && (
@@ -239,7 +239,7 @@ const PasswordChange = () => {
                             focusedField === name ? 'text-cyan-500' : 'text-gray-400'
                         }`}
                     >
-                        <Icon size={20} />
+                        <Icon size={18} />
                     </div>
                     <input
                         ref={inputRefs[name]}
@@ -251,7 +251,7 @@ const PasswordChange = () => {
                         onFocus={() => setFocusedField(name)}
                         onBlur={() => setFocusedField("")}
                         required={required}
-                        className={`w-full pl-12 pr-12 py-4 bg-gray-50 border-2 rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
+                        className={`w-full pl-12 pr-12 py-3 bg-gray-50 border rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
                             hasError 
                                 ? 'border-rose-500 shadow-md shadow-rose-500/20' 
                                 : focusedField === name 
@@ -275,12 +275,12 @@ const PasswordChange = () => {
             <div className="min-h-screen bg-white flex flex-col justify-center px-6 py-10">
                 {/* App Name */}
                 <h1 
-                    className="text-[2.1rem] text-slate-900 font-extrabold cursor-pointer text-center mb-2 tracking-tight text-shadow-lg">zebr
+                    className="text-[2rem] text-slate-900 font-extrabold cursor-pointer text-center mb-2 tracking-tight text-shadow-lg">zebr
                     <span className="text-cyan-600">a</span>
                 </h1>
                 {/* Welcome message */}
-                <h2 className="text-xl text-center font-semibold text-gray-400 mb-1">Change Your Password</h2>
-                <p className="text-center text-gray-500 mb-8 italic">Enter registered email and your new password to secure your account</p>
+                <h2 className="text-lg text-center font-semibold text-gray-400 mb-1 tracking-wider">Change Your Password</h2>
+                <p className="text-center text-sm text-gray-500 mb-8 italic">Enter registered email and your new password to secure your account</p>
 
                 {/* Form */}
                 <div className="space-y-6 max-w-md mx-auto w-full">
@@ -331,7 +331,7 @@ const PasswordChange = () => {
                         type="submit"
                         disabled={isLoading} 
                         onClick={handlePasswordChange}
-                        className="w-full bg-gradient-to-r from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 text-white py-4 rounded-xl text-lg font-bold transition-all duration-300 transform hover:scale-[1.01] hover:shadow-lg shadow-cyan-500/25 focus:outline-none focus:ring-4 focus:ring-cyan-500/30 flex items-center justify-center space-x-2 group cursor-pointer"
+                        className="w-full bg-gradient-to-r from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 text-white py-3 rounded-xl text-base font-bold transition-all duration-300 transform hover:scale-[1.01] hover:shadow-lg shadow-cyan-500/25 focus:outline-none focus:ring-4 focus:ring-cyan-500/30 flex items-center justify-center space-x-2 group cursor-pointer"
                     >
                         {isLoading ? (
                             <>
@@ -348,7 +348,7 @@ const PasswordChange = () => {
                 </div>
 
                 {/* Back to Login Link */}
-                <div className="text-center mt-8">
+                <div className="text-center mt-8 text-sm">
                     <p className="text-gray-600">
                         Remember your password?{" "}
                         <span onClick={() => navigate("/login")} className="text-cyan-600 font-semibold hover:text-cyan-700 transition-colors duration-300 hover:underline cursor-pointer">

@@ -191,24 +191,24 @@ const UserProfile = () => {
       <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
           <div className="text-center mb-6">
-            <div className="w-16 h-16 bg-gradient-to-r from-rose-400 to-rose-500 rounded-full flex items-center justify-center mx-auto mb-4">
-              <LogOutIcon className="w-8 h-8 text-white" />
+            <div className="w-14 h-14 bg-gradient-to-r from-rose-400 to-rose-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <LogOutIcon className="w-7 h-7 text-white" />
             </div>
-            <h3 className="text-xl font-bold text-gray-800 mb-2">Confirm Logout</h3>
-            <p className="text-gray-600">
+            <h3 className="text-lg font-bold text-gray-800 mb-2">Confirm Logout</h3>
+            <p className="text-gray-600 text-base">
               Are you sure you want to log out of your account?
             </p>
           </div>
           <div className="flex gap-3">
             <button
               onClick={() => setShowConfirmModal(false)}
-              className="flex-1 px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all duration-200 focus:invisible cursor-pointer"
+              className="flex-1 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all duration-200 focus:invisible cursor-pointer"
             >
               Cancel
             </button>
             <button
               onClick={handleUserLogOut}
-              className="flex-1 px-4 py-3 bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white font-semibold rounded-xl transition-all duration-200 focus:invisible cursor-pointer"
+              className="flex-1 px-4 py-2 bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white font-semibold rounded-xl transition-all duration-200 focus:invisible cursor-pointer"
             >
               Log Out
             </button>
@@ -237,10 +237,10 @@ const UserProfile = () => {
                 <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Loader2 className="w-8 h-8 text-sky-600 animate-spin" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   Updating Your Profile
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-base">
                   Please wait while we update your profile information...
                 </p>
               </>
@@ -250,10 +250,10 @@ const UserProfile = () => {
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle className="w-8 h-8 text-green-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   Profile Updated Successfully!
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-base">
                   Your profile information has been updated successfully.
                 </p>
               </>
@@ -263,10 +263,10 @@ const UserProfile = () => {
                 <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <AlertCircle className="w-8 h-8 text-red-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   Update Failed
                 </h3>
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-600 mb-4 text-base">
                   We couldn't update your profile. Please try again.
                   <br />
                   <span className="text-sm text-gray-500 mt-2 block">
@@ -275,7 +275,7 @@ const UserProfile = () => {
                 </p>
                 <button
                   onClick={handleRetry}
-                  className="px-6 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold tracking-widest rounded-lg transition-colors duration-200 cursor-pointer"
+                  className="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold tracking-widest rounded-lg transition-colors duration-200 cursor-pointer"
                 >
                   Retry
                 </button>
@@ -293,31 +293,31 @@ const UserProfile = () => {
       <div className="w-full h-full flex flex-col items-start justify-start">
         <div className="w-full h-full flex flex-col items-start justify-center gap-4 mb-12">
           {/* HEADING AND BACK ICON */}
-          <div className="w-full h-16 flex items-center justify-between px-2 pt-4 bg-white">
+          <div className="w-full h-16 flex items-center justify-between px-2 bg-white">
             {/* Left side - Back button and title */}
             <div className="flex items-center gap-2">
               <div 
                 className="w-12 h-12 mt-1 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-colors duration-200 cursor-pointer"
                 onClick={() => navigate(-1)}
               >
-                <ArrowLeft className="w-6 h-6" />
+                <ArrowLeft className="w-5 h-5" />
               </div>
-              <h1 className="font-bold text-gray-900 text-3xl">Profile</h1>
+              <h1 className="font-bold text-gray-900 text-2xl">Profile</h1>
             </div>
             
             {/* Right side - Security dropdown */}
             <div className="relative" ref={securityDropdownRef}>
               <div 
-                className={`w-12 h-12 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-all duration-200 cursor-pointer ${
+                className={`w-10 h-10 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-all duration-200 cursor-pointer ${
                   isSecurityDropdownOpen ? 'bg-neutral-100 rotate-90' : ''
                 }`}
                 onClick={toggleSecurityDropdown}
               >
-                <MoreVertical className="w-6 h-6" />
+                <MoreVertical className="w-5 h-5" />
               </div>
               
               {/* Security Dropdown Menu */}
-              <div className={`absolute right-0 top-14 w-72 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transition-all duration-300 ease-out transform origin-top-right z-50 ${
+              <div className={`absolute right-0 top-12 w-72 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transition-all duration-300 ease-out transform origin-top-right z-50 ${
                 isSecurityDropdownOpen 
                   ? 'opacity-100 scale-100 translate-y-0' 
                   : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
@@ -330,7 +330,7 @@ const UserProfile = () => {
                         <Settings className="w-4 h-4 text-gray-600" />
                       </div>
                       <div>
-                        <div className="font-semibold text-gray-800">Security Settings</div>
+                        <div className="font-semibold text-gray-800 text-base">Security Settings</div>
                         <div className="text-xs text-gray-500">Manage your account security</div>
                       </div>
                     </div>
@@ -338,7 +338,7 @@ const UserProfile = () => {
 
                   {/* Warning Banner */}
                   {!editMode && (
-                    <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-3 mx-2">
+                    <div className="bg-amber-50 border border-amber-200 rounded-lg p-2 mb-3 mx-2">
                       <div className="flex items-center gap-2">
                         <AlertTriangle className="w-4 h-4 text-amber-600" />
                         <p className="text-amber-800 text-xs font-medium">Enable edit mode to access security settings</p>
@@ -353,40 +353,40 @@ const UserProfile = () => {
                       navigate('/change-password');
                       setIsSecurityDropdownOpen(false);
                     }}
-                    className={`w-full px-2 py-3 text-left rounded-xl transition-colors duration-200 flex items-center gap-3 group ${
+                    className={`w-full px-2 py-3 text-left rounded-xl transition-colors duration-200 flex items-center gap-4 group ${
                       editMode 
                         ? "text-gray-600 hover:bg-neutral-50 cursor-pointer" 
                         : "text-gray-400 cursor-not-allowed opacity-60"
                     }`}
                   >
-                    <div className={`w-8 h-8 flex items-center justify-center rounded-lg transition-colors duration-200 ${
+                    <div className={`w-6 h-6 flex items-center justify-center rounded-md transition-colors duration-200 ${
                       editMode 
                         ? "bg-rose-100 group-hover:bg-rose-200" 
                         : "bg-gray-100"
                     }`}>
-                      <Key className={`w-4 h-4 ${editMode ? "text-rose-600" : "text-gray-400"}`} />
+                      <Key className={`w-3 h-3 ${editMode ? "text-rose-600" : "text-gray-400"}`} />
                     </div>
                     <div>
-                      <div className="font-medium text-base">Change Password</div>
+                      <div className="font-medium text-sm">Change Password</div>
                     </div>
                   </button>
                   <button
                     disabled={!editMode}
-                    className={`w-full px-2 py-3 text-left rounded-xl transition-colors duration-200 flex items-center gap-3 group ${
+                    className={`w-full px-2 py-3 text-left rounded-xl transition-colors duration-200 flex items-center gap-4 group ${
                       editMode 
                         ? "text-gray-600 hover:bg-neutral-50 cursor-pointer" 
                         : "text-gray-400 cursor-not-allowed opacity-60"
                     }`}
                   >
-                    <div className={`w-8 h-8 flex items-center justify-center rounded-lg transition-colors duration-200 ${
+                    <div className={`w-6 h-6 flex items-center justify-center rounded-md transition-colors duration-200 ${
                       editMode 
                         ? "bg-red-100 group-hover:bg-red-200" 
                         : "bg-gray-100"
                     }`}>
-                      <AlertTriangle className={`w-4 h-4 ${editMode ? "text-red-600" : "text-gray-400"}`} />
+                      <AlertTriangle className={`w-3 h-3 ${editMode ? "text-red-600" : "text-gray-400"}`} />
                     </div>
                     <div>
-                      <div className="font-medium text-base">Deactivate Account</div>
+                      <div className="font-medium text-sm">Deactivate Account</div>
                     </div>
                   </button>
                 </div>
@@ -398,7 +398,7 @@ const UserProfile = () => {
           <div className="w-11/12 mx-auto mt-8 p-6 bg-white border-1 border-stone-100 rounded-xl shadow-sm">
             {/* Profile Image */}
             <div className="flex flex-col items-center justify-items-center mb-6">
-              <div className="relative w-28 h-28 mb-4">
+              <div className="relative w-24 h-24 mb-4">
                 {previewUrl || user?.profile_picture ? (
                   <img
                     src={previewUrl || user?.profile_picture}
@@ -416,7 +416,7 @@ const UserProfile = () => {
                 {editMode && (
                   <div className="absolute inset-0 bg-black/60 flex items-center justify-center rounded-full cursor-pointer group">
                     <label className="cursor-pointer group"> 
-                      <ImagePlus className="w-10 h-10 text-neutral-400 shadow-md" />
+                      <ImagePlus className="w-8 h-8 text-neutral-400 shadow-md" />
                       <input 
                         type="file"
                         accept="image/*"
@@ -427,11 +427,11 @@ const UserProfile = () => {
                   </div>
                 )}
               </div>
-              <h1 className="text-3xl text-center font-bold text-gray-700 mb-1">{user?.full_name || "Full Name"}</h1>
-              <p className="text-gray-500 text-lg mb-4.5">{user?.email || "Email not available"}</p>
+              <h1 className="text-2xl text-center font-bold text-gray-700 mb-1">{user?.full_name || "Full Name"}</h1>
+              <p className="text-gray-500 text-base mb-4.5">{user?.email || "Email not available"}</p>
               <button
                 onClick={() => editMode ? handleCancelEdit() : setEditMode(true)}
-                className={`px-7 py-2.5 text-lg font-semibold rounded-lg cursor-pointer transition-all duration-200 transform hover:-translate-y-1 shadow-lg hover:shadow-xl focus:invisible ${
+                className={`px-4 py-2 text-base font-semibold rounded-lg cursor-pointer transition-all duration-200 transform hover:-translate-y-1 shadow-lg hover:shadow-xl focus:invisible ${
                   editMode 
                     ? "bg-gray-600 text-white hover:bg-gray-700" 
                     : "bg-cyan-500 text-white hover:bg-cyan-600"
@@ -447,17 +447,17 @@ const UserProfile = () => {
               <div className="space-y-6">
                 {["username", "email"].map((name) => (
                   <div key={name}>
-                    <label className="block font-semibold text-lg text-gray-700 capitalize">{name}:</label>
+                    <label className="block font-semibold text-base text-gray-600 capitalize">{name}:</label>
                     {editMode ? (
                       <input
                         type="text"
                         name={name}
                         value={inputs[name]}
                         onChange={handleChange}
-                        className="mt-1 block w-full border text-lg font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                        className="mt-1 block w-full border text-base font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                       />
                     ) : (
-                      <p className="mt-1 w-full bg-gray-100 text-gray-500 text-lg font-medium p-3 rounded-md">
+                      <p className="mt-1 w-full bg-gray-100 text-gray-500 text-base font-medium p-2.5 rounded-md">
                         {displayOrFallback(inputs[name])}
                       </p>
                     )}
@@ -472,7 +472,7 @@ const UserProfile = () => {
               <div className="space-y-6">
                 {["gender", "date_of_birth"].map((name) => (
                   <div key={name}>
-                    <label className="block font-semibold text-lg text-gray-700 capitalize">{name.replace(/_/g, " ")}:</label>
+                    <label className="block font-semibold text-base text-gray-600 capitalize">{name.replace(/_/g, " ")}:</label>
                     {editMode ? (
                       <input
                         type={name === "date_of_birth" ? "date" : "text"}
@@ -483,10 +483,10 @@ const UserProfile = () => {
                             : inputs[name] || ""
                         }
                         onChange={handleChange}
-                        className="mt-1 block w-full border text-lg font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                        className="mt-1 block w-full border text-base font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                       />
                     ) : (
-                      <p className="mt-1 w-full bg-gray-100 text-gray-500 text-lg font-medium p-3 rounded-md">
+                      <p className="mt-1 w-full bg-gray-100 text-gray-500 text-base font-medium p-2.5 rounded-md">
                         {displayOrFallback(inputs[name], "Not Provided", name)}
                       </p>
                     )}
@@ -501,17 +501,17 @@ const UserProfile = () => {
               <div className="space-y-6">
                 {["phone_no", "address"].map((name) => (
                   <div key={name}>
-                    <label className="block font-semibold text-lg text-gray-700 capitalize">{name.replace(/_/g, " ")}:</label>
+                    <label className="block font-semibold text-base text-gray-700 capitalize">{name.replace(/_/g, " ")}:</label>
                     {editMode ? (
                       <input
                         type="text"
                         name={name}
                         value={inputs[name]}
                         onChange={handleChange}
-                        className="mt-1 block w-full border text-lg font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                        className="mt-1 block w-full border text-base font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                       />
                     ) : (
-                      <p className="mt-1 w-full bg-gray-100 text-gray-500 text-lg font-medium p-3 rounded-md">
+                      <p className="mt-1 w-full bg-gray-100 text-gray-500 text-base font-medium p-2.5 rounded-md">
                         {displayOrFallback(inputs[name])}
                       </p>
                     )}
@@ -523,8 +523,8 @@ const UserProfile = () => {
             {/* === User Role === */}
             <div className="mt-8">
               <div className="flex items-center gap-3">
-                <span className="font-semibold text-lg text-gray-700">Role:</span>
-                <span className={`px-6 py-2 rounded-xl text-lg font-bold shadow-md first-letter:uppercase tracking-wider ${
+                <span className="font-semibold text-base text-gray-700">Role:</span>
+                <span className={`px-4 py-1 rounded-lg text-base font-bold shadow-md first-letter:uppercase tracking-wider ${
                   user?.role === 'tenant' ? 'bg-gradient-to-br from-rose-100 to-rose-300 text-rose-800 border border-rose-400' :
                   user?.role === 'landlord' ? 'bg-gradient-to-br from-emerald-100 to-emerald-300 text-emerald-800 border border-emerald-400' :
                   'bg-gradient-to-br from-purple-100 to-purple-300 text-purple-800 border border-purple-400'
@@ -540,7 +540,7 @@ const UserProfile = () => {
                 <button
                   onClick={handleUpdateUser}
                   disabled={isLoading}
-                  className="w-full py-3 bg-teal-600 text-white text-lg font-semibold rounded-lg hover:bg-teal-700 disabled:bg-gray-400 disabled:cursor-not-allowed cursor-pointer transition-all duration-200 transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
+                  className="w-full py-2 bg-teal-600 text-white text-base font-semibold rounded-lg hover:bg-teal-700 disabled:bg-gray-400 disabled:cursor-not-allowed cursor-pointer transition-all duration-200 transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
                 >
                   {isLoading ? 'Updating...' : 'Save Changes'}
                 </button>
@@ -550,10 +550,10 @@ const UserProfile = () => {
             {/* Logout button */}
             <div className="mt-8">
               <button 
-                className="w-full flex items-center justify-center gap-3 py-3 bg-white text-gray-700 border-2 border-gray-300 text-lg font-semibold rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 focus:invisible"
+                className="w-full flex items-center justify-center gap-2 py-2 bg-white text-gray-700 border border-gray-300 text-base font-semibold rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 focus:invisible"
                 onClick={() => setShowConfirmModal(true)}
               >
-                <LogOut className="w-5 h-5" />
+                <LogOut className="w-4 h-4" />
                 Log out
               </button>
             </div>

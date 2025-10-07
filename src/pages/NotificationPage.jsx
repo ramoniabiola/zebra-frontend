@@ -115,18 +115,18 @@ const NotificationPage = () => {
         <div className="w-full h-full flex flex-col items-start justify-start bg-white">
             <div className="w-full h-full flex flex-col items-start justify-center gap-4">
                 {/* Header */}
-                <div className="w-full h-16 flex items-center justify-between px-2 pt-4 bg-white">
+                <div className="w-full h-16 flex items-center justify-between px-2 bg-white">
                   {/* Left Side */}
                   <div className="flex items-center gap-2">
                     <div
                       className="w-12 h-12 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-colors duration-200 cursor-pointer"
                       onClick={() => navigate(-1)}
                     >
-                      <ArrowLeft className="w-6 h-6" />
+                      <ArrowLeft className="w-5 h-5" />
                     </div>
 
                     <div className="flex flex-col items-center">
-                      <h1 className="font-bold text-gray-900 text-3xl">
+                      <h1 className="font-bold text-gray-900 text-2xl">
                         Notifications
                       </h1>
                       {unreadCount > 0 && (

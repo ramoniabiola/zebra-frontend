@@ -27,7 +27,7 @@ const Search2 = () => {
 
 
   return (
-    <header className="w-full h-20 pt-4 flex items-center justify-center fixed top-0 left-0 z-40 bg-white">
+    <header className="w-full h-18 pt-1 flex items-center justify-center fixed top-0 left-0 z-40 bg-white">
       <div className="flex gap-1 w-full mx-3">  
         <div className="bg-gray-100 flex-1 rounded-xl py-3">
           <input

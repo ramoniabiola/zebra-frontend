@@ -106,16 +106,16 @@ const Apartments = () => {
   // Error Display
   const ErrorDisplay = () => (
     <div className="h-full w-full flex flex-col items-center justify-center text-center py-8 mt-48 mb-48">
-      <ExclamationTriangleIcon className="w-12 h-12 text-red-500 mx-auto mb-4" />
-      <h3 className="text-lg font-semibold text-gray-800 mb-1">
+      <ExclamationTriangleIcon className="w-10 h-10 text-red-500 mx-auto mb-4" />
+      <h3 className="text-base font-semibold text-gray-800 mb-1">
         Something went wrong
       </h3>
-      <p className="text-gray-600 mb-4">
+      <p className="text-gray-600 text-sm mb-4">
         {error || "Failed to load apartments"}
       </p>
       <button
         onClick={handleRetry}
-        className="px-3 py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white text-sm tracking-widest font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5  focus:invisible cursor-pointer"
+        className="px-3 py-2 bg-cyan-600 hover:bg-cyan-700 text-white text-sm tracking-widest font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5  focus:invisible cursor-pointer"
       >
         <RotateCcw className="w-4 h-4" />
         Retry
