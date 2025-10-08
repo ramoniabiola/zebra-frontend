@@ -149,22 +149,22 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
         </div>
 
         {/* Amenities */}
-        <div className="w-full px-2 space-y-3">
+        <div className="w-full space-y-3">
           <label className="block text-base font-semibold text-gray-700">
             Amenities
           </label>
-          <div className="w-full flex gap-2">
+          <div className="w-full flex gap-2 pr-4">
             <input
               type="text"
               value={amenityInput}
               onChange={(e) => setAmenityInput(e.target.value)}
               placeholder="Add an amenity..."
-              className="flex-4/5 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:border-gray-400 transition-all duration-200"
+              className="flex-3/5 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:border-gray-400 transition-all duration-200"
             />
             <button
               type="button"
               onClick={handleAmenityAdd}
-              className="flex-1/5 px-2 py-2 bg-gradient-to-r from-cyan-500 to-cyan-600 focus:invisible hover:from-cyan-600 hover:to-cyan-700 text-white text-sm rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200 flex items-center cursor-pointer"
+              className="flex-2/5 px-2 py-1 bg-gradient-to-r from-cyan-500 to-cyan-600 focus:invisible hover:from-cyan-600 hover:to-cyan-700 text-white text-sm rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200 flex items-center cursor-pointer"
             >
               <Plus strokeWidth={2} className="w-4 h-4" />
               Add
