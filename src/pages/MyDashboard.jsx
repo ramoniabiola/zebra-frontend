@@ -66,7 +66,7 @@ const MyDashboard = () => {
   // Error Display
   const ErrorDisplay = () => (
     <div className="h-full w-full flex flex-col items-center justify-center text-center py-8 mb-15">
-      <ExclamationTriangleIcon className="w-9 h-9 text-red-500 mx-auto mb-3" />
+      <ExclamationTriangleIcon className="w-8 h-8 text-red-500 mx-auto mb-3" />
       <h3 className="text-base font-semibold text-gray-800 mb-2">
         Something went wrong
       </h3>
@@ -88,16 +88,16 @@ const MyDashboard = () => {
   return (
     <div className="w-full min-h-screen flex flex-col items-start justify-start bg-white">
       {/* Welcome section with avatar */}
-      <div className="w-full flex items-center justify-between px-6 py-8 pt-10">
+      <div className="w-full flex items-center justify-between px-6 py-6 pt-10">
         <div className="flex flex-col gap-1">
           <h2 className="text-lg font-semibold text-cyan-900 tracking-widest">Welcome back!</h2>
-          <h1 className="text-2xl font-bold text-cyan-950 tracking-widest">{user?.username}</h1>
+          <h1 className="text-xl font-bold text-cyan-950 tracking-widest">{user?.username}</h1>
         </div>
         <div className="ring-4 p-[3px] ring-cyan-500 rounded-full">
           {user.profile_picture ? (
-            <img src={user.profile_picture} alt="avatar" className="w-14 h-14 rounded-full object-cover cursor-pointer" />
+            <img src={user.profile_picture} alt="avatar" className="w-13 h-13 rounded-full object-cover cursor-pointer" />
           ) : (
-            <UserCircleIcon className="w-15 h-15 text-cyan-500 cursor-pointer" />
+            <UserCircleIcon className="w-14 h-14 text-cyan-500 cursor-pointer" />
           )}
         </div>
       </div>
@@ -110,57 +110,57 @@ const MyDashboard = () => {
         (
           <DashboardSkeleton /> 
         ) : (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4 mb-12 px-2">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-4 mb-12 px-2">
             {/* Active Listings */}
-            <div className="flex items-center justify-between py-3 px-3 rounded-lg bg-gradient-to-r from-cyan-600 to-cyan-400 shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex items-center justify-between py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-600 to-cyan-400 shadow-lg hover:shadow-xl transition-shadow">
               <div className="flex flex-col gap-2">
-                <h2 className="text-xl font-bold font-sans text-white">{compactNumber(userStats.activeListings)}</h2>
+                <h2 className="text-lg font-bold font-sans text-white">{compactNumber(userStats.activeListings)}</h2>
                 <p className="text-xs font-medium text-white/80 tracking-widest">Active Listings</p>
               </div>
               <div className="items-center mb-4">
                 <Landmark 
-                  className="w-7 h-7 text-white/95" 
+                  className="w-6 h-6 text-white/95" 
                 />
               </div>
             </div>
  
             {/* Total Listings */}
-            <div className="flex items-center justify-between py-3  px-3 rounded-lg bg-gradient-to-r from-cyan-700 to-cyan-400 shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex items-center justify-between py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-700 to-cyan-400 shadow-lg hover:shadow-xl transition-shadow">
               <div className="flex flex-col gap-2">
-                <h2 className="text-xl font-bold font-sans text-white">{compactNumber(userStats.totalListings)}</h2>
+                <h2 className="text-lg font-bold font-sans text-white">{compactNumber(userStats.totalListings)}</h2>
                 <p className="text-xs font-medium text-white/80 tracking-widest">Total Listings</p>
               </div>
               <div className="items-center mb-4">
                 <Component
-                  className="w-7 h-7 text-white/95" 
+                  className="w-6 h-6 text-white/95" 
                 />
               </div>
             </div>
         
 
             {/* User Role */}
-            <div className="flex items-center justify-between py-3 px-3 rounded-lg bg-gradient-to-r from-cyan-700 to-cyan-400 shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex items-center justify-between py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-700 to-cyan-400 shadow-lg hover:shadow-xl transition-shadow">
               <div className="flex flex-col gap-2">
-                <h2 className="text-xl font-bold font-sans text-white first-letter:uppercase">{user.role}</h2>
+                <h2 className="text-lg font-bold font-sans text-white first-letter:uppercase">{user.role}</h2>
                 <p className="text-xs font-medium text-white/80 tracking-widest">User Role</p>
               </div>
               <div className="items-center mb-4">
                 <UserRoundCheck
-                  className="w-7 h-7 text-white/95" 
+                  className="w-6 h-6 text-white/95" 
                 />
               </div>
             </div>
             
 
             {/*Deactivated Listings */}
-            <div className="flex items-center justify-between py-3 px-3 rounded-lg bg-gradient-to-r from-cyan-600 to-cyan-400 shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex items-center justify-between py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-600 to-cyan-400 shadow-lg hover:shadow-xl transition-shadow">
               <div className="flex flex-col gap-2">
-                <h2 className="text-xl font-bold font-sans text-white">{compactNumber(userStats.deactivatedListings)}</h2>
+                <h2 className="text-lg font-bold font-sans text-white">{compactNumber(userStats.deactivatedListings)}</h2>
                 <p className="text-xs font-medium text-white/80 tracking-widest">Rented Listings</p>
               </div>
               <div className="items-center mb-4">
                 <PauseCircle
-                  className="w-7 h-7 text-white/95" 
+                  className="w-6 h-6 text-white/95" 
                 />
               </div>
             </div>
@@ -171,12 +171,12 @@ const MyDashboard = () => {
         <div className="px-2 bg-gray-50">
           <button 
             onClick={() => navigate("/create-listing")} 
-            className="w-full bg-gradient-to-r from-cyan-700 to-cyan-500 hover:from-cyan-800 hover:to-cyan-600 text-white font-semibold py-2.5 rounded-lg transition-all duration-200 flex items-center justify-center gap-3 group focus:invisible cursor-pointer" 
+            className="w-full bg-gradient-to-r from-cyan-700 to-cyan-500 hover:from-cyan-800 hover:to-cyan-600 text-white font-semibold py-2 rounded-lg transition-all duration-200 flex items-center justify-center gap-3 group focus:invisible cursor-pointer" 
           >
            <div className="p-1 bg-white/20 rounded-lg group-hover:bg-white/30 transition-colors">
-              <Plus size={20} strokeWidth={2} className="text-white" />
+              <Plus size={18} strokeWidth={2} className="text-white" />
             </div>
-            <span className="text-lg">Create New Listing</span>
+            <span className="text-base">Create New Listing</span>
           </button>
         </div>
       </div>
@@ -191,7 +191,7 @@ const MyDashboard = () => {
                 <h2
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`relative py-4 text-lg transition-all font-medium duration-300 cursor-pointer focus:invisible ${
+                  className={`relative py-4 text-base transition-all font-medium duration-300 cursor-pointer focus:invisible ${
                     activeTab === tab 
                       ? "text-cyan-600" 
                       : "text-gray-400  hover:text-gray-600"
@@ -202,7 +202,7 @@ const MyDashboard = () => {
                   {/* Animated Underline */}
                   {activeTab === tab && (
                     <span
-                      className="absolute bottom-0 w-full left-0 h-1.5 bg-cyan-600 rounded-full transition-all duration-300 ease-out"   
+                      className="absolute bottom-0 w-full left-0 h-1 bg-cyan-600 rounded-full transition-all duration-300 ease-out"   
                     />
                   )}
                 </h2>

@@ -94,13 +94,13 @@ const NotificationPage = () => {
     const ErrorDisplay = () => (
         <div className="h-full w-full flex flex-col items-center justify-center text-center py-8 mt-48 mb-48">
             <ExclamationTriangleIcon className="w-12 h-12 text-red-500 mx-auto mb-4" />
-            < h3 className="text-lg font-semibold text-gray-800 mb-1">
+            < h3 className="text-base font-semibold text-gray-800 mb-1">
                 Something went wrong
             </h3>
-            <p className="text-gray-600 mb-4">{error}</p>
+            <p className="text-gray-600 text-sm mb-4">{error}</p>
             <button
                 onClick={handleRetry}
-                className="px-3 py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white text-base tracking-widest font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5  focus:invisible cursor-pointer"
+                className="px-3 py-2 bg-cyan-600 hover:bg-cyan-700 text-white text-base tracking-widest font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5  focus:invisible cursor-pointer"
             >
                 <RotateCcw className="w-4 h-4" />
                 Retry
@@ -142,16 +142,16 @@ const NotificationPage = () => {
                     {notifications?.length > 0 && unreadCount > 0 && !loading && !error && (
                         <div className="relative" ref={dropdownRef}>
                             <div
-                              className={`w-12 h-12 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-all duration-200 cursor-pointer ${
+                              className={`w-10 h-10 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-all duration-200 cursor-pointer ${
                                 isDropdownOpen ? "bg-neutral-100 rotate-90" : ""
                               }`}
                               onClick={toggleDropdown}
                             >
-                                <MoreVertical className="w-6 h-6" />
+                                <MoreVertical className="w-5 h-5" />
                             </div>
                         
                             <div
-                                className={`absolute right-0 top-14 w-64 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transition-all duration-300 ease-out transform origin-top-right z-50 ${
+                                className={`absolute right-0 top-12 w-64 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transition-all duration-300 ease-out transform origin-top-right z-50 ${
                                   isDropdownOpen
                                     ? "opacity-100 scale-100 translate-y-0"
                                     : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
@@ -161,16 +161,16 @@ const NotificationPage = () => {
                                   <button
                                     disabled={loading || error}
                                     onClick={handleMarkAllAsRead}
-                                    className="w-full px-2 py-3 text-left text-gray-500 hover:bg-neutral-50 rounded-xl  transition-colors duration-200 flex items-center gap-3 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="w-full px-2 py-2 text-left text-gray-500 hover:bg-neutral-50 rounded-xl  transition-colors duration-200 flex items-center gap-3 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
-                                    <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-cyan-100 group-hover:bg-cyan-200 transition-colors duration-200">
+                                    <div className="w-6 h-6 flex items-center justify-center rounded-lg bg-cyan-100 group-hover:bg-cyan-200 transition-colors duration-200">
                                       <CheckIcon
                                         strokeWidth={2}
-                                        className="w-4 h-4 text-cyan-600"
+                                        className="w-3 h-3 text-cyan-600"
                                       />
                                     </div>
                                     <div>
-                                      <div className="font-medium text-base">
+                                      <div className="font-medium text-sm">
                                         Mark all as read
                                       </div>
                                     </div>
@@ -190,7 +190,7 @@ const NotificationPage = () => {
                     ) : notifications?.length === 0 ? (
                         <NotificationPlaceholder />
                     ) : (
-                        <div className="w-full px-4 flex flex-col items-start justify-center gap-2 mt-8 mb-8">
+                        <div className="w-full px-4 flex flex-col items-start justify-center gap-2 mt-6 mb-8">
                             {notifications.map((notification) => (
                                 <NotificationCard
                                     key={notification._id}

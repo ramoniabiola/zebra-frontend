@@ -33,15 +33,15 @@ const NotificationCard = ({ notification, onMarkAsRead }) => {
 
     return (
         <div
-            className={`w-full px-4 py-2 rounded-xl border cursor-pointer transition-all duration-200 hover:shadow-md ${getNotificationStyle()}`}
+            className={`w-full px-3 py-1.5 rounded-xl border cursor-pointer transition-all duration-200 hover:shadow-md ${getNotificationStyle()}`}
             onClick={handleClick}
         >
             <div className="flex justify-between items-start">
                 <div className="flex-1">
-                    <h2 className={`text-lg  ${getTitleStyle()}`}>
+                    <h2 className={`text-base  ${getTitleStyle()}`}>
                         {!notification.isRead ? 'New Notification!' : ''}
                     </h2>
-                    <p className="text-base text-gray-600 mt-1 leading-relaxed">
+                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">
                         {notification.message  || 'You have a new notification.'}
                     </p>
                     {notification.meta && (
@@ -66,7 +66,7 @@ const NotificationCard = ({ notification, onMarkAsRead }) => {
                     </span>
                 </div>
                 {!notification.isRead && (
-                    <div className="w-2 h-2 bg-cyan-400 rounded-full ml-4 mt-1 flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full mt-1.5 flex-shrink-0"></div>
                 )}
             </div>
         </div>
