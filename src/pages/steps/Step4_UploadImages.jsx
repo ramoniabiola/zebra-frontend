@@ -197,10 +197,10 @@ const Step4_UploadImages = ({
     <div className="space-y-6">
       {/* HEADER */}
       <div className="text-center mb-12">
-        <h2 className="text-2xl font-bold text-gray-800 mb-1.5">
+        <h2 className="text-xl font-bold text-gray-800 mb-1.5">
           Upload Property Images
         </h2>
-        <p className="text-gray-600">
+        <p className="text-gray-600 text-sm">
           Add photos to showcase your property (5 minimum and 15 maximum images
           required)
         </p>
@@ -211,24 +211,24 @@ const Step4_UploadImages = ({
         className={`border-2 border-dashed rounded-xl p-8 text-center transition-all duration-200 ${
           shouldShowError
             ? "border-red-300 bg-red-50"
-            : "border-gray-300 hover:border-cyan-400 hover:bg-cyan-50/30"
+            : "border-gray-200 hover:border-cyan-400 hover:bg-cyan-50/30"
         }`}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
       >
         <div className="flex flex-col items-center">
           <div
-            className={`w-14 h-14 rounded-full flex items-center justify-center mb-4 ${
+            className={`w-12 h-12 rounded-full flex items-center justify-center mb-4 ${
               shouldShowError
                 ? "bg-gradient-to-r from-red-400 to-red-500"
                 : "bg-gradient-to-r from-cyan-400 to-cyan-500"
             }`}
           >
-            <Camera className="w-8 h-8 text-white" />
+            <Camera className="w-7 h-7 text-white" />
           </div>
           <label className="cursor-pointer group">
             <span
-              className={`font-semibold text-lg group-hover:underline ${
+              className={`font-semibold text-base group-hover:underline ${
                 shouldShowError
                   ? "text-red-600 hover:text-red-700"
                   : "text-cyan-600 hover:text-cyan-700"
@@ -236,7 +236,7 @@ const Step4_UploadImages = ({
             >
               Choose images
             </span>
-            <span className="text-gray-500 text-lg"> or drag and drop</span>
+            <span className="text-gray-500 text-base"> or drag and drop</span>
             <input
               type="file"
               name="images"
@@ -261,12 +261,12 @@ const Step4_UploadImages = ({
 
       {/* Image Counter */}
       <div className="flex flex-col gap-3 items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-800">
+        <h3 className="text-base font-semibold text-gray-800">
           Selected Images ({formData.images.length}/5 minimum)
         </h3>
         <div className={`px-3 py-2 rounded-full text-sm font-medium ${
           imagesUploaded 
-            ? 'bg-green-100 text-green-700  tracking-wider'
+            ? 'bg-green-100 text-green-700 tracking-wider'
             : formData.images.length > 15
             ? 'bg-red-100 text-red-700 tracking-wider'
             :  formData.images.length >= 5 
@@ -351,10 +351,10 @@ const Step4_UploadImages = ({
                     <img
                       src={URL.createObjectURL(file)}
                       alt={`preview-${idx}`}
-                      className="w-full h-32 object-cover rounded-xl border border-gray-200 shadow-sm group-hover:shadow-md transition-all duration-200"
+                      className="w-full h-30 object-cover rounded-xl border border-gray-200 shadow-sm group-hover:shadow-md transition-all duration-200"
                     />
                   ) : (
-                    <div className="w-full h-32 flex items-center justify-center text-xs text-gray-500 border border-gray-200 rounded-xl bg-gray-50">
+                    <div className="w-full h-30 flex items-center justify-center text-xs text-gray-500 border border-gray-200 rounded-xl bg-gray-50">
                       Invalid image file
                     </div>
                   )}
@@ -367,7 +367,7 @@ const Step4_UploadImages = ({
                         handleRemoveImage(idx);
                       }}
                       type="button"
-                      className={`absolute -top-2 -right-2 w-8 h-8 bg-rose-500/70 hover:bg-rose-600/70 text-white rounded-full 
+                      className={`absolute -top-2 -right-2 w-7 h-7 bg-rose-500/70 hover:bg-rose-600/70 text-white rounded-full 
                         flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 
                         cursor-pointer transition-all duration-200 ${
                           isTouchDevice
@@ -393,7 +393,7 @@ const Step4_UploadImages = ({
             <div className="mt-8 p-4 bg-sky-50 border border-sky-200 rounded-xl">
               <p className="text-sm text-sky-700 leading-6">
                 <span className="font-medium"><b>Tip:</b></span> The first image will be your main listing photo. 
-                To rearrange images, {isTouchDevice ? 'press and hold an image for half a second, then drag it onto another image to swap their positions' : 'simply drag and drop one image onto another to swap their positions'}. 
+                To rearrange images, {isTouchDevice ? 'drag it onto another image to swap their positions' : 'simply drag and drop one image onto another to swap their positions'}. 
                 You can also remove and re-add images if needed. Make sure all images are clear and high-quality before clicking <b>"Upload"</b>. Note that images can no longer be updated or position rearranged when successfully uploaded.
               </p>
             </div>
@@ -403,10 +403,10 @@ const Step4_UploadImages = ({
 
       {formData.images.length === 0 && (
         <div className="text-center py-8">
-          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Camera className="w-8 h-8 text-gray-400" />
+          <div className="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Camera className="w-7 h-7 text-gray-400" />
           </div>
-          <p className="text-gray-500">No images selected yet</p>
+          <p className="text-gray-500 text-base">No images selected yet</p>
           <p className="text-sm text-gray-400 mt-1">Choose at least 5 images to continue</p>
         </div>
       )}      

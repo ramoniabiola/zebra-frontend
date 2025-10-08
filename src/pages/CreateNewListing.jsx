@@ -341,8 +341,8 @@ const CreateNewListing = () => {
                 <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Loader2 className="w-8 h-8 text-sky-600 animate-spin" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">Uploading Images</h3>
-                <p className="text-gray-600">Please wait while we upload your images...</p>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">Uploading Images</h3>
+                <p className="text-gray-600 text-base">Please wait while we upload your images...</p>
               </>
             )}
 
@@ -351,8 +351,8 @@ const CreateNewListing = () => {
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle className="w-8 h-8 text-green-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">Upload Successful!</h3>
-                <p className="text-gray-600">All images have been uploaded successfully.</p>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">Upload Successful!</h3>
+                <p className="text-gray-600 text-base">All images have been uploaded successfully.</p>
               </>
             )}
 
@@ -361,8 +361,8 @@ const CreateNewListing = () => {
                 <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <AlertCircle className="w-8 h-8 text-red-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">Upload Failed</h3>
-                <p className="text-gray-600 mb-4">{uploadError}</p>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">Upload Failed</h3>
+                <p className="text-gray-600 text-base mb-4">{uploadError}</p>
                 <button
                   onClick={handleUploadImages}
                   className="px-6 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg transition-colors duration-200 cursor-pointer"
@@ -391,7 +391,7 @@ const CreateNewListing = () => {
               <ArrowLeft className="w-5 h-5 text-gray-600" />
             </button>
             <div>
-              <h1 className="text-xl font-bold text-gray-800">Create New Listing</h1>
+              <h1 className="text-lg font-bold text-gray-800">Create New Listing</h1>
               <p className="text-sm text-gray-500">Step {step} of 4</p>
             </div>
           </div>
@@ -421,7 +421,7 @@ const CreateNewListing = () => {
                 <button
                   type="button"
                   onClick={prevStep}
-                  className="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all duration-200 flex items-center gap-1.5 cursor-pointer focus:invisible"
+                  className="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-semibold rounded-xl transition-all duration-200 flex items-center gap-1.5 cursor-pointer focus:invisible"
                 >
                   <ArrowLeft className="w-4 h-4" />
                   Back
@@ -434,17 +434,17 @@ const CreateNewListing = () => {
                 <button
                   type="button"
                   onClick={nextStep}
-                  className="px-3 py-2.5 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5 cursor-pointer focus:invisible"
+                  className="px-3 py-2.5 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white text-sm font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5 cursor-pointer focus:invisible"
                 >
                   Continue
-                  <ArrowLeft className="w-4 h-4 rotate-180" />
+                  <ArrowLeft className="w-3.5 h-3.5 rotate-180" />
                 </button>
               ) : step === 4 && !imagesUploaded ? (
                 <button
                   type="button"
                   onClick={handleUploadImages}
                   disabled={uploadStatus === 'uploading'}
-                  className="px-4 py-2.5 bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 disabled:from-sky-400 disabled:to-sky-400 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5 cursor-pointer focus:invisible disabled:cursor-not-allowed"
+                  className="px-4 py-2.5 bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 disabled:from-sky-400 disabled:to-sky-400 text-white text-sm font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5 cursor-pointer focus:invisible disabled:cursor-not-allowed"
                 >
                   {uploadStatus === 'uploading' ? (
                     <>
@@ -462,7 +462,7 @@ const CreateNewListing = () => {
                 <button
                   type="button"
                   onClick={handlePreviewInfo}
-                  className="px-4 py-2.5 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5 cursor-pointer focus:invisible"
+                  className="px-4 py-2.5 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white text-sm font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5 cursor-pointer focus:invisible"
                 >
                   <Eye className="w-4 h-4" />
                   Preview Info

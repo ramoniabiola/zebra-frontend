@@ -190,7 +190,7 @@ const NotificationPage = () => {
                     ) : notifications?.length === 0 ? (
                         <NotificationPlaceholder />
                     ) : (
-                        <div className="w-full px-4 flex flex-col items-start justify-center gap-2 mt-6 mb-8">
+                        <div className="w-full px-4 flex flex-col items-start justify-center gap-2 mt-2 mb-8">
                             {notifications.map((notification) => (
                                 <NotificationCard
                                     key={notification._id}

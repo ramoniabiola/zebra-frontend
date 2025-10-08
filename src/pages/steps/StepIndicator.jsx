@@ -1,4 +1,4 @@
-import { ArrowLeft, Plus, X, CheckCircle, AlertCircle, Home, DollarSign, User, Camera } from 'lucide-react';
+import {  CheckCircle, Home, DollarSign, User, Camera } from 'lucide-react';
 
 
 
@@ -13,7 +13,7 @@ const StepIndicator = ({ currentStep }) => {
 
 
   return (
-    <div className="w-full mb-8 px-2  ">
+    <div className="w-full mb-8 px-2">
       <div className="flex justify-between items-center relative">
         {/* Progress Line */}
         <div className="absolute top-5 left-0 right-0 h-0.5 bg-gray-200 -z-10">

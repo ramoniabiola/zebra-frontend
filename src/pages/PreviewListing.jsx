@@ -3,6 +3,7 @@ import { ArrowLeft, Edit, MapPin, Phone, User, Home, CheckCircle, Bed, Bath, Squ
 import { useDispatch } from 'react-redux';
 import {  useCreateNewListing } from "../hooks/myListings";
 import { useNavigate } from 'react-router-dom';
+import { formatPhoneNumber } from "../utils/contact-format/PhoneNumberFormat";
 
 const PreviewListing = ({ formData, onBackToStep }) => {
   const [currentImg, setCurrentImg] = useState(0);
@@ -91,11 +92,11 @@ const PreviewListing = ({ formData, onBackToStep }) => {
       <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
           <div className="text-center mb-6">
-            <div className="w-16 h-16 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
-              <CheckCircle className="w-8 h-8 text-white" />
+            <div className="w-14 h-14 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <CheckCircle className="w-7 h-7 text-white" />
             </div>
-            <h3 className="text-xl font-bold text-gray-800 mb-2">Confirm Submission</h3>
-            <p className="text-gray-600">
+            <h3 className="text-lg font-bold text-gray-800 mb-2">Confirm Submission</h3>
+            <p className="text-gray-600 text-sm">
               Are you sure you want to submit this listing? Once submitted, it will be reviewed before going live.
             </p>
           </div>
@@ -103,13 +104,13 @@ const PreviewListing = ({ formData, onBackToStep }) => {
           <div className="flex gap-3">
             <button
               onClick={() => setShowConfirmModal(false)}
-              className="flex-1 px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all duration-200 focus:invisible cursor-pointer"
+              className="flex-1 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all duration-200 focus:invisible cursor-pointer"
             >
               Cancel
             </button>
             <button
               onClick={handleFinalSubmit}
-              className="flex-1 px-4 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-xl transition-all duration-200 focus:invisible cursor-pointer"
+              className="flex-1 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-xl transition-all duration-200 focus:invisible cursor-pointer"
             >
               Submit
             </button>
@@ -139,13 +140,13 @@ const PreviewListing = ({ formData, onBackToStep }) => {
           <div className="text-center">
             {isLoading && (
               <>
-                <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Loader2 className="w-8 h-8 text-sky-600 animate-spin" />
+                <div className="w-14 h-14 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Loader2 className="w-7 h-7 text-sky-600 animate-spin" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   🚀 Making Your Vacant Home Shine Online!
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-base">
                   Please wait while we publish your vacant listing...
                 </p>
               </>
@@ -153,13 +154,13 @@ const PreviewListing = ({ formData, onBackToStep }) => {
   
             {success && (
               <>
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-green-600" />
+                <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="w-7 h-7 text-green-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   🎉 Your Home is Now Live!
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-base">
                   Congratulations! Your listing is now visible to potential tenants. Get ready for inquiries!
                 </p>
               </>
@@ -167,13 +168,13 @@ const PreviewListing = ({ formData, onBackToStep }) => {
   
             {error && (
               <>
-                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <AlertCircle className="w-8 h-8 text-red-600" />
+                <div className="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <AlertCircle className="w-7 h-7 text-red-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   Oops! Something Went Wrong
                 </h3>
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-600 text-base mb-4">
                   Don't worry - these things happen! Let's give it another shot.
                   <br />
                   <span className="text-sm text-gray-500 mt-2 block">
@@ -199,7 +200,7 @@ const PreviewListing = ({ formData, onBackToStep }) => {
     <div className="w-full min-h-screen bg-gradient-to-br from-gray-50 to-white">
       {/* Header */}
       <div className="bg-white border-b border-gray-100 fixed top-0 left-0 right-0 z-40">
-        <div className="max-w-4xl mx-auto px-4 py-4">
+        <div className="max-w-4xl mx-auto px-2 py-4">
           <div className="flex items-center gap-1">
             <button 
               onClick={() => onBackToStep(4)}
@@ -295,18 +296,18 @@ const PreviewListing = ({ formData, onBackToStep }) => {
               {/* Property Stats */}
               <div className="grid grid-cols-3 gap-2 mb-12">
                 <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-4 rounded-2xl text-center border border-cyan-100">
-                  <Bed className="w-8 h-8 text-cyan-600 mx-auto mb-2" />
+                  <Bed className="w-7 h-7 text-cyan-600 mx-auto mb-2" />
                   <div className="text-2xl font-bold text-gray-800">{formData.bedrooms}</div>
                   <div className="text-sm text-gray-600">Bedroom{formData.bedrooms > 1 ? 's' : ''}</div>
                 </div>
                 <div className="bg-gradient-to-br from-emerald-50 to-green-50 p-4 rounded-2xl text-center border border-emerald-100">
-                  <Bath className="w-8 h-8 text-emerald-600 mx-auto mb-2" />
+                  <Bath className="w-7 h-7 text-emerald-600 mx-auto mb-2" />
                   <div className="text-2xl font-bold text-gray-800">{formData.bathrooms}</div>
                   <div className="text-sm text-gray-600">Bathroom{formData.bathrooms > 1 ? 's' : ''}</div>
                 </div>
                 {formData.apartment_size && (
                   <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-2xl text-center border border-purple-100">
-                    <Square className="w-8 h-8 text-purple-600 mx-auto mb-2" />
+                    <Square className="w-7 h-7 text-purple-600 mx-auto mb-2" />
                     <div className="text-2xl font-bold text-gray-800">{formData.apartment_size}</div>
                     <div className="text-sm text-gray-600">sq ft</div>
                   </div>
@@ -354,9 +355,9 @@ const PreviewListing = ({ formData, onBackToStep }) => {
                   </div>
                   <p className="text-gray-600 mt-4">{formData.duration}</p>
                   {formData.service_charge && (
-                    <div className='flex items-center justify-start bg-gray-50 p-3 mt-4 gap-2 rounded-xl'>
+                    <div className='flex items-center justify-start bg-gray-50 border border-gray-100 py-2 px-4 mt-4 gap-3 rounded-xl'>
                       <p className='text-sm text-gray-500  rounded-xl'>Service Charge:</p>
-                      <p className="text-lg text-gray-600 font-bold  bg-gray-50 rounded-xl tracking-wide">
+                      <p className="text-lg text-gray-600 font-bold tracking-wide">
                         {formatPrice(formData.service_charge)}
                       </p>
                     </div>
@@ -385,8 +386,8 @@ const PreviewListing = ({ formData, onBackToStep }) => {
                 </div>
                 <div className="space-y-4">
                   <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-2xl border border-cyan-100">
-                    <div className="w-12 h-12 bg-gradient-to-r from-cyan-400 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
-                      <User className="w-6 h-6 text-white" />
+                    <div className="w-11 h-11 bg-gradient-to-r from-cyan-400 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
+                      <User className="w-5.5 h-5.5 text-white" />
                     </div>
                     <div>
                       <p className="font-semibold text-gray-800">{formData.contact_name}</p>
@@ -394,11 +395,11 @@ const PreviewListing = ({ formData, onBackToStep }) => {
                     </div>
                   </div>
                   <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl border border-emerald-100">
-                    <div className="w-12 h-12 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
-                      <Phone className="w-6 h-6 text-white" />
+                    <div className="w-11 h-11 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
+                      <Phone className="w-5.5 h-5.5 text-white" />
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-800">{formData.contact_phone}</p>
+                      <p className="font-semibold text-gray-800">{formatPhoneNumber(formData.contact_phone)}</p>
                       <p className="text-sm text-gray-600">Phone Number</p>
                     </div>
                   </div>

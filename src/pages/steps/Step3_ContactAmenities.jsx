@@ -25,8 +25,8 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
   return (
     <div className="space-y-8">
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-1">Contact & Property Details</h2>
-        <p className="text-gray-600">Add contact information and amenities</p>
+        <h2 className="text-xl font-bold text-gray-800 mb-1">Contact & Property Details</h2>
+        <p className="text-gray-600 text-sm">Add contact information and amenities</p>
       </div>
       
       <div className="space-y-6">
@@ -41,7 +41,7 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
               value={formData.contact_name}
               onChange={handleChange}
               placeholder="Your full name"
-              className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
+              className={`w-full px-4 py-3 border text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
                 errors?.contact_name ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-gray-400'
               }`}
             />
@@ -58,7 +58,7 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
               value={formData.contact_phone}
               onChange={handleChange}
               placeholder="+234 XXX XXX XXXX"
-              className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
+              className={`w-full px-4 py-3 border text-sm  rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
                 errors?.contact_phone ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-gray-400'
               }`}
             />
@@ -78,7 +78,7 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
               onChange={handleChange}
               placeholder="0"
               min="0"
-              className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
+              className={`w-full px-4 py-3 border text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
                 errors?.bedrooms ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-gray-400'
               }`}
             />
@@ -96,7 +96,7 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
               onChange={handleChange}
               placeholder="0"
               min="0"
-              className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
+              className={`w-full px-4 py-3 border text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
                 errors?.bathrooms ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-gray-400'
               }`}
             />
@@ -113,7 +113,7 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
               value={formData.apartment_size}
               onChange={handleChange}
               placeholder="e.g., 120 sqm"
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:border-gray-400 transition-all duration-200"
+              className="w-full px-4 py-3 border text-sm  border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:border-gray-400 transition-all duration-200"
             />
           </div>
         </div>
@@ -149,7 +149,7 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
         </div>
 
         {/* Amenities */}
-        <div className="w-full space-y-3">
+        <div className="w-full px-2 space-y-3">
           <label className="block text-base font-semibold text-gray-700">
             Amenities
           </label>
@@ -164,9 +164,9 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
             <button
               type="button"
               onClick={handleAmenityAdd}
-              className="flex-1/5 px-3 py-2 bg-gradient-to-r from-cyan-500 to-cyan-600 focus:invisible hover:from-cyan-600 hover:to-cyan-700 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200 flex items-center cursor-pointer"
+              className="flex-1/5 px-2 py-2 bg-gradient-to-r from-cyan-500 to-cyan-600 focus:invisible hover:from-cyan-600 hover:to-cyan-700 text-white text-sm rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200 flex items-center cursor-pointer"
             >
-              <Plus strokeWidth={2} className="w-5 h-5" />
+              <Plus strokeWidth={2} className="w-4 h-4" />
               Add
             </button>
           </div>

@@ -3,8 +3,8 @@ const Step2_PricingDuration = ({ formData, handleChange, errors }) => {
   return (
     <div className="space-y-8">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-0.5">Pricing & Duration</h2>
-          <p className="text-gray-600">Set your rental terms</p>
+          <h2 className="text-xl font-bold text-gray-800 mb-0.5">Pricing & Duration</h2>
+          <p className="text-gray-600 text-sm">Set your rental terms</p>
         </div>
 
         <div className="space-y-6">
@@ -20,7 +20,7 @@ const Step2_PricingDuration = ({ formData, handleChange, errors }) => {
                         value={formData.price}
                         onChange={handleChange}
                         placeholder="0"
-                        className={`w-full pl-8 pr-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
+                        className={`w-full pl-8 pr-4 py-3 border text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
                           errors?.price ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-gray-400'
                         }`}
                     />
@@ -36,7 +36,7 @@ const Step2_PricingDuration = ({ formData, handleChange, errors }) => {
                     name="payment_frequency"
                     value={formData.payment_frequency}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
+                    className={`w-full px-4 py-3 border text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
                       errors?.payment_frequency ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-gray-400'
                     }`}
                 >
@@ -60,7 +60,7 @@ const Step2_PricingDuration = ({ formData, handleChange, errors }) => {
                     value={formData.duration}
                     onChange={handleChange}
                     placeholder="e.g., 1 Year, 6 Months"
-                    className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
+                    className={`w-full px-4 py-3 border text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
                       errors?.duration ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-gray-400'
                     }`}
                 />
@@ -79,7 +79,7 @@ const Step2_PricingDuration = ({ formData, handleChange, errors }) => {
                         value={formData.service_charge}
                         onChange={handleChange}
                         placeholder="0"
-                        className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:border-gray-400 transition-all duration-200"
+                        className="w-full pl-8 pr-4 py-3 border text-sm border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:border-gray-400 transition-all duration-200"
                     />
                 </div>
             </div>
