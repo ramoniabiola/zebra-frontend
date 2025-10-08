@@ -88,9 +88,9 @@ const MyDashboard = () => {
   return (
     <div className="w-full min-h-screen flex flex-col items-start justify-start bg-white">
       {/* Welcome section with avatar */}
-      <div className="w-full flex items-center justify-between px-6 py-6 pt-10">
+      <div className="w-full flex items-center justify-between px-6 py-6 pt-8">
         <div className="flex flex-col gap-1">
-          <h2 className="text-lg font-semibold text-cyan-900 tracking-widest">Welcome back!</h2>
+          <h2 className="text-base font-semibold text-cyan-900 tracking-widest">Welcome back!</h2>
           <h1 className="text-xl font-bold text-cyan-950 tracking-widest">{user?.username}</h1>
         </div>
         <div className="ring-4 p-[3px] ring-cyan-500 rounded-full">

@@ -22,7 +22,7 @@ const notificationSlice = createSlice({
         },
         getNotificationsSuccess: (state, action) => {
             state.items = action.payload;
-            state.unreadCount = action.payload.notifications.filter(n => !n.isRead).length;
+            state.unreadCount = action.payload.totalUnread;
             state.loading = false;
         },
         getNotificationsError: (state, action) => {
