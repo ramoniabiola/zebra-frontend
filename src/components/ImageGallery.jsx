@@ -199,7 +199,7 @@ const ImageGallery = ({
     if (editMode) {
         return (
             <div className="p-8 w-full">
-                <h3 className="text-lg text-center font-semibold text-gray-900 mb-6">
+                <h3 className="text-base text-center font-semibold text-gray-900 mb-6">
                     Apartment Images ({imageList.length}/5 minimum)
                 </h3>
 
@@ -283,11 +283,11 @@ const ImageGallery = ({
                                     <img
                                         src={src}
                                         alt={`img-${idx}`}
-                                        className="w-full h-32 object-cover rounded-lg border border-gray-200"
+                                        className="w-full h-30 object-cover rounded-lg border border-gray-200"
                                     />
                                     <button
                                         onClick={() => onRemoveImage(idx)}
-                                        className={`absolute -top-2 -right-2 w-8 h-8 bg-rose-500/70 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-200 cursor-pointer ${
+                                        className={`absolute -top-2 -right-2 w-7 h-7 bg-rose-500/70 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-200 cursor-pointer ${
                                             isTouchDevice
                                                 ? "opacity-100"
                                                 : "opacity-0 group-hover:opacity-100"
@@ -305,14 +305,14 @@ const ImageGallery = ({
                 )}
 
                 {/* Upload Area */}
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-cyan-400 transition-colors duration-200">
+                <div className="border-2 border-dashed border-gray-200 rounded-lg p-8 text-center hover:border-cyan-400 transition-colors duration-200">
                     <div className="flex flex-col items-center">
-                        <Upload className="w-12 h-12 text-gray-400 mb-4" />
+                        <Upload className="w-10 h-10 text-gray-400 mb-4" />
                         <label className="cursor-pointer">
-                            <span className="text-cyan-400 hover:text-cyan-500 hover:underline font-medium">
+                            <span className="text-cyan-400 text-base hover:text-cyan-500 hover:underline font-medium">
                                 Upload new images
                             </span>
-                            <span className="text-gray-500"> or drag and drop</span>
+                            <span className="text-gray-500 text-base"> or drag and drop</span>
                             <input
                                 type="file"
                                 multiple
@@ -351,7 +351,7 @@ const ImageGallery = ({
                             image will be your main listing photo. To rearrange
                             images,{" "}
                             {isTouchDevice
-                                ? "press and hold an image for half a second, then drag it onto another image to swap their positions"
+                                ? "then drag it onto another image to swap their positions"
                                 : "simply drag and drop one image onto another to swap their positions"}
                             . A minimum of <b>5</b> images is required and a
                             maximum of <b>15</b> images is allowed.
@@ -360,7 +360,7 @@ const ImageGallery = ({
                 </div>
 
                 {imageList.length > 15 && ( 
-                    <div className="p-4 bg-rose-50 border border-rose-200 rounded-xl mt-4"> 
+                    <div className="p-2 bg-rose-50 border border-rose-200 rounded-xl mt-4"> 
                         <p className="text-sm text-rose-700 leading-6"> <span className="font-medium">Warning: </span> 
                             You have exceeded the maximum limit of <b>15</b> images. Currently you have <b>{imageList.length}</b> images.
                         </p>
@@ -368,7 +368,7 @@ const ImageGallery = ({
                 )}
 
                 {imageList.length < 5 && ( 
-                    <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl mt-4"> 
+                    <div className="p-2 bg-amber-50 border border-amber-200 rounded-xl mt-4"> 
                         <p className="text-sm text-amber-700 leading-6"> <span className="font-medium">Warning: </span> 
                             You need at least <b>5</b> images to reactivate the listing. Currently you have <b>{imageList.length}</b> images. 
                         </p> 

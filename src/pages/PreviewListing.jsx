@@ -294,21 +294,21 @@ const PreviewListing = ({ formData, onBackToStep }) => {
                 </button>
               </div>
               {/* Property Stats */}
-              <div className="grid grid-cols-3 gap-2 mb-12">
+              <div className="grid grid-cols-3 gap-1 mb-12">
                 <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-4 rounded-2xl text-center border border-cyan-100">
                   <Bed className="w-7 h-7 text-cyan-600 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-gray-800">{formData.bedrooms}</div>
+                  <div className="text-2xl font-bold text-gray-800 mb-1">{formData.bedrooms}</div>
                   <div className="text-sm text-gray-600">Bedroom{formData.bedrooms > 1 ? 's' : ''}</div>
                 </div>
                 <div className="bg-gradient-to-br from-emerald-50 to-green-50 p-4 rounded-2xl text-center border border-emerald-100">
                   <Bath className="w-7 h-7 text-emerald-600 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-gray-800">{formData.bathrooms}</div>
+                  <div className="text-2xl font-bold text-gray-800 mb-1">{formData.bathrooms}</div>
                   <div className="text-sm text-gray-600">Bathroom{formData.bathrooms > 1 ? 's' : ''}</div>
                 </div>
                 {formData.apartment_size && (
                   <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-2xl text-center border border-purple-100">
                     <Square className="w-7 h-7 text-purple-600 mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-gray-800">{formData.apartment_size}</div>
+                    <div className="text-2xl font-bold text-gray-800 mb-1">{formData.apartment_size}</div>
                     <div className="text-sm text-gray-600">sq ft</div>
                   </div>
                 )}

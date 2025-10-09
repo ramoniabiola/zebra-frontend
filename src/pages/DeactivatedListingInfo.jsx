@@ -22,8 +22,8 @@ const InfoCard = ({ icon: Icon, label, value, name, editable = true, editMode, e
   <div className="bg-white rounded-lg p-4 border border-gray-100">
     <div className="flex items-start gap-4">
       <div className="flex-shrink-0">
-        <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-400 rounded-xl flex items-center justify-center">
-          <Icon className="w-6 h-6 text-white" />
+        <div className="w-11 h-11 bg-gradient-to-br from-cyan-500 to-blue-400 rounded-xl flex items-center justify-center">
+          <Icon className="w-5.5 h-5.5 text-white" />
         </div>
       </div>
       <div className="flex-1 min-w-0">
@@ -92,8 +92,8 @@ const ApartmentTypeCard = ({
     <div className="bg-white rounded-lg p-4 border border-gray-100">
       <div className="flex items-start gap-4">
         <div className="flex-shrink-0">
-          <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-400 rounded-xl flex items-center justify-center">
-            <Icon className="w-6 h-6 text-white" />
+          <div className="w-11 h-11 bg-gradient-to-br from-cyan-500 to-blue-400 rounded-xl flex items-center justify-center">
+            <Icon className="w-5.5 h-5.5 text-white" />
           </div>
         </div>
         <div className="flex-1 min-w-0">
@@ -141,46 +141,50 @@ const AmenitiesCard = ({ icon: Icon, label, apartment_amenities, editable = true
     <div className="bg-white rounded-lg p-4 border border-gray-100">
       <div className="flex items-start gap-4">
         <div className="flex-shrink-0">
-          <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-400 rounded-xl flex items-center justify-center">
-            <Icon className="w-6 h-6 text-white" />
+          <div className="w-11 h-11 bg-gradient-to-br from-cyan-500 to-blue-400 rounded-xl flex items-center justify-center">
+            <Icon className="w-5.5 h-5.5 text-white" />
           </div>
         </div>
         <div className="flex-1 min-w-0">
           <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">{label}</label>
-          
           {editMode && editable ? (
-            <div className="mt-4 space-y-4">
-              <div className="space-y-3">
+            <div className="mt-4 flex flex-col gap-3">
+              {/* Amenities Section */}
+              <div className="flex flex-wrap gap-2 flex-1">
                 {apartment_amenities.map((amenity, index) => (
                   <div
                     key={index}
-                    className="bg-gradient-to-r from-cyan-50 to-cyan-100 border border-cyan-200 text-cyan-800 px-3 py-2 rounded-lg flex items-center justify-between"
+                    className="bg-gradient-to-r from-cyan-50 to-cyan-100 border border-cyan-200 text-cyan-800 px-3 py-1 rounded-lg flex items-center gap-2 group hover:from-cyan-100 hover:to-cyan-200 transition-all duration-200"
                   >
-                    <span>{amenity}</span>
+                    <span className="text-sm font-medium">{amenity}</span>
                     <button
                       type="button"
                       onClick={() => handleAmenityRemove(amenity)}
-                      className="text-cyan-600 hover:text-red-500 transition-colors duration-200 cursor-pointer"
+                      className="text-cyan-600 hover:text-red-500 transition-colors duration-200"
                     >
-                     &times;
+                      &times;
                     </button>
                   </div>
                 ))}
               </div>
-              
-              <form onSubmit={handleAddAmenity} className="flex flex-col gap-2 pt-2">
+
+              {/* Add New Amenity */}
+              <form
+                onSubmit={handleAddAmenity}
+                className="flex flex-wrap w-full gap-2 items-center"
+              >
                 <input
                   type="text"
                   value={newAmenity}
                   onChange={(e) => setNewAmenity(e.target.value)}
                   placeholder="Add new amenity..."
-                  className="mt-1 w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-               />
+                  className="flex-grow px-3 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 text-sm"
+                />
                 <button
                   type="submit"
-                  className="px-6 py-3 bg-teal-500 hover:bg-teal-600 text-white rounded-md transition-all duration-200 flex items-center justify-center gap-1 focus:invisible cursor-pointer"
+                  className="flex-shrink-0 w-auto sm:w-auto px-2 py-3 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white text-sm gap-1 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200 flex items-center"
                 >
-                  <Plus strokeWidth={3} className="w-4.5 h-4.5" />
+                  <Plus strokeWidth={3} className="w-3 h-3" />
                   Add
                 </button>
               </form>
@@ -443,11 +447,11 @@ const DeactivatedListingInfo = () => {
         ) : ( 
           <>
             {/* Section: Header */}
-            <div className="w-full h-20 flex items-center justify-start pl-2 gap-2 bg-white shadow">
+            <div className="w-full h-20 flex items-center justify-start px-2 gap-2 bg-white shadow">
               <button onClick={() => navigate(-1)} className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full focus:invisible">
-                <ArrowLeft className="w-6 h-6 text-gray-700 cursor-pointer" />
+                <ArrowLeft className="w-5 h-5 text-gray-700 cursor-pointer" />
               </button>
-              <div className='space-y-0.5'>
+              <div className=''>
                 <h1 className="text-xl font-bold text-gray-900">Apartment Details</h1>
                 <p className="text-sm text-gray-500">Manage your inactive apartment listing</p>
               </div>
@@ -499,7 +503,7 @@ const DeactivatedListingInfo = () => {
                 {/* Main Info */}
                 <div className="lg:col-span-2 space-y-6">
                   <div className="bg-white px-3 py-8">
-                    <h2 className="text-2xl text-center font-bold text-gray-800 mb-8">Property Information</h2>
+                    <h2 className="text-xl text-center font-bold text-gray-800 mb-8">Property Information</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="md:col-span-2">
                         <InfoCard 
@@ -582,7 +586,7 @@ const DeactivatedListingInfo = () => {
               
                   {/* Amenities */}
                   <div className="bg-white px-3 py-8">
-                    <h2 className="text-2xl text-center font-bold text-gray-800 mb-8">Amenities & Features</h2>
+                    <h2 className="text-xl text-center font-bold text-gray-800 mb-8">Amenities & Features</h2>
                     <div className="space-y-6">
                       <InfoCard 
                         icon={Home} 
@@ -610,7 +614,7 @@ const DeactivatedListingInfo = () => {
                 <div className="space-y-6">
                   {/* Pricing */}
                   <div className="bg-white px-3 py-8">
-                    <h2 className="text-2xl text-center font-bold text-gray-800 mb-8">Pricing</h2>
+                    <h2 className="text-xl text-center font-bold text-gray-800 mb-8">Pricing</h2>
                     <div className="space-y-6">
                       <InfoCard 
                         icon={DollarSign} 
@@ -653,7 +657,7 @@ const DeactivatedListingInfo = () => {
               
                   {/* Contact */}
                   <div className="bg-white px-3 py-8">
-                    <h2 className="text-2xl text-center font-bold text-gray-800 mb-8">Contact</h2>
+                    <h2 className="text-xl text-center font-bold text-gray-800 mb-8">Contact</h2>
                     <div className='space-y-6'>
 
                       <InfoCard 

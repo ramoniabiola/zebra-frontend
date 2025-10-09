@@ -117,11 +117,11 @@ const ListingInfo = () => {
       <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
           <div className="text-center mb-6">
-            <div className="w-16 h-16 bg-gradient-to-r from-rose-400 to-rose-500 rounded-full flex items-center justify-center mx-auto mb-4">
-              <AlertTriangle className="w-8 h-8 text-white" />
+            <div className="w-14 h-14 bg-gradient-to-r from-rose-500 to-rose-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <AlertTriangle className="w-7 h-7 text-white" />
             </div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">Confirm Deactivation</h3>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-sm">
               Are you sure you want to deactivate this listing? Once deactivated, it will no longer be visible to potential tenants.
             </p>
           </div>
@@ -129,13 +129,13 @@ const ListingInfo = () => {
           <div className="flex gap-3">
             <button
               onClick={() => setShowConfirmModal(false)}
-              className="flex-1 px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all duration-200 focus:invisible cursor-pointer"
+              className="flex-1 px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all duration-200 focus:invisible cursor-pointer"
             >
               Cancel
             </button>
             <button
               onClick={handleDeactivateListing}
-              className="flex-1 px-4 py-3 bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white font-semibold rounded-xl transition-all duration-200 focus:invisible cursor-pointer"
+              className="flex-1 px-3 py-2 bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white font-semibold rounded-xl transition-all duration-200 focus:invisible cursor-pointer"
             >
               Deactivate
             </button>
@@ -168,10 +168,10 @@ const ListingInfo = () => {
                 <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Loader2 className="w-8 h-8 text-sky-600 animate-spin" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   Deactivating Your Listing...
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-sm">
                  Please wait while we take your listing offline...
                 </p>
               </>
@@ -182,10 +182,10 @@ const ListingInfo = () => {
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle className="w-8 h-8 text-green-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
                  Listing Successfully Deactivated!
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-sm">
                   Your listing has been taken offline and is no longer visible to potential tenants.
                 </p>
               </>
@@ -196,10 +196,10 @@ const ListingInfo = () => {
                 <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <AlertCircle className="w-8 h-8 text-red-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   Oops! Something Went Wrong
                 </h3>
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-600 mb-4 text-sm">
                   We couldn't deactivate your listing. Please try again.
                   <br />
                   <span className="text-sm text-gray-500 mt-2 block">
@@ -252,8 +252,8 @@ const ListingInfo = () => {
     <div className="bg-white rounded-lg p-4 border border-gray-100">
       <div className="flex items-start gap-4">
         <div className="flex-shrink-0">
-          <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-400 rounded-xl flex items-center justify-center">
-            <Icon className="w-6 h-6 text-white" />
+          <div className="w-11 h-11 bg-gradient-to-br from-cyan-500 to-blue-400 rounded-xl flex items-center justify-center">
+            <Icon className="w-5.5 h-5.5 text-white" />
           </div>
         </div>
         <div className="flex-1 min-w-0">
@@ -270,8 +270,8 @@ const ListingInfo = () => {
       <div className="bg-white rounded-lg p-4 border border-gray-100">
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0">
-            <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-400 rounded-xl flex items-center justify-center">
-              <Icon className="w-6 h-6 text-white" />
+            <div className="w-11 h-11 bg-gradient-to-br from-cyan-500 to-blue-400 rounded-xl flex items-center justify-center">
+              <Icon className="w-5.5 h-5.5 text-white" />
             </div>
           </div>
           <div className="flex-1 min-w-0">
@@ -303,11 +303,11 @@ const ListingInfo = () => {
         ) : ( 
           <>
             {/* Section: Header */}
-            <div className="w-full h-20 flex items-center justify-start pl-2 gap-2 bg-white shadow">
+            <div className="w-full h-20 flex items-center justify-start px-2 gap-2 bg-white shadow">
               <button onClick={() => navigate(-1)} className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full focus:invisible">
-                <ArrowLeft className="w-6 h-6 text-gray-700 cursor-pointer" />
+                <ArrowLeft className="w-5 h-5 text-gray-700 cursor-pointer" />
               </button>
-              <div className='space-y-0.5'>
+              <div className=''>
                 <h1 className="text-xl font-bold text-gray-900">Apartment Details</h1>
                 <p className="text-sm text-gray-500">View your active apartment listing</p>
               </div>
@@ -364,9 +364,9 @@ const ListingInfo = () => {
                 <button 
                   onClick={() => setShowConfirmModal(true)}
                   disabled={success}
-                  className="flex items-center font-semibold gap-2 px-4 py-2 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-lg hover:from-red-600 hover:to-rose-700 transition-all duration-200 shadow-sm cursor-pointer focus:invisible"
+                  className="flex items-center font-semibold gap-1 px-4 py-2 bg-gradient-to-r from-red-500 to-rose-600 text-white text-sm rounded-lg hover:from-red-600 hover:to-rose-700 transition-all duration-200 shadow-sm cursor-pointer focus:invisible"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <Trash2 className="w-3.5 h-3.5" />
                   Deactivate Listing
                 </button>
               </div>
@@ -377,7 +377,7 @@ const ListingInfo = () => {
                 {/* Main Info */}
                 <div className="lg:col-span-2 space-y-6">
                   <div className="bg-white px-3 py-8">
-                    <h2 className="text-2xl text-center font-bold text-gray-800 mb-8">Apartment Information</h2>
+                    <h2 className="text-xl text-center font-bold text-gray-800 mb-8">Apartment Information</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="md:col-span-2">
                         <InfoCard 
@@ -428,7 +428,7 @@ const ListingInfo = () => {
                 
                   {/* Amenities */}
                   <div className="bg-white px-3 py-8">
-                    <h2 className="text-2xl text-center font-bold text-gray-800 mb-8">Amenities & Features</h2>
+                    <h2 className="text-xl text-center font-bold text-gray-800 mb-8">Amenities & Features</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <InfoCard 
                         icon={Home} 
@@ -447,7 +447,7 @@ const ListingInfo = () => {
                 <div className="lg:col-span-2 space-y-6">
                   {/* Pricing */}
                   <div className="bg-white px-3 py-8">
-                    <h2 className="text-2xl text-center font-bold text-gray-800 mb-8">Pricing</h2>
+                    <h2 className="text-xl text-center font-bold text-gray-800 mb-8">Pricing</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <InfoCard 
                         icon={DollarSign} 
@@ -474,7 +474,7 @@ const ListingInfo = () => {
                 
                   {/* Contact */}
                   <div className="bg-white px-3 py-8">
-                    <h2 className="text-2xl text-center font-bold text-gray-800 mb-8">Contact</h2>
+                    <h2 className="text-xl text-center font-bold text-gray-800 mb-8">Contact</h2>
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                       <InfoCard 
                         icon={User} 
