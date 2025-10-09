@@ -153,23 +153,25 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
           <label className="block text-base font-semibold text-gray-700">
             Amenities
           </label>
-          <div className="w-full flex gap-2 pr-4">
+          <div className="w-full flex gap-2">
             <input
               type="text"
               value={amenityInput}
               onChange={(e) => setAmenityInput(e.target.value)}
               placeholder="Add an amenity..."
-              className="flex-3/5 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:border-gray-400 transition-all duration-200"
+              className="flex-grow px-3 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:border-gray-400 transition-all duration-200 text-sm"
             />
             <button
               type="button"
               onClick={handleAmenityAdd}
-              className="flex-2/5 px-2 py-1 bg-gradient-to-r from-cyan-500 to-cyan-600 focus:invisible hover:from-cyan-600 hover:to-cyan-700 text-white text-sm rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200 flex items-center cursor-pointer"
+              className="flex-shrink-0 px-3 py-3 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white text-sm rounded-xl font-medium shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-1"
             >
               <Plus strokeWidth={2} className="w-4 h-4" />
               Add
             </button>
           </div>
+
+          
 
           {formData.apartment_amenities.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-3">
