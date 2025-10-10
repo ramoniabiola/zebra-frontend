@@ -11,7 +11,7 @@ const ActionButtons = ({
 }) => {
     if (editMode) {
         return (
-            <div className="flex items-center justify-center gap-4 mx-14">
+            <div className="flex items-center justify-center mx-8 gap-4">
                 <button 
                     onClick={onSave}
                     disabled={isLoading || disabled}
@@ -46,7 +46,7 @@ const ActionButtons = ({
     }
 
     return (
-        <div className="flex items-center gap-3 justify-start ml-2">
+        <div className="flex items-center gap-3 justify-start mx-2">
             <button 
                 onClick={onEdit}
                 disabled={disabled}

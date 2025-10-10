@@ -51,7 +51,7 @@ const InfoCard = ({ icon: Icon, label, value, name, editable = true, editMode, e
             />
           )
         ) : (
-          <p className="mt-2 text-lg font-semibold text-gray-900 break-words">{value}</p>
+          <p className="mt-2 text-base font-semibold text-gray-900 break-words">{value}</p>
         )}
       </div>
     </div>
@@ -116,7 +116,7 @@ const ApartmentTypeCard = ({
               </select>
             </div>
           ) : (
-            <p className="mt-2 text-lg font-semibold text-gray-900 break-words">
+            <p className="mt-2 text-base font-semibold text-gray-900 break-words">
               {getDisplayValue(value) || 'Not specified'}
             </p>
           )}
@@ -447,7 +447,7 @@ const DeactivatedListingInfo = () => {
         ) : ( 
           <>
             {/* Section: Header */}
-            <div className="w-full h-20 flex items-center justify-start px-2 gap-2 bg-white shadow">
+            <div className="w-full h-18 flex items-center justify-start px-2 gap-2 bg-white shadow">
               <button onClick={() => navigate(-1)} className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full focus:invisible">
                 <ArrowLeft className="w-5 h-5 text-gray-700 cursor-pointer" />
               </button>

@@ -294,7 +294,7 @@ const PreviewListing = ({ formData, onBackToStep }) => {
                 </button>
               </div>
               {/* Property Stats */}
-              <div className="grid grid-cols-3 gap-1 mb-12">
+              <div className="min-w-full grid grid-cols-3 gap-1 mb-12">
                 <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-4 rounded-2xl text-center border border-cyan-100">
                   <Bed className="w-7 h-7 text-cyan-600 mx-auto mb-2" />
                   <div className="text-2xl font-bold text-gray-800 mb-1">{formData.bedrooms}</div>
