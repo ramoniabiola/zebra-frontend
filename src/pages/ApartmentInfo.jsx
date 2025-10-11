@@ -512,8 +512,7 @@ const ApartmentInfo = () => {
                     >
                       {copied ? (
                         <>
-                          <Check className="w-3 h-3" />
-                          Copied!
+                          <Check className="w-4 h-4" />
                         </>
                       ) : (
                         <>

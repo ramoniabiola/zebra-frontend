@@ -331,7 +331,7 @@ const PasswordChange = () => {
                         type="submit"
                         disabled={isLoading} 
                         onClick={handlePasswordChange}
-                        className="w-full bg-gradient-to-r from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 text-white py-3 rounded-xl text-base font-bold transition-all duration-300 transform hover:scale-[1.01] hover:shadow-lg shadow-cyan-500/25 focus:outline-none focus:ring-4 focus:ring-cyan-500/30 flex items-center justify-center space-x-2 group cursor-pointer"
+                        className="w-full bg-gradient-to-r from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 text-white py-3 rounded-xl text-base font-semibold transition-all duration-300 transform hover:scale-[1.01] hover:shadow-lg shadow-cyan-500/25 focus:outline-none focus:ring-4 focus:ring-cyan-500/30 flex items-center justify-center space-x-2 group cursor-pointer"
                     >
                         {isLoading ? (
                             <>
@@ -341,7 +341,7 @@ const PasswordChange = () => {
                         ) : (
                             <>
                               <span>Update Password</span>
-                              <ArrowRight size={20} className="transform group-hover:translate-x-1 transition-transform duration-300" />
+                              <ArrowRight size={18} className="transform group-hover:translate-x-1 transition-transform duration-300" />
                             </>
                         )}
                     </button>

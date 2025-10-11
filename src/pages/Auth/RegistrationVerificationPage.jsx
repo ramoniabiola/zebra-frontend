@@ -193,10 +193,10 @@ const RegistrationVerificationPage = ({formData, sendVerificationCode, sendVerif
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   Verifying Your Code
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-sm">
                   Please wait while we confirm your verification code...
                 </p>
               </>
@@ -207,10 +207,10 @@ const RegistrationVerificationPage = ({formData, sendVerificationCode, sendVerif
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle className="w-8 h-8 text-green-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   Code Verified Successfully!
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-sm">
                   🎉 Your verification code has been confirmed. You can now proceed to create an account.
                 </p>
               </>
@@ -221,10 +221,10 @@ const RegistrationVerificationPage = ({formData, sendVerificationCode, sendVerif
                 <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <AlertCircle className="w-8 h-8 text-red-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   Verification Failed
                 </h3>
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-600 mb-4 text-sm">
                   We couldn't verify your code. Please check it and try again.
                   <br />
                   <span className="text-sm text-gray-500 mt-2 block">
@@ -269,10 +269,10 @@ const RegistrationVerificationPage = ({formData, sendVerificationCode, sendVerif
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   Creating Your Account
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-sm">
                   Please wait while we set up your new account...
                 </p>
               </>
@@ -283,10 +283,10 @@ const RegistrationVerificationPage = ({formData, sendVerificationCode, sendVerif
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle className="w-8 h-8 text-green-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   Account Created Successfully!
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-sm">
                   🎉 Welcome! Your account has been created successfully. You can now log in with your credentials.
                 </p>
               </>
@@ -298,10 +298,10 @@ const RegistrationVerificationPage = ({formData, sendVerificationCode, sendVerif
                 <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <AlertCircle className="w-8 h-8 text-red-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   Registration Failed
                 </h3>
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-600 mb-4 text-sm">
                   We couldn't create your account. Please check your information and try again.
                   <br />
                   <span className="text-sm text-gray-500 mt-2 block">
@@ -340,7 +340,7 @@ const RegistrationVerificationPage = ({formData, sendVerificationCode, sendVerif
 
   // Button style generator
   const baseButtonStyles = (disabled) => `
-    w-full py-3.5 rounded-xl text-lg font-semibold transition-all duration-300 transform shadow-lg flex items-center justify-center space-x-2
+    w-full py-2 rounded-xl text-base font-semibold transition-all duration-300 transform shadow-lg flex items-center justify-center space-x-2
     ${disabled 
       ? 'bg-gray-400 cursor-not-allowed'
       : 'bg-gradient-to-r from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 hover:scale-101 hover:shadow-xl cursor-pointer'}
@@ -360,12 +360,12 @@ const RegistrationVerificationPage = ({formData, sendVerificationCode, sendVerif
         </h1>
           
         {/* Welcome Message */}
-        <h2 className="text-xl font-semibold text-center text-gray-500 tracking-wider mb-1">Verify Your Email</h2>
+        <h2 className="text-lg font-semibold text-center text-gray-500 tracking-wider mb-1">Verify Your Email</h2>
         <h3 className="text-sm text-center font-normal italic text-gray-400 mb-6">Almost there...</h3>
           
         {/* Email Icon */}
-        <div className="w-16 h-16 bg-cyan-100 rounded-2xl border border-cyan-200 flex items-center justify-center mx-auto mb-6 shadow-lg">
-          <Mail className="w-8 h-8 text-cyan-600" />
+        <div className="w-12 h-12 bg-cyan-100 rounded-2xl border border-cyan-200 flex items-center justify-center mx-auto mb-6 shadow-lg">
+          <Mail className="w-6 h-6 text-cyan-600" />
         </div>
 
         <div className='mb-4'>
@@ -380,7 +380,7 @@ const RegistrationVerificationPage = ({formData, sendVerificationCode, sendVerif
         <p className="text-gray-600 text-center text-sm mb-2">
           We've sent a 6-digit verification code to
         </p>
-        <p className="text-gray-800 text-center  font-semibold mb-8">
+        <p className="text-gray-800 text-center text-sm font-semibold mb-8">
           {formData.email}
         </p>
 
@@ -399,7 +399,7 @@ const RegistrationVerificationPage = ({formData, sendVerificationCode, sendVerif
                 onPaste={handlePaste}
                 disabled={verifyCodeSuccess}
                 maxLength={1}
-                className={`w-10 h-14 text-center text-xl font-bold border-2 rounded-xl transition-all duration-300 focus:outline-none ${
+                className={`w-6 h-10 text-center text-base font-bold border rounded-md transition-all duration-300 focus:outline-none ${
                   verifyCodeError
                     ? 'border-rose-400 bg-rose-50 text-rose-500 shadow-md shadow-rose-500/20'
                     : verifyCodeSuccess
@@ -450,19 +450,19 @@ const RegistrationVerificationPage = ({formData, sendVerificationCode, sendVerif
           </div>
       
           {/* Resend Section */}
-          <div className="text-center space-y-3">
+          <div className="text-center space-y-2">
             <p className="text-gray-600 text-sm">Didn't receive the code?</p>
             <button
               onClick={handleResendCode}
               disabled={resendCooldown > 0 || verifyCodeSuccess}
-              className={`flex items-center space-x-2 mx-auto text-sm font-semibold transition-colors duration-300 ${
+              className={`flex items-center space-x-2 mx-auto text-xs font-semibold transition-colors duration-300 ${
                 resendCooldown > 0
                   ? 'text-gray-400 cursor-not-allowed'
                   : verifyCodeSuccess ? 'text-gray-400 cursor-not-allowed'
                   : 'text-cyan-600 hover:text-cyan-700 cursor-pointer'
               }`}
             >
-              <RotateCcw className="w-4 h-4" />
+              <RotateCcw className="w-3.5 h-3.5" />
               <span>
                 {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : 'Resend Code'}
               </span>

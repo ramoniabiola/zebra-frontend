@@ -251,7 +251,7 @@ const Login = () => {
           type="submit"
           onClick={handleLogin}
           disabled={isLoading} // Disable button while loading
-          className="w-full bg-linear-65 from-cyan-400 to-cyan-600 hover:bg-linear-65 hover:from-cyan-500 hover:to-cyan-700 text-white py-3 rounded-xl text-lg font-bold transition-all duration-300 transform hover:scale-[1.01] hover:shadow-lg shadow-cyan-500/25 focus:outline-none focus:ring-4 focus:ring-cyan-500/30 flex items-center justify-center space-x-2 group cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
+          className="w-full bg-linear-65 from-cyan-400 to-cyan-600 hover:bg-linear-65 hover:from-cyan-500 hover:to-cyan-700 text-white py-3 rounded-xl text-base font-semibold transition-all duration-300 transform hover:scale-[1.01] hover:shadow-lg shadow-cyan-500/25 focus:outline-none focus:ring-4 focus:ring-cyan-500/30 flex items-center justify-center space-x-2 group cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
           {isLoading ? (
             <>
@@ -261,7 +261,7 @@ const Login = () => {
           ) : (
             <>
               <span>Login</span>
-              <ArrowRight size={20} className="transform group-hover:translate-x-1 transition-transform duration-300" />
+              <ArrowRight size={18} className="transform group-hover:translate-x-1 transition-transform duration-300" />
             </>
           )}
         </button>

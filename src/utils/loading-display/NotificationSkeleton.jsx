@@ -2,7 +2,7 @@ import Skeleton from 'react-loading-skeleton';
 
 const NotificationSkeleton = ({ cards = 1 }) => {
   return (
-    <div className='w-full px-4  flex flex-col items-start justify-center gap-2 mt-8 mb-8'>
+    <div className='w-full px-4  flex flex-col items-start justify-center gap-2 mt-2 mb-8'>
       {Array(cards).fill(0).map((_, i) => (
         <div
           key={i}
