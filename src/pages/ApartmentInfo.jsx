@@ -281,8 +281,11 @@ const ApartmentInfo = () => {
           <>
             {/* NAVBAR */}
             <div className="w-full h-18 flex items-center justify-start pl-2 gap-2 bg-white shadow">
-              <button onClick={() => navigate(-1)} className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded-full focus:invisible">
-                <ArrowLeft className="w-5.5 h-5.5 text-gray-700 cursor-pointer" />
+              <button 
+                onClick={() => window.history.back()} 
+                className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded-full focus:outline-none"
+              >
+                <ArrowLeft className="w-5 h-5 text-gray-700 cursor-pointer" />
               </button>
               <div className=''>
                 <h1 className="text-xl font-bold text-gray-900">Apartment Details</h1>
