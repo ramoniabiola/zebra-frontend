@@ -447,7 +447,7 @@ const UserProfile = () => {
               <div className="space-y-6">
                 {["username", "full_name"].map((name) => (
                   <div key={name}>
-                    <label className="block font-semibold text-base text-gray-600 capitalize">{name}:</label>
+                    <label className="block font-semibold text-base text-gray-600 capitalize">{name.replace(/_/g, " ")}:</label>
                     {editMode ? (
                       <input
                         type="text"
