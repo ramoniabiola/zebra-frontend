@@ -445,7 +445,7 @@ const UserProfile = () => {
             <div className="mt-16">
               <h2 className="text-xl text-center font-bold text-gray-800 mb-4">Account Info</h2>
               <div className="space-y-6">
-                {["username", "email"].map((name) => (
+                {["username", "full_name"].map((name) => (
                   <div key={name}>
                     <label className="block font-semibold text-base text-gray-600 capitalize">{name}:</label>
                     {editMode ? (
