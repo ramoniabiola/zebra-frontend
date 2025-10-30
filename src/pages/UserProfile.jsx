@@ -414,16 +414,18 @@ const UserProfile = () => {
                 )}
                 {/* Photo change mode */}
                 {editMode && (
-                  <div className="absolute inset-0 bg-black/60 flex items-center justify-center rounded-full cursor-pointer group">
-                    <label className="cursor-pointer group"> 
-                      <ImagePlus className="w-8 h-8 text-neutral-400 shadow-md" />
-                      <input 
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFileChange}
-                        className="hidden"
-                        />
-                    </label>
+                  <div className="absolute inset-0 flex items-center justify-center rounded-full cursor-pointer group">
+                    <div className="w-10 h-10  bg-black/30 rounded-full flex items-center justify-center">
+                      <label className="cursor-pointer group"> 
+                        <ImagePlus className="w-5 h-5 text-neutral-400" />
+                        <input 
+                          type="file"
+                          accept="image/*"
+                          onChange={handleFileChange}
+                          className="hidden"
+                          />
+                      </label>
+                    </div>
                   </div>
                 )}
               </div>

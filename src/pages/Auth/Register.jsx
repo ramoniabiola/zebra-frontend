@@ -1,8 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { Eye, EyeOff, User, Mail, Phone, Lock, UserCheck, Loader2 } from "lucide-react";
-import { sendVerificationCodeApi } from "../../api/auth";
-import RegistrationVerificationPage from "./RegistrationVerificationPage";
+// import { sendVerificationCodeApi } from "../../api/auth";
+// import RegistrationVerificationPage from "./RegistrationVerificationPage";
 import { useNavigate } from "react-router-dom";
+import { useRegisterUser } from "../../hooks/auth";
+import { useDispatch } from "react-redux";
 
 
 const Register = () => {
@@ -15,21 +17,22 @@ const Register = () => {
         confirmPassword: "",
         role: "",
     });
-    const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(false)
+    // const [error, setError] = useState(null);
+    // const [isLoading, setIsLoading] = useState(false)
+
+    const { registerUser,  error, setSuccess, success, isLoading } = useRegisterUser();
+    const [showSubmitModal, setShowSubmitModal] = useState(false);
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [focusedField, setFocusedField] = useState("");
     const [fieldErrors, setFieldErrors] = useState({});
-    const [showVerificationPage, setShowVerificationPage] = useState(false);
+    // const [showVerificationPage, setShowVerificationPage] = useState(false);
     const [shakingFields, setShakingFields] = useState({}); // Track which fields should shake
     const  navigate = useNavigate();
+    const dispatch = useDispatch();
     
     
-
-
-  
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -78,29 +81,29 @@ const Register = () => {
 
 
 
-    const sendVerificationCode = async () => {
-        setIsLoading(true);
-        setError(null)
+    // const sendVerificationCode = async () => {
+    //     setIsLoading(true);
+    //     setError(null)
 
-        try{
+    //     try{
 
-            const userEmail = {
-                email: formData.email
-            }
+    //         const userEmail = {
+    //             email: formData.email
+    //         }
 
-            const response = await sendVerificationCodeApi(userEmail);
-            if(response.status >= 200 && response.status < 300) {
-                setError(null);
-                setIsLoading(false);
-            } else {
-                // If the response status is not in the success range, handle the error
-                throw new Error(response.data.error);
-            }
-        }catch(error){
-            setIsLoading(false)
-            setError(error.response?.data?.error || "Failed to send verification code, please try again by clicking the resend button")
-        }
-    }
+    //         const response = await sendVerificationCodeApi(userEmail);
+    //         if(response.status >= 200 && response.status < 300) {
+    //             setError(null);
+    //             setIsLoading(false);
+    //         } else {
+    //             // If the response status is not in the success range, handle the error
+    //             throw new Error(response.data.error);
+    //         }
+    //     }catch(error){
+    //         setIsLoading(false)
+    //         setError(error.response?.data?.error || "Failed to send verification code, please try again by clicking the resend button")
+    //     }
+    // }
 
 
     const handleUserRegistration = async (e) => {
@@ -136,8 +139,15 @@ const Register = () => {
       
 
         //Invoke send-verification-code function and navigate to the registration-verification-page
-        sendVerificationCode();
-        setShowVerificationPage(true);
+        // sendVerificationCode();
+        // setShowVerificationPage(true);
+
+
+        // ----- Temporary user registration for testing without user email verification operation
+        setShowSubmitModal(true)
+
+        // Perform registerUser action
+        await registerUser(dispatch, formData);  
     };
 
     
@@ -165,16 +175,108 @@ const Register = () => {
 
 
     
-    if (showVerificationPage) {
+    // if (showVerificationPage) {
+    //     return (
+    //         <RegistrationVerificationPage
+    //             formData={formData}
+    //             sendVerificationCode={sendVerificationCode}
+    //             sendVerificationCodeError={error}
+    //             setSendVerificationCodeError={setError}
+    //         />
+    //     );
+    // }
+
+
+
+    useEffect(() => {
+      if (success) {
+
+        // After 4 seconds, close modal
+        const timer = setTimeout(() => {
+          setSuccess(false);
+          setShowSubmitModal(false)
+          navigate('/login');
+        }, 4000);
+      
+        return () => clearTimeout(timer);
+      }
+    }, [success, navigate]);
+
+
+    
+    const SubmitModal = () => {
+        if (!showSubmitModal) return null;
+        
         return (
-            <RegistrationVerificationPage
-                formData={formData}
-                sendVerificationCode={sendVerificationCode}
-                sendVerificationCodeError={error}
-                setSendVerificationCodeError={setError}
-            />
+          <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative">
+              {!isLoading && (
+                <button
+                  onClick={() => setShowSubmitModal(false)}
+                  className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              )}
+
+              <div className="text-center">
+                {isLoading && (
+                  <>
+                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                      Creating Your Account
+                    </h3>
+                    <p className="text-gray-600 text-sm">
+                      Please wait while we set up your new account...
+                    </p>
+                  </>
+                )}
+
+                {success && (
+                  <>
+                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <CheckCircle className="w-8 h-8 text-green-600" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                      Account Created Successfully!
+                    </h3>
+                    <p className="text-gray-600 text-sm">
+                      🎉 Welcome! Your account has been created successfully. You can now log in with your credentials.
+                    </p>
+                  </>
+                )}
+
+              
+                {error && (
+                  <>
+                    <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <AlertCircle className="w-8 h-8 text-red-600" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                      Registration Failed
+                    </h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      We couldn't create your account. Please check your information and try again.
+                      <br />
+                      <span className="text-sm text-gray-500 mt-2 block">
+                        Error:  <b className="text-gray-700">{error}</b>
+                      </span>
+                    </p>
+                    <button
+                      onClick={handleSubmit}
+                      className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200 cursor-pointer"
+                    >
+                      Try Again
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
         );
-    }
+    };
 
 
 
@@ -471,6 +573,8 @@ const Register = () => {
                     }
                 `}</style>
             </div>
+
+            <SubmitModal />
         </>
     );  
 };  
