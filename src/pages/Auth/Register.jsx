@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Eye, EyeOff, User, Mail, Phone, Lock, UserCheck, Loader2 } from "lucide-react";
+import { Eye, EyeOff, User, Mail, Phone, Lock, UserCheck, Loader2, X, CheckCircle, AlertCircle } from "lucide-react";
 // import { sendVerificationCodeApi } from "../../api/auth";
 // import RegistrationVerificationPage from "./RegistrationVerificationPage";
 import { useNavigate } from "react-router-dom";
@@ -265,7 +265,7 @@ const Register = () => {
                       </span>
                     </p>
                     <button
-                      onClick={handleSubmit}
+                      onClick={handleUserRegistration}
                       className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200 cursor-pointer"
                     >
                       Try Again
