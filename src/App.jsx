@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { SkeletonTheme } from "react-loading-skeleton";
 
 // Import pages
@@ -7,6 +7,7 @@ import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 import PasswordChange from './pages/Auth/PasswordChange';
 import Homepage from './pages/Homepage';
+import WelcomePage from './pages/WelcomePage';
 import ApartmentInfo from './pages/ApartmentInfo';
 import Bookmarks from './pages/Bookmarks';
 import CreateNewListing from './pages/CreateNewListing';
@@ -21,11 +22,14 @@ import DeactivatedListingInfo from './pages/DeactivatedListingInfo';
 import AboutUs from './pages/AboutUs';
 import ListAnApartment from './pages/ListAnApartment';
 import RegistrationVerificationPage from './pages/Auth/RegistrationVerificationPage';
+import { useSelector } from 'react-redux';
 
 
 
 
 function App() {
+  const user = useSelector((state) => state.auth.user)
+
   
   return (
     <div className='font-sans'>
@@ -38,8 +42,20 @@ function App() {
             <Route path="/change-password" element={<PasswordChange />} />
             <Route path="/auth-verification" element={<RegistrationVerificationPage />} />
 
+           
             {/* Core Section */}
-            <Route path="/" element={<Homepage />} />
+              {/* Guest Landing Page */}
+              <Route
+                path="/"
+                element={
+                  user
+                    ? <Navigate to="/home" replace />
+                    : <WelcomePage />
+                }
+              />
+            <Route path='/home' element={<Homepage />} />
+            <Route path='/welcome' element={<WelcomePage />} />
+            <Route path='/' element={<Homepage />} />
             <Route path="/apartment/:id" element={<ApartmentInfo />} />
             <Route path="/bookmarks" element={<Bookmarks />} />
             <Route path="/create-listing" element={<CreateNewListing />} />
