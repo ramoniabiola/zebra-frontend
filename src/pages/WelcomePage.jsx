@@ -35,7 +35,7 @@ export default function WelcomePage() {
     {
       icon: Phone,
       title: "Direct Contact",
-      desc: "Connect directly with landlords or agents for quick responses",
+      desc: "Connect directly with landlords or agents/agencies for quick responses",
       gradient: "from-blue-50 to-white",
     },
     {
@@ -62,8 +62,10 @@ export default function WelcomePage() {
           transition={{ duration: 0.6 }}
           className="text-[1.8rem] font-extrabold cursor-pointer tracking-tight"
         >
-          <span className="text-gray-900">zebr</span>
-          <span className="text-cyan-600">a</span>
+          <h1 
+            className="text-[1.8rem] text-slate-900 font-extrabold cursor-pointer tracking-tight text-shadow-lg">zebr
+            <span className="text-cyan-500">a</span>
+          </h1>
         </motion.h1>
 
         <motion.div
@@ -114,7 +116,7 @@ export default function WelcomePage() {
           </h1>
 
           <p className="text-base sm:text-lg mb-8 text-gray-600 leading-relaxed px-4">
-            Connecting landlords, tenants, and agents for a seamless renting experience.
+            Connecting landlords, tenants, agents and agencies for a seamless renting experience.
           </p>
 
           <motion.div whileTap={{ scale: 0.95 }} className="px-4">

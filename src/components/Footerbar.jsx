@@ -45,7 +45,7 @@ const Footerbar = () => {
 
 
   const tabRoutes = {
-    home: '/',
+    home: '/home',
     search: '/search',
     login: '/login',
     whishlists: '/bookmarks',
