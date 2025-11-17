@@ -62,10 +62,10 @@ export default function WelcomePage() {
           transition={{ duration: 0.6 }}
           className="text-[1.8rem] font-extrabold cursor-pointer tracking-tight"
         >
-          <h1 
+          <span 
             className="text-[1.8rem] text-slate-900 font-extrabold cursor-pointer tracking-tight text-shadow-lg">zebr
             <span className="text-cyan-500">a</span>
-          </h1>
+          </span>
         </motion.h1>
 
         <motion.div
@@ -210,7 +210,7 @@ export default function WelcomePage() {
             Ready to find or list your  apartment?
           </h3>
           <p className="text-gray-300 mb-6 text-sm sm:text-base">
-            Join thousands of happy tenants and landlords today
+            Join thousands of happy tenants, landlords, agents and housing agencies today
           </p>
           <motion.div whileTap={{ scale: 0.95 }}>
             <button
