@@ -99,7 +99,7 @@ export const useLogout = () => {
     const handleLogout = async () => {
         dispatch(setLogout());
         dispatch(clearBookmarks())
-        navigate('/');
+        navigate('/home');
     };
 
     return { handleLogout };
