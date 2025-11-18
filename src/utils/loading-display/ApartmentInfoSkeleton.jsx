@@ -6,8 +6,8 @@ const ApartmentInfoSkeleton = () => {
         <div className="h-full w-full overflow-hidden flex flex-col">
             {/* NAVBAR SKELETON */}
             <div className="w-full h-20 flex flex-col pl-8 items-start justify-center bg-white">
-                <Skeleton width={160} height={20} style={{ marginBottom: '4px' }} />
-                <Skeleton width={224} height={16} />
+                <Skeleton width={160} height={18} style={{ marginBottom: '4px' }} />
+                <Skeleton width={224} height={14} />
             </div>
 
             {/* IMAGE SECTION SKELETON */}
@@ -16,20 +16,20 @@ const ApartmentInfoSkeleton = () => {
             </div>
 
             {/* CONTENT SKELETON */}
-            <div className="bg-white w-full flex flex-col ml-4 gap-4 mb-8">
+            <div className="bg-white max-w-6xl mx-auto px-2 sm:px-4">
                 {/* Title Section */}
-                <div className="mb-6">
-                    <div className="flex gap-2 mb-4">
-                        <Skeleton width={96} height={32} borderRadius={8} />
-                        <Skeleton width={94} height={32} borderRadius={8} />
+                <div className="bg-gradient-to-br from-gray-50 to-white p-4 sm:p-5 md:p-6 rounded-2xl sm:rounded-2xl shadow-md border border-gray-100">
+                    <div className="flex gap-3 mb-4">
+                        <Skeleton width={96} height={30} borderRadius={8} />
+                        <Skeleton width={94} height={30} borderRadius={8} />
                     </div>
-                    <Skeleton width={320} height={24} style={{ marginBottom: '8px' }} />
-                    <Skeleton width={192} height={18} style={{ marginBottom: '4px' }} />
-                    <Skeleton width={256} height={16} />
+                    <Skeleton width={320} height={22} style={{ marginBottom: '8px' }} />
+                    <Skeleton width={192} height={16} style={{ marginBottom: '4px' }} />
+                    <Skeleton width={256} height={14} />
                 </div>
 
                 {/* Property Stats */}
-                <div className="grid grid-cols-3 gap-1.5 mb-4 mr-7">
+                <div className="min-w-full grid grid-cols-3 gap-2 mt-6 mb-4">
                     {[...Array(3)].map((_, index) => (
                         <div key={index} className="bg-gray-50 p-4 rounded-2xl text-center">
                             <div className="flex justify-center mb-2">
@@ -45,21 +45,21 @@ const ApartmentInfoSkeleton = () => {
                     ))}
                 </div> 
 
-              {/* Price Section */}
-                <div className="mb-8">
-                    <Skeleton width={128} height={20} style={{ marginBottom: '8px' }} />
-                    <Skeleton width={160} height={28} style={{ marginBottom: '16px' }} />
-                    <div className="mr-7">
-                        <Skeleton width="100%" height={36} borderRadius={8} />
+                {/* Price Section */}
+                <div className="p-4 mt-6 rounded-xl sm:rounded-2xl shadow-md border border-gray-100">
+                    <Skeleton width={128} height={16} style={{ marginBottom: '8px' }} />
+                    <Skeleton width={160} height={24} style={{ marginBottom: '16px' }} />
+                    <div className="">
+                        <Skeleton width="100%" height={30} borderRadius={8} />
                     </div>
                 </div>
 
                 {/* Amenities */}
-                <div className="mb-8">
-                    <div className="flex justify-center mr-8 mb-6">
-                      <Skeleton width={192} height={24} />
+                <div className="p-4 mt-6 rounded-xl sm:rounded-2xl shadow-md border border-gray-100">
+                    <div className="flex justify-center mb-6">
+                      <Skeleton width={192} height={20} />
                     </div>
-                    <div className="grid grid-cols-2 gap-4 mr-7">
+                    <div className="grid grid-cols-2 gap-4">
                         {[...Array(6)].map((_, idx) => (
                             <div key={idx} className="flex items-center gap-3 py-4 px-2 bg-gray-50 rounded-2xl">
                                 <Skeleton circle width={40} height={40} />
@@ -70,19 +70,19 @@ const ApartmentInfoSkeleton = () => {
               </div>
 
               {/* Contact Info */}
-                <div className="mb-8 mr-6">
+                <div className="mt-6 mb-6 p-4 rounded-xl shadow-md border border-gray-100">
                     <div className="flex justify-center mb-6">
-                      <Skeleton width={128} height={24} />
+                      <Skeleton width={128} height={20} />
                     </div>
                     <div className="space-y-4">
-                        <div className="flex items-center gap-4 py-4 pl-4 pr-24 bg-gray-50 rounded-2xl">
+                        <div className="flex items-center gap-4 py-4 px-4 bg-gray-50 rounded-2xl">
                           <Skeleton circle width={48} height={48} />
                             <div>
                                 <Skeleton width={128} height={20} style={{ marginBottom: '4px' }} />
                                 <Skeleton width={112} height={16} />
                             </div>
                         </div>
-                        <div className="flex items-center gap-4 py-4 pl-4 pr-24 bg-gray-50 rounded-2xl">
+                        <div className="flex items-center gap-4 py-4 px-4 bg-gray-50 rounded-2xl">
                           <Skeleton circle width={48} height={48} />
                             <div>
                                 <Skeleton width={144} height={20} style={{ marginBottom: '4px' }} />
@@ -90,11 +90,12 @@ const ApartmentInfoSkeleton = () => {
                             </div>
                         </div>
                     </div>
-                </div>
 
-              {/* Report Button */}
-                <div className="pt-6 mr-6">
-                    <Skeleton width="100%" height={48} borderRadius={8} />
+
+                    {/* Report Button */}
+                    <div className="pt-8">
+                        <Skeleton width="100%" height={40} borderRadius={8} />
+                    </div>
                 </div>
             </div> 
         </div>
