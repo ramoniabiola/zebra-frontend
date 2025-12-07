@@ -372,7 +372,7 @@ const ApartmentInfo = () => {
 
 
             {/* APARTMENT INFORMATION */}
-            <div className="bg-white max-w-6xl mx-auto px-2 sm:px-4">
+            <div className="bg-white max-w-6xl mx-auto px-0.5">
 
               {/* Add to bookmark error notification  */}
               {error && (
@@ -382,7 +382,7 @@ const ApartmentInfo = () => {
               )}
 
               {/* Title and Location Card */}
-              <div className="bg-gradient-to-br from-gray-50 to-white p-4 sm:p-5 md:p-6 rounded-2xl sm:rounded-2xl shadow-md border border-gray-100">
+              <div className="bg-gradient-to-br from-gray-50 to-white p-4 shadow-sm rounded-sm border border-gray-100">
                 <div className="flex flex-wrap items-center gap-2 mb-3 sm:mb-4">
                   <span className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold shadow-md">
                     {apartment.apartment_type}
@@ -412,7 +412,7 @@ const ApartmentInfo = () => {
 
 
               {/* Property Stats */}
-              <div className="min-w-full grid grid-cols-3 gap-2 mt-6 mb-4">
+              <div className="min-w-full grid grid-cols-3 gap-2 mt-4 px-2">
                 <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-4 rounded-2xl text-center border border-cyan-100 shadow-md hover:shadow-lg transition-shadow">
                   <Bed className="w-7 h-7 text-cyan-600 mx-auto mb-2" />
                   <div className="text-2xl font-bold text-gray-800 mb-1">{apartment.bedrooms}</div>
@@ -434,7 +434,7 @@ const ApartmentInfo = () => {
 
 
               {/* Rental Price */}
-              <div className="p-4 mt-6 rounded-xl sm:rounded-2xl shadow-md border border-gray-100">
+              <div className="p-4 mt-4 rounded-sm shadow-sm border border-gray-100">
                 <h3 className="text-lg  font-semibold text-gray-800 mb-3">Rental Price</h3>
                 <div className="flex items-baseline gap-2 mb-3">
                   <span className="text-3xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
@@ -456,7 +456,7 @@ const ApartmentInfo = () => {
 
               {/* Amenities Grid */}
               {apartment.apartment_amenities && apartment.apartment_amenities.length > 0 && (
-                <div className="p-4 mt-6 rounded-xl sm:rounded-2xl shadow-md border border-gray-100">
+                <div className="p-4 mt-4 rounded-sm shadow-sm border border-gray-100">
                   <h3 className="text-lg text-center font-bold text-gray-800 mb-6">Amenities & Features</h3>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     {apartment.apartment_amenities.map((amenity, idx) => {
@@ -480,7 +480,7 @@ const ApartmentInfo = () => {
               )}
 
               {/* Contact Information */}
-              <div className="mt-6 mb-6 p-4 rounded-xl sm:rounded-2xl shadow-md border border-gray-100">
+              <div className="mt-4 mb-4 p-4 rounded-sm shadow-sm border border-gray-100">
                 <h3 className="text-lg text-center font-bold text-gray-800 mb-6 ">Contact Info</h3>
 
                 {/* Show copy error if it exists */}
