@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
-import Footer from "../components/Footer";
-import Footerbar from "../components/Footerbar";
+
 
 const tenantFaqs = [
   { 
@@ -112,8 +111,6 @@ const SupportPage = () => {
           </button>
         </div>
       </div>
-      <Footerbar />
-      <Footer />
     </div>
   );
 };

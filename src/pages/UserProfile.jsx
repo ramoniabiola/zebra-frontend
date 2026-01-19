@@ -1,6 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import Footer from "../components/Footer";
-import Footerbar from "../components/Footerbar";
 import { useNavigate } from 'react-router-dom';
 import { AlertCircle, AlertTriangle, ArrowLeft, CheckCircle, Key, Loader2, LogOut, LogOutIcon, X, MoreVertical, Settings, ImagePlus } from 'lucide-react';
 import { useSelector } from "react-redux";
@@ -561,9 +559,6 @@ const UserProfile = () => {
             </div>
           </div>
         </div>
-
-        <Footerbar />
-        <Footer />
       </div>
 
       {/* Modals */}

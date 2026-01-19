@@ -1,6 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import Footer from "../components/Footer";
-import Footerbar from "../components/Footerbar";
 import { ArrowLeftIcon, BadgeDollarSign, Home, MapPinHouse, Search, Smartphone, Zap } from "lucide-react";
 import { useEffect } from "react";
 
@@ -179,8 +177,6 @@ const AboutUs = () => {
                     </div>
                 </div>
             </div>
-            <Footerbar />
-            <Footer />
         </div>
     )
 }

@@ -1,6 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import Footer from "../components/Footer";
-import Footerbar from "../components/Footerbar";
 import { HomeIcon, UserPlusIcon, PlusCircleIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -231,8 +229,6 @@ const ListAnApartment = () => {
                         </div>
                     </div>
                 </div>
-                <Footerbar />
-                <Footer />
             </div>
 
             {/* Authentication Dialog */}

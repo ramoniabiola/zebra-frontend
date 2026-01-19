@@ -3,9 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ArrowLeft, ChevronLeft, ChevronRight, MoreVertical, RotateCcw } from "lucide-react";
 import { CheckIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-
-import Footer from "../components/Footer";
-import Footerbar from "../components/Footerbar";
 import useNotifications from "../hooks/notifications";
 import NotificationCard from "../components/NotificationCard";
 import NotificationPlaceholder from "../utils/placeholders/NotificationPlaceholder";
@@ -227,9 +224,6 @@ const NotificationPage = () => {
                     </div>
                 )}
             </div>
-            
-            <Footerbar />
-            <Footer />
         </div>
     );
 };

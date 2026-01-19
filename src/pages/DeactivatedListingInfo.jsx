@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
-import Footerbar from '../components/Footerbar';
-import Footer from '../components/Footer';
+import { useEffect, useState } from 'react';
 import { ArrowLeft, MapPin, Phone, Home, Calendar, DollarSign, Users, Bath, Square, User, Plus } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -686,8 +684,6 @@ const DeactivatedListingInfo = () => {
             </div>
           </>
         )}   
-        <Footerbar />
-        <Footer />
       </div>
 
       {/* Reactivation Modal */}

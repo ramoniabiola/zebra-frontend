@@ -3,9 +3,7 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { Bed, Bath, Wifi, Car, Square, AlertTriangle, Phone, ArrowLeft, MapPin, Zap, Shield, Waves, Coffee, Home, User, AlertCircle, X, Copy, Check, RotateCcw, ChevronLeft, ChevronRight } from "lucide-react";
-import Footer from "../components/Footer";
 import { useNavigate, useParams } from 'react-router-dom';
-import Footerbar from "../components/Footerbar";
 import { fetchApartmentByIdApi } from "../api/apartments";
 import ApartmentInfoSkeleton from "../utils/loading-display/ApartmentInfoSkeleton";
 import { useSelector } from "react-redux";
@@ -555,8 +553,6 @@ const ApartmentInfo = () => {
             </div> 
           </>
         )}
-        <Footerbar /> 
-        <Footer />
       </div>  
 
       {/* Authentication Dialog */}

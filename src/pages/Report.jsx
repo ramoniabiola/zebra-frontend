@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import Footer from "../components/Footer";
-import Footerbar from "../components/Footerbar";
 
 
 
@@ -107,8 +105,6 @@ const Report = () => {
                 </div>
             )}
         </div>
-        <Footerbar />
-        <Footer />
     </div>
   );
 };

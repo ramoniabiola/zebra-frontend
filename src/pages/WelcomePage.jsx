@@ -1,226 +1,205 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Zap, Phone, MapPinHouse, Smartphone, ArrowRight } from "lucide-react";
+import { Zap, Phone, MapPinHouse, Smartphone, ArrowRight, Home, Building2, Key, Shield } from "lucide-react";
 
 export default function WelcomePage() {
+  const [imageLoaded, setImageLoaded] = useState(false);
   const navigate = useNavigate();
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
 
   const features = [
     {
       icon: Zap,
       title: "Save Time",
       desc: "Eliminate endless manual searches and focus on properties that match your criteria",
-      gradient: "from-cyan-50 to-white",
     },
     {
       icon: Phone,
       title: "Direct Contact",
       desc: "Connect directly with landlords or agents/agencies for quick responses",
-      gradient: "from-blue-50 to-white",
     },
     {
       icon: MapPinHouse,
       title: "Location-Based",
       desc: "Search by specific budget friendly areas and neighborhoods across Nigeria",
-      gradient: "from-indigo-50 to-white",
     },
     {
       icon: Smartphone,
       title: "Easy Access",
       desc: "Simple, intuitive platform accessible from any device",
-      gradient: "from-sky-50 to-white",
     },
   ];
 
-  return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-white via-cyan-50 to-gray-50">
-      {/* Navbar */}
-      <nav className="flex justify-between items-center px-6 py-4 bg-white/90 backdrop-blur-md fixed top-0 left-0 w-full z-50 border-b border-gray-200">
-        <motion.h1
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-[1.8rem] font-extrabold cursor-pointer tracking-tight"
-        >
-          <span 
-            className="text-[1.8rem] text-slate-900 font-extrabold cursor-pointer tracking-tight text-shadow-lg">zebr
-            <span className="text-cyan-500">a</span>
-          </span>
-        </motion.h1>
+  const stats = [
+    { icon: Home, value: "5,000+", label: "Active Listings" },
+    { icon: Building2, value: "1,200+", label: "Partner Agencies" },
+    { icon: Key, value: "15,000+", label: "Happy Tenants" },
+    { icon: Shield, value: "100%", label: "Verified Properties" },
+  ];
 
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex gap-2"
-        >
-          <button
-            onClick={() => navigate("/login")}
-            className="text-gray-700 hover:text-cyan-600 text-sm px-4 py-2 rounded-md transition"
-          >
+  return (
+    <div className="min-h-screen flex flex-col bg-white">
+      {/* Navbar */}
+      <nav className="h-14 lg:h-18 flex justify-between items-center px-4 lg:px-18 py-4 bg-white/95 backdrop-blur-md fixed top-0 left-0 w-full z-50 shadow-sm">
+        <h1 className="text-[2rem] md:text-[2.4rem] font-extrabold cursor-pointer tracking-tight">
+          <span className="text-slate-900">zebr</span>
+          <span className="text-cyan-500">a</span>
+        </h1>
+
+        <div className="flex gap-3">
+          <button 
+            className="text-gray-700 hover:text-cyan-600 text-sm lg:text-base px-4 py-2 rounded-lg transition font-medium"
+            onClick={() => navigate("/login")}>
             Login
           </button>
-          <button
+          <button 
             onClick={() => navigate("/register")}
-            className="bg-cyan-600 text-white hover:bg-cyan-700 text-sm px-4 py-2 rounded-md transition"
+            className="bg-cyan-600 text-white hover:bg-cyan-700 text-sm lg:text-base px-4 py-1 lg:px-5 lg:py-2 rounded-lg transition font-medium shadow-md"
           >
             Register
           </button>
-        </motion.div>
+        </div>
       </nav>
 
-      {/* Hero Section */}
-      <div className="flex-1 flex items-center justify-center relative overflow-hidden pt-30 px-4 pb-12">
-        {/* Background Animations */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
-            animate={{ scale: [1, 1.15, 1], rotate: [0, 45, 0] }}
-            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            className="absolute -top-1/4 -right-1/4 w-3/4 h-3/4 bg-cyan-100 rounded-full blur-3xl"
+      {/* Hero Section with Background Image */}
+      <div className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&h=900&fit=crop"
+            alt="Modern apartment building"
+            className={`w-full h-full object-cover transition-opacity duration-1000 ${
+              imageLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
+            onLoad={() => setImageLoaded(true)}
           />
-          <motion.div
-            animate={{ scale: [1.15, 1, 1.15], rotate: [45, 0, 45] }}
-            transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-            className="absolute -bottom-1/4 -left-1/4 w-3/4 h-3/4 bg-blue-100 rounded-full blur-3xl"
-          />
+          {/* Dark overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-slate-900/70 to-cyan-900/60"></div>
+          
+          {/* Animated accent overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-cyan-500/10 via-transparent to-transparent"></div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="relative text-center max-w-lg w-full"
-        >
-          <h1 className="text-3xl sm:text-5xl font-extrabold mb-4 bg-gradient-to-r from-gray-900 via-gray-700 to-cyan-600 bg-clip-text text-transparent leading-tight px-2">
-            Find Your Next Apartment with Ease
+        {/* Hero Content */}
+        <div className="relative z-10 text-center max-w-4xl mx-auto px-6 py-20">
+          <div className="inline-block mb-4 px-4 py-2 bg-cyan-500/20 backdrop-blur-sm rounded-full border border-cyan-400/30">
+            <span className="text-cyan-300 text-sm font-semibold">Welcome to the Future of Apartment Hunting</span>
+          </div>
+          
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 text-white leading-tight">
+            Find Your Perfect
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 mt-2">
+              Apartment Today
+            </span>
           </h1>
 
-          <p className="text-base sm:text-lg mb-8 text-gray-600 leading-relaxed px-4">
-            Connecting landlords, tenants, agents and agencies for a seamless renting experience.
+          <p className="text-lg sm:text-xl mb-10 text-gray-200 leading-relaxed max-w-2xl mx-auto">
+            Connecting landlords, tenants, agents and agencies for a seamless renting experience across Nigeria.
           </p>
 
-          <motion.div whileTap={{ scale: 0.95 }} className="px-4">
-            <button
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <button 
+              className="bg-cyan-500 hover:bg-cyan-600 text-white w-full sm:w-auto px-8 py-4 text-base lg:text-lg rounded-lg font-semibold shadow-xl transition flex items-center justify-center gap-2 group"
               onClick={() => navigate("/home")}
-              className="bg-cyan-600 hover:bg-cyan-700 text-white sm:w-auto px-8 py-4 text-base rounded-full font-semibold shadow-md transition w-full flex items-center justify-center mx-auto gap-2"
             >
-              <span>Get Started</span>
-              <ArrowRight className="w-5 h-5" />
+              <span>Explore Properties</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
-          </motion.div>
-        </motion.div>
+            <button 
+              className="bg-white/10 backdrop-blur-md border-2 border-white/30 hover:bg-white/20 text-white w-full sm:w-auto px-8 py-4 text-base lg:text-lg rounded-lg font-semibold transition"
+              onClick={() => navigate("/list-an-apartment")}
+            >
+              List Your Property
+            </button>
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-16 max-w-4xl mx-auto">
+            {stats.map((stat, i) => (
+              <div key={i} className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
+                <stat.icon className="w-8 h-8 text-cyan-400 mb-3 mx-auto" />
+                <div className="text-2xl lg:text-3xl font-bold text-white mb-1">{stat.value}</div>
+                <div className="text-sm text-gray-300">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2">
+            <div className="w-1 h-3 bg-white rounded-full animate-bounce"></div>
+          </div>
+        </div>
       </div>
 
       {/* Features Section */}
-      <section className="py-16 bg-white relative">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={containerVariants}
-          className="relative max-w-7xl mx-auto px-4"
-        >
-          <motion.div variants={itemVariants} className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-              Why Choose Us?
+      <section className="py-20 bg-gradient-to-b from-white to-gray-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+              Why Choose Zebra?
             </h2>
-            <p className="text-gray-600 text-sm sm:text-base max-w-lg mx-auto px-4">
-              Experience the future of apartment hunting with our platform
+            <p className="text-gray-600 text-base lg:text-lg max-w-2xl mx-auto">
+              Experience the future of apartment hunting with our comprehensive platform designed for your convenience
             </p>
-          </motion.div>
+          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {features.map((feature, i) => (
-              <motion.div key={i} variants={itemVariants} className="group relative">
-                <div
-                  className={`p-6 bg-gradient-to-br ${feature.gradient} backdrop-blur-sm rounded-2xl border border-gray-100 transition-all duration-300 shadow-sm hover:shadow-md h-full`}
-                >
-                  <div className="mb-4">
-                    <div className="w-12 h-12 bg-cyan-500 rounded-xl flex items-center justify-center shadow-md">
-                      <feature.icon className="w-6 h-6 text-white" />
-                    </div>
-                  </div>
-                  <h3 className="font-bold text-lg text-gray-900 mb-2">{feature.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{feature.desc}</p>
+              <div
+                key={i}
+                className="group bg-white p-8 rounded-2xl border border-gray-200 hover:border-cyan-500 transition-all duration-300 hover:shadow-xl"
+              >
+                <div className="w-14 h-14 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center shadow-lg mb-6 group-hover:scale-110 transition-transform">
+                  <feature.icon className="w-7 h-7 text-white" />
                 </div>
-              </motion.div>
+                <h3 className="font-bold text-xl text-gray-900 mb-3">{feature.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{feature.desc}</p>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-br from-slate-900 to-slate-800 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-cyan-500 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="relative text-center text-white max-w-3xl mx-auto px-6">
+          <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+            Ready to Find Your Dream Home?
+          </h3>
+          <p className="text-gray-300 mb-10 text-lg leading-relaxed">
+            Join thousands of happy tenants, landlords, agents and housing agencies today. Start your journey to finding the perfect rental property.
+          </p>
+          <button 
+            className="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold rounded-lg px-10 py-5 text-lg shadow-xl transition inline-flex items-center gap-2 group"
+            onClick={() => navigate("/home")}
+          >
+            <span>Get Started Now</span>
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </button>
+        </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-12 bg-gray-900 relative overflow-hidden">
-        {/* Animated background lines */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(6)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute h-px bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent"
-              style={{
-                top: `${15 + i * 15}%`,
-                left: "-10%",
-                right: "-10%",
-              }}
-              initial={{ scaleX: 0, opacity: 0 }}
-              animate={{ 
-                scaleX: 1, 
-                opacity: [0, 1, 1, 0],
-                x: ["0%", "10%", "20%", "30%"]
-              }}
-              transition={{
-                duration: 4,
-                delay: i * 0.2,
-                repeat: Infinity,
-                repeatDelay: 2,
-              }}
-            />
-          ))}
-        </div>
-
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="relative text-center text-white max-w-lg mx-auto px-6"
-        >
-          <h3 className="text-2xl sm:text-3xl font-bold mb-3">
-            Ready to find or list your  apartment?
-          </h3>
-          <p className="text-gray-300 mb-6 text-sm sm:text-base">
-            Join thousands of happy tenants, landlords, agents and housing agencies today
+      <footer className="bg-slate-900 text-white py-12 px-6">
+        <div className="max-w-7xl mx-auto text-center">
+          <h1 className="text-2xl font-extrabold mb-2">
+            <span className="text-white">zebr</span>
+            <span className="text-cyan-500">a</span>
+          </h1>
+          <p className="text-gray-400 text-sm italic mb-6">
+            "Making a seamless and easy apartment renting experience..."
           </p>
-          <motion.div whileTap={{ scale: 0.95 }}>
-            <button
-              onClick={() => navigate("/home")}
-              className="bg-white text-gray-900 hover:bg-cyan-600 hover:text-white font-semibold rounded-full px-8 py-4 text-base shadow-md transition"
-            >
-              Get Started
-            </button>
-          </motion.div>
-        </motion.div>
+          <p className="text-gray-500 text-sm">
+            © {new Date().getFullYear()} Landlords & Tenants Inc. All rights reserved.
+          </p>
+        </div>
       </footer>
     </div>
   );

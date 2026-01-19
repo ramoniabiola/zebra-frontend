@@ -2,11 +2,9 @@ import { SearchIcon } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
-
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
-
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -24,19 +22,16 @@ const Search = () => {
     }
   };
 
-
-
-
   return (
-    <header className="w-full h-16 pt-2.5 flex items-center justify-center fixed top-12 left-0 z-40 bg-white">
-      <div className="relative bg-white w-full mx-3 h-11/12 py-2 border border-gray-200 shadow-[0_5px_15px_0_rgba(0,0,0,0.15)] rounded-xl">  
+    <header className="w-full h-16 lg:h-20 pt-3 flex items-center justify-center sticky top-13 lg:top-18 z-40 bg-white">
+      <div className="relative bg-white w-full mx-3 lg:mx-4 h-11/12  py-2 border border-slate-200 shadow-[0_5px_15px_0_rgba(0,0,0,0.15)] rounded-xl">  
         <input
           value={searchQuery}
           onChange={handleSearchChange}
           onKeyDown={handleKeyPress}
           type="text"
           placeholder="Search an apartment..."
-          className="w-full h-full pl-4 rounded-md outline-none text-base font-semibold text-gray-800 placeholder-gray-400 focus:placeholder-gray-300" 
+          className="w-full h-full pl-4 rounded-md outline-none text-base lg:text-lg font-semibold text-gray-800 placeholder-gray-400 focus:placeholder-gray-300" 
         />
         <SearchIcon 
           onClick={handleSearch}

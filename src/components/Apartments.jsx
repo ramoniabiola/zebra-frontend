@@ -4,23 +4,24 @@ import ApartmentDetails from "./ApartmentDetails";
 import { useGetApartments } from "../hooks/apartments";
 import { useSelector, useDispatch } from "react-redux";
 import ApartmentDetailsSkeleton from "../utils/loading-display/ApartmentDetailsSkeleton";
-import { ArrowUp, RotateCcw } from "lucide-react";
+import { RotateCcw } from "lucide-react";
 import ApartmentDetailsSkeleton2 from "../utils/loading-display/ApartmentDetailsSkeleton2";
 import { clearApartmentsError } from "../redux/apartmentSlice";
 import { useToggleBookmark } from "../hooks/bookmarks";
 import ToggleSuccess from "../utils/pop-display/ToggleSuccess";
+import useScreenSize from "../hooks/screenSize";
 
 
 const Apartments = () => {
   const [activeTab, setActiveTab] = useState("new"); // default active
   const [page, setPage] = useState(1);
-  const [showScrollTop, setShowScrollTop] = useState(false);
   const observerRef = useRef(null);
   const [hovered, setHovered] = useState(null);
   const { fetchApartments, isLoading, error } = useGetApartments();
   const { toggleBookmark, success, error: toggleError, setError, animateOut } = useToggleBookmark();
   const { list: apartments, hasMore } = useSelector((state) => state.apartments);
   const dispatch = useDispatch();
+  const { isDesktop, isTablet } = useScreenSize();
 
   const limit = 5;
 
@@ -70,21 +71,6 @@ const Apartments = () => {
   }, [hasMore, isLoading, error]);
 
 
-  // Scroll-to-top button visibility
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 500);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-
   const handleRetry = () => {
     dispatch(clearApartmentsError());
 
@@ -97,9 +83,9 @@ const Apartments = () => {
 
 
   const tabs = [
-    { id: "new", label: "New", icon: <SparklesIcon className="w-5 h-5" /> },
-    { id: "apartments", label: "Apartments", icon: <HomeIcon className="w-5 h-5" /> },
-    { id: "top-locations", label: "Top Locations", icon: <MapIcon className="w-5 h-5" /> },
+    { id: "new", label: "New", icon: <SparklesIcon className="w-5 h-5 lg:w-6 lg:h-6" /> },
+    { id: "apartments", label: "Apartments", icon: <HomeIcon className="w-5 h-5 lg:w-6 lg:h-6" /> },
+    { id: "top-locations", label: "Top Locations", icon: <MapIcon className="w-5 h-5 lg:w-6 lg:h-6" /> },
   ];
 
 
@@ -107,10 +93,10 @@ const Apartments = () => {
   const ErrorDisplay = () => (
     <div className="h-full w-full flex flex-col items-center justify-center text-center py-8 mt-48 mb-48">
       <ExclamationTriangleIcon className="w-10 h-10 text-red-500 mx-auto mb-4" />
-      <h3 className="text-base font-semibold text-gray-800 mb-1">
+      <h3 className="text-base lg:text-lg font-semibold text-gray-800 mb-1">
         Something went wrong
       </h3>
-      <p className="text-gray-600 text-sm mb-4">
+      <p className="text-gray-600 text-sm lg:text-base mb-4">
         {error || "Failed to load apartments"}
       </p>
       <button
@@ -125,24 +111,24 @@ const Apartments = () => {
   
 
   return (
-    <div className="h-full min-w-full flex flex-col items-start justify-center">
+    <div className="relatve h-full w-full flex flex-col items-start justify-center">
       {/* APARTMENT LISTING OPTIONS */}
-      <div className="fixed top-26 z-30 h-18 w-full mt-1 flex items-center justify-between px-6 bg-white shadow-md py-1">
+      <div className="sticky top-28 lg:top-36 z-30 h-18 lg:h-22 w-full mt-1 flex items-center justify-between px-6 lg:px-10 bg-white shadow-md py-1">
         {tabs.map((tab) => (
           <div
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             onMouseEnter={() => setHovered(tab.id)}
             onMouseLeave={() => setHovered(null)}
-            className={`flex flex-col items-center justify-center cursor-pointer transition-all duration-200
+            className={`flex flex-col items-center justify-center cursor-pointer transition-all duration-200 lg:mt-1
               ${activeTab === tab.id ? "text-slate-800" : "text-slate-500 hover:text-slate-700"}
             `}
           >
             {tab.icon}
-            <h2 className="text-sm font-semibold relative mt-1">
+            <h2 className="text-sm lg:text-base font-semibold relative mt-1">
               {tab.label}
               {activeTab === tab.id && (
-                <span className="absolute -bottom-[10px] left-0 w-full h-[2px] bg-slate-800 rounded-full"></span>
+                <span className="absolute -bottom-[10px] lg:-bottom-[11px] left-0 w-full h-[2px] lg:h-[3px] bg-slate-800 rounded-full"></span>
               )}
               {hovered === tab.id && (
                 <span
@@ -156,38 +142,42 @@ const Apartments = () => {
         ))}
       </div>
 
+
       {/* APARTMENT LISTINGS */}
-      <div className="mt-[10rem] min-w-full h-full flex flex-col items-center justify-center px-3 overflow-y-auto scroll-smooth mb-12">
+      <div className="mt-[1.5rem] lg:mt-[3rem] w-full h-full pl-6 pr-0 lg:pl-10 lg:pr-0 overflow-y-auto scroll-smooth mb-12">
         {error && page === 1 ? (
           <ErrorDisplay />
         ) : isLoading && page === 1 ? (
           <ApartmentDetailsSkeleton cards={4} />
         ) : apartments?.length > 0 ? (
           <>
-            {apartments?.map((apartment, idx) => (
-              <ApartmentDetails 
-                key={`${apartment._id}-${idx}`} 
-                apartment={apartment} 
-                toggleBookmark={toggleBookmark}
-                error={toggleError}
-                setError={setError}
-              />
-            ))}
+            {/* Grid Container for Apartments */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-2">
+              {apartments?.map((apartment, idx) => (
+                <ApartmentDetails 
+                  key={`${apartment._id}-${idx}`} 
+                  apartment={apartment} 
+                  toggleBookmark={toggleBookmark}
+                  error={toggleError}
+                  setError={setError}
+                />
+              ))}
+            </div>
 
             {/* Infinite scroll trigger */}
             <div ref={observerRef} className="h-10 w-full"></div>
 
             {isLoading && page > 1 && (
-              <ApartmentDetailsSkeleton2 cards={1} />
+              <ApartmentDetailsSkeleton2 cards={isDesktop || isTablet ? 2 : 1} />
             )}
 
             {error && page > 1 && (
               <div className="w-full flex flex-col items-center py-4">
                 <ExclamationTriangleIcon className="w-10 h-10 text-red-500 mx-auto mb-2" />
-                <h3 className="text-md font-semibold text-gray-800 mb-1">
+                <h3 className="text-md lg:text-lg font-semibold text-gray-800 mb-1">
                   Something went wrong
                 </h3>
-                <p className="text-gray-600 text-sm mb-4">
+                <p className="text-gray-600 text-sm lg:text-base mb-4">
                   {error || "Failed to load apartments"}
                 </p>
                 <button
@@ -201,47 +191,17 @@ const Apartments = () => {
             )}
           </>
         ) : ( 
-          <p className="text-gray-500 text-sm">No apartments found.</p>
+          <div className="w-full flex items-center justify-center">
+            <p className="text-gray-500 text-sm">No apartments found.</p>
+          </div>
         )}
       </div>
       
       <ToggleSuccess
         message={success} 
         animateOut={animateOut} 
-        offset="bottom-32"
+        offset={isDesktop ? "bottom-26" : "bottom-34"}
       />  
-
-      {/* Back to top button */}
-      {showScrollTop && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-20 z-20 right-4 bg-gradient-to-t from-cyan-300 to-cyan-500 hover:bg-gradient-to-t hover:from-cyan-400 hover:to-cyan-600 text-white shadow-md p-2.5 rounded-lg transition animate-slideUp cursor-pointer"
-        >
-          <ArrowUp strokeWidth={3} className="w-4.5 h-4.5" />
-        </button>
-      )}
-
-
-      {/* Custom Styles */}
-      <style jsx="true">{`
-        @keyframes slideUp {
-          from { transform: translateY(40px); opacity: 0; }
-          to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes slideDown {
-          from { transform: translateY(0); opacity: 1; }
-          to { transform: translateY(40px); opacity: 0; }
-        }
-
-        .animate-slideUp {
-          animation: slideUp 0.3s ease-out forwards;
-        }
-
-        .animate-slideDown {
-          animation: slideDown 0.3s ease-in forwards;
-        }
-      `}</style>
     </div>
   );
 };

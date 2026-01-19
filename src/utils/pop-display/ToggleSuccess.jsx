@@ -1,11 +1,10 @@
-// components/ToggleSuccess.jsx
 const ToggleSuccess = ({ message, animateOut, offset = "bottom-20" }) => {
     if (!message) return null;
 
     return (
         <div
             className={`
-                fixed ${offset} right-4 z-50 px-4 py-3 rounded-lg bg-cyan-100/70 backdrop-blur-sm  
+                fixed ${offset} right-4 lg:right-[390px] z-50 px-4 py-3 rounded-lg bg-cyan-200/70 backdrop-blur-sm  
                 shadow-lg shadow-cyan-500/10 text-sm
                 text-cyan-700 font-medium tracking-normal
                 ${animateOut ? "animate-slideOutRight" : "animate-slideInRight"}
@@ -14,7 +13,7 @@ const ToggleSuccess = ({ message, animateOut, offset = "bottom-20" }) => {
             <div className="flex items-center gap-2.5">
                 {/* Optional heart icon accent */}
                 <div className="w-2 h-2 bg-rose-500/75 rounded-full"></div>
-                <span className="text-cyan-600">{message}</span>
+                <span className="text-cyan-700">{message}</span>
             </div>
             
             {/* Custom Animation Styles */}

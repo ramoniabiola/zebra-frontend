@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react'
-import Footerbar from '../components/Footerbar';
-import Footer from '../components/Footer';
 import { ArrowLeft, ChevronRight, ChevronLeft, Trash2, MapPin, Phone, Home, Calendar, DollarSign, Users, Bath, Square, User, CheckCircle, Loader2, AlertTriangle, X, RotateCcw } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -493,8 +491,6 @@ const ListingInfo = () => {
             </div>
           </>
         )}   
-        <Footerbar />
-        <Footer />
       </div>
       
       {/* Confirmation Modal */}

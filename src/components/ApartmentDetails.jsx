@@ -225,13 +225,13 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
                                 {
                                     isBookmarked ? (  
                                         <>   
-                                            <HeartSolid className="w-12 h-12 text-rose-600 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
-                                            <HeartOutline className="w-12 h-12 text-gray-50 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
+                                            <HeartSolid className="w-12 h-12 lg:w-13 lg:h-13 text-rose-600 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
+                                            <HeartOutline className="w-12 h-12 lg:w-13 lg:h-13 text-gray-50 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
                                         </> 
                                     ) : (
                                         <>   
-                                            <HeartSolid className="w-12 h-12 text-black/50 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
-                                            <HeartOutline className="w-12 h-12 text-gray-50 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
+                                            <HeartSolid className="w-12 h-12 lg:w-13 lg:h-13 text-black/50 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
+                                            <HeartOutline className="w-12 h-12 lg:w-13 lg:h-13 text-gray-50 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
                                         </>
                                     )
                                 }   
@@ -244,8 +244,8 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
 
                     {apartment.furnished && (
                         <div className="absolute top-4 left-3 z-10 ">
-                            <span className="flex items-center gap-1.5 px-4 py-1 bg-white/90 backdrop-blur-sm text-sm font-bold rounded-full shadow-md border-2  border-stone-300">
-                                <TagIcon className="w-3 h-3 text-stone-700" />
+                            <span className="flex items-center gap-1.5 px-4 py-1 lg:py-2 bg-white/90 backdrop-blur-sm text-sm font-bold rounded-full shadow-md border-2  border-stone-300">
+                                <TagIcon className="w-3 h-3 lg:w-4 lg:h-4 text-stone-700" />
                                 <span className="text-stone-700 tracking-widest">Premium</span>
                             </span>
                         </div>
@@ -255,17 +255,17 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
                 {/* Apartment Info */}
                 <div onClick={() => navigate(`/apartment/${apartment._id}`)} className="w-full mt-4 flex flex-col gap-2 text-left">
                     <div className="flex items-start justify-between gap-3">
-                        <h1 className="text-lg font-semibold text-slate-900 leading-tight group-hover:text-slate-900 transition-colors">
+                        <h1 className="text-lg lg:text-xl font-semibold text-slate-900 leading-tight group-hover:text-slate-900 transition-colors">
                             {apartment.title}
                         </h1>
                     </div>
 
                     <div className="flex items-center gap-1.5 text-slate-600">
-                        <MapPin className="w-4 h-4 text-gray-700" />
-                        <h4 className="text-sm font-medium">{apartment.location}</h4>
+                        <MapPin className="w-4 h-4 lg:w-5 lg:h-5 text-gray-700" />
+                        <h4 className="text-sm lg:text-base font-medium">{apartment.location}</h4>
                     </div>
 
-                    <p className="text-sm text-slate-500 leading-relaxed tracking-widest">{apartment.apartment_type}</p>
+                    <p className="text-sm lg:text-base text-slate-500 leading-relaxed tracking-widest">{apartment.apartment_type}</p>
                 
                     {error && (
                         <ErrorAlert 
@@ -273,14 +273,14 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
                         />
                     )}
                     <div className="flex items-center justify-between mt-2 pt-4 px-1.5 border-t border-gray-100">
-                       <h3 className="text-xl font-bold text-slate-900">
+                       <h3 className="text-xl lg:text-2xl font-bold text-slate-900 font-mono">
                             {formatPrice(apartment.price)}
-                           <span className="text-xs font-normal text-slate-500 ml-1">{apartment.payment_frequency}</span>
+                           <span className="text-xs  lg:text-sm font-normal text-slate-500 ml-1">{apartment.payment_frequency}</span>
                        </h3>
 
                        <div className="flex items-center gap-1.5 text-gray-400">
                            <Calendar className="w-3.5 h-3.5" />
-                           <span className="text-xs font-medium">{reactivationTime}</span>
+                           <span className="text-xs lg:text-sm font-medium">{reactivationTime}</span>
                        </div>
                     </div>
                 </div>

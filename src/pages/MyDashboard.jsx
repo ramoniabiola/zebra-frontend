@@ -1,5 +1,3 @@
-import Footerbar from "../components/Footerbar";
-import Footer from "../components/Footer";
 import {
   UserCircleIcon
 } from "@heroicons/react/24/solid";
@@ -90,14 +88,14 @@ const MyDashboard = () => {
       {/* Welcome section with avatar */}
       <div className="w-full flex items-center justify-between px-6 py-6 pt-8">
         <div className="flex flex-col gap-1">
-          <h2 className="text-base font-semibold text-cyan-600 tracking-widest">Welcome back!</h2>
-          <h1 className="text-xl font-bold text-cyan-700 tracking-widest">{user?.username}</h1>
+          <h2 className="text-base font-semibold text-cyan-700 tracking-widest">Welcome back!</h2>
+          <h1 className="text-xl font-bold text-cyan-800 tracking-widest">{user?.username}</h1>
         </div>
-        <div className="ring-3 p-[3px] ring-cyan-400 rounded-full">
+        <div className="ring-3 p-[3px] ring-cyan-500 rounded-full">
           {user.profile_picture ? (
             <img src={user.profile_picture} alt="avatar" className="w-13 h-13 rounded-full object-cover cursor-pointer" />
           ) : (
-            <UserCircleIcon className="w-14 h-14 text-cyan-400 cursor-pointer" />
+            <UserCircleIcon className="w-14 h-14 text-cyan-500 cursor-pointer" />
           )}
         </div>
       </div>
@@ -112,55 +110,55 @@ const MyDashboard = () => {
         ) : (
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-2 mb-8 px-2">
             {/* Active Listings */}
-            <div className="flex items-center justify-between py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-100 to-cyan-200 border border-cyan-200">
+            <div className="flex items-center justify-between py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-200 to-cyan-300 border border-cyan-300">
               <div className="flex flex-col gap-2">
-                <h2 className="text-lg font-bold font-sans text-cyan-700">{compactNumber(userStats.activeListings)}</h2>
-                <p className="text-xs font-medium text-cyan-700/80 tracking-widest">Active Listings</p>
+                <h2 className="text-lg font-bold font-sans text-cyan-800">{compactNumber(userStats.activeListings)}</h2>
+                <p className="text-xs font-medium text-cyan-800/80 tracking-widest">Active Listings</p>
               </div>
               <div className="items-center mb-4">
                 <Landmark 
-                  className="w-6 h-6 text-cyan-700/95" 
+                  className="w-6 h-6 text-cyan-800/95" 
                 />
               </div>
             </div>
  
             {/* Total Listings */}
-            <div className="flex items-center justify-between py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-100 to-cyan-200 border border-cyan-200">
+            <div className="flex items-center justify-between py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-200 to-cyan-300 border border-cyan-300">
               <div className="flex flex-col gap-2">
-                <h2 className="text-lg font-bold font-sans text-cyan-700">{compactNumber(userStats.totalListings)}</h2>
-                <p className="text-xs font-medium text-cyan-700/80 tracking-widest">Total Listings</p>
+                <h2 className="text-lg font-bold font-sans text-cyan-800">{compactNumber(userStats.totalListings)}</h2>
+                <p className="text-xs font-medium text-cyan-800/80 tracking-widest">Total Listings</p>
               </div>
               <div className="items-center mb-4">
                 <Component
-                  className="w-6 h-6 text-cyan-700/95" 
+                  className="w-6 h-6 text-cyan-800/95" 
                 />
               </div>
             </div>
         
 
             {/* User Role */}
-            <div className="flex items-center justify-between py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-100 to-cyan-200 border border-cyan-200">
+            <div className="flex items-center justify-between py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-200 to-cyan-300 border border-cyan-300">
               <div className="flex flex-col gap-2">
-                <h2 className="text-lg font-bold font-sans text-cyan-700 first-letter:uppercase">{user.role}</h2>
-                <p className="text-xs font-medium text-cyan-700/80 tracking-widest">User Role</p>
+                <h2 className="text-lg font-bold font-sans text-cyan-800 first-letter:uppercase">{user.role}</h2>
+                <p className="text-xs font-medium text-cyan-800/80 tracking-widest">User Role</p>
               </div>
               <div className="items-center mb-4">
                 <UserRoundCheck
-                  className="w-6 h-6 text-cyan-700/95" 
+                  className="w-6 h-6 text-cyan-800/95" 
                 />
               </div>
             </div>
             
 
             {/*Deactivated Listings */}
-            <div className="flex items-center justify-between py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-100 to-cyan-200 border border-cyan-200">
+            <div className="flex items-center justify-between py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-200 to-cyan-300 border border-cyan-300">
               <div className="flex flex-col gap-2">
-                <h2 className="text-lg font-bold font-sans text-cyan-700">{compactNumber(userStats.deactivatedListings)}</h2>
-                <p className="text-xs font-medium text-cyan-700/80 tracking-widest">Rented Listings</p>
+                <h2 className="text-lg font-bold font-sans text-cyan-800">{compactNumber(userStats.deactivatedListings)}</h2>
+                <p className="text-xs font-medium text-cyan-800/80 tracking-widest">Rented Listings</p>
               </div>
               <div className="items-center mb-4">
                 <PauseCircle
-                  className="w-6 h-6 text-cyan-700/95" 
+                  className="w-6 h-6 text-cyan-800/95" 
                 />
               </div>
             </div>
@@ -173,10 +171,10 @@ const MyDashboard = () => {
             onClick={() => navigate("/create-listing")} 
             className="w-full bg-gradient-to-r from-cyan-200 to-cyan-400 hover:from-cyan-800 hover:to-cyan-600 text-white font-semibold py-2 rounded-lg transition-all duration-200 flex items-center justify-center mx-auto gap-3 group focus:invisible cursor-pointer" 
           >
-           <div className="p-1 bg-cyan-500/20 rounded-md group-hover:bg-cyan-500/30 transition-colors">
-              <Plus size={16} strokeWidth={2} className="text-cyan-700/90" />
+           <div className="p-1 bg-cyan-600/20 rounded-md group-hover:bg-cyan-600/30 transition-colors">
+              <Plus size={16} strokeWidth={2} className="text-cyan-800/90" />
             </div>
-            <span className="text-base text-cyan-700 hover:text-cyan-700/800">Create New Listing</span>
+            <span className="text-base text-cyan-800">Create New Listing</span>
           </button>
         </div>
       </div>
@@ -193,7 +191,7 @@ const MyDashboard = () => {
                   onClick={() => setActiveTab(tab)}
                   className={`relative py-4 text-base transition-all font-medium duration-300 cursor-pointer focus:invisible ${
                     activeTab === tab 
-                      ? "text-cyan-500" 
+                      ? "text-cyan-600" 
                       : "text-gray-400  hover:text-gray-600"
                   }`}
                 >
@@ -202,7 +200,7 @@ const MyDashboard = () => {
                   {/* Animated Underline */}
                   {activeTab === tab && (
                     <span
-                      className="absolute bottom-0 w-full left-0 h-1 bg-cyan-500 rounded-full transition-all duration-300 ease-out"   
+                      className="absolute bottom-0 w-full left-0 h-1 bg-cyan-600 rounded-full transition-all duration-300 ease-out"   
                     />
                   )}
                 </h2>
@@ -216,8 +214,6 @@ const MyDashboard = () => {
           {activeTab === "My Listings" ? <MyListings /> : <DeactivatedListings />}
         </div>
       </div>
-      <Footerbar />
-      <Footer />
     </div>
   );
 }; 

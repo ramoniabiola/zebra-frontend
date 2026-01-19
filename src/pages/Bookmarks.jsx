@@ -5,8 +5,6 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import BookmarkCard from "../components/BookmarkCard";
 import WishlistPlaceholder from "../utils/placeholders/WishlistPlaceholder";
 import ToggleSuccess from "../utils/pop-display/ToggleSuccess";
-import Footer from "../components/Footer";
-import Footerbar from "../components/Footerbar";
 import { useClearAllUserBookmarks, useGetUserBookmarks, useToggleBookmark } from "../hooks/bookmarks";
 import { selectPaginatedBookmarks, setCurrentPage } from "../redux/bookmarkSlice";
 import BookmarkCardSkeleton from "../utils/loading-display/BookmarkCardSkeleton";
@@ -271,8 +269,6 @@ const Bookmarks = () => {
                         animateOut={animateOut} 
                     />  
                 </div>
-                <Footerbar />
-                <Footer />
             </div>
 
             {/* Modals */}

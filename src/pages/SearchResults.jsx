@@ -1,5 +1,3 @@
-import Footer from "../components/Footer";
-import Footerbar from "../components/Footerbar";
 import ApartmentDetails from "../components/ApartmentDetails";
 import Search2 from "../components/Search2";
 import ApartmentDetailsSkeleton from "../utils/loading-display/ApartmentDetailsSkeleton";
@@ -167,9 +165,6 @@ const SearchResults = () => {
                     animateOut={animateOut} 
                 />  
             </div>
-
-            <Footerbar />
-            <Footer />
         </div>
     );
 };

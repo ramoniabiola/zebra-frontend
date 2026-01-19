@@ -66,12 +66,12 @@ const Footerbar = () => {
     {
       id: "home",
       label: "Home",
-      icon: (active) => active ? <HomeSolid className="w-6 h-6" /> : <HomeOutline className="w-6 h-6" />,
+      icon: (active) => active ? <HomeSolid className="w-5 h-5" /> : <HomeOutline className="w-5 h-5" />,
     },
     {
       id: "search",
       label: "Search",
-      icon: (active) => active ? <SearchSolid className="w-6 h-6" /> : <SearchOutline className="w-6 h-6" />,
+      icon: (active) => active ? <SearchSolid className="w-5 h-5" /> : <SearchOutline className="w-5 h-5" />,
     },
   ];
   
@@ -82,42 +82,42 @@ const Footerbar = () => {
     userSpecificTab = {
       id: "login",
       label: "Login",
-      icon: (active) => active ? <UserCircleSolid className="w-6 h-6" /> : <UserCircleOutline className="w-6 h-6" />,
+      icon: (active) => active ? <UserCircleSolid className="w-5 h-5" /> : <UserCircleOutline className="w-5 h-5" />,
     };
   } else if (user.role === "tenant") {
     userSpecificTab = {
       id: "whishlists",
       label: "Wishlists",
-      icon: (active) => active ? <HeartSolid className="w-6 h-6" /> : <HeartOutline className="w-6 h-6" />,
+      icon: (active) => active ? <HeartSolid className="w-5 h-5" /> : <HeartOutline className="w-5 h-5" />,
     };
     extraTabs = [
       {
         id: "notifications",
         label: "Notifications",
-        icon: (active) => active ? <BellSolid className="w-6 h-6" /> : <BellOutline className="w-6 h-6" />,
+        icon: (active) => active ? <BellSolid className="w-5 h-5" /> : <BellOutline className="w-5 h-5" />,
       },
       {
         id: "profile",
         label: "Profile",
-        icon: (active) => active ? <UserSolid className="w-6 h-6" /> : <UserOutline className="w-6 h-6" />,
+        icon: (active) => active ? <UserSolid className="w-5 h-5" /> : <UserOutline className="w-5 h-5" />,
       },
     ];
   } else {
     userSpecificTab = {
       id: "dashboard",
       label: "Dashboard",
-      icon: (active) => active ? <DashboardSolid className="w-6 h-6" /> : <DashboardOuline className="w-6 h-6" />,
+      icon: (active) => active ? <DashboardSolid className="w-5 h-5" /> : <DashboardOuline className="w-5 h-5" />,
     };
     extraTabs = [
       {
         id: "notifications",
         label: "Notifications",
-        icon: (active) => active ? <BellSolid className="w-6 h-6" /> : <BellOutline className="w-6 h-6" />,
+        icon: (active) => active ? <BellSolid className="w-5 h-5" /> : <BellOutline className="w-5 h-5" />,
       },
       {
         id: "profile",
         label: "Profile",
-        icon: (active) => active ? <UserSolid className="w-6 h-6" /> : <UserOutline className="w-6 h-6" />,
+        icon: (active) => active ? <UserSolid className="w-5 h-5" /> : <UserOutline className="w-5 h-5" />,
       },
     ];
   }
@@ -131,7 +131,7 @@ const Footerbar = () => {
 
   return (
     <div
-      className={`fixed bottom-0 w-full h-15 bg-white shadow-[0_-3px_10px_-4px_rgba(0,0,0,0.15)] z-50 flex items-center justify-around transition-opacity duration-300 ${
+      className={`fixed bottom-0 w-full h-14 bg-white shadow-[0_-3px_10px_-4px_rgba(0,0,0,0.15)] z-50 flex items-center justify-around transition-opacity duration-300 ${
         isBeyondScreen ? "opacity-70" : "opacity-100"
       }`}
     >
@@ -140,7 +140,7 @@ const Footerbar = () => {
           onClick={() => navigate(tabRoutes[tab.id])}
           key={tab.id}
           className={`flex flex-col items-center justify-center cursor-pointer transition-all duration-200
-            ${activeTab === tab.id ? "text-cyan-500" : "text-gray-500 hover:text-gray-600"}
+            ${activeTab === tab.id ? "text-cyan-500" : "text-slate-500 hover:text-slate-600"}
           `}
         >
           <div className="relative">
