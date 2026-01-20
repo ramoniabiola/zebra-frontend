@@ -107,26 +107,26 @@ const DeactivatedListingDetails = ({ apartment }) => {
       {/* Apartment Info */}
       <div onClick={() => navigate(`/deactivated-listing/${apartment._id}`)} className="w-full mt-4 flex flex-col gap-2 text-left">
         <div className="flex items-start justify-between gap-3">
-          <h1 className="text-lg font-semibold text-slate-900 leading-tight group-hover:text-slate-900 transition-colors">
+          <h1 className="text-lg lg:text-xl font-semibold text-slate-900 leading-tight group-hover:text-slate-900 transition-colors">
             {apartment.title}
           </h1>
         </div>
                 
         <div className="flex items-center gap-1.5 text-slate-600">
-          <MapPin className="w-4 h-4 text-slate-700" />
-          <h4 className="text-sm font-medium">{apartment.location}</h4>
+          <MapPin className="w-4 h-4 lg:w-5 lg:h-5 text-slate-700" />
+          <h4 className="text-sm lg:text-base font-medium">{apartment.location}</h4>
         </div>
                 
-        <p className="text-sm text-slate-500 leading-relaxed tracking-widest">{apartment.apartment_type}</p>
+        <p className="text-sm lg:text-base text-slate-500 leading-relaxed tracking-widest">{apartment.apartment_type}</p>
         <div className="flex items-center justify-between mt-2 pt-4 px-1.5 border-t border-gray-100">
-          <h3 className="text-xl font-bold text-slate-900">
+          <h3 className="text-xl lg:text-2xl font-bold text-slate-900 font-mono">
             {formatPrice(apartment.price)}
-            <span className="text-sm font-normal text-slate-500 ml-1">{apartment.payment_frequency}</span>
+            <span className="text-sm lg:text-base font-normal text-slate-500 ml-1">{apartment.payment_frequency}</span>
           </h3>
                    
           <div className="flex items-center gap-1.5 text-gray-400">
             <Calendar className="w-3.5 h-3.5" />
-            <span className="text-xs font-medium">{timeAgo}</span>
+            <span className="text-xs lg:text-sm font-medium">{timeAgo}</span>
           </div>
         </div>
       </div>

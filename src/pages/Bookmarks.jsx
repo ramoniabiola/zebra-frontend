@@ -149,7 +149,7 @@ const Bookmarks = () => {
     
 
     const ErrorDisplay = () => (
-        <div className="h-full w-full flex flex-col items-center justify-center text-center py-8 mt-40 mb-40">
+        <div className="h-full w-full flex flex-col items-center justify-center text-center py-8 mt-40 mb-40 pl-0 pr-6 lg:pl-0 lg:pr-10">
             <ExclamationTriangleIcon className="w-10 h-10 text-red-500 mx-auto mb-4" />
             <h3 className="text-base font-semibold text-gray-800 mb-1">Something went wrong</h3>
             <p className="text-gray-600 text-sm font-semibold mb-4">{error}</p>
@@ -166,7 +166,7 @@ const Bookmarks = () => {
 
     return (
         <>
-            <div className="w-full h-full flex flex-col items-start justify-center">
+            <div className="w-full h-full flex flex-col items-start justify-center lg:mt-20">
                 <div className="w-full h-full flex flex-col items-start justify-center gap-4">
                     {/* Header */}
                     <div className="w-full h-16 flex items-center justify-between px-2 bg-white">
@@ -177,7 +177,7 @@ const Bookmarks = () => {
                             >
                                 <ArrowLeft className="w-5 h-5" />
                             </div>
-                            <h1 className="font-bold text-gray-900 text-2xl">WishLists</h1>
+                            <h1 className="font-bold text-gray-900 text-2xl lg:text-3xl">WishLists</h1>
                         </div>
 
                         {totalBookmarks > 0 && !error && !isLoading && (
@@ -217,27 +217,30 @@ const Bookmarks = () => {
                     </div>
 
                     {/* Content */}
-                    <div className="w-full h-full flex flex-col items-center justify-center px-4 overflow-y-auto scroll-smooth mt-10 mb-12">
+                    <div className="w-full h-full mt-4 pl-6 pr-0 lg:pl-10 lg:pr-0 overflow-y-auto scroll-smooth mb-12">
                         {error ? (
                             <ErrorDisplay />
                         ) : isLoading ? (
                             <BookmarkCardSkeleton cards={2} />
                         ) : totalBookmarks > 0 ? (
                             <>
-                                {paginatedBookmarks.map((apartment) => (
-                                    <BookmarkCard 
-                                        apartment={apartment} 
-                                        key={apartment._id} 
-                                        toggleBookmark={toggleBookmark}
-                                        error={toggleError}
-                                        setError={setError}
-                                        offset="bottom-24"
-                                    />
-                                ))}
+                                {/* Grid Container for Bookmarked Apartments */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-2">
+                                    {paginatedBookmarks.map((apartment) => (
+                                        <BookmarkCard 
+                                            apartment={apartment} 
+                                            key={apartment._id} 
+                                            toggleBookmark={toggleBookmark}
+                                            error={toggleError}
+                                            setError={setError}
+                                            offset="bottom-24"
+                                        />
+                                    ))}
+                                </div>
 
                                 {/* Pagination Controls */}
                                 {totalPages > 1 && (   
-                                    <div className="w-full flex items-center justify-center gap-12 py-6">
+                                    <div className="w-full flex items-center justify-center gap-12 py-2 pl-0 pr-6 lg:pl-0 lg:pr-10">
                                         <button
                                            disabled={currentPage === 1}
                                             onClick={() => dispatch(setCurrentPage(currentPage - 1))}
@@ -261,7 +264,9 @@ const Bookmarks = () => {
                                 )}
                             </>
                         ) : (
-                            <WishlistPlaceholder />
+                            <div className="pl-0 pr-6 lg:pl-0 lg:pr-10">
+                                <WishlistPlaceholder />
+                            </div>
                         )}
                     </div>
                     <ToggleSuccess 

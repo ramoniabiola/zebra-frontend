@@ -84,18 +84,18 @@ const MyDashboard = () => {
 
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-start justify-start bg-white">
+    <div className="w-full min-h-screen flex flex-col items-start justify-start bg-white lg:mt-20">
       {/* Welcome section with avatar */}
-      <div className="w-full flex items-center justify-between px-6 py-6 pt-8">
+      <div className="w-full flex items-center justify-between px-6 md:px-7 lg:px-8 py-6 pt-8">
         <div className="flex flex-col gap-1">
-          <h2 className="text-base font-semibold text-cyan-700 tracking-widest">Welcome back!</h2>
-          <h1 className="text-xl font-bold text-cyan-800 tracking-widest">{user?.username}</h1>
+          <h2 className="text-base lg:text-lg font-semibold text-cyan-700 tracking-widest">Welcome back!</h2>
+          <h1 className="text-xl lg:text-2xl font-bold text-cyan-800 tracking-widest">{user?.username}</h1>
         </div>
-        <div className="ring-3 p-[3px] ring-cyan-500 rounded-full">
+        <div className="ring-3 lg:ring-4 p-[3px]  ring-cyan-500 rounded-full">
           {user.profile_picture ? (
-            <img src={user.profile_picture} alt="avatar" className="w-13 h-13 rounded-full object-cover cursor-pointer" />
+            <img src={user.profile_picture} alt="avatar" className="w-13 h-13 lg:w-14 lg:h-14 rounded-full object-cover cursor-pointer" />
           ) : (
-            <UserCircleIcon className="w-14 h-14 text-cyan-500 cursor-pointer" />
+            <UserCircleIcon className="w-14 h-14 lg:w-15 lg:h-15 text-cyan-500 cursor-pointer" />
           )}
         </div>
       </div>
@@ -108,7 +108,7 @@ const MyDashboard = () => {
         (
           <DashboardSkeleton /> 
         ) : (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-2 mb-8 px-2">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-2 mb-8 px-2">
             {/* Active Listings */}
             <div className="flex items-center justify-between py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-200 to-cyan-300 border border-cyan-300">
               <div className="flex flex-col gap-2">
@@ -169,18 +169,18 @@ const MyDashboard = () => {
         <div className="px-2">
           <button 
             onClick={() => navigate("/create-listing")} 
-            className="w-full bg-gradient-to-r from-cyan-200 to-cyan-400 hover:from-cyan-800 hover:to-cyan-600 text-white font-semibold py-2 rounded-lg transition-all duration-200 flex items-center justify-center mx-auto gap-3 group focus:invisible cursor-pointer" 
+            className="w-full bg-gradient-to-r from-cyan-200 to-cyan-400 hover:from-cyan-300 hover:to-cyan-500 text-white font-semibold py-2 rounded-lg transition-all duration-200 flex items-center justify-center mx-auto gap-3 group focus:invisible cursor-pointer" 
           >
            <div className="p-1 bg-cyan-600/20 rounded-md group-hover:bg-cyan-600/30 transition-colors">
               <Plus size={16} strokeWidth={2} className="text-cyan-800/90" />
             </div>
-            <span className="text-base text-cyan-800">Create New Listing</span>
+            <span className="text-base lg:text-lg text-cyan-800 hover:text-cyan-900">Create New Listing</span>
           </button>
         </div>
       </div>
 
       {/*APARTMENT LISTING DISPLAY*/}
-      <div className="w-full h-full flex flex-col items-start justify-center mt-2">
+      <div className="w-full h-full flex flex-col items-start justify-center mt-2 lg:mt-6">
         {/* Tab Navigation */}
         <div className="w-full bg-gray-50 ">
           <div className="border-b border-t border-gray-100">
@@ -189,7 +189,7 @@ const MyDashboard = () => {
                 <h2
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`relative py-4 text-base transition-all font-medium duration-300 cursor-pointer focus:invisible ${
+                  className={`relative py-4 text-base lg:text-lg transition-all font-medium duration-300 cursor-pointer focus:invisible ${
                     activeTab === tab 
                       ? "text-cyan-600" 
                       : "text-gray-400  hover:text-gray-600"

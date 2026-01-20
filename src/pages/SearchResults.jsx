@@ -11,6 +11,7 @@ import { useToggleBookmark } from "../hooks/bookmarks";
 import ToggleSuccess from "../utils/pop-display/ToggleSuccess";
 
 
+
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 };
@@ -27,6 +28,7 @@ const SearchResults = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const { toggleBookmark, success, error: toggleError, setError: setToggleError, animateOut } = useToggleBookmark();
+    
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -81,12 +83,12 @@ const SearchResults = () => {
 
 
     const ErrorDisplay = () => (
-        <div className="h-full w-full flex flex-col items-center justify-center text-center py-8 mt-24 mb-24">
+        <div className="h-full w-full flex flex-col items-center justify-center text-center pr-6 pl-0 lg:pr-10 lg:pl-0 py-8 mt-24 mb-24">
             <ExclamationTriangleIcon className="w-10 h-10 text-red-500 mx-auto mb-4" />
-            <h3 className="text-base font-semibold text-gray-800 mb-2">
+            <h3 className="text-base lg:text-lg font-semibold text-gray-800 mb-2">
                 Something went wrong
             </h3>
-            <p className="text-gray-600 text-sm mb-4">{error}</p>
+            <p className="text-gray-600 text-sm lg:text-base mb-4">{error}</p>
             <button
                 onClick={handleRetry}
                 className="px-3 py-2 bg-cyan-600 hover:bg-cyan-700 text-white text-base font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5  focus:invisible cursor-pointer"
@@ -103,7 +105,7 @@ const SearchResults = () => {
         <div className="w-full h-full flex flex-col items-start justify-center">
             <Search2 />
 
-            <div className="w-full px-2 h-full flex flex-col items-center justify-start mt-28">
+            <div className="w-full px-2 h-full flex flex-col items-center justify-start mt-8 lg:mt-24">
                 <h1
                     className={`${
                         query ? "text-xl text-center text-gray-600 font-semibold" : "hidden"
@@ -112,27 +114,30 @@ const SearchResults = () => {
                     Search results for "<b className="text-gray-800">{query}</b>"
                 </h1>
 
-                <div className="w-full h-full flex flex-col items-center justify-center px-2 mb-12">
+                <div className="w-full h-full pl-6 pr-0 lg:pl-10 lg:pr-0 overflow-y-auto scroll-smooth mb-12">
                     {error && page >= 1  ? (
                         <ErrorDisplay />
                     ) : isLoading && page >= 1  ? (
                         <ApartmentDetailsSkeleton cards={2} />
                     ) : apartments?.length > 0 ? (
                     <>
-                        {apartments.map((apartment, idx) => (
-                            <ApartmentDetails 
-                            key={`${apartment._id}-${idx}`} 
-                            apartment={apartment} 
-                            toggleBookmark={toggleBookmark}
-                            error={toggleError}
-                            setError={setToggleError}
-                            offset="bottom-24"
-                        />
-                        ))}
+                        {/* Grid Container for Apartments */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-2">
+                            {apartments.map((apartment, idx) => (
+                                <ApartmentDetails 
+                                    key={`${apartment._id}-${idx}`} 
+                                    apartment={apartment} 
+                                    toggleBookmark={toggleBookmark}
+                                    error={toggleError}
+                                    setError={setToggleError}
+                                    offset="bottom-24"
+                                />
+                            ))}
+                        </div>
 
-                         {/* Pagination Controls */}
+                        {/* Pagination Controls */}
                         {totalPages > 1 && (
-                            <div className="w-full mt-4 flex items-center justify-center gap-12 py-6">
+                            <div className="w-full mt-4 flex items-center justify-center gap-12 py-6 pl-0 pr-6 lg:pl-0 lg:pr-10">
                                 <button
                                     onClick={() => getApartments(page - 1)}
                                     disabled={page === 1}
@@ -156,7 +161,9 @@ const SearchResults = () => {
                         )}
                     </>
                     ) : (
-                        <SearchPlaceholder />
+                        <div className="pl-0 pr-6 lg:pl-0 lg:pr-10">
+                            <SearchPlaceholder />
+                        </div>
                     )}
                 </div>
 

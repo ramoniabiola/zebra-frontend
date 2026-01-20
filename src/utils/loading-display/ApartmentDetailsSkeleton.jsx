@@ -2,7 +2,7 @@ import Skeleton from 'react-loading-skeleton';
 
 const ApartmentDetailsSkeleton = ({ cards }) => {
   return (
-    <div className="mt-[2.5rem] lg:mt-[3rem] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-20 lg:gap-24 pl-0 pr-6 lg:pl-0 lg:pr-10 w-full">
+    <div className="mt-[2.5rem] lg:mt-[3rem] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-20 md:gap-14 lg:gap-14 pl-0 pr-6 lg:pl-0 lg:pr-10 w-full">
       {Array(cards).fill(0).map((_, i) => (
         <div key={i} className='w-full h-auto flex flex-col items-center justify-start relative'>
           <div className='w-full h-[310px] rounded-xl'>

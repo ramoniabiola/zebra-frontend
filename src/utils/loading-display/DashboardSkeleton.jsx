@@ -2,7 +2,7 @@ import Skeleton from 'react-loading-skeleton';
 
 const DashboardSkeleton = () => {
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 mt-2 gap-2 mb-8 px-2">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-2 gap-2 mb-8 px-2">
       {/* Skeleton for each card */}
       {[...Array(4)].map((_, index) => (
         <div key={index} className="flex items-center justify-between py-1 px-3 rounded-lg  bg-stone-100 animate-pulse">

@@ -91,7 +91,7 @@ const Apartments = () => {
 
   // Error Display
   const ErrorDisplay = () => (
-    <div className="h-full w-full flex flex-col items-center justify-center text-center py-8 mt-48 mb-48">
+    <div className="h-full w-full flex flex-col items-center justify-center text-center py-8 mt-48 mb-48 pr-6 pl-0 lg:pr-10 lg:pl-0">
       <ExclamationTriangleIcon className="w-10 h-10 text-red-500 mx-auto mb-4" />
       <h3 className="text-base lg:text-lg font-semibold text-gray-800 mb-1">
         Something went wrong
@@ -172,7 +172,7 @@ const Apartments = () => {
             )}
 
             {error && page > 1 && (
-              <div className="w-full flex flex-col items-center py-4">
+              <div className="w-full flex flex-col items-center py-4 pr-6 pl-0 lg:pr-10 lg:pl-0">
                 <ExclamationTriangleIcon className="w-10 h-10 text-red-500 mx-auto mb-2" />
                 <h3 className="text-md lg:text-lg font-semibold text-gray-800 mb-1">
                   Something went wrong
@@ -191,7 +191,7 @@ const Apartments = () => {
             )}
           </>
         ) : ( 
-          <div className="w-full flex items-center justify-center">
+          <div className="w-full flex items-center justify-center pr-6 pl-0 lg:pr-10 lg:pl-0">
             <p className="text-gray-500 text-sm">No apartments found.</p>
           </div>
         )}

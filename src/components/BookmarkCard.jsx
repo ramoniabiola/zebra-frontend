@@ -182,13 +182,13 @@ const BookmarkCard = ({ apartment, toggleBookmark, error, setError }) => {
                     {
                         isBookmarked ? (  
                             <>   
-                                <HeartSolid className="w-12 h-12 text-rose-500 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
-                                <HeartOutline className="w-12 h-12 text-gray-50 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
+                                <HeartSolid className="w-12 h-12 lg:w-13 lg:h-13 text-rose-500 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
+                                <HeartOutline className="w-12 h-12 lg:w-13 lg:h-13 text-gray-50 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
                             </> 
                         ) : (
                             <>   
-                                <HeartSolid className="w-12 h-12 text-black/35 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
-                                <HeartOutline className="w-12 h-12 text-gray-50 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
+                                <HeartSolid className="w-12 h-12 lg:w-13 lg:h-13 text-black/35 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
+                                <HeartOutline className="w-12 h-12 lg:w-13 lg:h-13 text-gray-50 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
                             </>
                         )
                     }   
@@ -198,17 +198,17 @@ const BookmarkCard = ({ apartment, toggleBookmark, error, setError }) => {
             {/* Apartment Info */}
             <div onClick={handleNavigation} className="w-full mt-4 flex flex-col gap-2 text-left">
                   <div className="flex items-start justify-between gap-3">
-                    <h1 className="text-lg font-semibold text-slate-900 leading-tight group-hover:text-slate-900 transition-colors">
+                    <h1 className="text-lg lg:text-xl font-semibold text-slate-900 leading-tight group-hover:text-slate-900 transition-colors">
                         {bookmark.title}
                     </h1>
                 </div>
                 
                 <div className="flex items-center gap-1.5 text-slate-600">
-                    <MapPin className="w-4 h-4 text-slate-700" />
-                    <h4 className="text-sm font-medium">{bookmark.location}</h4>
+                    <MapPin className="w-4 h-4 lg:w-5 lg:h-5 text-slate-700" />
+                    <h4 className="text-sm lg:text-base font-medium">{bookmark.location}</h4>
                 </div>
                 
-                <p className="text-sm text-slate-500 leading-relaxed tracking-widest">{bookmark.apartment_type}</p>
+                <p className="text-sm lg:text-base text-slate-500 leading-relaxed tracking-widest">{bookmark.apartment_type}</p>
 
                 {!bookmark.isAvailable && (
                     <span 
@@ -231,14 +231,14 @@ const BookmarkCard = ({ apartment, toggleBookmark, error, setError }) => {
                     />
                 )}
                 <div className="flex items-center justify-between mt-2 pt-4 px-1.5 border-t border-gray-100">
-                   <h3 className="text-xl font-bold text-slate-900">
+                   <h3 className="text-xl lg:text-2xl font-bold text-slate-900 font-mono">
                        {formatPrice(bookmark.price)}
-                       <span className="text-sm font-normal text-slate-500 ml-1">{apartment.payment_frequency}</span>
+                       <span className="text-sm lg:text-sm font-normal text-slate-500 ml-1">{apartment.payment_frequency}</span>
                    </h3>
                    
                    <div className="flex items-center gap-1.5 text-gray-400">
                        <Calendar className="w-3.5 h-3.5" />
-                       <span className="text-xs font-medium">{reactivationTime}</span>
+                       <span className="text-xs lg:text-sm font-medium">{reactivationTime}</span>
                    </div>
                 </div>
             </div>

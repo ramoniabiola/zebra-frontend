@@ -136,7 +136,7 @@ const MyListings = () => {
 
   // Error display
   const ErrorDisplay = () => (
-    <div className="h-full w-full flex flex-col items-center justify-center text-center py-8 mt-40 mb-40">
+    <div className="h-full w-full flex flex-col items-center justify-center text-center py-8 mt-40 mb-40 pl-0 pr-6 lg:pl-0 lg:pr-10">
       <ExclamationTriangleIcon className="w-10 h-10 text-red-500 mx-auto mb-4" />
       <h3 className="text-base font-semibold text-gray-800 mb-1">Something went wrong</h3>
       <p className="text-gray-600 font-semibold mb-4">{error}</p>
@@ -151,10 +151,10 @@ const MyListings = () => {
   );
 
   return (
-    <div className="w-full h-full flex flex-col items-start justify-center mt-1">
+    <div className="w-full h-full flex flex-col items-start justify-center mt-1 lg:mt-2">
       {/* Search input */}
       <div className="w-full h-18 flex items-center justify-center bg-white">
-        <div className="flex gap-1 w-full mx-4">
+        <div className="flex gap-1 lg:gap-1.5 w-full mx-4 lg:mx-6">
           <div className="relative flex-1 rounded-xl py-3 bg-stone-50 border border-stone-200">
             <input
               value={searchQuery}
@@ -162,7 +162,7 @@ const MyListings = () => {
               onKeyDown={handleKeyPress}
               type="text"
               placeholder="Search your listings"
-              className="w-full h-full px-4 rounded-md outline-none text-base font-semibold text-gray-900 placeholder-stone-400"
+              className="w-full h-full px-4 rounded-md outline-none text-base lg:text-lg font-semibold text-gray-900 placeholder-stone-400"
             />
 
             {query && (
@@ -188,29 +188,32 @@ const MyListings = () => {
 
       {/* Search indicator */}
       {query && (
-        <div className="w-full text-center px-4 mt-4">
-          <p className="text-lg text-gray-600 font-semibold">
+        <div className="w-full text-center px-4 mt-4 lg:mt-6">
+          <p className="text-lg lg:text-xl text-gray-600 font-semibold">
             Search results for <b className="text-gray-800">"{query}"</b>
           </p>
         </div>
       )}
 
       {/* Listings */}
-      <div className="w-full h-full flex flex-col items-center justify-center px-3 overflow-y-auto scroll-smooth mb-12">
+      <div className="w-full h-full pl-6 pr-0 lg:pl-10 lg:pr-0 overflow-y-auto scroll-smooth mb-12">
         {error ? (
           <ErrorDisplay />
         ) : isLoading ? (
           <ApartmentDetailsSkeleton cards={2} />
         ) : displayedListings?.length > 0 ? (
           <>
-            {displayedListings.map((apartment) => (
-              <MyListingDetails apartment={apartment} key={apartment._id} />
-            ))}
+            {/* Grid Container for listings */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-2 md:mt-4 lg:mt-4">
+              {displayedListings.map((apartment) => (
+                <MyListingDetails apartment={apartment} key={apartment._id} />
+              ))}
+            </div>
     
             {/* Pagination Controls */}
             {!error && !isLoading &&  (
               (query ? searchTotalPages > 1 : reduxListings.totalPages > 1) && (
-                <div className="w-full flex items-center justify-center gap-12 py-6">
+                <div className="w-full flex items-center justify-center gap-12 py-6 pl-0 pr-6 lg:pl-0 lg:pr-10">
                   <button
                     onClick={handlePrevPage}
                     disabled={query ? searchPage <= 1 : reduxListings.currentPage <= 1}
@@ -235,7 +238,9 @@ const MyListings = () => {
             )}
           </>
         ) : (
-          <MyListingsPlaceholder />
+          <div className="pl-0 pr-6 lg:pl-0 lg:pr-10">
+            <MyListingsPlaceholder />
+          </div>
         )}       
       </div>
     </div>
