@@ -33,15 +33,15 @@ const NotificationCard = ({ notification, onMarkAsRead }) => {
 
     return (
         <div
-            className={`w-full px-3 py-1.5 rounded-xl border cursor-pointer transition-all duration-200 hover:shadow-md ${getNotificationStyle()}`}
+            className={`w-full px-3 lg:px-4 py-1.5 lg:py-2 rounded-xl border cursor-pointer transition-all duration-200 hover:shadow-md ${getNotificationStyle()}`}
             onClick={handleClick}
         >
             <div className="flex justify-between items-start">
                 <div className="flex-1">
-                    <h2 className={`text-base  ${getTitleStyle()}`}>
+                    <h2 className={`text-base lg:text-lg ${getTitleStyle()}`}>
                         {!notification.isRead ? 'New Notification!' : ''}
                     </h2>
-                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">
+                    <p className="text-sm lg:text-base text-gray-600 mt-1 leading-relaxed">
                         {notification.message  || 'You have a new notification.'}
                     </p>
                     {notification.meta && (
@@ -49,24 +49,24 @@ const NotificationCard = ({ notification, onMarkAsRead }) => {
                             {notification.meta.title && (
                                 <p 
                                     onClick={() => navigate(`/listing/${notification.meta.apartmentId}`)}
-                                    className={`text-sm font-medium hover:underline ${getMetaTextStyle()}`}
+                                    className={`text-sm lg:text-base font-medium hover:underline ${getMetaTextStyle()}`}
                                 >
                                     {notification.meta.title}
                                 </p>
                             )}
                             {notification.meta.location && (
-                                <p className={`text-sm ${getMetaTextStyle()}`}>
+                                <p className={`text-sm lg:text-base ${getMetaTextStyle()}`}>
                                     📍 {notification.meta.location}
                                 </p>
                             )}
                         </div>
                     )}
-                    <span className="text-xs text-gray-400 mt-2 block"> 
+                    <span className="text-xs lg:text-sm text-gray-400 mt-2 block"> 
                         {formatCustomTimeAgo(notification.createdAt) }
                     </span>
                 </div>
                 {!notification.isRead && (
-                    <div className="w-2 h-2 bg-cyan-400 rounded-full mt-1.5 flex-shrink-0"></div>
+                    <div className="w-2 h-2 lg:w-3 lg:h-3 bg-cyan-400 rounded-full mt-1.5 flex-shrink-0"></div>
                 )}
             </div>
         </div>

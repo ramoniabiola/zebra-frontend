@@ -288,7 +288,7 @@ const UserProfile = () => {
         
   return (
     <>
-      <div className="w-full h-full flex flex-col items-start justify-start">
+      <div className="w-full h-full flex flex-col items-start justify-start lg:mt-20">
         <div className="w-full h-full flex flex-col items-start justify-center gap-4 mb-12">
           {/* HEADING AND BACK ICON */}
           <div className="w-full h-16 flex items-center justify-between px-2 bg-white">
@@ -300,7 +300,7 @@ const UserProfile = () => {
               >
                 <ArrowLeft className="w-5 h-5" />
               </div>
-              <h1 className="font-bold text-gray-900 text-2xl">Profile</h1>
+              <h1 className="font-bold text-gray-900 text-2xl lg:text-3xl">Profile</h1>
             </div>
             
             {/* Right side - Security dropdown */}
@@ -328,8 +328,8 @@ const UserProfile = () => {
                         <Settings className="w-4 h-4 text-gray-600" />
                       </div>
                       <div>
-                        <div className="font-semibold text-gray-800 text-base">Security Settings</div>
-                        <div className="text-xs text-gray-500">Manage your account security</div>
+                        <div className="font-semibold text-gray-800 text-base lg:text-lg">Security Settings</div>
+                        <div className="text-xs lg:text-sm text-gray-500">Manage your account security</div>
                       </div>
                     </div>
                   </div>
@@ -338,8 +338,8 @@ const UserProfile = () => {
                   {!editMode && (
                     <div className="bg-amber-50 border border-amber-200 rounded-lg p-2 mb-3 mx-2">
                       <div className="flex items-center gap-2">
-                        <AlertTriangle className="w-4 h-4 text-amber-600" />
-                        <p className="text-amber-800 text-xs font-medium">Enable edit mode to access security settings</p>
+                        <AlertTriangle className="w-4 h-4 lg:w-5 lg:h-5 text-amber-600" />
+                        <p className="text-amber-800 text-xs lg:text-sm font-medium">Enable edit mode to access security settings</p>
                       </div>
                     </div>
                   )}
@@ -351,7 +351,7 @@ const UserProfile = () => {
                       navigate('/change-password');
                       setIsSecurityDropdownOpen(false);
                     }}
-                    className={`w-full px-2 py-3 text-left rounded-xl transition-colors duration-200 flex items-center gap-4 group ${
+                    className={`w-full px-2 py-3 text-left rounded-lg transition-colors duration-200 flex items-center gap-4 group ${
                       editMode 
                         ? "text-gray-600 hover:bg-neutral-50 cursor-pointer" 
                         : "text-gray-400 cursor-not-allowed opacity-60"
@@ -365,12 +365,12 @@ const UserProfile = () => {
                       <Key className={`w-3 h-3 ${editMode ? "text-rose-600" : "text-gray-400"}`} />
                     </div>
                     <div>
-                      <div className="font-medium text-sm">Change Password</div>
+                      <div className="font-medium text-sm lg:text-base">Change Password</div>
                     </div>
                   </button>
                   <button
                     disabled={!editMode}
-                    className={`w-full px-2 py-3 text-left rounded-xl transition-colors duration-200 flex items-center gap-4 group ${
+                    className={`w-full px-2 py-3 text-left rounded-lg transition-colors duration-200 flex items-center gap-4 group ${
                       editMode 
                         ? "text-gray-600 hover:bg-neutral-50 cursor-pointer" 
                         : "text-gray-400 cursor-not-allowed opacity-60"
@@ -384,7 +384,7 @@ const UserProfile = () => {
                       <AlertTriangle className={`w-3 h-3 ${editMode ? "text-red-600" : "text-gray-400"}`} />
                     </div>
                     <div>
-                      <div className="font-medium text-sm">Deactivate Account</div>
+                      <div className="font-medium text-sm lg:text-base">Deactivate Account</div>
                     </div>
                   </button>
                 </div>
@@ -393,10 +393,10 @@ const UserProfile = () => {
           </div>
 
           {/* USER PROFILE DETAILS */}
-          <div className="w-11/12 mx-auto mt-8 p-6 bg-white border-1 border-stone-100 rounded-xl shadow-sm">
+          <div className="w-11/12 mx-auto mt-8 lg:mt-6 p-6 lg:p-8 bg-white border-1 border-stone-100 rounded-xl shadow-sm">
             {/* Profile Image */}
             <div className="flex flex-col items-center justify-items-center mb-6">
-              <div className="relative w-24 h-24 mb-4">
+              <div className="relative w-24 h-24 lg:w-26 lg:h-26 mb-4">
                 {previewUrl || user?.profile_picture ? (
                   <img
                     src={previewUrl || user?.profile_picture}
@@ -454,10 +454,10 @@ const UserProfile = () => {
                         name={name}
                         value={inputs[name]}
                         onChange={handleChange}
-                        className="mt-1 block w-full border text-base font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                        className="mt-1 lg:mt-3 block w-full border text-base font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                       />
                     ) : (
-                      <p className="mt-1 w-full bg-gray-100 text-gray-500 text-base font-medium p-2.5 rounded-md">
+                      <p className="mt-1 lg:mt-3 w-full bg-gray-100 text-gray-500 text-base font-medium p-2.5 rounded-md">
                         {displayOrFallback(inputs[name])}
                       </p>
                     )}
@@ -483,10 +483,10 @@ const UserProfile = () => {
                             : inputs[name] || ""
                         }
                         onChange={handleChange}
-                        className="mt-1 block w-full border text-base font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                        className="mt-1 lg:mt-3 block w-full border text-base font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                       />
                     ) : (
-                      <p className="mt-1 w-full bg-gray-100 text-gray-500 text-base font-medium p-2.5 rounded-md">
+                      <p className="mt-1 lg:mt-3 w-full bg-gray-100 text-gray-500 text-base font-medium p-2.5 rounded-md">
                         {displayOrFallback(inputs[name], "Not Provided", name)}
                       </p>
                     )}
@@ -508,10 +508,10 @@ const UserProfile = () => {
                         name={name}
                         value={inputs[name]}
                         onChange={handleChange}
-                        className="mt-1 block w-full border text-base font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                        className="mt-1 lg:mt-3 block w-full border text-base font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                       />
                     ) : (
-                      <p className="mt-1 w-full bg-gray-100 text-gray-500 text-base font-medium p-2.5 rounded-md">
+                      <p className="mt-1 lg:mt-3 w-full bg-gray-100 text-gray-500 text-base font-medium p-2.5 rounded-md">
                         {displayOrFallback(inputs[name])}
                       </p>
                     )}

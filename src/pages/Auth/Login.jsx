@@ -150,7 +150,7 @@ const Login = () => {
             />
           </div>
           {hasError && (
-            <p className={`text-rose-500 text-xs mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
+            <p className={`text-rose-500 text-xs lg:text-sm mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
           )}
       </div>
     );
@@ -200,7 +200,7 @@ const Login = () => {
           </button>
         </div>
         {hasError && (
-          <p className={`text-rose-500 text-xs mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
+          <p className={`text-rose-500 text-xs lg:text-sm mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
         )}
       </div>
     );
@@ -211,7 +211,7 @@ const Login = () => {
     <div className="min-h-screen bg-white flex flex-col justify-center px-6 py-10">
       {/* App Name   */}
       <h1 
-        className="text-[2rem] text-slate-900 font-extrabold cursor-pointer text-center mb-2 tracking-tight text-shadow-lg">zebr
+        className="text-[2rem] md:text-[2.1rem] lg:text-[2.2rem] text-slate-900 font-extrabold cursor-pointer text-center mb-2 tracking-tight text-shadow-lg">zebr
         <span className="text-cyan-600">a</span>
       </h1>
 

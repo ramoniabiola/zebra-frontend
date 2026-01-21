@@ -313,7 +313,7 @@ const Register = () => {
                     />
                 </div>
                 {hasError && (
-                    <p className={`text-rose-500 text-xs mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
+                    <p className={`text-rose-500 text-xs lg:text-sm mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
                 )}
             </div>
         );
@@ -363,7 +363,7 @@ const Register = () => {
                     </button>
                 </div>
                 {hasError && (
-                    <p className={`text-red-500 text-xs mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
+                    <p className={`text-red-500 text-xs lg:text-sm mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
                 )}
             </div>
         );
@@ -372,7 +372,7 @@ const Register = () => {
 
     return (
         <>
-            <div className="w-full min-h-screen bg-white flex flex-col items-center px-4 py-6">
+            <div className="w-full min-h-screen bg-white flex flex-col items-center px-4 py-6 lg:mt-8">
 
                 {/* App Name / Logo */}
                 <h1 
@@ -386,68 +386,71 @@ const Register = () => {
                 <p className="text-gray-600 text-center text-sm">Join thousands of users finding their perfect home</p>
 
                 {/* Form */}
-                <div className="w-full max-w-md space-y-6 mt-8">
-                    <InputField
-                        icon={User}
-                        type="text"
-                        name="full_name"
-                        placeholder="Full Name"
-                        value={formData.full_name}
-                        required
-                    />
+                <div className="w-full max-w-md md:max-w-lg lg:max-w-4xl space-y-6 mt-8">
+                    {/* Grid for Input Fields - 1 col on mobile/tablet, 2 cols on desktop */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <InputField
+                            icon={User}
+                            type="text"
+                            name="full_name"
+                            placeholder="Full Name"
+                            value={formData.full_name}
+                            required
+                        />
 
-                    <InputField
-                        icon={UserCheck}
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        value={formData.username}
-                        required
-                    />
+                        <InputField
+                            icon={UserCheck}
+                            type="text"
+                            name="username"
+                            placeholder="Username"
+                            value={formData.username}
+                            required
+                        />
 
-                    <InputField
-                        icon={Mail}
-                        type="text"
-                        name="email"
-                        placeholder="Email Address"
-                        value={formData.email}
-                        required
-                    />
+                        <InputField
+                            icon={Mail}
+                            type="text"
+                            name="email"
+                            placeholder="Email Address"
+                            value={formData.email}
+                            required
+                        />
 
-                    <InputField
-                        icon={Phone}
-                        type="text"
-                        name="phone_no"
-                        placeholder="Phone Number"
-                        value={formData.phone_no}
-                    />
+                        <InputField
+                            icon={Phone}
+                            type="text"
+                            name="phone_no"
+                            placeholder="Phone Number"
+                            value={formData.phone_no}
+                        />
 
-                    <PasswordField
-                        name="password"
-                        placeholder="Password"
-                        value={formData.password}
-                        show={showPassword}
-                        setShow={setShowPassword}
-                    />
-                    
-                    <PasswordField
-                        name="confirmPassword"
-                        placeholder="Confirm Password"
-                        value={formData.confirmPassword}
-                        show={showConfirmPassword}
-                        setShow={setShowConfirmPassword}
-                    />
+                        <PasswordField
+                            name="password"
+                            placeholder="Password"
+                            value={formData.password}
+                            show={showPassword}
+                            setShow={setShowPassword}
+                        />
 
-                    {/* Role Selector */}
-                    <div className="space-y-3">
-                        <label className="block text-sm font-semibold mb-3 text-gray-600">
+                        <PasswordField
+                            name="confirmPassword"
+                            placeholder="Confirm Password"
+                            value={formData.confirmPassword}
+                            show={showConfirmPassword}
+                            setShow={setShowConfirmPassword}
+                        />
+                    </div>
+
+                    {/* Role Selector - Full Width */}
+                    <div className="space-y-3 lg:px-8">
+                        <label className="block text-sm lg:text-base font-semibold mb-3 text-gray-600">
                             Register as:
                         </label>
-                        <div className={`grid grid-cols-3 gap-3 ${shakingFields.role ? 'animate-shake' : ''}`}>
+                        <div className={`grid grid-cols-3 gap-3 lg:gap-4 ${shakingFields.role ? 'animate-shake' : ''}`}>
                             {["tenant", "landlord", "agent"].map((roleOption) => (
                                 <label 
                                     key={roleOption} 
-                                    className={`relative flex flex-col items-center p-2 rounded-xl border cursor-pointer transition-all duration-300 ${
+                                    className={`relative flex flex-col items-center p-2 lg:p-3 rounded-xl border cursor-pointer transition-all duration-300 ${
                                         fieldErrors.role
                                             ? 'border-rose-500 hover:border-rose-600'
                                             : formData.role === roleOption
@@ -474,7 +477,7 @@ const Register = () => {
                                             <div className="w-full h-full rounded-full bg-white scale-50"></div>
                                         )}
                                     </div>
-                                    <span className={`text-xs font-medium capitalize ${
+                                    <span className={`text-xs lg:text-sm font-medium capitalize ${
                                         fieldErrors.role
                                             ? 'text-rose-600'
                                             : formData.role === roleOption 
@@ -487,11 +490,11 @@ const Register = () => {
                             ))}
                         </div>
                         {fieldErrors.role && (
-                            <p className="text-rose-500 text-xs mt-1 animate-slideDown">{fieldErrors.role}</p>
+                            <p className="text-rose-500 text-xs lg:text-sm mt-1 animate-slideDown">{fieldErrors.role}</p>
                         )}
                     </div>
-
-                    {/* Submit */}
+                    
+                    {/* Submit Button - Full Width */}
                     <button
                         id="submit-btn"
                         type="submit"

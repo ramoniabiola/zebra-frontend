@@ -109,31 +109,31 @@ const NotificationPage = () => {
   
 
     return (
-        <div className="w-full h-full flex flex-col items-start justify-start bg-white">
+        <div className="w-full h-full flex flex-col items-start justify-start bg-white lg:mt-20">
             <div className="w-full h-full flex flex-col items-start justify-center gap-4">
                 {/* Header */}
                 <div className="w-full h-16 flex items-center justify-between px-2 bg-white">
-                  {/* Left Side */}
-                  <div className="flex items-center gap-2">
-                    <div
-                      className="w-12 h-12 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-colors duration-200 cursor-pointer"
-                      onClick={() => navigate(-1)}
-                    >
-                      <ArrowLeft className="w-5 h-5" />
-                    </div>
+                    {/* Left Side */}
+                    <div className="flex items-center gap-2">
+                        <div
+                          className="w-12 h-12 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-colors duration-200 cursor-pointer"
+                          onClick={() => navigate(-1)}
+                        >
+                          <ArrowLeft className="w-5 h-5" />
+                        </div>
 
-                    <div className="flex flex-col items-center">
-                      <h1 className="font-bold text-gray-900 text-2xl">
-                        Notifications
-                      </h1>
-                      {unreadCount > 0 && (
-                        <span className="text-sm text-start text-cyan-600 font-medium">
-                          {unreadCount > 99 ? "99+" : unreadCount} unread
-                          notification{unreadCount !== 1 ? "s" : ""}
-                        </span>
-                      )}
+                        <div className="flex flex-col items-center">
+                            <h1 className="font-bold text-gray-900 text-2xl lg:text-3xl">
+                                Notifications
+                            </h1>
+                            {unreadCount > 0 && (
+                                <span className="text-sm text-start text-cyan-600 font-medium">
+                                    {unreadCount > 99 ? "99+" : unreadCount} unread
+                                    notification{unreadCount !== 1 ? "s" : ""}
+                                </span>
+                            )}
+                        </div>
                     </div>
-                  </div>
                     
                     {/* Dropdown Actions */}
                     {notifications?.length > 0 && unreadCount > 0 && !loading && !error && (
@@ -179,7 +179,7 @@ const NotificationPage = () => {
                 </div>
                 
                 {/* Notifications */}
-                <div className="flex-1 w-full">
+                <div className="flex-1 w-full md:px-2 lg:px-4">
                     {error ? (
                         <ErrorDisplay />
                     ) : loading ? (
@@ -187,7 +187,7 @@ const NotificationPage = () => {
                     ) : notifications?.length === 0 ? (
                         <NotificationPlaceholder />
                     ) : (
-                        <div className="w-full px-4 flex flex-col items-start justify-center gap-2 mt-2 mb-8">
+                        <div className="w-full px-4 flex flex-col items-start justify-center gap-2 mt-1 mb-8">
                             {notifications.map((notification) => (
                                 <NotificationCard
                                     key={notification._id}
@@ -201,7 +201,7 @@ const NotificationPage = () => {
               
                 {/* Pagination */}
                 {!loading && !error && totalPages > 1 && (
-                    <div className="w-full flex items-center justify-center gap-8 py-6">
+                    <div className="w-full flex items-center justify-center gap-8 py-6 mb-12">
                         <button
                             disabled={page === 1}
                             onClick={() => fetchNotifications(page - 1)}
