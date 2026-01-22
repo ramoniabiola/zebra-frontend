@@ -25,7 +25,7 @@ const InfoCard = ({ icon: Icon, label, value, name, editable = true, editMode, e
         </div>
       </div>
       <div className="flex-1 min-w-0">
-        <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">{label}</label>
+        <label className="text-sm lg:text-base font-medium text-gray-500 uppercase tracking-wide">{label}</label>
         {editMode && editable ? (
           name === 'furnished' ? (
             <select
@@ -45,11 +45,11 @@ const InfoCard = ({ icon: Icon, label, value, name, editable = true, editMode, e
               name={name}
               value={editedData[name] || ''}
               onChange={handleChange}
-              className="mt-2 w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              className="mt-2 w-full px-4 py-3 text-base lg:text-lg border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
             />
           )
         ) : (
-          <p className="mt-2 text-base font-semibold text-gray-900 break-words">{value}</p>
+          <p className="mt-2 text-base lg:text-lg font-semibold text-gray-900 break-words">{value}</p>
         )}
       </div>
     </div>
@@ -95,7 +95,7 @@ const ApartmentTypeCard = ({
           </div>
         </div>
         <div className="flex-1 min-w-0">
-          <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">
+          <label className="text-sm lg:text-base font-medium text-gray-500 uppercase tracking-wide">
             {label}
           </label>
           {editMode && editable ? (
@@ -104,7 +104,7 @@ const ApartmentTypeCard = ({
                 name={name}
                 value={editedData[name] || ''}
                 onChange={handleChange}
-                className="mt-2 w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                className="mt-2 w-full px-4 py-3 text-base lg:text-lg border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
               >
                 {apartmentTypeOptions.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -114,7 +114,7 @@ const ApartmentTypeCard = ({
               </select>
             </div>
           ) : (
-            <p className="mt-2 text-base font-semibold text-gray-900 break-words">
+            <p className="mt-2 text-base lg:text-lg font-semibold text-gray-900 break-words">
               {getDisplayValue(value) || 'Not specified'}
             </p>
           )}
@@ -144,7 +144,7 @@ const AmenitiesCard = ({ icon: Icon, label, apartment_amenities, editable = true
           </div>
         </div>
         <div className="flex-1 min-w-0">
-          <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">{label}</label>
+          <label className="text-sm lg:text-base font-medium text-gray-500 uppercase tracking-wide">{label}</label>
           {editMode && editable ? (
             <div className="mt-4 flex flex-col gap-3">
               {/* Amenities Section */}
@@ -176,7 +176,7 @@ const AmenitiesCard = ({ icon: Icon, label, apartment_amenities, editable = true
                   value={newAmenity}
                   onChange={(e) => setNewAmenity(e.target.value)}
                   placeholder="Add new amenity..."
-                  className="flex-grow px-3 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 text-sm"
+                  className="flex-grow px-3 py-3 text-sm lg:text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200"
                 />
                 <button
                   type="submit"
@@ -436,7 +436,7 @@ const DeactivatedListingInfo = () => {
 
   return (
     <>
-      <div className="bg-white w-full h-full flex flex-col items-start justify-center min-h-screen">
+      <div className="bg-white w-full h-full flex flex-col items-start justify-center min-h-screen lg:mt-18">
         {errorMessage ? (
           <ErrorDisplay message={errorMessage} onRetry={handleRetry} />
         ) : loading ? 
@@ -450,7 +450,7 @@ const DeactivatedListingInfo = () => {
                 <ArrowLeft className="w-5 h-5 text-gray-700 cursor-pointer" />
               </button>
               <div className=''>
-                <h1 className="text-xl font-bold text-gray-900">Apartment Details</h1>
+                <h1 className="text-xl lg:text-[21px] font-bold text-gray-900">Apartment Details</h1>
                 <p className="text-sm text-gray-500">Manage your inactive apartment listing</p>
               </div>
             </div>
@@ -483,7 +483,7 @@ const DeactivatedListingInfo = () => {
 
               
               {/* Action Buttons */}
-              <div className={`flex items-center gap-3 mb-4 ${!editMode ? "justify-start" : ""}`}>
+              <div className={`w-full flex items-center gap-3 mb-4 ${!editMode ? "justify-start" : "justify-center"}`}>
                 <ActionButtons
                   editMode={editMode}
                   onEdit={() => setEditMode(true)}
@@ -497,12 +497,12 @@ const DeactivatedListingInfo = () => {
               
 
               {/* Property Details */}
-              <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
+              <div className='min-w-full grid grid-cols-1 gap-6'>
                 {/* Main Info */}
                 <div className="lg:col-span-2 space-y-6">
-                  <div className="bg-white px-3 py-8">
-                    <h2 className="text-xl text-center font-bold text-gray-800 mb-8">Property Information</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-white px-3 md:px-4 lg:px-5 py-8">
+                    <h2 className="text-xl lg:text-2xl text-center font-bold text-gray-800 mb-8">Property Information</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                       <div className="md:col-span-2">
                         <InfoCard 
                           icon={Home} 
@@ -583,9 +583,9 @@ const DeactivatedListingInfo = () => {
                   </div>
               
                   {/* Amenities */}
-                  <div className="bg-white px-3 py-8">
-                    <h2 className="text-xl text-center font-bold text-gray-800 mb-8">Amenities & Features</h2>
-                    <div className="space-y-6">
+                  <div className="bg-white px-3 md:px-4 lg:px-5 py-8">
+                    <h2 className="text-xl lg:text-2xl text-center font-bold text-gray-800 mb-8">Amenities & Features</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                       <InfoCard 
                         icon={Home} 
                         label="Furnished Status" 
@@ -609,11 +609,11 @@ const DeactivatedListingInfo = () => {
                 </div>
               
                 {/* Sidebar */}
-                <div className="space-y-6">
+                <div className="lg:col-span-2 space-y-6">
                   {/* Pricing */}
-                  <div className="bg-white px-3 py-8">
-                    <h2 className="text-xl text-center font-bold text-gray-800 mb-8">Pricing</h2>
-                    <div className="space-y-6">
+                  <div className="bg-white px-3 md:px-4 lg:px-4 py-8">
+                    <h2 className="text-xl lg:text-2xl text-center font-bold text-gray-800 mb-8">Pricing</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                       <InfoCard 
                         icon={DollarSign} 
                         label="Rent Price" 
@@ -654,9 +654,9 @@ const DeactivatedListingInfo = () => {
                   </div>
               
                   {/* Contact */}
-                  <div className="bg-white px-3 py-8">
-                    <h2 className="text-xl text-center font-bold text-gray-800 mb-8">Contact</h2>
-                    <div className='space-y-6'>
+                  <div className="bg-white px-3 md:px-4 lg:px-5 py-8">
+                    <h2 className="text-xl lg:text-2xl text-center font-bold text-gray-800 mb-8">Contact</h2>
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6'>
 
                       <InfoCard 
                         icon={User} 

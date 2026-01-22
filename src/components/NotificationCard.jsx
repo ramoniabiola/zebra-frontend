@@ -66,7 +66,7 @@ const NotificationCard = ({ notification, onMarkAsRead }) => {
                     </span>
                 </div>
                 {!notification.isRead && (
-                    <div className="w-2 h-2 lg:w-3 lg:h-3 bg-cyan-400 rounded-full mt-1.5 flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full mt-1.5 flex-shrink-0"></div>
                 )}
             </div>
         </div>

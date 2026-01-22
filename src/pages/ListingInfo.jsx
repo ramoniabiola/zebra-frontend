@@ -255,8 +255,8 @@ const ListingInfo = () => {
           </div>
         </div>
         <div className="flex-1 min-w-0">
-          <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">{label}</label>
-          <p className="mt-2 text-base font-semibold text-gray-900 break-words">{value}</p>
+          <label className="text-sm lg:text-base font-medium text-gray-500 uppercase tracking-wide">{label}</label>
+          <p className="mt-2 text-base lg:text-lg font-semibold text-gray-900 break-words">{value}</p>
         </div>
       </div>
     </div>
@@ -273,7 +273,7 @@ const ListingInfo = () => {
             </div>
           </div>
           <div className="flex-1 min-w-0">
-            <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">{label}</label>
+            <label className="text-sm lg:text-base font-medium text-gray-500 uppercase tracking-wide">{label}</label>
             <div className="mt-4 flex flex-wrap gap-2">
               {apartment_amenities.map((amenity, index) => (
                 <span
@@ -292,7 +292,7 @@ const ListingInfo = () => {
 
   return (
     <>
-      <div className="bg-white w-full h-full flex flex-col items-start justify-center min-h-screen">
+      <div className="bg-white w-full h-full flex flex-col items-start justify-center min-h-screen lg:mt-18">
         {error ? (
           <ErrorDisplay />
         ) : isLoading ? 
@@ -306,7 +306,7 @@ const ListingInfo = () => {
                 <ArrowLeft className="w-5 h-5 text-gray-700 cursor-pointer" />
               </button>
               <div className=''>
-                <h1 className="text-xl font-bold text-gray-900">Apartment Details</h1>
+                <h1 className="text-xl lg:text-[21px] font-bold text-gray-900">Apartment Details</h1>
                 <p className="text-sm text-gray-500">View your active apartment listing</p>
               </div>
             </div>
@@ -315,7 +315,7 @@ const ListingInfo = () => {
               {/* Images */}
               <div className="w-full flex flex-col items-start justify-center">
                 <div 
-                  className="relative w-full h-[280px] overflow-hidden mb-4"
+                  className="relative w-full h-[280px] md:h-[320px] lg:h-[360px] overflow-hidden mb-4"
                   onMouseEnter={() => setIsHovered(true)}
                   onMouseLeave={() => setIsHovered(false)}
                 >   
@@ -358,25 +358,25 @@ const ListingInfo = () => {
               </div>
                 
               {/* Action Buttons */}
-              <div className="flex items-center gap-3 mb-4 justify-start px-2">
+              <div className="flex items-center gap-3 mb-4 justify-start px-2 md:px-4 lg:px-4">
                 <button 
                   onClick={() => setShowConfirmModal(true)}
                   disabled={success}
-                  className="flex items-center font-semibold gap-1 px-4 py-2 bg-gradient-to-r from-red-500 to-rose-600 text-white text-sm rounded-lg hover:from-red-600 hover:to-rose-700 transition-all duration-200 shadow-sm cursor-pointer focus:invisible"
+                  className="flex items-center font-semibold gap-1 lg:gap-2 px-4 py-2 bg-gradient-to-r from-red-500 to-rose-600 text-white text-sm lg:text-base rounded-lg hover:from-red-600 hover:to-rose-700 transition-all duration-200 shadow-sm cursor-pointer focus:invisible"
                 >
-                  <Trash2 className="w-3.5 h-3.5" />
+                  <Trash2 className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
                   Deactivate Listing
                 </button>
               </div>
                 
               {/* Property Details */}
-              <div className='min-w-full grid grid-cols-1 lg:grid-cols-2 gap-8'>
+              <div className='min-w-full grid grid-cols-1 gap-6'>
 
                 {/* Main Info */}
                 <div className="lg:col-span-2 space-y-6">
-                  <div className="bg-white px-3 py-8">
-                    <h2 className="text-xl text-center font-bold text-gray-800 mb-8">Apartment Information</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-white px-3 md:px-4 lg:px-5 py-8">
+                    <h2 className="text-xl lg:text-2xl text-center font-bold text-gray-800 mb-8">Apartment Information</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                       <div className="md:col-span-2">
                         <InfoCard 
                           icon={Home} 
@@ -425,9 +425,9 @@ const ListingInfo = () => {
                   </div>
                 
                   {/* Amenities */}
-                  <div className="bg-white px-3 py-8">
-                    <h2 className="text-xl text-center font-bold text-gray-800 mb-8">Amenities & Features</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-white px-3 md:px-4 lg:px-5 py-8">
+                    <h2 className="text-xl lg:text-2xl text-center font-bold text-gray-800 mb-8">Amenities & Features</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                       <InfoCard 
                         icon={Home} 
                         label="Furnished Status" 
@@ -444,9 +444,9 @@ const ListingInfo = () => {
                 
                 <div className="lg:col-span-2 space-y-6">
                   {/* Pricing */}
-                  <div className="bg-white px-3 py-8">
-                    <h2 className="text-xl text-center font-bold text-gray-800 mb-8">Pricing</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-white px-3 md:px-4 lg:px-4 py-8">
+                    <h2 className="text-xl lg:text-2xl text-center font-bold text-gray-800 mb-8">Pricing</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                       <InfoCard 
                         icon={DollarSign} 
                         label="Rent Price" 
@@ -471,9 +471,9 @@ const ListingInfo = () => {
                   </div>
                 
                   {/* Contact */}
-                  <div className="bg-white px-3 py-8">
-                    <h2 className="text-xl text-center font-bold text-gray-800 mb-8">Contact</h2>
-                    <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                  <div className="bg-white px-3 md:px-4 lg:px-5 py-8">
+                    <h2 className="text-xl lg:text-2xl text-center font-bold text-gray-800 mb-8">Contact</h2>
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6'>
                       <InfoCard 
                         icon={User} 
                         label="Contact Name" 

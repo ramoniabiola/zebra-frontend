@@ -5,20 +5,20 @@ const ApartmentInfoSkeleton = () => {
     return (
         <div className="h-full w-full overflow-hidden flex flex-col">
             {/* NAVBAR SKELETON */}
-            <div className="w-full h-20 flex flex-col pl-8 items-start justify-center bg-white">
+            <div className="w-full h-18 flex flex-col pl-8 items-start justify-center bg-white">
                 <Skeleton width={160} height={18} style={{ marginBottom: '4px' }} />
                 <Skeleton width={224} height={14} />
             </div>
 
             {/* IMAGE SECTION SKELETON */}
-            <div className="w-full h-[280px] mb-4">
+            <div className="w-full h-[280px] md:h-[320px] lg:h-[360px]">
                 <Skeleton width="100%" height={280} />
             </div>
 
             {/* CONTENT SKELETON */}
-            <div className="bg-white max-w-6xl px-0.5">
+            <div className="bg-white w-full px-2 md:px-3 lg:px-4 mt-4">
                 {/* Title Section */}
-                <div className="bg-gradient-to-br from-gray-50 to-white p-4 sm:p-5 md:p-6 rounded-sm shadow-sm border border-gray-100">
+                <div className="bg-white px-4 py-4 lg:py-6 shadow-sm rounded-xl border border-gray-100">
                     <div className="flex gap-3 mb-4">
                         <Skeleton width={96} height={30} borderRadius={8} />
                         <Skeleton width={94} height={30} borderRadius={8} />
@@ -29,8 +29,8 @@ const ApartmentInfoSkeleton = () => {
                 </div>
 
                 {/* Property Stats */}
-                <div className="min-w-full grid grid-cols-3 gap-2 mt-4 px-2">
-                    {[...Array(3)].map((_, index) => (
+                <div className="min-w-full grid grid-cols-3 gap-2 mt-4 px-2 md:px-4 lg:px-6">
+                    {[...Array(2)].map((_, index) => (
                         <div key={index} className="bg-gray-50 p-4 rounded-2xl text-center">
                             <div className="flex justify-center mb-2">
                                 <Skeleton width={32} height={32} />
@@ -46,7 +46,7 @@ const ApartmentInfoSkeleton = () => {
                 </div> 
 
                 {/* Price Section */}
-                <div className="p-4 mt-4 rounded-sm shadow-sm border border-gray-100">
+                <div className="bg-white px-4 py-4 lg:py-6 mt-4 md:mt-5 lg:mt-6 rounded-xl shadow-sm border border-gray-100">
                     <Skeleton width={128} height={16} style={{ marginBottom: '8px' }} />
                     <Skeleton width={160} height={24} style={{ marginBottom: '16px' }} />
                     <div className="">
@@ -55,11 +55,11 @@ const ApartmentInfoSkeleton = () => {
                 </div>
 
                 {/* Amenities */}
-                <div className="p-4 mt-4 rounded-sm shadow-sm border border-gray-100">
+                <div className="bg-white px-4 py-4 lg:py-6 mt-4 md:mt-5 lg:mt-6 rounded-xl shadow-sm border border-gray-100">
                     <div className="flex justify-center mb-6">
                       <Skeleton width={192} height={20} />
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-3 gap-4">
                         {[...Array(6)].map((_, idx) => (
                             <div key={idx} className="flex items-center gap-3 py-4 px-2 bg-gray-50 rounded-2xl">
                                 <Skeleton circle width={40} height={40} />
@@ -70,11 +70,11 @@ const ApartmentInfoSkeleton = () => {
               </div>
 
               {/* Contact Info */}
-                <div className="mt-4 mb-4 p-4 rounded-sm shadow-sm border border-gray-100">
+                <div className="bg-white px-4 py-4 lg:py-6 mt-4 md:mt-5 lg:mt-6 rounded-xl mb-8 shadow-sm border border-gray-100">
                     <div className="flex justify-center mb-6">
                       <Skeleton width={128} height={20} />
                     </div>
-                    <div className="space-y-4">
+                    <div className="space-y-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 lg:gap-4">
                         <div className="flex items-center gap-4 py-4 px-4 bg-gray-50 rounded-2xl">
                           <Skeleton circle width={48} height={48} />
                             <div>

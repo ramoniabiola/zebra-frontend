@@ -199,7 +199,7 @@ const ImageGallery = ({
     if (editMode) {
         return (
             <div className="p-8 w-full">
-                <h3 className="text-base text-center font-semibold text-gray-900 mb-6">
+                <h3 className="text-base lg:text-lg text-center font-semibold text-gray-900 mb-6">
                     Apartment Images ({imageList.length}/5 minimum)
                 </h3>
 
@@ -305,7 +305,7 @@ const ImageGallery = ({
                 )}
 
                 {/* Upload Area */}
-                <div className="border-2 border-dashed border-gray-200 rounded-lg p-8 text-center hover:border-cyan-400 transition-colors duration-200">
+                <div className="border-2 border-dashed border-gray-200 rounded-lg p-8 lg:p-16 text-center hover:border-cyan-400 transition-colors duration-200">
                     <div className="flex flex-col items-center">
                         <Upload className="w-10 h-10 text-gray-400 mb-4" />
                         <label className="cursor-pointer">
@@ -346,7 +346,7 @@ const ImageGallery = ({
                 {/* Tips */}
                 <div className="mt-8 space-y-4">
                     <div className="p-4 bg-sky-50 border border-sky-200 rounded-xl">
-                        <p className="text-sm text-sky-700 leading-6">
+                        <p className="text-sm lg:text-base text-sky-700 leading-6">
                             <span className="font-medium">Tip:</span> The first
                             image will be your main listing photo. To rearrange
                             images,{" "}
@@ -361,15 +361,15 @@ const ImageGallery = ({
 
                 {imageList.length > 15 && ( 
                     <div className="p-2 bg-rose-50 border border-rose-200 rounded-xl mt-4"> 
-                        <p className="text-sm text-rose-700 leading-6"> <span className="font-medium">Warning: </span> 
+                        <p className="text-sm lg:text-base text-rose-700 leading-6"> <span className="font-medium">Warning: </span> 
                             You have exceeded the maximum limit of <b>15</b> images. Currently you have <b>{imageList.length}</b> images.
                         </p>
                     </div>
                 )}
 
                 {imageList.length < 5 && ( 
-                    <div className="p-2 bg-amber-50 border border-amber-200 rounded-xl mt-4"> 
-                        <p className="text-sm text-amber-700 leading-6"> <span className="font-medium">Warning: </span> 
+                    <div className="py-2 px-4 bg-amber-50 border border-amber-200 rounded-xl mt-4"> 
+                        <p className="text-sm lg:text-base text-amber-700 leading-6"> <span className="font-medium">Warning: </span> 
                             You need at least <b>5</b> images to reactivate the listing. Currently you have <b>{imageList.length}</b> images. 
                         </p> 
                     </div> 
@@ -383,7 +383,7 @@ const ImageGallery = ({
     // ---------- View Mode ----------
     return (
         <div
-            className="relative w-full h-[280px] overflow-hidden mb-4"
+            className="relative w-full h-[280px] md:h-[320px] lg:h-[360px] overflow-hidden mb-4"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >

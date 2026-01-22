@@ -11,11 +11,11 @@ const ActionButtons = ({
 }) => {
     if (editMode) {
         return (
-            <div className="flex items-center justify-center mx-8 gap-4">
+            <div className="flex items-center justify-center gap-4 lg:gap-8">
                 <button 
                     onClick={onSave}
                     disabled={isLoading || disabled}
-                    className={`flex items-center gap-1 px-3 py-2 text-sm rounded-lg transition-all duration-200 shadow-sm focus:invisible cursor-pointer ${
+                    className={`flex items-center gap-1 px-3 py-2 text-sm lg:text-base rounded-lg transition-all duration-200 shadow-sm focus:invisible cursor-pointer ${
                         isLoading || disabled
                         ? 'bg-gray-400 text-white cursor-not-allowed'
                         : 'bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700'
@@ -23,12 +23,12 @@ const ActionButtons = ({
                 >
                     {isLoading ? (
                         <>
-                            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                            <Loader2 className="w-3.5 h-3.5 lg:w-4 lg:h-4 animate-spin" />
                             {saveLabel.replace('Reactivate', 'Reactivating')}...
                         </>
                     ) : (
                         <>
-                            <CheckCircle className="w-3.5 h-3.5" />
+                            <CheckCircle className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
                             {saveLabel}
                         </>
                     )}
@@ -36,9 +36,9 @@ const ActionButtons = ({
                 <button 
                     onClick={onCancel}
                     disabled={isLoading}
-                    className="flex items-center gap-1 px-3 py-2 bg-gray-100 text-gray-700 text-sm rounded-lg hover:bg-gray-200 transition-all duration-200 cursor-pointer focus:invisible disabled:opacity-50"
+                    className="flex items-center gap-1 px-3 py-2 bg-gray-100 text-gray-700 text-sm lg:text-base rounded-lg hover:bg-gray-200 transition-all duration-200 cursor-pointer focus:invisible disabled:opacity-50"
                 >
-                    <X className="w-3.5 h-3.5" />
+                    <X className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
                     Cancel
                 </button>
             </div>
@@ -46,13 +46,13 @@ const ActionButtons = ({
     }
 
     return (
-        <div className="flex items-center gap-3 justify-start mx-2">
+        <div className="flex items-center gap-3 justify-start px-2 md:px-4 lg:px-4">
             <button 
                 onClick={onEdit}
                 disabled={disabled}
-                className="flex items-center font-semibold gap-1 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white text-sm rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-200 shadow-sm cursor-pointer focus:invisible"
+                className="flex items-center font-semibold gap-1 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white text-sm lg:text-base rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-200 shadow-sm cursor-pointer focus:invisible"
             >
-                <RotateCcw strokeWidth={2} className="w-3.5 h-3.5" />
+                <RotateCcw strokeWidth={2} className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
                 Reactivate Listing
             </button>
         </div>

@@ -7,7 +7,7 @@ const ErrorDisplay = ({ message, onRetry }) => (
         <h3 className="text-lg font-semibold text-gray-800 mb-1">
             Something went wrong
         </h3>
-        <p className="text-gray-600 mb-4">
+        <p className="text-gray-600 text-base mb-4">
             {message || "Failed to fetch listing"}
         </p>
         <button
