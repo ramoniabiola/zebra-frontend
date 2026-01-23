@@ -197,10 +197,10 @@ const Step4_UploadImages = ({
     <div className="space-y-6">
       {/* HEADER */}
       <div className="text-center mb-12">
-        <h2 className="text-xl font-bold text-gray-800 mb-1.5">
+        <h2 className="text-xl lg:text-2xl font-bold text-gray-800 mb-1.5">
           Upload Property Images
         </h2>
-        <p className="text-gray-600 text-sm">
+        <p className="text-gray-600 text-sm lg:text-base">
           Add photos to showcase your property (5 minimum and 15 maximum images
           required)
         </p>
@@ -208,7 +208,7 @@ const Step4_UploadImages = ({
 
       {/* UPLOAD BOX */}
       <div
-        className={`border-2 border-dashed rounded-xl p-8 text-center transition-all duration-200 ${
+        className={`border-2 border-dashed rounded-xl p-8 lg:p-16 text-center transition-all duration-200 ${
           shouldShowError
             ? "border-red-300 bg-red-50"
             : "border-gray-200 hover:border-cyan-400 hover:bg-cyan-50/30"
@@ -391,7 +391,7 @@ const Step4_UploadImages = ({
 
           {formData.images.length > 0 && (
             <div className="mt-8 p-4 bg-sky-50 border border-sky-200 rounded-xl">
-              <p className="text-sm text-sky-700 leading-6">
+              <p className="text-sm lg:text-base text-sky-700 leading-6">
                 <span className="font-medium"><b>Tip:</b></span> The first image will be your main listing photo. 
                 To rearrange images, {isTouchDevice ? 'drag it onto another image to swap their positions' : 'simply drag and drop one image onto another to swap their positions'}. 
                 You can also remove and re-add images if needed. Make sure all images are clear and high-quality before clicking <b>"Upload"</b>. Note that images can no longer be updated or position rearranged when successfully uploaded.

@@ -370,7 +370,7 @@ const ApartmentInfo = () => {
 
 
             {/* APARTMENT INFORMATION */}
-            <div className="w-full px-2 md:px-3 lg:px-4 pt-2 md:pt-3 lg:pt-4">
+            <div className="bg-gradient-to-br from-gray-50 to-white w-full px-2 md:px-3 lg:px-4 pt-2 md:pt-3 lg:pt-4">
 
               {/* Add to bookmark error notification  */}
               {error && (
@@ -380,7 +380,7 @@ const ApartmentInfo = () => {
               )}
 
               {/* Title and Location Card */}
-              <div className="bg-white px-4 py-4 lg:py-6 shadow-sm rounded-xl border border-gray-100">
+              <div className="bg-white px-4 py-4 lg:px-6 lg:py-6 rounded-2xl border border-gray-100">
                 <div className="flex flex-wrap items-center gap-2 mb-3 md:mb-4 lg:mb-5">
                   <span className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold shadow-md">
                     {apartment.apartment_type}
@@ -411,18 +411,18 @@ const ApartmentInfo = () => {
 
               {/* Property Stats */}
               <div className="min-w-full grid grid-cols-3 gap-2 mt-4 md:mt-5 lg:mt-6 px-2 md:px-4 lg:px-6">
-                <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-4 md:p-6 lg:p-8 rounded-2xl text-center border border-cyan-100 shadow-md hover:shadow-lg transition-shadow">
+                <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-4 md:p-6 lg:p-8 rounded-2xl text-center border border-cyan-100 shadow-sm hover:shadow-md transition-shadow">
                   <Bed className="w-7 h-7 text-cyan-600 mx-auto mb-2 md:mb-3 lg:mb-4" />
                   <div className="text-2xl font-bold text-gray-800 mb-1 md:mb-2 lg:mb-3">{apartment.bedrooms}</div>
                   <div className="text-sm lg:text-base text-gray-600">Bedroom{apartment.bedrooms > 1 ? 's' : ''}</div>
                 </div>
-                <div className="bg-gradient-to-br from-emerald-50 to-green-50 p-4 md:p-6 lg:p-8 rounded-2xl text-center border border-emerald-100 shadow-md hover:shadow-lg transition-shadow">
+                <div className="bg-gradient-to-br from-emerald-50 to-green-50 p-4 md:p-6 lg:p-8 rounded-2xl text-center border border-emerald-100 shadow-sm hover:shadow-md transition-shadow">
                   <Bath className="w-7 h-7 text-emerald-600 mx-auto mb-2 md:mb-3 lg:mb-4" />
                   <div className="text-2xl font-bold text-gray-800 mb-1 md:mb-2 lg:mb-3">{apartment.bathrooms}</div>
                   <div className="text-sm lg:text-base text-gray-600">Bathroom{apartment.bathrooms > 1 ? 's' : ''}</div>
                 </div>
                 {apartment.apartment_size && (
-                  <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 md:p-6 lg:p-8 rounded-2xl text-center border border-purple-100 shadow-md hover:shadow-lg transition-shadow">
+                  <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 md:p-6 lg:p-8 rounded-2xl text-center border border-purple-100 shadow-sm hover:shadow-md transition-shadow">
                     <Square className="w-7 h-7 text-purple-600 mx-auto mb-2 md:mb-3 lg:mb-4" />
                     <div className="text-2xl font-bold text-gray-800 mb-1 md:mb-2 lg:mb-3">{apartment.apartment_size}</div>
                     <div className="text-sm lg:text-base text-gray-600">sq ft</div>
@@ -432,7 +432,7 @@ const ApartmentInfo = () => {
 
 
               {/* Rental Price */}
-              <div className="bg-white px-4 py-4 lg:py-6 mt-4 md:mt-5 lg:mt-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="bg-white px-4 py-4 mt-4 md:mt-5 lg:mt-6 lg:px-6 lg:py-6 rounded-2xl border border-gray-100">
                 <h3 className="text-lg lg:text-xl font-semibold text-gray-800 mb-3 lg:mb-4">Rental Price</h3>
                 <div className="flex items-baseline gap-2 mb-3 lg:mb-4">
                   <span className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
@@ -454,7 +454,7 @@ const ApartmentInfo = () => {
 
               {/* Amenities Grid */}
               {apartment.apartment_amenities && apartment.apartment_amenities.length > 0 && (
-                <div className="bg-white px-4 py-4 lg:py-6 mt-4 md:mt-5 lg:mt-6 rounded-xl shadow-sm border border-gray-100">
+                <div className="bg-white px-4 py-4 mt-4 md:mt-5 lg:mt-6 lg:px-6 lg:py-6 rounded-2xl border border-gray-100">
                   <h3 className="text-lg lg:text-xl text-center font-bold text-gray-800 mb-6">Amenities & Features</h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3">
                     {apartment.apartment_amenities.map((amenity, idx) => {
@@ -462,7 +462,7 @@ const ApartmentInfo = () => {
                       return (
                         <div
                           key={idx}
-                          className="flex items-center bg-gray-50 gap-2 py-3 px-3 rounded-xl border border-gray-100 shadow-sm"
+                          className="flex items-center bg-gray-50 gap-2 py-3 px-3 rounded-xl border border-gray-100 shadow-xs hover:shadow-sm"
                         >
                           <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-400 rounded-lg flex items-center justify-center shadow-md flex-shrink-0">
                             <IconComponent className="w-5 h-5 text-white" />
@@ -478,7 +478,7 @@ const ApartmentInfo = () => {
               )}
 
               {/* Contact Information */}
-              <div className="bg-white px-4 py-4 lg:py-6 mt-4 md:mt-5 lg:mt-6 rounded-xl mb-8 shadow-sm border border-gray-100">
+              <div className="bg-white px-4 py-4 mt-4 md:mt-5 lg:mt-6 lg:px-6 lg:py-6 rounded-2xl border border-gray-100 mb-8">
                 <h3 className="text-lg lg:text-xl text-center font-bold text-gray-800 mb-6 ">Contact Info</h3>
 
                 {/* Show copy error if it exists */}

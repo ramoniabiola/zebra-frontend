@@ -6,13 +6,13 @@ const Step1_ApartmentInfo = ({ formData, handleChange, errors }) => {
   return (
     <div className="space-y-8">
       <div className="text-center mb-8">
-        <h2 className="text-xl font-bold text-gray-800">Apartment Information</h2>
-        <p className="text-gray-500 text-sm">Tell us about the apartment</p>
+        <h2 className="text-xl lg:text-2xl font-bold text-gray-800">Apartment Information</h2>
+        <p className="text-gray-500 text-sm lg:text-base">Tell us about the apartment</p>
       </div>
       
-      <div className="space-y-6">
+      <div className="space-y-6 lg:space-y-8">
         <div>
-          <label className="block text-base font-semibold text-gray-700 mb-2">
+          <label className="block text-base lg:text-lg font-semibold text-gray-700 mb-2">
             Listing Title *
           </label>
           <input
@@ -21,7 +21,7 @@ const Step1_ApartmentInfo = ({ formData, handleChange, errors }) => {
             value={formData.title}
             onChange={handleChange}
             placeholder="e.g., Beautiful 2BR Apartment in VI"
-            className={`w-full px-4 py-3 border text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
+            className={`w-full px-4 py-3 border text-sm lg:text-base rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
               errors?.title ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-gray-400'
             }`}
           />
@@ -29,14 +29,14 @@ const Step1_ApartmentInfo = ({ formData, handleChange, errors }) => {
         </div>
 
         <div>
-          <label className="block text-base font-semibold text-gray-700 mb-2">
+          <label className="block text-base lg:text-lg font-semibold text-gray-700 mb-2">
             Apartment Type *
           </label>
           <select
             name="apartment_type"
             value={formData.apartment_type}
             onChange={handleChange}
-            className={`w-full px-4 py-3 border text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
+            className={`w-full px-4 py-3 border text-sm lg:text-base rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
               errors?.apartment_type ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-gray-400'
             }`}
           >
@@ -57,7 +57,7 @@ const Step1_ApartmentInfo = ({ formData, handleChange, errors }) => {
         </div>
 
         <div>
-          <label className="block text-base font-semibold text-gray-700 mb-2">
+          <label className="block text-base lg:text-lg font-semibold text-gray-700 mb-2">
             Location (City/Area) *
           </label>
           <input
@@ -66,7 +66,7 @@ const Step1_ApartmentInfo = ({ formData, handleChange, errors }) => {
             value={formData.location}
             onChange={handleChange}
             placeholder="e.g., Victoria Island, Lagos"
-            className={`w-full px-4 py-3 border text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
+            className={`w-full px-4 py-3 border text-sm lg:text-base rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
               errors?.location ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-gray-400'
             }`}
           />
@@ -74,7 +74,7 @@ const Step1_ApartmentInfo = ({ formData, handleChange, errors }) => {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">
+          <label className="block text-base lg:text-lg font-semibold text-gray-700 mb-2">
             Full Apartment Address *
           </label>
           <input
@@ -83,7 +83,7 @@ const Step1_ApartmentInfo = ({ formData, handleChange, errors }) => {
             value={formData.apartment_address}
             onChange={handleChange}
             placeholder="e.g., 123 Ahmadu Bello Way, VI"
-            className={`w-full px-4 py-3 border text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
+            className={`w-full px-4 py-3 border text-sm lg:text-base rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
               errors?.apartment_address ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-gray-400'
             }`}
           />
@@ -91,7 +91,7 @@ const Step1_ApartmentInfo = ({ formData, handleChange, errors }) => {
         </div>
 
         <div>
-          <label className="block text-base font-semibold text-gray-700 mb-2">
+          <label className="block text-base lg:text-lg font-semibold text-gray-700 mb-2">
             Nearest Landmark <span className="text-gray-400">(Optional)</span>
           </label>
           <input
@@ -100,7 +100,7 @@ const Step1_ApartmentInfo = ({ formData, handleChange, errors }) => {
             value={formData.nearest_landmark}
             onChange={handleChange}
             placeholder="e.g., Near Shoprite"
-            className="w-full px-4 py-3 border text-sm border-gray-300 rounded-xl  focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:border-gray-400 transition-all duration-200"
+            className="w-full px-4 py-3 border text-sm lg:text-base border-gray-300 rounded-xl  focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:border-gray-400 transition-all duration-200"
           />
         </div>
       </div>

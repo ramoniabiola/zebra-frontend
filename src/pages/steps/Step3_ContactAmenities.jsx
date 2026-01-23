@@ -24,15 +24,15 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
 
   return (
     <div className="space-y-8">
-      <div className="text-center mb-8">
-        <h2 className="text-xl font-bold text-gray-800 mb-1">Contact & Property Details</h2>
-        <p className="text-gray-600 text-sm">Add contact information and amenities</p>
+      <div className="text-center mb-12 ">
+        <h2 className="text-xl lg:text-2xl font-bold text-gray-800 mb-1">Contact & Property Details</h2>
+        <p className="text-gray-600 text-sm lg:text-base">Add contact information and amenities</p>
       </div>
       
-      <div className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="space-y-6 lg:space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
           <div>
-            <label className="block text-base font-semibold text-gray-700 mb-2">
+            <label className="block text-base lg:text-lg font-semibold text-gray-700 mb-2">
               Contact Name *
             </label>
             <input
@@ -41,7 +41,7 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
               value={formData.contact_name}
               onChange={handleChange}
               placeholder="Your full name"
-              className={`w-full px-4 py-3 border text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
+              className={`w-full px-4 py-3 border text-sm lg:text-base rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
                 errors?.contact_name ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-gray-400'
               }`}
             />
@@ -49,7 +49,7 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
           </div>
 
           <div>
-            <label className="block text-base font-semibold text-gray-700 mb-2">
+            <label className="block text-base lg:text-lg font-semibold text-gray-700 mb-2">
               Phone Number *
             </label>
             <input
@@ -58,7 +58,7 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
               value={formData.contact_phone}
               onChange={handleChange}
               placeholder="+234 XXX XXX XXXX"
-              className={`w-full px-4 py-3 border text-sm  rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
+              className={`w-full px-4 py-3 border text-sm lg:text-base rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
                 errors?.contact_phone ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-gray-400'
               }`}
             />
@@ -66,9 +66,9 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
           <div>
-            <label className="block text-base font-semibold text-gray-700 mb-2">
+            <label className="block text-base lg:text-lg font-semibold text-gray-700 mb-2">
               Bedrooms *
             </label>
             <input
@@ -78,7 +78,7 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
               onChange={handleChange}
               placeholder="0"
               min="0"
-              className={`w-full px-4 py-3 border text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
+              className={`w-full px-4 py-3 border text-sm lg:text-base rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
                 errors?.bedrooms ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-gray-400'
               }`}
             />
@@ -86,7 +86,7 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
           </div>
 
           <div>
-            <label className="block text-base font-semibold text-gray-700 mb-2">
+            <label className="block text-base lg:text-lg font-semibold text-gray-700 mb-2">
               Bathrooms *
             </label>
             <input
@@ -96,7 +96,7 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
               onChange={handleChange}
               placeholder="0"
               min="0"
-              className={`w-full px-4 py-3 border text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
+              className={`w-full px-4 py-3 border text-sm lg:text-base rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 ${
                 errors?.bathrooms ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-gray-400'
               }`}
             />
@@ -104,7 +104,7 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
           </div>
 
           <div>
-            <label className="block text-base font-semibold text-gray-700 mb-2">
+            <label className="block text-base lg:text-lg font-semibold text-gray-700 mb-2">
               Size <span className="text-gray-400">(Optional)</span>
             </label>
             <input
@@ -113,7 +113,7 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
               value={formData.apartment_size}
               onChange={handleChange}
               placeholder="e.g., 120 sqm"
-              className="w-full px-4 py-3 border text-sm  border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:border-gray-400 transition-all duration-200"
+              className="w-full px-4 py-3 border text-sm lg:text-base border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:border-gray-400 transition-all duration-200"
             />
           </div>
         </div>
@@ -150,7 +150,7 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
 
         {/* Amenities */}
         <div className="w-full space-y-3">
-          <label className="block text-base font-semibold text-gray-700">
+          <label className="block text-base lg:text-lg font-semibold text-gray-700">
             Amenities
           </label>
           <div className="w-full flex gap-2">

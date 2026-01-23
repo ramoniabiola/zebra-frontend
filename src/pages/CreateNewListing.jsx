@@ -306,7 +306,7 @@ const CreateNewListing = () => {
     <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3 animate-in slide-in-from-top-2 duration-300">
       <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
       <div className="flex-1">
-        <p className="text-sm text-red-700 font-medium">{message}</p>
+        <p className="text-sm lg:text-base text-red-700 font-medium">{message}</p>
       </div>
       {onClose && (
         <button onClick={onClose} className="text-red-400 hover:text-red-600">
@@ -379,8 +379,8 @@ const CreateNewListing = () => {
   return (
     <div className="w-full h-full min-h-screen bg-gradient-to-br from-gray-50 to-white flex flex-col">
       {/* Header */}
-      <div className="bg-white border-b border-gray-100 fixed top-0 left-0 right-0 z-40">
-        <div className="max-w-4xl mx-auto px-4 py-4">
+      <div className="bg-white border-b border-gray-100 sticky top-0 lg:top-18 left-0 z-40">
+        <div className="w-full px-4 py-4">
           <div className="flex items-center gap-3">
             <button 
               onClick={() => window.history.back()}
@@ -389,14 +389,14 @@ const CreateNewListing = () => {
               <ArrowLeft className="w-5 h-5 text-gray-600" />
             </button>
             <div>
-              <h1 className="text-lg font-bold text-gray-800">Create New Listing</h1>
+              <h1 className="text-lg lg:text-xl font-bold text-gray-800">Create New Listing</h1>
               <p className="text-sm text-gray-500">Step {step} of 4</p>
             </div>
           </div>
         </div>
       </div>
   
-      <div className="max-w-4xl mx-4 py-8 mt-20">
+      <div className="w-full px-4 md:px-6 lg:px-8 py-8 lg:mt-20">
         {/* Step Indicator */}
         <StepIndicator currentStep={step} />
   
@@ -409,8 +409,8 @@ const CreateNewListing = () => {
         )}
 
         {/* Form */}
-        <div className="bg-white mx-auto rounded-2xl  border border-gray-100 overflow-hidden">
-          <form  className="max-w-2xl px-4 py-8">
+        <div className="bg-white w-full px-4 rounded-2xl border border-gray-100 overflow-hidden">
+          <form  className="w-full px-1 md:px-4 lg:px-4 py-8">
             {renderStep()}
 
             {/* Navigation Buttons */}

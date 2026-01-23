@@ -13,7 +13,7 @@ const StepIndicator = ({ currentStep }) => {
 
 
   return (
-    <div className="w-full mb-8 px-2">
+    <div className="w-full mb-8 px-1 md:px-10 lg:px-20">
       <div className="flex justify-between items-center relative">
         {/* Progress Line */}
         <div className="absolute top-5 left-0 right-0 h-0.5 bg-gray-200 -z-10">
