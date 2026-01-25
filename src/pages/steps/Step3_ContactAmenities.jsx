@@ -159,7 +159,7 @@ const Step3_ContactAmenities = ({ formData, setFormData, handleChange, errors })
               value={amenityInput}
               onChange={(e) => setAmenityInput(e.target.value)}
               placeholder="Add an amenity..."
-              className="flex-grow px-3 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:border-gray-400 transition-all duration-200 text-sm"
+              className="flex-grow px-3 md:px-4 lg:px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent hover:border-gray-400 transition-all duration-200 text-sm"
             />
             <button
               type="button"

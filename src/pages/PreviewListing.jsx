@@ -197,11 +197,11 @@ const PreviewListing = ({ formData, onBackToStep }) => {
   
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-br from-gray-50 to-white">
+    <div className="w-full min-h-screen bg-gradient-to-br from-gray-50 to-white pb-4">
       {/* Header */}
-      <div className="bg-white border-b border-gray-100 fixed top-0 left-0 right-0 z-40">
-        <div className="max-w-4xl mx-auto px-2 py-4">
-          <div className="flex items-center gap-1">
+      <div className="bg-white border-b border-gray-100 sticky top-0 lg:top-18 left-0 z-40">
+        <div className="w-full px-2 md:px-4 lg:px-4 py-4">
+          <div className="flex items-center gap-1 md:gap-3 lg:gap-3">
             <button 
               onClick={() => onBackToStep(4)}
               className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors duration-200 cursor-pointer"
@@ -209,21 +209,21 @@ const PreviewListing = ({ formData, onBackToStep }) => {
               <ArrowLeft className="w-5 h-5 text-gray-600" />
             </button>
             <div>
-              <h1 className="text-xl font-bold text-gray-800">Preview Listing</h1>
+              <h1 className="text-xl lg:text-[21px] font-bold text-gray-800">Preview Listing</h1>
               <p className="text-sm text-gray-500">Review your information before submitting</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-1.5 py-4 mt-20">
+      <div className="w-full px-2 md:px-6 lg:px-8 py-4 lg:mt-20">
         {/* Main Preview Card */}
-        <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
+        <div className="w-full bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
   
           {/* Images Section */}
           <div className="relative">
             <div 
-              className="relative w-full h-[280px] overflow-hidden"
+              className="relative w-full h-[280px] md:h-[320px] lg:h-[360px] overflow-hidden"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >   
@@ -259,11 +259,12 @@ const PreviewListing = ({ formData, onBackToStep }) => {
               </div>
             </div>
           </div>
-          <div className="py-8 px-3">
+
+          <div className="w-full py-8 px-2 md:px-4 lg:px-5">
 
             {/* Title and Basic Info */}
             <div className="mb-8">
-              <div className="flex justify-between items-start mb-6">
+              <div className="w-full  flex justify-between items-start mb-6 lg:mb-8">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-4">
                     <span className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg">
@@ -275,12 +276,12 @@ const PreviewListing = ({ formData, onBackToStep }) => {
                       </span>
                     )}
                   </div>
-                  <h1 className="text-2xl font-bold text-gray-900 mb-4 leading-tight">{formData.title}</h1>
-                  <div className="flex items-center gap-2 text-gray-600 mb-2">
+                  <h1 className="text-xl font-bold text-gray-900 mb-4 leading-tight">{formData.title}</h1>
+                  <div className="flex items-center gap-2 text-gray-600 mb-2 lg:mb-3">
                     <MapPin className="w-5 h-5 text-cyan-500" />
                     <span className="font-medium">{formData.location}</span>
                   </div>
-                  <p className="text-gray-600 mb-2">{formData.apartment_address}</p>
+                  <p className="text-gray-600 mb-2 lg:mb-3">{formData.apartment_address}</p>
                   {formData.nearest_landmark && (
                     <p className="text-sm text-gray-500">📍 Near {formData.nearest_landmark}</p>
                   )}
@@ -293,22 +294,23 @@ const PreviewListing = ({ formData, onBackToStep }) => {
                   Edit 
                 </button>
               </div>
+              
               {/* Property Stats */}
               <div className="min-w-full grid grid-cols-3 gap-1 mb-12">
                 <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-4 rounded-2xl text-center border border-cyan-100">
                   <Bed className="w-7 h-7 text-cyan-600 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-gray-800 mb-1">{formData.bedrooms}</div>
+                  <div className="text-xl font-bold text-gray-800 mb-1">{formData.bedrooms}</div>
                   <div className="text-sm text-gray-600">Bedroom{formData.bedrooms > 1 ? 's' : ''}</div>
                 </div>
                 <div className="bg-gradient-to-br from-emerald-50 to-green-50 p-4 rounded-2xl text-center border border-emerald-100">
                   <Bath className="w-7 h-7 text-emerald-600 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-gray-800 mb-1">{formData.bathrooms}</div>
+                  <div className="text-xl font-bold text-gray-800 mb-1">{formData.bathrooms}</div>
                   <div className="text-sm text-gray-600">Bathroom{formData.bathrooms > 1 ? 's' : ''}</div>
                 </div>
                 {formData.apartment_size && (
                   <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-2xl text-center border border-purple-100">
                     <Square className="w-7 h-7 text-purple-600 mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-gray-800 mb-1">{formData.apartment_size}</div>
+                    <div className="text-xl font-bold text-gray-800 mb-1">{formData.apartment_size}</div>
                     <div className="text-sm text-gray-600">sq ft</div>
                   </div>
                 )}
@@ -316,15 +318,15 @@ const PreviewListing = ({ formData, onBackToStep }) => {
               
               {/* Amenities Grid */}
               {formData.apartment_amenities && formData.apartment_amenities.length > 0 && (
-                <div>
+                <div className=''>
                   <h3 className="text-xl font-bold text-center text-gray-800 mb-6">Amenities & Features</h3>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-3 gap-4">
                     {formData.apartment_amenities.map((amenity, idx) => {
                       const IconComponent = amenityIcons[amenity] || Home;
                       return (
                         <div
                           key={idx}
-                          className="flex items-center gap-3 py-4 px-2 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200 hover:shadow-md transition-all duration-200"
+                          className="flex items-center gap-3 py-4 px-2 md:px-3 lg:px-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200 hover:shadow-md transition-all duration-200"
                         >
                           <div className="w-10 h-10 bg-gradient-to-r from-cyan-400 to-cyan-500 rounded-full flex items-center justify-center shadow-lg flex-shrink-0">
                             <IconComponent className="w-5 h-5 text-white" />
@@ -355,8 +357,8 @@ const PreviewListing = ({ formData, onBackToStep }) => {
                   </div>
                   <p className="text-gray-600 mt-4">{formData.duration}</p>
                   {formData.service_charge && (
-                    <div className='flex items-center justify-start bg-gray-50 border border-gray-100 py-2 px-4 mt-4 gap-3 rounded-xl'>
-                      <p className='text-sm text-gray-500  rounded-xl'>Service Charge:</p>
+                    <div className='flex items-center justify-start bg-gray-100 border border-gray-200 py-2 px-4 mt-4 gap-4 md:gap-6 lg:gap-8 rounded-xl'>
+                      <p className='text-sm text-gray-500 font-semibold rounded-xl'>Service Charge:</p>
                       <p className="text-lg text-gray-600 font-bold tracking-wide">
                         {formatPrice(formData.service_charge)}
                       </p>
@@ -375,7 +377,7 @@ const PreviewListing = ({ formData, onBackToStep }) => {
               {/* Contact Information */}
               <div className="border-t border-gray-100 pt-6">
                 <div className="flex justify-between items-center mb-6">
-                  <h3 className="text-lg font-semibold text-gray-800">Contact Info</h3>
+                  <h3 className="text-lg lg:text-xl font-semibold text-gray-800">Contact Info</h3>
                   <button
                     onClick={() => onBackToStep?.(3)}
                     className="bg-gray-50 hover:bg-gray-100 px-3 py-2 rounded-xl flex items-center gap-1 text-sm font-medium text-gray-700 transition-all duration-200 cursor-pointer"
@@ -384,7 +386,7 @@ const PreviewListing = ({ formData, onBackToStep }) => {
                     Edit
                   </button>
                 </div>
-                <div className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
                   <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-2xl border border-cyan-100">
                     <div className="w-11 h-11 bg-gradient-to-r from-cyan-400 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
                       <User className="w-5.5 h-5.5 text-white" />
@@ -406,7 +408,7 @@ const PreviewListing = ({ formData, onBackToStep }) => {
                 </div>
               </div>
               {/* Action Buttons */}
-              <div className="border-t border-gray-100 pt-6 mt-6 space-y-4">
+              <div className="border-t border-gray-100 pt-6 mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
                 <button
                   onClick={() => onBackToStep?.(4)}
                   className="w-full px-6 py-4 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-2xl transition-all duration-200 flex items-center justify-center gap-2 focus:invisible cursor-pointer"

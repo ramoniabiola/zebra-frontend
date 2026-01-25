@@ -16,7 +16,7 @@ const ApartmentInfoSkeleton = () => {
             </div>
 
             {/* CONTENT SKELETON */}
-            <div className="bg-white w-full px-2 md:px-3 lg:px-4 mt-4">
+            <div className="bg-gradient-to-br from-gray-50 to-white w-full px-2 md:px-3 lg:px-4 mt-4">
                 {/* Title Section */}
                 <div className="bg-white px-4 py-4 lg:px-6 lg:py-6 rounded-2xl border border-gray-100">
                     <div className="flex gap-3 mb-4">
