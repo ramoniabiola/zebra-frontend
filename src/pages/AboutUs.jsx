@@ -12,7 +12,7 @@ const AboutUs = () => {
     
 
     return (
-        <div className="max-w-4xl h-full flex flex-col items-start justify-start mx-auto"> 
+        <div className="w-full h-full flex flex-col items-start justify-start px-1 md:px-4 lg:px-4 lg:pt-18"> 
             <div className="w-full h-full flex flex-col items-start justify-center gap-4 mb-8">
 
                 {/* HEADING AND BACK ICON */}
@@ -29,7 +29,7 @@ const AboutUs = () => {
                 {/* SUB HEADING */}
                 <div className="w-full px-1">
                     <div className="px-2 py-2">
-                        <p className="text-slate-700 opacity-90 font-semibold text-base leading-relaxed text-center">
+                        <p className="text-slate-700/70  font-semibold text-base md:text-lg lg:text-xl leading-relaxed text-center">
                             Revolutionizing apartment hunting and renting process in Nigeria by connecting landlords, housing agencies and tenants seamlessly
                         </p>
                     </div>
@@ -37,16 +37,16 @@ const AboutUs = () => {
 
 
                 {/* STEPS- CARD */}
-                <div className="w-full px-4 space-y-6 mt-8">
+                <div className="w-full px-4 space-y-6 lg:space-y-8 mt-8">
                     {/* Step 1 */}
                     <div className="border-b border-gray-200 pb-6">
                         <div className="flex items-start gap-4 mb-2">
                             <div className="w-10 h-10 bg-gradient-to-b from-cyan-50 to-cyan-100 border-2 border-cyan-200 rounded-full flex items-center justify-center text-cyan-600 font-bold text-base shadow-lg">
                                 1
                             </div>
-                            <h3 className="text-lg font-semibold text-gray-900 mt-1">Browse Available Apartments</h3>
+                            <h3 className="text-lg lg:text-xl font-semibold text-gray-900 mt-1">Browse Available Apartments</h3>
                         </div>
-                        <p className="text-gray-600 leading-relaxed text-sm ml-14">
+                        <p className="text-gray-600 leading-relaxed text-sm lg:text-base ml-14">
                             Search through our extensive database of vacant apartments across Nigeria. Filter by location, budget, and preferences to find properties that match your specific needs.
                         </p>
                     </div>
@@ -57,9 +57,9 @@ const AboutUs = () => {
                             <div className="w-10 h-10 bg-gradient-to-b from-cyan-50 to-cyan-100 border-2 border-cyan-200 rounded-full flex items-center justify-center text-cyan-600 font-bold text-base shadow-lg">
                                 2
                             </div>
-                            <h3 className="text-lg font-semibold text-gray-900 mt-1">View Detailed Information</h3>
+                            <h3 className="text-lg lg:text-xl font-semibold text-gray-900 mt-1">View Detailed Information</h3>
                         </div>
-                        <p className="text-gray-600 leading-relaxed text-sm ml-14">
+                        <p className="text-gray-600 leading-relaxed text-sm lg:text-base ml-14">
                              Access comprehensive apartment details including photos, specifications, pricing, and location information. Each listing provides everything you need to make an informed decision.
                         </p>
                     </div>
@@ -70,9 +70,9 @@ const AboutUs = () => {
                             <div className="w-10 h-10 bg-gradient-to-b from-cyan-50 to-cyan-100 border-2 border-cyan-200 rounded-full flex items-center justify-center text-cyan-600 font-bold text-base shadow-lg">
                                 3
                             </div>
-                            <h3 className="text-lg font-semibold text-gray-900 mt-1">Contact Directly</h3>
+                            <h3 className="text-lg lg:text-xl font-semibold text-gray-900 mt-1">Contact Directly</h3>
                         </div>
-                        <p className="text-gray-600 leading-relaxed text-sm ml-14">
+                        <p className="text-gray-600 leading-relaxed text-sm lg:text-base ml-14">
                             Connect instantly with landlords or agents through the provided contact information. No middlemen, no delays – direct communication for faster apartment hunting.
                         </p>
                     </div>
@@ -83,9 +83,9 @@ const AboutUs = () => {
                             <div className="w-10 h-10 bg-gradient-to-b from-cyan-50 to-cyan-100 border-2 border-cyan-200 rounded-full flex items-center justify-center text-cyan-600 font-bold text-base shadow-lg">
                                 4
                             </div>
-                            <h3 className="text-lg font-semibold text-gray-900 mt-1">Schedule & Secure</h3>
+                            <h3 className="text-lg lg:text-xl font-semibold text-gray-900 mt-1">Schedule & Secure</h3>
                         </div>
-                        <p className="text-gray-600 leading-relaxed text-sm ml-14">
+                        <p className="text-gray-600 leading-relaxed text-sm lg:text-base ml-14">
                             Arrange viewings, negotiate terms, and secure your ideal apartment. Our platform facilitates the connection – you handle the final arrangements directly with property owners/managers.
                         </p>
                     </div>
@@ -93,7 +93,7 @@ const AboutUs = () => {
 
                 {/* USER TYPES */}
                 <div className="w-full px-4 space-y-6 mt-10">
-                    <h2 className="text-xl font-bold text-gray-900 text-center mb-6">Who Can Use Our Platform?</h2>
+                    <h2 className="text-xl lg:text-2xl font-bold text-gray-900 text-center mb-6">Who Can Use Our Platform?</h2>
                     <div className="space-y-8">
                         {/* Landlords & Agents */}
                         <div className="p-2">
@@ -101,9 +101,9 @@ const AboutUs = () => {
                                 <div className="w-12 h-12 bg-gradient-to-br from-green-100 to-emerald-300 border-2 border-emerald-200  rounded-full flex items-center justify-center shadow-lg">
                                    <Home className="w-6 h-6 text-emerald-600" />
                                 </div>
-                                <h3 className="text-lg font-semibold text-gray-900">For Landlords & Agencies</h3>
+                                <h3 className="text-lg lg:text-xl font-semibold text-gray-900">For Landlords & Agencies</h3>
                             </div>
-                            <p className="text-gray-600 text-sm leading-relaxed">
+                            <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
                                 List your vacant properties and reach thousands of potential tenants across Nigeria. Expand your reach beyond traditional methods and fill vacancies faster with our user-friendly platform.
                             </p>
                         </div>
@@ -114,9 +114,9 @@ const AboutUs = () => {
                                 <div className="w-12 h-12 bg-gradient-to-br from-orange-100 to-amber-300 border-2 border-orange-200 rounded-full flex items-center justify-center text-white text-2xl shadow-lg">
                                     <Search className="w-6 h-6 text-amber-600" />
                                 </div>
-                                <h3 className="text-lg font-semibold text-gray-900">For House Hunters</h3>
+                                <h3 className="text-lg lg:text-xl font-semibold text-gray-900">For Potential Tenants</h3>
                             </div>
-                            <p className="text-gray-600 text-sm leading-relaxed">
+                            <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
                                 Skip the stress of manual apartment hunting. Browse verified listings, compare options, and find your perfect home within your budget and preferred location – all from your device.
                             </p>
                         </div>
@@ -124,10 +124,10 @@ const AboutUs = () => {
                 </div>
 
 
-                {/* BENEFITS */}
+                {/* BENEFITS */}    
                 <div className="w-full px-4 mt-10">
                     <div className="">
-                        <h2 className="text-xl font-bold text-gray-900 text-center mb-8">Why Choose Our Platform?</h2>
+                        <h2 className="text-xl lg:text-2xl font-bold text-gray-900 text-center mb-8">Why Choose Our Platform?</h2>
                         
                         <div className="grid grid-cols-2 gap-6">
                             {/* Save Time */}
@@ -135,8 +135,8 @@ const AboutUs = () => {
                                 <div className="w-12 h-12 bg-gradient-to-br from-red-100 to-rose-300 border-2 border-rose-200  rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
                                     <Zap className="w-5 h-5 text-rose-600" />
                                 </div>
-                                <h4 className="text-lg font-semibold text-gray-900 mb-2">Save Time</h4>
-                                <p className="text-gray-600 text-sm leading-relaxed">
+                                <h4 className="text-lg lg:text-xl font-semibold text-gray-900 mb-2">Save Time</h4>
+                                <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
                                     Eliminate endless manual searches and focus on properties that match your criteria
                                 </p>
                             </div>
@@ -146,8 +146,8 @@ const AboutUs = () => {
                                 <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-violet-300 border-2 border-violet-200 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
                                    <BadgeDollarSign className="w-5 h-5 text-violet-600" />
                                 </div>
-                                <h4 className="text-lg font-semibold text-gray-900 mb-2">Budget-Friendly</h4>
-                                <p className="text-gray-600 text-sm leading-relaxed">
+                                <h4 className="text-lg lg:text-xl font-semibold text-gray-900 mb-2">Budget-Friendly</h4>
+                                <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
                                     Filter by price range to find apartments within your budget
                                 </p>
                             </div>
@@ -157,8 +157,8 @@ const AboutUs = () => {
                                 <div className="w-12 h-12 bg-gradient-to-br from-green-100 to-teal-300 border-2 border-teal-200 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
                                     <MapPinHouse className="w-5 h-5 text-teal-600"  />
                                 </div>
-                                <h4 className="text-lg font-semibold text-gray-900 mb-2">Location-Based</h4>
-                                <p className="text-gray-600 text-sm leading-relaxed">
+                                <h4 className="text-lg lg:text-xl font-semibold text-gray-900 mb-2">Location-Based</h4>
+                                <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
                                     Search by specific areas and neighborhoods across Nigeria
                                 </p>    
                             </div>
@@ -168,8 +168,8 @@ const AboutUs = () => {
                                 <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-sky-300 border-2 border-sky-200 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
                                     <Smartphone  className="w-5 h-5 text-sky-600" />
                                 </div>
-                                <h4 className="text-lg font-semibold text-gray-900 mb-2">Easy Access</h4>
-                                <p className="text-gray-600 text-sm leading-relaxed">
+                                <h4 className="text-lg lg:text-xl font-semibold text-gray-900 mb-2">Easy Access</h4>
+                                <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
                                     Simple, intuitive platform accessible from any device
                                 </p>
                             </div>

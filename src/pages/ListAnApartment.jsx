@@ -65,7 +65,7 @@ const ListAnApartment = () => {
     // Authentication Dialog Component
     const AuthDialog = () => (
         <div className="fixed inset-0 bg-black/20 bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 max-w-md w-11/12 mx-4 relative">
+            <div className="bg-white rounded-lg p-6 max-w-md lg:max-w-xl w-11/12 mx-4 relative">
                 {/* Close button */}
                 <button
                     onClick={handleDialogClose}
@@ -113,7 +113,7 @@ const ListAnApartment = () => {
     // Unauthorized Dialog Component for Tenants
     const UnauthorizedDialog = () => (
         <div className="fixed inset-0 bg-black/20 bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 max-w-md w-11/12 mx-4 relative">
+            <div className="bg-white rounded-lg p-6 max-w-md lg:max-w-xl w-11/12 mx-4 relative">
                 {/* Close button */}
                 <button
                     onClick={handleUnauthorizedDialogClose}
@@ -179,7 +179,7 @@ const ListAnApartment = () => {
     
     return (
         <>
-            <div className="max-w-4xl h-full flex flex-col items-start justify-start mx-auto">
+            <div className="bg-gradient-to-tr from-gray-50 w-full h-full flex flex-col items-start justify-start px-4 md:px-8 lg:px-16 lg:pt-18">
                 <div className="h-full w-full flex flex-col items-center justify-center text-center py-16 px-4">
                     <div className="relative mb-8">
                         <div className="w-18 h-18 bg-gradient-to-br from-green-100 to-green-200 rounded-full flex items-center justify-center shadow-lg">
@@ -190,39 +190,39 @@ const ListAnApartment = () => {
                         </div>
                     </div>
 
-                    <h2 className="text-xl font-bold text-gray-800 mb-3">
+                    <h2 className="text-xl lg:text-2xl font-bold text-gray-800 mb-3">
                         Ready to List Your Vacant Apartment?
                     </h2>
 
-                    <p className="text-gray-600 text-sm mb-8 max-w-md leading-relaxed">
+                    <p className="text-gray-600 text-sm lg:text-base mb-8 max-w-md md::max-w-xl lg:max-w-2xl leading-relaxed">
                         Reach thousands of potential tenants across Nigeria by listing your vacant properties on our platform.
                     </p>
 
-                    <div className="space-y-6 max-w-lg">
-                        <div className="bg-white border border-gray-200 rounded-lg p-6 shadow">
-                            <h3 className="text-base font-semibold text-gray-800 mb-2">Already Registered?</h3>
-                            <p className="text-gray-600 mb-4 text-sm">
+                    <div className="w-full space-y-6 lg:space-y-8 max-w-lg lg:max-w-2xl">
+                        <div className="bg-white px-4 py-4 lg:px-6 lg:py-8 rounded-2xl border border-gray-100">
+                            <h3 className="text-base lg:text-lg font-semibold text-gray-800 mb-2 lg:mb-4">Already Registered?</h3>
+                            <p className="text-gray-600 mb-4 text-sm lg:text-base">
                                 Navigate to your dashboard to list your vacant properties
                             </p>
                             <button 
                                 onClick={handleNavigation} 
-                                className="w-3/4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-sm py-2 px-4 rounded-lg font-medium hover:from-cyan-600 hover:to-blue-600 transition-all duration-200 shadow-lg"
+                                className="w-3/4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-sm lg:text-base py-2 lg:py-3 px-4 rounded-lg font-medium hover:from-cyan-600 hover:to-blue-600 transition-all duration-200 shadow-lg"
                             >
                                 Go to myDashboard
                             </button>
                         </div>
 
-                        <div className="bg-white border border-gray-200 rounded-lg p-6 shadow">
-                            <div className="flex items-center justify-center mb-2">
+                        <div className="bg-white px-4 py-4 lg:px-6 lg:py-8 rounded-2xl border border-gray-100">
+                            <div className="flex items-center justify-center mb-2 lg:mb-4">
                                 <UserPlusIcon className="w-4.5 h-4.5 text-gray-500 mr-2" />
-                                <h3 className="text-base font-semibold text-gray-800">New User?</h3>
+                                <h3 className="text-base lg:text-lg font-semibold text-gray-800">New User?</h3>
                             </div>
-                            <p className="text-gray-600 mb-4 text-sm">
+                            <p className="text-gray-600 mb-4 text-sm lg:text-base">
                                 Register as an Agency or Landlord to start publishing your vacant listings
                             </p>
                             <button 
                                 onClick={() => navigate("/register")} 
-                                className="w-3/4 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-sm py-2 px-4 rounded-lg font-medium hover:from-green-600 hover:to-emerald-600 transition-all duration-200 shadow-lg"
+                                className="w-3/4 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-sm lg:text-base py-2 lg:py-3 px-4 rounded-lg font-medium hover:from-green-600 hover:to-emerald-600 transition-all duration-200 shadow-lg"
                             >
                                 Register Now
                             </button>

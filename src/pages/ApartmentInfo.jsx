@@ -540,7 +540,7 @@ const ApartmentInfo = () => {
                     className="w-full flex items-center justify-center gap-2 bg-red-50 hover:bg-red-100 text-sm lg:text-base text-red-600 font-semibold p-2.5 lg:p-3 rounded-lg transition-all duration-300 border border-red-200 hover:border-red-300 active:scale-[0.98]"
                   >
                     <AlertTriangle className="w-4.5 h-4.5 lg:w-5 lg:h-5" />
-                    Report this listing
+                    Report Listing
                   </button>
                 </div>        
               </div>

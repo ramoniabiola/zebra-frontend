@@ -36,9 +36,9 @@ const Footer = () => {
                 <div className="flex flex-col">
                     <h3 className="text-base lg:text-lg font-semibold mb-4 text-slate-800">Quick Links</h3>
                     <ul className="space-y-3 lg:space-y-4 text-sm lg:text-base text-slate-600">
-                        <li onClick={() => navigate("/AboutUs")} className="hover:underline  cursor-pointer transition">How It Works</li>
-                        <li onClick={() => navigate("/list-an-apartment")} className="hover:underline cursor-pointer transition">List a Vacant Apartment</li>
-                        <li onClick={() => navigate("/support")} className="hover:underline cursor-pointer transition">FAQs / Help Center</li>
+                        <li onClick={() => navigate("/AboutUs")} className="hover:underline hover:text-slate-700 cursor-pointer transition">How It Works</li>
+                        <li onClick={() => navigate("/list-an-apartment")} className="hover:underline hover:text-slate-700 cursor-pointer transition">List a Vacant Property</li>
+                        <li onClick={() => navigate("/support")} className="hover:underline hover:text-slate-700 cursor-pointer transition">FAQs / Help Center</li>
                     </ul>
                 </div>
 
@@ -56,9 +56,9 @@ const Footer = () => {
                 <div className="flex flex-col">
                     <h3 className="text-base lg:text-lg font-semibold mb-4 text-slate-800">Legal</h3>
                     <ul className="space-y-3 lg:space-y-4 text-sm lg:text-base text-slate-600">
-                        <li><a href="#" className="hover:underline  transition">Privacy Policy</a></li>
-                        <li><a href="#" className="hover:underline transition">Terms & Conditions</a></li>
-                        <li onClick={() => navigate("/report")} className="hover:underline cursor-pointer transition">Report a Scam</li>
+                        <li><a href="#" className="hover:underline hover:text-slate-700 transition">Privacy Policy</a></li>
+                        <li><a href="#" className="hover:underline hover:text-slate-700 transition">Terms & Conditions</a></li>
+                        <li onClick={() => navigate("/report")} className="hover:underline hover:text-slate-700 cursor-pointer transition">Report a Scam</li>
                     </ul>
                 </div>
             </div>

@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 
-
-
 const Report = () => {
     const [reason, setReason] = useState("");
     const [otherReason, setOtherReason] = useState("");
@@ -15,7 +13,7 @@ const Report = () => {
   
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault(); 
         // Here you'd send to backend
         console.log({ reason, otherReason, comments, contactInfo });
         setSubmitted(true);
@@ -24,21 +22,21 @@ const Report = () => {
 
 
   return (
-    <div className="w-full h-full flex flex-col items-start justify-start">
+    <div className="w-full h-full flex flex-col items-start justify-start lg:mt-18">
         <div className="w-full h-full flex flex-col items-center justify-start px-4 py-8 bg-white">
             <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
                 Report a Fraudulent Listing
             </h1>
 
             {!submitted ? (
-                <form onSubmit={handleSubmit} className="w-full max-w-xl p-6 rounded-md shadow-sm space-y-8">
+                <form onSubmit={handleSubmit} className="w-full max-w-xl lg:max-w-3xl p-6  rounded-md shadow-sm space-y-8">
                     {/* Reason for Report */}
                     <div>
-                        <label className="block text-base font-medium text-gray-700 mb-2">
+                        <label className="block text-base lg:text-lg font-medium text-gray-700 mb-2">
                             What’s wrong with the listing?
                         </label>
                         <select
-                            className="w-full border border-gray-200 rounded-md p-2.5 text-sm cursor-pointer outline-none" 
+                            className="w-full border border-gray-200 rounded-md p-2.5 text-sm lg:text-base cursor-pointer outline-none" 
                             value={reason}
                             onChange={(e) => setReason(e.target.value)}
                             required
@@ -62,13 +60,13 @@ const Report = () => {
                     
                     {/* Additional Comments */}
                     <div>
-                        <label className="block text-base font-medium text-gray-700 mb-2">
+                        <label className="block text-base lg:text-lg font-medium text-gray-700 mb-2">
                             Additional Comments (optional)
                         </label>
                         <textarea
                             rows={4}
                             placeholder="Provide more details about the issue"
-                            className="w-full border text-sm border-gray-300 rounded-md p-3 outline-none"
+                            className="w-full border text-sm lg:text-base border-gray-300 rounded-md p-3 outline-none"
                             value={comments}
                             onChange={(e) => setComments(e.target.value)}
                         />
@@ -76,13 +74,13 @@ const Report = () => {
                     
                     {/* Contact Info (optional) */}
                     <div>
-                        <label className="block text-base font-medium text-gray-700 mb-2">
+                        <label className="block text-base lg:text-lg font-medium text-gray-700 mb-2">
                             Your Contact Info
                         </label>
                         <input
                             type="text"
                             placeholder="Email or phone (in case we need to follow up)"
-                            className="w-full text-sm border border-gray-300 rounded-md p-2.5 outline-none"
+                            className="w-full text-sm lg:text-base border border-gray-300 rounded-md p-2.5 outline-none"
                             value={contactInfo}
                             onChange={(e) => setContactInfo(e.target.value)}
                         />
@@ -93,8 +91,8 @@ const Report = () => {
                         type="submit"
                         className="w-full bg-linear-65 from-cyan-400 to-cyan-600 text-white font-semibold py-3 rounded-md cursor-pointer"
                     >
-                    Submit Report
-                </button>
+                        Submit Report
+                    </button>
                 </form>
             ) : (
                 <div className="text-center mt-12">

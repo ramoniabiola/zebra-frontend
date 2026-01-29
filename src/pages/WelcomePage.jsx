@@ -94,7 +94,7 @@ export default function WelcomePage() {
           </h1>
 
           <p className="text-lg sm:text-xl mb-10 text-gray-200 leading-relaxed max-w-2xl mx-auto">
-            Connecting landlords, tenants, agents and agencies for a seamless renting experience across Nigeria.
+            Connecting landlords, tenants, agents and agencies for a seamless property renting experience across Nigeria.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -137,7 +137,7 @@ export default function WelcomePage() {
       <section className="py-20 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
               Why Choose Zebra?
             </h2>
             <p className="text-gray-600 text-base lg:text-lg max-w-2xl mx-auto">
@@ -151,8 +151,8 @@ export default function WelcomePage() {
                 key={i}
                 className="group bg-white p-8 rounded-2xl border border-gray-200 hover:border-cyan-500 transition-all duration-300 hover:shadow-xl"
               >
-                <div className="w-14 h-14 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center shadow-lg mb-6 group-hover:scale-110 transition-transform">
-                  <feature.icon className="w-7 h-7 text-white" />
+                <div className="w-14 h-14 bg-gradient-to-br from-cyan-200 to-blue-200 rounded-xl flex items-center justify-center shadow-lg mb-6 group-hover:scale-105 transition-transform">
+                  <feature.icon className="w-7 h-7 text-cyan-600" />
                 </div>
                 <h3 className="font-bold text-xl text-gray-900 mb-3">{feature.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{feature.desc}</p>
@@ -194,7 +194,7 @@ export default function WelcomePage() {
             <span className="text-cyan-500">a</span>
           </h1>
           <p className="text-gray-400 text-sm italic mb-6">
-            "Making a seamless and easy apartment renting experience..."
+            "Making a seamless and easy property renting experience..."
           </p>
           <p className="text-gray-500 text-sm">
             © {new Date().getFullYear()} Landlords & Tenants Inc. All rights reserved.

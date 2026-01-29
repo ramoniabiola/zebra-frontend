@@ -1,7 +1,12 @@
 import Skeleton from 'react-loading-skeleton';
+import useScreenSize from '../../hooks/screenSize';
 
 
 const ApartmentInfoSkeleton = () => {
+    const { isDesktop, isTablet } = useScreenSize();
+
+    const skeletonImageHeight = isDesktop ? "360px" : isTablet ? "320px" : "280px";
+
     return (
         <div className="h-full w-full overflow-hidden flex flex-col">
             {/* NAVBAR SKELETON */}
@@ -11,8 +16,11 @@ const ApartmentInfoSkeleton = () => {
             </div>
 
             {/* IMAGE SECTION SKELETON */}
-            <div className="w-full h-[280px] md:h-[320px] lg:h-[360px]">
-                <Skeleton width="100%" height={280} />
+            <div className="w-full">
+                <Skeleton
+                    width="100%" 
+                    height={skeletonImageHeight} 
+                />
             </div>
 
             {/* CONTENT SKELETON */}

@@ -91,12 +91,15 @@ const MyDashboard = () => {
           <h2 className="text-base lg:text-lg font-semibold text-cyan-700 tracking-widest">Welcome back!</h2>
           <h1 className="text-xl lg:text-2xl font-bold text-cyan-800 tracking-widest">{user?.username}</h1>
         </div>
-        <div className="ring-3 lg:ring-4 p-[3px]  ring-cyan-500 rounded-full">
-          {user.profile_picture ? (
-            <img src={user.profile_picture} alt="avatar" className="w-13 h-13 lg:w-14 lg:h-14 rounded-full object-cover cursor-pointer" />
-          ) : (
-            <UserCircleIcon className="w-14 h-14 lg:w-15 lg:h-15 text-cyan-500 cursor-pointer" />
-          )}
+        
+        <div className="rounded-full bg-gradient-to-b from-cyan-300 to-cyan-500 p-1">
+          <div className="w-full h-full rounded-full bg-white p-1">
+            {user.profile_picture ? (
+              <img src={user.profile_picture} alt="avatar" className="w-13 h-13 lg:w-14 lg:h-14 rounded-full object-cover cursor-pointer" />
+            ) : (
+              <UserCircleIcon className="w-14 h-14 lg:w-15 lg:h-15 text-cyan-500 cursor-pointer" />
+            )}
+          </div>
         </div>
       </div>
 

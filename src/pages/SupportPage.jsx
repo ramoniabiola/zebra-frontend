@@ -56,9 +56,9 @@ const SupportPage = () => {
   const faqs = activeTab === "Tenant" ? tenantFaqs : landlordFaqs;
 
   return (
-    <div className="w-full h-full flex flex-col items-start justify-start">
+    <div className="w-full h-full flex flex-col items-start justify-start lg:pt-18">
       <div className="w-full h-full px-4 py-8 bg-white flex flex-col items-center justify-start">
-        <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">Support & FAQ</h1>
+        <h1 className="text-2xl font-bold text-center text-gray-800 mb-6 lg:mb-8">Support & FAQ</h1>
 
         {/* Tab Switcher */}
         <div className="w-full flex items-center justify-center gap-8 mb-16">
@@ -66,7 +66,7 @@ const SupportPage = () => {
             <span
               key={tab}
               onClick={() => { setActiveTab(tab); setOpenIndex(null); }}
-              className={`relative px-1 cursor-pointer rounded-md text-lg font-semibold transition-all
+              className={`relative px-1 cursor-pointer rounded-md text-lg lg:text-xl font-semibold transition-all
               ${activeTab === tab ? "text-cyan-600" : "text-gray-500 hover:text-gray-600"}`}
             >
               {tab}
@@ -79,12 +79,12 @@ const SupportPage = () => {
 
 
         {/* FAQ Accordion */}
-        <div className="w-full max-w-2xl">  
+        <div className="w-full px-0 md:px-8 lg:px-8">  
           {faqs.map((faq, index) => (
             <div key={index} className="mb-6 border border-gray-200 rounded-lg">
               <button
                 onClick={() => toggleAccordion(index)}
-                className="w-full flex justify-between items-center px-4 py-3 bg-gray-100 text-left text-base font-medium text-gray-700 hover:bg-gray-200 transition cursor-pointer"
+                className="w-full flex justify-between items-center px-4 py-3 lg:py-4 bg-gray-100 text-left text-bas lg:text-lg font-medium text-gray-700 hover:bg-gray-200 transition cursor-pointer"
               >
                 {faq.question}
                 {openIndex === index ? (
@@ -94,7 +94,7 @@ const SupportPage = () => {
                 )}
               </button>
               {openIndex === index && (
-                <div className="px-4 py-3 text-gray-600 text-sm bg-white border-t rounded-b-lg border-gray-200">
+                <div className="px-4 py-3 text-gray-600 text-sm lg:text-base bg-white border-t rounded-b-lg border-gray-200">
                   {faq.answer}
                 </div>
               )}

@@ -1,6 +1,11 @@
 import Skeleton from 'react-loading-skeleton';
+import useScreenSize from '../../hooks/screenSize';
 
 const MyListingSkeleton = () => {
+    const { isDesktop, isTablet } = useScreenSize();
+
+    const skeletonImageHeight = isDesktop ? "360px" : isTablet ? "320px" : "280px";
+
   return (
     <div className="h-full w-full overflow-hidden flex flex-col">
         {/* NAVBAR SKELETON */}
@@ -10,12 +15,15 @@ const MyListingSkeleton = () => {
         </div>
 
         {/* IMAGE SECTION SKELETON */}
-        <div className="w-full h-[280px] md:h-[320px] lg:h-[360px]">
-            <Skeleton width="100%" height={280} />
+        <div className="w-full">
+            <Skeleton
+                width="100%" 
+                height={skeletonImageHeight} 
+            />
         </div>
 
         {/* ACTION BUTTONS SKELETON */}
-        <div className="flex items-center gap-3 mb-4 mt-4 md:-mt-4 lg:-mt-12 justify-start ml-2 md:ml-4 lg:ml-6">
+        <div className="flex items-center gap-3 mb-4 mt-4 justify-start ml-2 md:ml-4 lg:ml-6">
             <Skeleton width={180} height={40} />
         </div>
 
