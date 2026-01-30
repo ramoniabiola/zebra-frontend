@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { SkeletonTheme } from "react-loading-skeleton";
 import { useSelector } from 'react-redux';
 
+// Components
+import ProtectedRoute from './components/ProtectedRoute';
 
 // Layout
 import MainLayout from './layouts/MainLayout';
@@ -27,8 +29,6 @@ import DeactivatedListingInfo from './pages/DeactivatedListingInfo';
 import AboutUs from './pages/AboutUs';
 import ListAnApartment from './pages/ListAnApartment';
 import RegistrationVerificationPage from './pages/Auth/RegistrationVerificationPage';
-
-
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -58,14 +58,18 @@ function App() {
             <Route element={<MainLayout />}>
               <Route path="/home" element={<Homepage />} />
               <Route path="/apartment/:id" element={<ApartmentInfo />} />
-              <Route path="/bookmarks" element={<Bookmarks />} />
-              <Route path="/create-listing" element={<CreateNewListing />} />
-              <Route path="/listing/:id" element={<ListingInfo />} />
-              <Route path="/deactivated-listing/:id" element={<DeactivatedListingInfo />} />
-              <Route path="/dashboard" element={<MyDashboard />} />
+              
+              {/* Protected Routes - require authentication */}
+              <Route path="/bookmarks" element={<ProtectedRoute><Bookmarks /></ProtectedRoute>} />
+              <Route path="/create-listing" element={<ProtectedRoute><CreateNewListing /></ProtectedRoute>} />
+              <Route path="/listing/:id" element={<ProtectedRoute><ListingInfo /></ProtectedRoute>} />
+              <Route path="/deactivated-listing/:id" element={<ProtectedRoute><DeactivatedListingInfo /></ProtectedRoute>} />
+              <Route path="/dashboard" element={<ProtectedRoute><MyDashboard /></ProtectedRoute>} />
+              <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
+              <Route path="/notifications" element={<ProtectedRoute><NotificationPage /></ProtectedRoute>} />
+              
+              {/* Public routes */}
               <Route path="/search" element={<SearchResults />} />
-              <Route path="/profile" element={<UserProfile />} />
-              <Route path="/notifications" element={<NotificationPage />} />
               <Route path="/support" element={<SupportPage />} />
               <Route path="/aboutUs" element={<AboutUs />} />
               <Route path="/list-an-apartment" element={<ListAnApartment />} />
@@ -79,6 +83,4 @@ function App() {
   );
 }
 
-
 export default App;
- 

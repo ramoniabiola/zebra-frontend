@@ -20,12 +20,12 @@ const Navbar = () => {
 
       {/* USER AVATAR */}
       {user && isDesktop &&  (
-        <div className="rounded-full bg-gradient-to-b from-cyan-300 to-cyan-500 p-1 mt-0.5">
+        <div className="w-14 h-14 rounded-full bg-gradient-to-b from-cyan-300 to-cyan-500 p-1">
           <div className="w-full h-full rounded-full bg-white p-1">
             {user.profile_picture ? (
-              <img src={user.profile_picture} alt="avatar" className="w-10 h-10 rounded-full object-cover cursor-pointer" />
+              <img src={user.profile_picture} alt="avatar" className="rounded-full object-cover cursor-pointer" />
             ) : (
-              <UserCircleIcon className="w-10 h-10 text-cyan-500 cursor-pointer" />
+              <UserCircleIcon className="text-cyan-500 cursor-pointer" />
             )}
           </div>
         </div>
