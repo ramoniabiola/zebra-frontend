@@ -19,16 +19,14 @@ const Navbar = () => {
       </Link>
 
       {/* USER AVATAR */}
-      {user && isDesktop &&  (
-        <div className="w-14 h-14 rounded-full bg-gradient-to-b from-cyan-300 to-cyan-500 p-1">
-          <div className="w-full h-full rounded-full bg-white p-1">
-            {user.profile_picture ? (
-              <img src={user.profile_picture} alt="avatar" className="rounded-full object-cover cursor-pointer" />
-            ) : (
-              <UserCircleIcon className="text-cyan-500 cursor-pointer" />
-            )}
-          </div>
-        </div>
+      {user && isDesktop && (
+        <div className="w-12 h-12 rounded-full">
+          {user.profile_picture ? (
+            <img src={user.profile_picture} alt="avatar" className="rounded-full object-cover cursor-pointer" />
+          ) : (
+            <UserCircleIcon className="text-cyan-500 cursor-pointer" />
+          )}
+        </div> 
       )}
     </nav>
   )

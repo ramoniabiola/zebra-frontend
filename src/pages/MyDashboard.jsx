@@ -104,7 +104,7 @@ const MyDashboard = () => {
       </div>
 
       {/* STATS CARD - 2 per row (2x2) */}
-      <div className="w-full px-1 py-2">
+      <div className="w-full px-1 md:px-2 lg:px-2 py-2">
         {error ? (
           <ErrorDisplay />
         ) : isLoading ?

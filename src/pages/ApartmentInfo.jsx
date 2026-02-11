@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
-import { Bed, Bath, Wifi, Car, Square, AlertTriangle, Phone, ArrowLeft, MapPin, Zap, Shield, Waves, Coffee, Home, User, AlertCircle, X, Copy, Check, RotateCcw, ChevronLeft, ChevronRight } from "lucide-react";
+import { Bed, Bath, Wifi, Car, Square, AlertTriangle, Phone, ArrowLeft, MapPin, Zap, Shield, Waves, Coffee, Home, User, AlertCircle, X, Copy, Check, RotateCcw, ChevronLeft, ChevronRight, MoreVertical } from "lucide-react";
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchApartmentByIdApi } from "../api/apartments";
 import ApartmentInfoSkeleton from "../utils/loading-display/ApartmentInfoSkeleton";
@@ -23,6 +23,9 @@ const ApartmentInfo = () => {
   const [showAuthDialog, setShowAuthDialog] = useState(false);
   const [copied, setCopied] = useState(false);
   const [copyError, SetCopyError] = useState(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
   const totalImages = apartment?.uploadedImages?.length || 0;
   const [isHovered, setIsHovered] = useState(false);
   const user = useSelector((state) => state.auth.user);
@@ -85,6 +88,11 @@ const ApartmentInfo = () => {
  
   const handleRetry = () => {
     getApartment();
+  };
+
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
   };
 
 
@@ -278,16 +286,52 @@ const ApartmentInfo = () => {
         ) : (
           <>
             {/* NAVBAR */}
-            <div className="w-full h-18 flex items-center justify-start pl-2 lg:pl-3 gap-2 lg:gap-3 bg-white shadow">
-              <button 
-                onClick={() => window.history.back()} 
-                className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded-full focus:outline-none"
-              >
-                <ArrowLeft className="w-5 h-5 text-gray-700 cursor-pointer" />
-              </button>
-              <div className=''>
-                <h1 className="text-xl lg:text-[21px] font-bold text-gray-900">Apartment Details</h1>
-                <p className="text-sm text-gray-500">Informations about the apartment</p>
+            <div className="w-full h-18 flex items-center justify-between px-1 md:px-2 lg:px-4 bg-white shadow">
+              <div className="flex items-center gap-1 md:gap-3 lg:gap-3">
+                <button 
+                  onClick={() => window.history.back()} 
+                  className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full focus:outline-none"
+                  >
+                  <ArrowLeft className="w-5 h-5 text-gray-700 cursor-pointer" />
+                </button>
+                <div className='flex flex-col items-start'>
+                  <h1 className="text-xl lg:text-[21px] font-bold text-gray-900">Apartment Details</h1>
+                  <p className="text-sm text-gray-500">Informations about the apartment</p>
+                </div>
+              </div>
+
+              {/* REPORT BUTTON */}
+              <div className="relative" ref={dropdownRef}>
+                <div 
+                  className={`w-10 h-10 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-all duration-200 cursor-pointer ${isDropdownOpen ? 'bg-neutral-100 rotate-90' : ''}`}
+                  onClick={toggleDropdown}
+                >
+                  <MoreVertical className="w-5 h-5" />
+                </div>
+
+                {/* Dropdown Menu */}
+                <div className={`absolute right-0 top-12 w-56 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transition-all duration-300 ease-out transform origin-top-right z-50 ${
+                  isDropdownOpen 
+                  ? 'opacity-100 scale-100 translate-y-0' 
+                  : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
+                }`}>
+                  <div className="py-2 px-2">
+                    <button
+                      onClick={() => {
+                        setIsDropdownOpen(false);
+                        navigate("/report");
+                      }}
+                      className="w-full px-2 py-2 text-left text-gray-700 hover:bg-neutral-50 rounded-xl transition-colors duration-200 flex items-center gap-3 group cursor-pointer"
+                    >
+                      <div className="w-6 h-6 flex items-center justify-center rounded-md bg-red-100 group-hover:bg-red-200  transition-colors duration-200">
+                        <AlertTriangle className="w-3 h-3 text-red-600" />
+                      </div>
+                      <div>
+                        <div className="font-medium text-sm  lg:text-base">Report Listing</div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -532,17 +576,6 @@ const ApartmentInfo = () => {
                     </button>
                   </div>  
                 </div>
-
-                {/* Report Button */}
-                <div className="pt-8">
-                  <button 
-                    onClick={() => navigate("/report")}
-                    className="w-full flex items-center justify-center gap-2 bg-red-50 hover:bg-red-100 text-sm lg:text-base text-red-600 font-semibold p-2.5 lg:p-3 rounded-lg transition-all duration-300 border border-red-200 hover:border-red-300 active:scale-[0.98]"
-                  >
-                    <AlertTriangle className="w-4.5 h-4.5 lg:w-5 lg:h-5" />
-                    Report Listing
-                  </button>
-                </div>        
               </div>
 
               
