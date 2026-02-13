@@ -9,9 +9,14 @@ const MyListingSkeleton = () => {
   return (
     <div className="h-full w-full overflow-hidden flex flex-col">
         {/* NAVBAR SKELETON */}
-        <div className="w-full h-18 flex flex-col pl-8 items-start justify-center bg-white">
-            <Skeleton width={160} height={20} style={{ marginBottom: '4px' }} />
-            <Skeleton width={224} height={16} />
+        <div className="w-full h-18 flex items-center justify-between px-4 md:px-6 lg:px-6 bg-white">
+            <div className="flex items-center gap-4 md:gap-5 lg:gap-5">
+                <Skeleton width={24} height={24} borderRadius={8} />
+                <div className='flex flex-col items-start mt-1'>
+                    <Skeleton width={160} height={18} style={{ marginBottom: '4px' }} />
+                    <Skeleton width={224} height={14} />
+                </div>
+            </div>
         </div>
 
         {/* IMAGE SECTION SKELETON */}
@@ -20,11 +25,6 @@ const MyListingSkeleton = () => {
                 width="100%" 
                 height={skeletonImageHeight} 
             />
-        </div>
-
-        {/* ACTION BUTTONS SKELETON */}
-        <div className="flex items-center gap-3 mb-4 mt-4 justify-start ml-2 md:ml-4 lg:ml-6">
-            <Skeleton width={180} height={40} />
         </div>
 
         {/* CONTENT SKELETON */}

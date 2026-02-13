@@ -1,8 +1,7 @@
-import { RotateCcw, CheckCircle, X, Loader2 } from 'lucide-react';
+import { CheckCircle, X, Loader2 } from 'lucide-react';
 
 const ActionButtons = ({ 
     editMode, 
-    onEdit, 
     onSave, 
     onCancel, 
     isLoading = false, 
@@ -44,19 +43,6 @@ const ActionButtons = ({
             </div>
         );
     }
-
-    return (
-        <div className="flex items-center gap-3 justify-start px-2 md:px-4 lg:px-4">
-            <button 
-                onClick={onEdit}
-                disabled={disabled}
-                className="flex items-center font-semibold gap-1 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white text-sm lg:text-base rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-200 shadow-sm cursor-pointer focus:invisible"
-            >
-                <RotateCcw strokeWidth={2} className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
-                Reactivate Listing
-            </button>
-        </div>
-    );
 };  
 
 export default ActionButtons;

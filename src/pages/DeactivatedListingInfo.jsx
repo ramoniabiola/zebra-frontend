@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowLeft, MapPin, Phone, Home, Calendar, DollarSign, Users, Bath, Square, User, Plus } from 'lucide-react';
+import { ArrowLeft, MapPin, Phone, Home, Calendar, DollarSign, Users, Bath, Square, User, Plus, MoreVertical, RotateCcw } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMyDeactivatedListingByIdApi, reactivateMyListingApi } from '../api/myDeactivatedListings';
@@ -13,6 +13,7 @@ import ReactivationModal from '../utils/modal/ReactivationModal';
 import ErrorAlert from '../utils/error-display/ErrorAlert';
 import ErrorDisplay from '../utils/error-display/ErrorDisplay';
 import ActionButtons from '../utils/buttons/ActionButtons';
+import { useRef } from 'react';
 
 
 // InfoCard component (kept here as it's specific to this page)
@@ -225,6 +226,9 @@ const DeactivatedListingInfo = () => {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(null)
   const [showReactivationModal, setShowReactivationModal] = useState(false)
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+    
 
   // form states
   const [editedData, setEditedData] = useState({})
@@ -295,6 +299,11 @@ const DeactivatedListingInfo = () => {
     const { name, value } = e.target
     setEditedData(prev => ({ ...prev, [name]: value }))
   }
+
+  
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
 
 
 
@@ -445,15 +454,59 @@ const DeactivatedListingInfo = () => {
         ) : ( 
           <>
             {/* Section: Header */}
-            <div className="w-full h-18 flex items-center justify-start px-2 gap-2 bg-white shadow">
-              <button onClick={() => navigate(-1)} className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full focus:outline-none">
-                <ArrowLeft className="w-5 h-5 text-gray-700 cursor-pointer" />
-              </button>
-              <div className=''>
-                <h1 className="text-xl lg:text-[21px] font-bold text-gray-900">Apartment Details</h1>
-                <p className="text-sm text-gray-500">Manage your inactive apartment listing</p>
+            <div className="w-full h-18 flex items-center justify-between px-1 md:px-2 lg:px-4 bg-white shadow">
+              <div className="flex items-center gap-1 md:gap-3 lg:gap-3">
+                <button 
+                  onClick={() => navigate(-1)}
+                  className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full focus:outline-none"
+                  >
+                  <ArrowLeft className="w-5 h-5 text-gray-700 cursor-pointer" />
+                </button>
+                <div className='flex flex-col items-start'>
+                  <h1 className="text-xl lg:text-[21px] font-bold text-gray-900">Apartment Details</h1>
+                  <p className="text-sm text-gray-500">Manage your inactive apartment listing</p>
+                </div>
               </div>
+
+              {/* REACTIVATION BUTTON */}
+              {!editMode && (
+                <div className="relative" ref={dropdownRef}>
+                  <div 
+                    className={`w-10 h-10 flex items-center text-gray-900 justify-center rounded-full hover:bg-neutral-100 transition-all duration-200 cursor-pointer ${isDropdownOpen ? 'bg-neutral-100 rotate-90' : ''}`}
+                    onClick={toggleDropdown}
+                  >
+                    <MoreVertical className="w-5 h-5" />
+                  </div>
+                  {/* Dropdown Menu */}
+                  <div className={`absolute right-0 top-12 w-56 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transition-all duration-300 ease-out transform origin-top-right z-50 ${
+                    isDropdownOpen 
+                    ? 'opacity-100 scale-100 translate-y-0' 
+                    : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
+                    }`}>
+                    <div className="py-2 px-2">
+                      <button
+                        onClick={() => {
+                          setEditMode(true)
+                          setIsDropdownOpen(false);
+                        }}
+                        disabled={success}
+                        className="w-full px-2 py-2 text-left text-gray-700 hover:bg-neutral-50 rounded-xl transition-colors duration-200 flex items-center gap-3 group cursor-pointer"
+                        >
+                        <div className="w-6 h-6 flex items-center justify-center rounded-md bg-green-100 group-hover:bg-green-200  transition-colors duration-200">
+                          <RotateCcw strokeWidth={2} className="w-3 h-3 text-green-600" />
+                        </div>
+                        <div>
+                          <div className="font-medium text-sm  lg:text-base">Reactivate Listing</div>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
+            
+
+
 
             {/* Section: Apartment Details */}
             <div className='w-full h-full flex flex-col items-start justify-center mb-8'>
@@ -486,7 +539,6 @@ const DeactivatedListingInfo = () => {
               <div className={`w-full flex items-center gap-3 mb-4 ${!editMode ? "justify-start" : "justify-center"}`}>
                 <ActionButtons
                   editMode={editMode}
-                  onEdit={() => setEditMode(true)}
                   onSave={handleReactivation}
                   onCancel={handleCancel}
                   isLoading={isReactivating}
