@@ -24,7 +24,7 @@ const Search = () => {
 
   return (
     <header className="w-full h-16 lg:h-20 pt-3 flex items-center justify-center sticky top-13 lg:top-18 z-40 bg-white">
-      <div className="relative bg-white w-full mx-3 lg:mx-4 h-11/12  py-2 border border-slate-200 shadow-[0_5px_15px_0_rgba(0,0,0,0.15)] rounded-xl">  
+      <div className="relative bg-white w-full mx-3 lg:mx-4 h-11/12  py-2 border border-gray-200 shadow-[0_5px_15px_0_rgba(0,0,0,0.15)] rounded-xl">  
         <input
           value={searchQuery}
           onChange={handleSearchChange}
@@ -37,7 +37,7 @@ const Search = () => {
           onClick={handleSearch}
           size={20} 
           strokeWidth={3} 
-          className="absolute right-4 h-6 w-6 top-1/2 transform -translate-y-1/2 font-extrabold text-slate-400 cursor-pointer" 
+          className="absolute right-4 h-6 w-6 top-1/2 transform -translate-y-1/2 font-extrabold text-gray-400 cursor-pointer" 
         />
       </div>
     </header>

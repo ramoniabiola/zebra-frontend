@@ -89,10 +89,10 @@ const MyDashboard = () => {
       <div className="w-full flex items-center justify-between px-6 md:px-7 lg:px-8 py-6 pt-8">
         <div className="flex flex-col gap-1">
           <h2 className="text-base lg:text-lg font-semibold text-cyan-700 tracking-widest">Welcome back!</h2>
-          <h1 className="text-xl lg:text-2xl font-bold text-cyan-800 tracking-widest">{user?.username}</h1>
+          <h1 className="text-xl md:text-[26px] lg:text-[28px] font-bold text-cyan-800 tracking-widest">{user?.username}</h1>
         </div>
         
-        <div className="rounded-full bg-gradient-to-b from-cyan-300 to-cyan-500 p-1">
+        <div className="rounded-full bg-gradient-to-b from-cyan-400 to-cyan-300 p-1">
           <div className="w-full h-full rounded-full bg-white p-1">
             {user.profile_picture ? (
               <img src={user.profile_picture} alt="avatar" className="w-13 h-13 lg:w-14 lg:h-14 rounded-full object-cover cursor-pointer" />
@@ -113,7 +113,7 @@ const MyDashboard = () => {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-2 mb-8 px-2">
             {/* Active Listings */}
-            <div className="flex items-center justify-between py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-200 to-cyan-300 border border-cyan-300">
+            <div className="flex items-center justify-between py-3 px-3 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200">
               <div className="flex flex-col gap-2">
                 <h2 className="text-lg font-bold font-sans text-cyan-800">{compactNumber(userStats.activeListings)}</h2>
                 <p className="text-xs font-medium text-cyan-800/80 tracking-widest">Active Listings</p>
@@ -126,7 +126,7 @@ const MyDashboard = () => {
             </div>
  
             {/* Total Listings */}
-            <div className="flex items-center justify-between py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-200 to-cyan-300 border border-cyan-300">
+            <div className="flex items-center justify-between py-3 px-3 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200">
               <div className="flex flex-col gap-2">
                 <h2 className="text-lg font-bold font-sans text-cyan-800">{compactNumber(userStats.totalListings)}</h2>
                 <p className="text-xs font-medium text-cyan-800/80 tracking-widest">Total Listings</p>
@@ -140,7 +140,7 @@ const MyDashboard = () => {
         
 
             {/* User Role */}
-            <div className="flex items-center justify-between py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-200 to-cyan-300 border border-cyan-300">
+            <div className="flex items-center justify-between py-3 px-3 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200">
               <div className="flex flex-col gap-2">
                 <h2 className="text-lg font-bold font-sans text-cyan-800 first-letter:uppercase">{user.role}</h2>
                 <p className="text-xs font-medium text-cyan-800/80 tracking-widest">User Role</p>
@@ -154,7 +154,7 @@ const MyDashboard = () => {
             
 
             {/*Deactivated Listings */}
-            <div className="flex items-center justify-between py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-200 to-cyan-300 border border-cyan-300">
+            <div className="flex items-center justify-between py-3 px-3 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200">
               <div className="flex flex-col gap-2">
                 <h2 className="text-lg font-bold font-sans text-cyan-800">{compactNumber(userStats.deactivatedListings)}</h2>
                 <p className="text-xs font-medium text-cyan-800/80 tracking-widest">Rented Listings</p>
@@ -172,12 +172,12 @@ const MyDashboard = () => {
         <div className="px-2">
           <button 
             onClick={() => navigate("/create-listing")} 
-            className="w-full bg-gradient-to-r from-cyan-200 to-cyan-400 hover:from-cyan-300 hover:to-cyan-500 text-white font-semibold py-2 rounded-lg transition-all duration-200 flex items-center justify-center mx-auto gap-3 group focus:invisible cursor-pointer" 
+            className="w-full bg-gradient-to-r from-cyan-300 to-cyan-400 hover:from-cyan-300 hover:to-cyan-500 text-white font-semibold py-2 rounded-lg transition-all duration-200 flex items-center justify-center mx-auto gap-3 group focus:invisible cursor-pointer" 
           >
-           <div className="p-1 bg-cyan-600/20 rounded-md group-hover:bg-cyan-600/30 transition-colors">
+           <div className="p-1 bg-cyan-600/30 rounded-md group-hover:bg-cyan-600/40 transition-colors">
               <Plus size={16} strokeWidth={2} className="text-cyan-800/90" />
             </div>
-            <span className="text-base lg:text-lg text-cyan-800 hover:text-cyan-900">Create New Listing</span>
+            <span className="text-base lg:text-lg text-cyan-700 hover:text-cyan-800">Create New Listing</span>
           </button>
         </div>
       </div>

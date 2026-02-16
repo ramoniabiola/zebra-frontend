@@ -255,12 +255,12 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
                 {/* Apartment Info */}
                 <div onClick={() => navigate(`/apartment/${apartment._id}`)} className="w-full mt-4 flex flex-col gap-2 text-left">
                     <div className="flex items-start justify-between gap-3">
-                        <h1 className="text-lg lg:text-xl font-semibold text-slate-900 leading-tight group-hover:text-slate-900 transition-colors">
+                        <h1 className="text-lg lg:text-xl font-semibold text-gray-900 leading-tight group-hover:text-gray-900 transition-colors">
                             {apartment.title}
                         </h1>
                     </div>
 
-                    <div className="flex items-center gap-1.5 text-slate-600">
+                    <div className="flex items-center gap-1.5 text-gray-600">
                         <MapPin className="w-4 h-4 lg:w-5 lg:h-5 text-gray-700" />
                         <h4 className="text-sm lg:text-base font-medium">{apartment.location}</h4>
                     </div>

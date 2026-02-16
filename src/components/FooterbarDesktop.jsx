@@ -108,7 +108,7 @@ const FooterbarDesktop = () => {
   const tabs = [...baseTabs, userSpecificTab, ...extraTabs];
 
   return (
-    <div className="bg-slate-50 border-r h-screen border-slate-200 px-4">
+    <div className="bg-gray-50 border-r h-screen border-gray-200 px-4">
       <div className="flex flex-col gap-2 pt-8">
         {tabs.map((tab) => (
           <div
@@ -116,8 +116,8 @@ const FooterbarDesktop = () => {
             onClick={() => navigate(tabRoutes[tab.id])}
             className={`relative flex items-center gap-8 px-4 py-2 cursor-pointer transition
               ${activeTab === tab.id
-                ? "bg-cyan-100 text-cyan-600 rounded-sm before:absolute before:left-0 before:top-1 before:bottom-1 before:w-[5px] before:bg-cyan-500 before:rounded-r-md"
-                : "text-slate-600 hover:bg-slate-100 rounded-sm"}
+                ? "bg-cyan-100 text-cyan-600 rounded-md before:absolute before:left-0 before:top-1 before:bottom-1 before:w-[5px] before:bg-cyan-600 before:rounded-r-md"
+                : "text-gray-600 hover:bg-gray-100 rounded-md"}
               `}
             >     
 
