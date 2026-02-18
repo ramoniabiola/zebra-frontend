@@ -392,10 +392,11 @@ const UserProfile = () => {
             </div>
           </div>
 
+
           {/* USER PROFILE DETAILS */}
-          <div className="w-11/12 mx-auto mt-8 lg:mt-6 p-6 lg:p-8 bg-white border-1 border-stone-100 rounded-xl shadow-sm">
+          <div className="w-11/12 mx-auto mt-8 lg:mt-6 p-6 lg:p-8 bg-white border-1 border-gray-100 rounded-xl shadow-sm">
             {/* Profile Image */}
-            <div className="flex flex-col items-center justify-items-center mb-6">
+            <div className="flex flex-col items-center justify-items-center mb-6 mt-4">
               <div className="relative w-28 h-28 md:w-28 md:h-28 lg:w-28 lg:h-28 mb-4">
                 <div className="w-full h-full rounded-full bg-gradient-to-b from-cyan-300 to-cyan-500 p-1">
                   <div className="w-full h-full rounded-full bg-white p-1">
@@ -417,24 +418,49 @@ const UserProfile = () => {
 
                 {/* Photo change mode */}
                 {editMode && (
-                  <label className="absolute bottom-0 right-0 w-10 h-10 md:w-10 md:h-10 lg:w-10 lg:h-10 bg-cyan-500 hover:bg-cyan-600 rounded-full flex items-center justify-center cursor-pointer shadow-lg transition-all">
+                  <label className="absolute bottom-0 right-0 w-10 h-10 md:w-10 md:h-10 lg:w-10 lg:h-10 bg-cyan-500 hover:bg-cyan-600 border-[4px] border-white rounded-full flex items-center justify-center cursor-pointer transition-all">
                     <ImagePlus className="w-5 h-5 md:w-5 md:h-5 lg:w-5 lg:h-5 text-white" />
                     <input type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
                   </label>
                 )}
               </div>
               <h1 className="text-2xl text-center font-bold text-gray-700 mb-1">{user?.full_name || "Full Name"}</h1>
-              <p className="text-gray-500 text-base mb-4.5">{user?.email || "Email not available"}</p>
-              <button
-                onClick={() => editMode ? handleCancelEdit() : setEditMode(true)}
-                className={`px-8 py-2 text-base font-semibold rounded-lg cursor-pointer transition-all duration-200 transform hover:-translate-y-1 shadow-lg hover:shadow-xl focus:invisible ${
-                  editMode 
-                    ? "bg-gray-600 text-white hover:bg-gray-700" 
+              <p className="text-gray-500 text-base mb-4">{user?.email || "Email not available"}</p>
+
+              {/* === User Role === */}
+              <div className="mb-4.5 first-letter:uppercase">
+                <span className={`px-4 py-1 rounded-full text-sm md:text-base lg:text-base font-extrabold tracking-wider ${
+                  user?.role === 'tenant' ? 'bg-red-100/30 text-red-700/70 border-1 border-red-300/70' :
+                  user?.role === 'landlord' ? 'bg-yellow-100/30 text-yellow-700/70 border-1 border-yellow-300/70' :
+                  ' bg-green-100/30  text-green-700/70 border-1 border-green-300/70'
+                }`}>
+                  {user?.role}
+                </span> 
+              </div> 
+
+              <div className="w-full flex gap-4 items-center justify-center mt-2">
+                {/* === Save Update Button === */}
+                {editMode && (
+                  <button
+                    onClick={handleUpdateUser}
+                    disabled={isLoading}
+                    className="py-2 px-4 bg-teal-500 text-white text-base font-semibold rounded-lg hover:bg-teal-600 disabled:bg-gray-400 disabled:cursor-not-allowed cursor-pointer transition-all duration-200 transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
+                  >
+                    {isLoading ? 'Updating...' : 'Save Changes'}
+                  </button>
+                )}
+
+                <button
+                  onClick={() => editMode ? handleCancelEdit() : setEditMode(true)}
+                  className={`px-8 py-2 text-base font-semibold rounded-lg cursor-pointer transition-all duration-200 transform hover:-translate-y-1 shadow-lg hover:shadow-xl focus:invisible ${
+                    editMode 
+                    ? "bg-gray-500 text-white hover:bg-gray-600" 
                     : "bg-gradient-to-br from-cyan-500 to-cyan-600 text-white hover:bg-cyan-600"
-                }`}
-              >
-                {editMode ? "Cancel" : "Edit Profile"}
-              </button>
+                  }`}
+                  >
+                  {editMode ? "Cancel" : "Edit Profile"}
+                </button>
+              </div>
             </div>
               
             {/* === Account Info === */}
@@ -443,17 +469,17 @@ const UserProfile = () => {
               <div className="space-y-6">
                 {["username", "full_name"].map((name) => (
                   <div key={name}>
-                    <label className="block font-semibold text-base text-gray-600 capitalize">{name.replace(/_/g, " ")}:</label>
+                    <label className="block font-semibold text-base md:text-lg lg:text-lg text-gray-700 capitalize">{name.replace(/_/g, " ")}:</label>
                     {editMode ? (
                       <input
                         type="text"
                         name={name}
                         value={inputs[name]}
                         onChange={handleChange}
-                        className="mt-1 lg:mt-3 block w-full border text-base font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                        className="mt-1 lg:mt-3 block w-full border text-base md:text-lg lg:text-lg font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                       />
                     ) : (
-                      <p className="mt-1 lg:mt-3 w-full bg-gray-50 text-gray-500 text-base font-medium p-3 rounded-lg">
+                      <p className="mt-1 lg:mt-3 w-full bg-gray-50 text-gray-500 text-base md:text-lg lg:text-lg font-medium p-3 rounded-lg">
                         {displayOrFallback(inputs[name])}
                       </p>
                     )}
@@ -468,7 +494,7 @@ const UserProfile = () => {
               <div className="space-y-6">
                 {["gender", "date_of_birth"].map((name) => (
                   <div key={name}>
-                    <label className="block font-semibold text-base text-gray-600 capitalize">{name.replace(/_/g, " ")}:</label>
+                    <label className="block font-semibold text-base md:text-lg lg:text-lg text-gray-700 capitalize">{name.replace(/_/g, " ")}:</label>
                     {editMode ? (
                       <input
                         type={name === "date_of_birth" ? "date" : "text"}
@@ -479,10 +505,10 @@ const UserProfile = () => {
                             : inputs[name] || ""
                         }
                         onChange={handleChange}
-                        className="mt-1 lg:mt-3 block w-full border text-base font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                        className="mt-1 lg:mt-3 block w-full border text-base md:text-lg lg:text-lg font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                       />
                     ) : (
-                      <p className="mt-1 lg:mt-3 w-full bg-gray-50 text-gray-500 text-base font-medium p-3 rounded-lg">
+                      <p className="mt-1 lg:mt-3 w-full bg-gray-50 text-gray-500 text-base md:text-lg lg:text-lg font-medium p-3 rounded-lg">
                         {displayOrFallback(inputs[name], "Not Provided", name)}
                       </p>
                     )}
@@ -497,17 +523,17 @@ const UserProfile = () => {
               <div className="space-y-6">
                 {["phone_no", "address"].map((name) => (
                   <div key={name}>
-                    <label className="block font-semibold text-base text-gray-700 capitalize">{name.replace(/_/g, " ")}:</label>
+                    <label className="block font-semibold text-base md:text-lg lg:text-lg text-gray-700 capitalize">{name.replace(/_/g, " ")}:</label>
                     {editMode ? (
                       <input
                         type="text"
                         name={name}
                         value={inputs[name]}
                         onChange={handleChange}
-                        className="mt-1 lg:mt-3 block w-full border text-base font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                        className="mt-1 lg:mt-3 block w-full border text-base md:text-lg lg:text-lg font-medium border-gray-200 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                       />
                     ) : (
-                      <p className="mt-1 lg:mt-3 w-full bg-gray-50 text-gray-500 text-base font-medium p-3 rounded-lg">
+                      <p className="mt-1 lg:mt-3 w-full bg-gray-50 text-gray-500 text-base md:text-lg lg:text-lg font-medium p-3 rounded-lg">
                         {displayOrFallback(inputs[name])}
                       </p>
                     )}
@@ -515,33 +541,6 @@ const UserProfile = () => {
                 ))}
               </div>
             </div>
-
-            {/* === User Role === */}
-            <div className="mt-8">
-              <div className="flex items-center gap-3">
-                <span className="font-semibold text-base text-gray-700">Role:</span>
-                <span className={`px-4 py-1.5 rounded-lg text-base font-extrabold shadow-lg first-letter:uppercase tracking-wider ${
-                  user?.role === 'tenant' ? 'bg-gradient-to-br from-rose-100 to-rose-300 text-rose-800' :
-                  user?.role === 'landlord' ? 'bg-gradient-to-br from-emerald-100 to-emerald-300 text-emerald-800' :
-                  'bg-gradient-to-br from-purple-100 to-purple-300 text-purple-800'
-                }`}>
-                  {user?.role}
-                </span>
-              </div>
-            </div>
-
-            {/* === Save Update Button === */}
-            {editMode && (
-              <div className="mt-16">
-                <button
-                  onClick={handleUpdateUser}
-                  disabled={isLoading}
-                  className="w-full py-2 bg-teal-600 text-white text-base font-semibold rounded-lg hover:bg-teal-700 disabled:bg-gray-400 disabled:cursor-not-allowed cursor-pointer transition-all duration-200 transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
-                >
-                  {isLoading ? 'Updating...' : 'Save Changes'}
-                </button>
-              </div>
-            )}
 
             {/* Logout button */}
             <div className="mt-8">
