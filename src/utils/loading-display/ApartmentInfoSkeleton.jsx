@@ -30,16 +30,19 @@ const ApartmentInfoSkeleton = () => {
             </div>
 
             {/* CONTENT SKELETON */}
-            <div className="bg-gradient-to-br from-gray-50 to-white w-full px-2 md:px-3 lg:px-4 mt-4">
+            <div className="bg-gradient-to-br from-gray-50 to-white w-full px-2 md:px-24 lg:px-32 pt-2 md:pt-3 lg:pt-4">
                 {/* Title Section */}
-                <div className="bg-white px-4 py-4 lg:px-6 lg:py-6 rounded-2xl border border-gray-100">
-                    <div className="flex gap-3 mb-4">
-                        <Skeleton width={96} height={30} borderRadius={8} />
-                        <Skeleton width={94} height={30} borderRadius={8} />
+                <div className="bg-white px-4 py-6 lg:px-8 lg:py-8 rounded-2xl border border-gray-100">
+                    <div className="flex gap-3 mb-6">
+                        <Skeleton width={96} height={30} borderRadius={100} />
+                        <Skeleton width={94} height={30} borderRadius={100} />
                     </div>
-                    <Skeleton width={320} height={22} style={{ marginBottom: '8px' }} />
-                    <Skeleton width={192} height={16} style={{ marginBottom: '4px' }} />
-                    <Skeleton width={256} height={14} />
+
+                    <div className='flex flex-col gap-4'>
+                        <Skeleton width={320} height={30}  />
+                        <Skeleton width={189} height={20} />
+                        <Skeleton width={254} height={18} />
+                    </div>
                 </div>
 
                 {/* Property Stats */}

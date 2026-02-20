@@ -309,7 +309,7 @@ const ImageGallery = ({
                     <div className="flex flex-col items-center">
                         <Upload className="w-10 h-10 text-gray-400 mb-4" />
                         <label className="cursor-pointer">
-                            <span className="text-cyan-400 text-base hover:text-cyan-500 hover:underline font-medium">
+                            <span className="text-cyan-500 text-base hover:text-cyan-600 hover:underline font-medium">
                                 Upload new images
                             </span>
                             <span className="text-gray-500 text-base"> or drag and drop</span>

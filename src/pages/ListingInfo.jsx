@@ -259,10 +259,10 @@ const ListingInfo = () => {
 
   // INFO CARD
   const InfoCard = ({ icon: Icon, label, value }) => (
-    <div className="bg-white rounded-lg p-4 border border-gray-100">
+    <div className="bg-stone-50/60 rounded-xl p-4 border border-stone-100">
       <div className="flex items-start gap-4">
         <div className="flex-shrink-0">
-          <div className="w-11 h-11 bg-gradient-to-br from-cyan-500 to-blue-400 rounded-xl flex items-center justify-center">
+          <div className="w-11 h-11 bg-gradient-to-br from-cyan-600 to-blue-500 rounded-xl flex items-center justify-center">
             <Icon className="w-5.5 h-5.5 text-white" />
           </div>
         </div>
@@ -277,10 +277,10 @@ const ListingInfo = () => {
   // AMENITIES CARD
   const AmenitiesCard = ({ icon: Icon, label, apartment_amenities }) => {
     return (
-      <div className="bg-white rounded-lg p-4 border border-gray-100">
+      <div className="bg-stone-50/60 rounded-xl p-4 border border-stone-100">
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0">
-            <div className="w-11 h-11 bg-gradient-to-br from-cyan-500 to-blue-400 rounded-xl flex items-center justify-center">
+            <div className="w-11 h-11 bg-gradient-to-br from-cyan-600 to-blue-500 rounded-xl flex items-center justify-center">
               <Icon className="w-5.5 h-5.5 text-white" />
             </div>
           </div>

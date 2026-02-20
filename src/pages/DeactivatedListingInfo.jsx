@@ -18,10 +18,10 @@ import { useRef } from 'react';
 
 // InfoCard component (kept here as it's specific to this page)
 const InfoCard = ({ icon: Icon, label, value, name, editable = true, editMode, editedData, handleChange }) => (
-  <div className="bg-white rounded-lg p-4 border border-gray-100">
+  <div className="bg-stone-50/60 rounded-xl p-4 border border-stone-100">
     <div className="flex items-start gap-4">
       <div className="flex-shrink-0">
-        <div className="w-11 h-11 bg-gradient-to-br from-cyan-500 to-blue-400 rounded-xl flex items-center justify-center">
+        <div className="w-11 h-11 bg-gradient-to-br from-cyan-600 to-blue-500 rounded-xl flex items-center justify-center">
           <Icon className="w-5.5 h-5.5 text-white" />
         </div>
       </div>
@@ -35,7 +35,7 @@ const InfoCard = ({ icon: Icon, label, value, name, editable = true, editMode, e
               onChange={(e) => handleChange({
                 target: { name, value: e.target.value === 'yes' }
               })}
-              className="mt-2 w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              className="bg-white mt-2 w-full px-4 py-3 border border-gray-200 rounded-lg transition-all duration-200"
             >
               <option value="yes">Yes</option>
               <option value="no">No</option>
@@ -46,7 +46,7 @@ const InfoCard = ({ icon: Icon, label, value, name, editable = true, editMode, e
               name={name}
               value={editedData[name] || ''}
               onChange={handleChange}
-              className="mt-2 w-full px-4 py-3 text-base lg:text-lg border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              className="bg-white mt-2 w-full px-4 py-3 text-base lg:text-lg border border-gray-200 rounded-lg transition-all duration-200"
             />
           )
         ) : (
@@ -88,10 +88,10 @@ const ApartmentTypeCard = ({
   };
 
   return (
-    <div className="bg-white rounded-lg p-4 border border-gray-100">
+    <div className="bg-stone-50/60 rounded-xl p-4 border border-stone-100">
       <div className="flex items-start gap-4">
         <div className="flex-shrink-0">
-          <div className="w-11 h-11 bg-gradient-to-br from-cyan-500 to-blue-400 rounded-xl flex items-center justify-center">
+          <div className="w-11 h-11 bg-gradient-to-br from-cyan-600 to-blue-500 rounded-xl flex items-center justify-center">
             <Icon className="w-5.5 h-5.5 text-white" />
           </div>
         </div>
@@ -105,7 +105,7 @@ const ApartmentTypeCard = ({
                 name={name}
                 value={editedData[name] || ''}
                 onChange={handleChange}
-                className="mt-2 w-full px-4 py-3 text-base lg:text-lg border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                className="bg-white mt-2 w-full px-4 py-3 text-base lg:text-lg border border-gray-200 rounded-lg transition-all duration-200"
               >
                 {apartmentTypeOptions.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -137,10 +137,10 @@ const AmenitiesCard = ({ icon: Icon, label, apartment_amenities, editable = true
   };
 
   return (
-    <div className="bg-white rounded-lg p-4 border border-gray-100">
+    <div className="bg-stone-50/60 rounded-xl p-4 border border-stone-100">
       <div className="flex items-start gap-4">
         <div className="flex-shrink-0">
-          <div className="w-11 h-11 bg-gradient-to-br from-cyan-500 to-blue-400 rounded-xl flex items-center justify-center">
+          <div className="w-11 h-11 bg-gradient-to-br from-cyan-600 to-blue-500 rounded-xl flex items-center justify-center">
             <Icon className="w-5.5 h-5.5 text-white" />
           </div>
         </div>
@@ -177,15 +177,15 @@ const AmenitiesCard = ({ icon: Icon, label, apartment_amenities, editable = true
                   value={newAmenity}
                   onChange={(e) => setNewAmenity(e.target.value)}
                   placeholder="Add new amenity..."
-                  className="flex-grow px-3 py-3 text-sm lg:text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200"
+                  className="bg-white flex-grow px-3 py-3 text-sm lg:text-base border border-gray-200 rounded-lg transition-all duration-200"
                 />
                 <button
                   type="submit"
-                  className="flex-shrink-0 w-auto sm:w-auto px-2 py-3 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white text-sm gap-1 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200 flex items-center"
+                  className="flex-shrink-0 w-auto sm:w-auto px-2 py-3 bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white text-sm gap-1 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200 flex items-center"
                 >
                   <Plus strokeWidth={3} className="w-3 h-3" />
                   Add
-                </button>
+                </button> 
               </form>
             </div>
           ) : (

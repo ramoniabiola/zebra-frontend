@@ -424,7 +424,7 @@ const UserProfile = () => {
                   </label>
                 )}
               </div>
-              <h1 className="text-2xl text-center font-bold text-gray-700 mb-1">{user?.full_name || "Full Name"}</h1>
+              <h1 className="text-2xl md:text-3xl lg:text-3xl text-center font-bold tracking-wider text-gray-700 mb-1">{user?.username || "Username not available"}</h1>
               <p className="text-gray-500 text-base mb-4">{user?.email || "Email not available"}</p>
 
               {/* === User Role === */}
@@ -455,7 +455,7 @@ const UserProfile = () => {
                   className={`px-8 py-2 text-base font-semibold rounded-lg cursor-pointer transition-all duration-200 transform hover:-translate-y-1 shadow-lg hover:shadow-xl focus:invisible ${
                     editMode 
                     ? "bg-gray-500 text-white hover:bg-gray-600" 
-                    : "bg-gradient-to-br from-cyan-500 to-cyan-600 text-white hover:bg-cyan-600"
+                    : "bg-gradient-to-br from-cyan-500 to-cyan-600 text-white hover:bg-cyan-700"
                   }`}
                   >
                   {editMode ? "Cancel" : "Edit Profile"}

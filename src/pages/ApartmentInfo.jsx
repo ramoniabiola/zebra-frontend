@@ -414,7 +414,7 @@ const ApartmentInfo = () => {
 
 
             {/* APARTMENT INFORMATION */}
-            <div className="bg-gradient-to-br from-gray-50 to-white w-full px-2 md:px-3 lg:px-4 pt-2 md:pt-3 lg:pt-4">
+            <div className="bg-gradient-to-br from-gray-50 to-white w-full px-2 md:px-24 lg:px-32 pt-2 md:pt-3 lg:pt-4">
 
               {/* Add to bookmark error notification  */}
               {error && (
@@ -424,96 +424,120 @@ const ApartmentInfo = () => {
               )}
 
               {/* Title and Location Card */}
-              <div className="bg-white px-4 py-4 lg:px-6 lg:py-6 rounded-2xl border border-gray-100">
+              <div className="bg-white px-4 py-5 lg:px-6 lg:py-6 rounded-2xl border border-stone-200 shadow-md">
                 <div className="flex flex-wrap items-center gap-2 mb-3 md:mb-4 lg:mb-5">
-                  <span className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold shadow-md">
+                  <span className="bg-sky-800 text-white px-4 py-1.5 rounded-full tracking-wide text-xs md:text-sm lg:text-sm font-semibold uppercase shadow-md">
                     {apartment.apartment_type}
                   </span>
                   {apartment.furnished && (
-                    <span className="bg-gradient-to-r from-emerald-500 to-green-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold shadow-md">
+                    <span className="bg-teal-500 text-white px-4 py-1.5 rounded-full tracking-wide text-xs md:text-sm lg:text-sm font-semibold uppercase shadow-md">
                       Furnished
                     </span>
                   )}
                 </div>
                 
-                <h1 className="text-[26px] md:text-[28px] lg:text-[30px] font-semibold text-gray-900 mb-3 lg:mb-4 leading-tight">
+                <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 leading-tight mb-4">
                   {apartment.title}
                 </h1>
-                
-                <div className="space-y-2 md:space-y-3 lg:space-y-4">
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <MapPin className="w-4 h-4 lg:w-5 lg:h-5 text-cyan-500" />
-                    <span className="font-medium text-base lg:text-lg">{apartment.location}</span>
+
+                <div className="space-y-2 md:space-y-4 lg:space-y-4">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 bg-sky-800 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-4 h-4 text-white" />
+                    </div>
+                    <span className="font-semibold text-gray-900 text-base md:text-lg lg:text-lg tracking-wide">{apartment.location}</span>
                   </div>
-                  <p className="text-gray-600 text-base lg:text-lg">{apartment.apartment_address}</p>
+                  <p className="text-slate-500 text-sm md:text-base lg:text-base pl-9 tracking-wide">{apartment.apartment_address}</p>
                   {apartment.nearest_landmark && (
-                    <p className="text-sm lg:text-base text-gray-500">📍 Near {apartment.nearest_landmark}</p>
+                    <div className="flex items-center gap-2 pl-9">
+                      <span className="text-yellow-400 text-sm md:text-base lg:text-base">●</span>
+                      <p className="text-sm md:text-base lg:text-base text-slate-500">Near <span className="text-sm md:text-base lg:text-base text-gray-900 font-semibold tracking-wide">{apartment.nearest_landmark}</span></p>
+                    </div>
                   )}
                 </div>
               </div>
 
 
               {/* Property Stats */}
-              <div className="min-w-full grid grid-cols-3 gap-2 mt-4 md:mt-5 lg:mt-6 px-2 md:px-4 lg:px-6">
-                <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-4 md:p-6 lg:p-8 rounded-2xl text-center border border-cyan-100 shadow-sm hover:shadow-md transition-shadow">
-                  <Bed className="w-7 h-7 text-cyan-600 mx-auto mb-2 md:mb-3 lg:mb-4" />
+              <div className="min-w-full grid grid-cols-3 gap-3 md:gap-4 lg:gap-4 mt-4 md:mt-5 lg:mt-6 px-2 md:px-4 lg:px-6">
+                <div className="bg-white rounded-2xl border border-stone-200 shadow-md p-4 md:p-5 flex flex-col items-center text-center group hover:shadow-md transition-all duration-300">
+                  <div className="w-10 h-10 md:w-12 md:h-12 lg:w-12 lg:h-12 bg-sky-800 rounded-xl flex items-center justify-center mb-2 md:mb-3 lg:mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <Bed className="w-5 h-5 md:w-6 md:h-6 lg:w-6 lg:h-6 text-white" />
+                  </div>
                   <div className="text-2xl font-bold text-gray-800 mb-1 md:mb-2 lg:mb-3">{apartment.bedrooms}</div>
                   <div className="text-sm lg:text-base text-gray-600">Bedroom{apartment.bedrooms > 1 ? 's' : ''}</div>
                 </div>
-                <div className="bg-gradient-to-br from-emerald-50 to-green-50 p-4 md:p-6 lg:p-8 rounded-2xl text-center border border-emerald-100 shadow-sm hover:shadow-md transition-shadow">
-                  <Bath className="w-7 h-7 text-emerald-600 mx-auto mb-2 md:mb-3 lg:mb-4" />
+               
+                <div className="bg-white rounded-2xl border border-stone-200 shadow-md p-4 md:p-5 flex flex-col items-center text-center group hover:shadow-md transition-all duration-300">
+                  <div className="w-10 h-10 md:w-12 md:h-12 lg:w-12 lg:h-12 bg-teal-500 rounded-xl flex items-center justify-center mb-2 md:mb-3 lg:mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <Bath className="w-5 h-5 md:w-6 md:h-6 lg:w-6 lg:h-6 text-white" />
+                  </div>
                   <div className="text-2xl font-bold text-gray-800 mb-1 md:mb-2 lg:mb-3">{apartment.bathrooms}</div>
                   <div className="text-sm lg:text-base text-gray-600">Bathroom{apartment.bathrooms > 1 ? 's' : ''}</div>
                 </div>
+
                 {apartment.apartment_size && (
-                  <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 md:p-6 lg:p-8 rounded-2xl text-center border border-purple-100 shadow-sm hover:shadow-md transition-shadow">
-                    <Square className="w-7 h-7 text-purple-600 mx-auto mb-2 md:mb-3 lg:mb-4" />
+                  <div className="bg-white rounded-2xl border border-stone-200 shadow-md p-4 md:p-5 flex flex-col items-center text-center group hover:shadow-md transition-all duration-300">
+                    <div className="w-10 h-10 md:w-12 md:h-12 lg:w-12 lg:h-12 bg-amber-500/70 rounded-xl flex items-center justify-center mb-2 md:mb-3 lg:mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <Square className="w-5 h-5 md:w-6 md:h-6 lg:w-6 lg:h-6 text-white" />
+                      </div>
                     <div className="text-2xl font-bold text-gray-800 mb-1 md:mb-2 lg:mb-3">{apartment.apartment_size}</div>
                     <div className="text-sm lg:text-base text-gray-600">sq ft</div>
                   </div>
                 )}
               </div> 
 
-
               {/* Rental Price */}
-              <div className="bg-white px-4 py-4 mt-4 md:mt-5 lg:mt-6 lg:px-6 lg:py-6 rounded-2xl border border-gray-100">
-                <h3 className="text-lg lg:text-xl font-semibold text-gray-800 mb-3 lg:mb-4">Rental Price</h3>
-                <div className="flex items-baseline gap-2 mb-3 lg:mb-4">
-                  <span className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
-                    {formatPrice(apartment.price)}
-                  </span>
-                  <span className="text-gray-600 font-medium">/ {apartment.payment_frequency}</span>
+              <div className="bg-white rounded-2xl border mt-4 md:mt-5 lg:mt-6 border-stone-200 shadow-md overflow-hidden">
+                <div className="bg-gradient-to-r from-sky-800 to-sky-800/80 py-3 md:py-4 lg:py-4 px-5 md:px-6 lg:px-6 flex items-center justify-between">
+                  <span className="text-white/80 text-sm md:text-base lg:text-base font-medium uppercase tracking-wider">Rental Price</span>
+                  <ChevronRight className="w-4 h-4 md:w-5 md:h-5 lg:w-5 lg:h-5 text-white/60" />
                 </div>
-                <p className="text-gray-600 text-base lg:text-lg mb-3 lg:mb-4">{apartment.duration}</p>
-                {apartment.service_charge && (
-                  <div className="flex items-center justify-between bg-orange-50 px-3 py-2 lg:px-4 lg:py-3 rounded-lg border border-orange-200">
-                    <p className="text-sm lg:text-base text-orange-800 font-medium">Service Charge:</p>
-                    <p className="text-lg lg:text-xl text-orange-900 font-bold">
-                      {formatPrice(apartment.service_charge)}
-                    </p>
+
+                <div className="px-5 py-4 md:px-6 md:py-5 lg:px-6 lg:py-8">
+                  <div className="flex items-baseline gap-2 mb-2 md:mb-3 lg:mb-3">
+                    <span className="text-3xl md:text-4xl lg:text-4xl font-bold text-gray-900">
+                      {formatPrice(apartment.price)}
+                    </span>
+                    <span className="text-slate-500 font-medium text-sm md:text-base lg:text-base">/ {apartment.payment_frequency}</span>
                   </div>
-                )}
+                  <p className="text-sm md:text-base lg:text-base text-slate-500 mb-4">{apartment.duration}</p>
+
+                  {apartment.service_charge && (
+                    <div className="flex items-center justify-between bg-orange-50 border border-orange-200 px-4 py-3 rounded-xl">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-orange-400" />
+                        <span className="text-sm md:text-base lg:text-base font-medium text-slate-700">Service Charge</span>
+                      </div>
+                      <span className="font-bold text-base md:text-lg lg:text-lg text-slate-900">{formatPrice(apartment.service_charge)}</span>
+                    </div>
+                  )}
+                </div>
               </div>
 
 
-              {/* Amenities Grid */}
-              {apartment.apartment_amenities && apartment.apartment_amenities.length > 0 && (
-                <div className="bg-white px-4 py-4 mt-4 md:mt-5 lg:mt-6 lg:px-6 lg:py-6 rounded-2xl border border-gray-100">
-                  <h3 className="text-lg lg:text-xl text-center font-bold text-gray-800 mb-6">Amenities & Features</h3>
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3">
+              {/* Amenities Grid */} 
+              {apartment.apartment_amenities.length > 0 && (
+                <div className="bg-white rounded-2xl border mt-4 md:mt-5 lg:mt-6 border-stone-200 shadow-md overflow-hidden">
+                  <div className="px-5 py-4 md:py-5 lg:py-5 md:px-6 lg:px-6 border-b border-[#e4e4d4] flex items-center justify-between">
+                    <h3 className="font-semibold text-gray-950 text-lg md:text-xl lg:text-xl">Amenities & Features</h3>
+                    <span className="text-xs md:text-sm lg:text-sm bg-[#ecece1] text-slate-600/70 px-2.5 py-1 rounded-full font-medium">
+                      {apartment.apartment_amenities.length} total
+                    </span>
+                  </div>
+
+                  <div className="p-4 md:p-5 grid grid-cols-2 md:grid-cols-3 gap-2.5">
                     {apartment.apartment_amenities.map((amenity, idx) => {
-                      const IconComponent = amenityIcons[amenity] || Home;
+                      const Icon = amenityIcons[amenity] || Home;
                       return (
                         <div
                           key={idx}
-                          className="flex items-center bg-gray-50 gap-2 py-3 px-3 rounded-xl border border-gray-100 shadow-xs hover:shadow-sm"
+                          className="flex items-center gap-2.5 p-4 rounded-xl bg-[#ecece1]/40 border border-[#e4e4d4] hover:border-stone-300/30 hover:bg-[#ecece1]/60 transition-all duration-200 group"
                         >
-                          <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-400 rounded-lg flex items-center justify-center shadow-md flex-shrink-0">
-                            <IconComponent className="w-5 h-5 text-white" />
+                          <div className="w-10 h-10 bg-sky-800 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-200">
+                            <Icon className="w-5 h-5 text-white/90"/>
                           </div>
-                          <span className="text-gray-700 text-sm lg:text-base font-medium break-words line-clamp-2">
-                            {amenity}
-                          </span>
+                          <span className="text-sm md:text-base lg:text-base text-slate-800 font-semibold leading-tight">{amenity}</span>
                         </div>
                       );
                     })}
@@ -521,60 +545,58 @@ const ApartmentInfo = () => {
                 </div>
               )}
 
+
+
               {/* Contact Information */}
-              <div className="bg-white px-4 py-4 mt-4 md:mt-5 lg:mt-6 lg:px-6 lg:py-6 rounded-2xl border border-gray-100 mb-8">
-                <h3 className="text-lg lg:text-xl text-center font-bold text-gray-800 mb-6 ">Contact Info</h3>
+              <div className="bg-white rounded-2xl border mt-4 md:mt-5 lg:mt-6 mb-8 border-stone-200 shadow-md overflow-hidden">
+                <div className="px-5 py-4 md:py-5 lg:py-5 md:px-6 lg:px-6 border-b border-[#e4e4d4] flex items-center justify-between">
+                  <h3 className="font-semibold text-gray-950 text-lg md:text-xl lg:text-xl">Contact Information</h3>
+                </div>
 
-                {/* Show copy error if it exists */}
-                {copyError && (
-                  <CopyErrorAlert 
-                    error={copyError}
-                    onClose={() => SetCopyError(null)} 
-                  />
-                )}
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 lg:gap-4">
-                  <div className="flex items-center gap-3 px-3 py-4 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl border border-cyan-100">
-                    <div className="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center shadow-md">
-                      <User className="w-5 h-5  text-white" />
+                <div className="p-4 md:p-5 lg:p-5 space-y-4">
+                  {/* Agent card */}
+                  <div className="flex items-center gap-4 p-4 bg-[#ecece1]/40 rounded-xl border border-[#e4e4d4]">
+                    <div className="w-12 h-12 bg-sky-800/90 rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
+                      <User className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-800 text-base lg:text-lg">{apartment.contact_name}</p>
-                      <p className="text-sm lg:text-base text-gray-600">Property Contact</p>
+                      <p className="text-base md:text-lg lg:text-lg text-slate-900 font-semibold">{apartment.contact_name}</p>
+                      <p className="text-sm md:text-base lg:text-base text-slate-400">Property Agent</p>
                     </div>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 px-3 py-4 bg-gradient-to-r from-emerald-50 to-green-50 rounded-xl border border-emerald-100">
-                    <div className="flex items-center gap-3 flex-1">
-                      <div className="w-10 h-10  bg-gradient-to-r from-emerald-400 to-green-500 rounded-full flex items-center justify-center shadow-md">
-                        <Phone className="w-5 h-5  text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="font-semibold text-gray-800 text-base lg:text-lg">{formatPhoneNumber(apartment.contact_phone)}</p>
-                        <p className="text-sm lg:text-base text-gray-600">Phone Number</p>
-                      </div>
+                  {/* Phone card */}
+                  <div className="flex items-center gap-3 p-4 bg-[#ecece1]/40 rounded-xl border border-[#e4e4d4]">
+                    <div className="w-12 h-12 bg-teal-500/80 rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
+                      <Phone className="w-5 h-5 text-white" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-slate-900 text-base md:text-lg lg:text-lg">{formatPhoneNumber(apartment.contact_phone)}</p>
+                      <p className="text-sm md:text-base lg:text-base text-slate-400">Phone Number</p>
                     </div>
                     <button
                       onClick={() => copyToClipboard(formatPhoneNumber(apartment.contact_phone))}
-                      className={`px-4 py-2 sm:py-2.5 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98] ${
+                      className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 flex-shrink-0 ${
                         copied
-                          ? 'bg-green-100 text-green-700 text-xs sm:text-sm hover:bg-green-200'
-                          : 'bg-emerald-100 text-emerald-700 text-xs sm:text-sm hover:bg-emerald-200'
+                          ? "bg-green-100 text-green-700 text-sm border border-green-200"
+                          : "bg-[#ecece1] text-sm text-slate-800 border border-[#e4e4d4] hover:border-[#e4e4d4]/40 hover:bg-[#ecece1]/50 active:scale-95"
                       }`}
                     >
                       {copied ? (
-                        <>
-                          <Check className="w-4 h-4" />
-                          <span className="text-sm">Copied</span>
-                        </>
+                        <><Check className="w-4 h-4" /> Copied</>
                       ) : (
-                        <>
-                          <Copy className="w-4 h-4" />
-                          <span className="text-sm">Copy</span>
-                        </>
+                        <><Copy className="w-4 h-4" /> Copy</>
                       )}
                     </button>
-                  </div>  
+                  </div>
+
+                  {/* Show copy error if it exists */}
+                  {copyError && (
+                    <CopyErrorAlert 
+                      error={copyError}
+                      onClose={() => SetCopyError(null)} 
+                    />
+                  )}
                 </div>
               </div>
 

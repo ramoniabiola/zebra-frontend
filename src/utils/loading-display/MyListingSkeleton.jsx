@@ -40,7 +40,7 @@ const MyListingSkeleton = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                         {/* Property Title - Full Width */}
                         <div className="md:col-span-2">
-                            <div className="bg-white rounded-lg p-4 border border-gray-100">
+                            <div className="bg-white rounded-xl p-4 border border-gray-100">
                                 <div className="flex items-start gap-4">
                                     <div className="flex-shrink-0">
                                         <Skeleton width={48} height={48} />
@@ -54,7 +54,7 @@ const MyListingSkeleton = () => {
                         </div>
                         
                         {/* Type and Location */}
-                        <div className="bg-white rounded-lg p-4 border border-gray-100">
+                        <div className="bg-white rounded-xl p-4 border border-gray-100">
                             <div className="flex items-start gap-4">
                                 <div className="flex-shrink-0">
                                     <Skeleton width={48} height={48} />
@@ -66,7 +66,7 @@ const MyListingSkeleton = () => {
                             </div>
                         </div>
                         
-                        <div className="bg-white rounded-lg p-4 border border-gray-100">
+                        <div className="bg-white rounded-xl p-4 border border-gray-100">
                             <div className="flex items-start gap-4">
                                 <div className="flex-shrink-0">
                                     <Skeleton width={48} height={48} />
@@ -80,7 +80,7 @@ const MyListingSkeleton = () => {
                         
                         {/* Full Address - Full Width */}
                         <div className="md:col-span-2">
-                            <div className="bg-white rounded-lg p-4 border border-gray-100">
+                            <div className="bg-white rounded-xl p-4 border border-gray-100">
                                 <div className="flex items-start gap-4">
                                     <div className="flex-shrink-0">
                                         <Skeleton width={48} height={48} />
@@ -94,7 +94,7 @@ const MyListingSkeleton = () => {
                         </div>
                         
                         {/* Nearest Landmark and Size */}
-                        <div className="bg-white rounded-lg p-4 border border-gray-100">
+                        <div className="bg-white rounded-xl p-4 border border-gray-100">
                             <div className="flex items-start gap-4">
                                 <div className="flex-shrink-0">
                                     <Skeleton width={48} height={48} />
@@ -106,7 +106,7 @@ const MyListingSkeleton = () => {
                             </div>
                         </div>
                         
-                        <div className="bg-white rounded-lg p-4 border border-gray-100">
+                        <div className="bg-white rounded-xl p-4 border border-gray-100">
                             <div className="flex items-start gap-4">
                                 <div className="flex-shrink-0">
                                     <Skeleton width={48} height={48} />
@@ -119,7 +119,7 @@ const MyListingSkeleton = () => {
                         </div>
                         
                         {/* Bedrooms and Bathrooms */}
-                        <div className="bg-white rounded-lg p-4 border border-gray-100">
+                        <div className="bg-white rounded-xl p-4 border border-gray-100">
                             <div className="flex items-start gap-4">
                                 <div className="flex-shrink-0">
                                     <Skeleton width={48} height={48} />
@@ -131,7 +131,7 @@ const MyListingSkeleton = () => {
                             </div>
                         </div>
                         
-                        <div className="bg-white rounded-lg p-4 border border-gray-100">
+                        <div className="bg-white rounded-xl p-4 border border-gray-100">
                             <div className="flex items-start gap-4">
                                 <div className="flex-shrink-0">
                                     <Skeleton width={48} height={48} />
@@ -152,7 +152,7 @@ const MyListingSkeleton = () => {
                     </div>
                     <div className="space-y-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                         {/* Furnished Status */}
-                        <div className="bg-white rounded-lg p-4 border border-gray-100">
+                        <div className="bg-white rounded-xl p-4 border border-gray-100">
                             <div className="flex items-start gap-4">
                                 <div className="flex-shrink-0">
                                     <Skeleton width={48} height={48} />
@@ -165,7 +165,7 @@ const MyListingSkeleton = () => {
                         </div>
                         
                         {/* Available Amenities */}
-                        <div className="bg-white rounded-lg p-4 border border-gray-100">
+                        <div className="bg-white rounded-xl p-4 border border-gray-100">
                             <div className="flex items-start gap-4">
                                 <div className="flex-shrink-0">
                                     <Skeleton width={48} height={48} />
@@ -193,7 +193,7 @@ const MyListingSkeleton = () => {
                     </div>
                     <div className="space-y-6">
                         {/* Rent Price */}
-                        <div className="bg-white rounded-lg p-4 border border-gray-100">
+                        <div className="bg-white rounded-xl p-4 border border-gray-100">
                             <div className="flex items-start gap-4">
                                 <div className="flex-shrink-0">
                                     <Skeleton width={48} height={48} />
@@ -206,7 +206,7 @@ const MyListingSkeleton = () => {
                         </div>
                         
                         {/* Payment Frequency */}
-                        <div className="bg-white rounded-lg p-4 border border-gray-100">
+                        <div className="bg-white rounded-xl p-4 border border-gray-100">
                             <div className="flex items-start gap-4">
                                 <div className="flex-shrink-0">
                                     <Skeleton width={48} height={48} />
@@ -219,7 +219,7 @@ const MyListingSkeleton = () => {
                         </div>
                         
                         {/* Rent Duration */}
-                        <div className="bg-white rounded-lg p-4 border border-gray-100">
+                        <div className="bg-white rounded-xl p-4 border border-gray-100">
                             <div className="flex items-start gap-4">
                                 <div className="flex-shrink-0">
                                     <Skeleton width={48} height={48} />
@@ -232,7 +232,7 @@ const MyListingSkeleton = () => {
                         </div>
                         
                         {/* Service Charge */}
-                        <div className="bg-white rounded-lg p-4 border border-gray-100">
+                        <div className="bg-white rounded-xl p-4 border border-gray-100">
                             <div className="flex items-start gap-4">
                                 <div className="flex-shrink-0">
                                     <Skeleton width={48} height={48} />
@@ -253,7 +253,7 @@ const MyListingSkeleton = () => {
                     </div>
                     <div className='space-y-6'>
                         {/* Contact Name */}
-                        <div className="bg-white rounded-lg p-4 border border-gray-100">
+                        <div className="bg-white rounded-xl p-4 border border-gray-100">
                             <div className="flex items-start gap-4">
                                 <div className="flex-shrink-0">
                                     <Skeleton width={48} height={48} />
@@ -266,7 +266,7 @@ const MyListingSkeleton = () => {
                         </div>
                         
                         {/* Phone Number */}
-                        <div className="bg-white rounded-lg p-4 border border-gray-100">
+                        <div className="bg-white rounded-xl p-4 border border-gray-100">
                             <div className="flex items-start gap-4">
                                 <div className="flex-shrink-0">
                                     <Skeleton width={48} height={48} />
