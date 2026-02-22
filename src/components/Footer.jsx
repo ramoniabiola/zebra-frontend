@@ -17,7 +17,7 @@ const Footer = () => {
                 {/* Brand Section */}
                 <div className="flex flex-col gap-2 lg:gap-3 md:col-span-2 lg:col-span-1">
                     <h1 className="text-[1.8rem] lg:text-[2.1rem] text-slate-900 font-extrabold tracking-tight text-shadow-lg">
-                        zebr<span className="text-cyan-500">a</span>
+                        zebr<span className="text-cyan-600">a</span>
                     </h1>
                     <p className="text-base lg:text-lg font-normal italic text-slate-600">
                         "Making a seamless and easy property renting experience..."

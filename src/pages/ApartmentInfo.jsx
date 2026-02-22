@@ -426,7 +426,7 @@ const ApartmentInfo = () => {
               {/* Title and Location Card */}
               <div className="bg-white px-4 py-5 lg:px-6 lg:py-6 rounded-2xl border border-stone-200 shadow-md">
                 <div className="flex flex-wrap items-center gap-2 mb-3 md:mb-4 lg:mb-5">
-                  <span className="bg-sky-800 text-white px-4 py-1.5 rounded-full tracking-wide text-xs md:text-sm lg:text-sm font-semibold uppercase shadow-md">
+                  <span className="bg-cyan-700 text-white px-4 py-1.5 rounded-full tracking-wide text-xs md:text-sm lg:text-sm font-semibold uppercase shadow-md">
                     {apartment.apartment_type}
                   </span>
                   {apartment.furnished && (
@@ -442,7 +442,7 @@ const ApartmentInfo = () => {
 
                 <div className="space-y-2 md:space-y-4 lg:space-y-4">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-sky-800 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 bg-cyan-800 rounded-xl flex items-center justify-center flex-shrink-0">
                       <MapPin className="w-4 h-4 text-white" />
                     </div>
                     <span className="font-semibold text-gray-900 text-base md:text-lg lg:text-lg tracking-wide">{apartment.location}</span>
@@ -461,11 +461,11 @@ const ApartmentInfo = () => {
               {/* Property Stats */}
               <div className="min-w-full grid grid-cols-3 gap-3 md:gap-4 lg:gap-4 mt-4 md:mt-5 lg:mt-6 px-2 md:px-4 lg:px-6">
                 <div className="bg-white rounded-2xl border border-stone-200 shadow-md p-4 md:p-5 flex flex-col items-center text-center group hover:shadow-md transition-all duration-300">
-                  <div className="w-10 h-10 md:w-12 md:h-12 lg:w-12 lg:h-12 bg-sky-800 rounded-xl flex items-center justify-center mb-2 md:mb-3 lg:mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-10 h-10 md:w-12 md:h-12 lg:w-12 lg:h-12 bg-cyan-800 rounded-xl flex items-center justify-center mb-2 md:mb-3 lg:mb-4 group-hover:scale-110 transition-transform duration-300">
                     <Bed className="w-5 h-5 md:w-6 md:h-6 lg:w-6 lg:h-6 text-white" />
                   </div>
                   <div className="text-2xl font-bold text-gray-800 mb-1 md:mb-2 lg:mb-3">{apartment.bedrooms}</div>
-                  <div className="text-sm lg:text-base text-gray-600">Bedroom{apartment.bedrooms > 1 ? 's' : ''}</div>
+                  <div className="text-sm lg:text-base text-gray-500">Bedroom{apartment.bedrooms > 1 ? 's' : ''}</div>
                 </div>
                
                 <div className="bg-white rounded-2xl border border-stone-200 shadow-md p-4 md:p-5 flex flex-col items-center text-center group hover:shadow-md transition-all duration-300">
@@ -473,7 +473,7 @@ const ApartmentInfo = () => {
                     <Bath className="w-5 h-5 md:w-6 md:h-6 lg:w-6 lg:h-6 text-white" />
                   </div>
                   <div className="text-2xl font-bold text-gray-800 mb-1 md:mb-2 lg:mb-3">{apartment.bathrooms}</div>
-                  <div className="text-sm lg:text-base text-gray-600">Bathroom{apartment.bathrooms > 1 ? 's' : ''}</div>
+                  <div className="text-sm lg:text-base text-gray-500">Bathroom{apartment.bathrooms > 1 ? 's' : ''}</div>
                 </div>
 
                 {apartment.apartment_size && (
@@ -482,14 +482,14 @@ const ApartmentInfo = () => {
                         <Square className="w-5 h-5 md:w-6 md:h-6 lg:w-6 lg:h-6 text-white" />
                       </div>
                     <div className="text-2xl font-bold text-gray-800 mb-1 md:mb-2 lg:mb-3">{apartment.apartment_size}</div>
-                    <div className="text-sm lg:text-base text-gray-600">sq ft</div>
+                    <div className="text-sm lg:text-base text-gray-500">sq ft</div>
                   </div>
                 )}
               </div> 
 
               {/* Rental Price */}
               <div className="bg-white rounded-2xl border mt-4 md:mt-5 lg:mt-6 border-stone-200 shadow-md overflow-hidden">
-                <div className="bg-gradient-to-r from-sky-800 to-sky-800/80 py-3 md:py-4 lg:py-4 px-5 md:px-6 lg:px-6 flex items-center justify-between">
+                <div className="bg-gradient-to-r from-cyan-700 to-cyan-800/80 py-3 md:py-4 lg:py-4 px-5 md:px-6 lg:px-6 flex items-center justify-between">
                   <span className="text-white/80 text-sm md:text-base lg:text-base font-medium uppercase tracking-wider">Rental Price</span>
                   <ChevronRight className="w-4 h-4 md:w-5 md:h-5 lg:w-5 lg:h-5 text-white/60" />
                 </div>
@@ -519,9 +519,9 @@ const ApartmentInfo = () => {
               {/* Amenities Grid */} 
               {apartment.apartment_amenities.length > 0 && (
                 <div className="bg-white rounded-2xl border mt-4 md:mt-5 lg:mt-6 border-stone-200 shadow-md overflow-hidden">
-                  <div className="px-5 py-4 md:py-5 lg:py-5 md:px-6 lg:px-6 border-b border-[#e4e4d4] flex items-center justify-between">
+                  <div className="px-5 py-4 md:py-5 lg:py-5 md:px-6 lg:px-6 border-b border-stone-200 flex items-center justify-between">
                     <h3 className="font-semibold text-gray-950 text-lg md:text-xl lg:text-xl">Amenities & Features</h3>
-                    <span className="text-xs md:text-sm lg:text-sm bg-[#ecece1] text-slate-600/70 px-2.5 py-1 rounded-full font-medium">
+                    <span className="text-xs md:text-sm lg:text-sm bg-stone-200 text-slate-600/70 px-2.5 py-1 rounded-full font-medium">
                       {apartment.apartment_amenities.length} total
                     </span>
                   </div>
@@ -532,9 +532,9 @@ const ApartmentInfo = () => {
                       return (
                         <div
                           key={idx}
-                          className="flex items-center gap-2.5 p-4 rounded-xl bg-[#ecece1]/40 border border-[#e4e4d4] hover:border-stone-300/30 hover:bg-[#ecece1]/60 transition-all duration-200 group"
+                          className="flex items-center gap-2.5 p-4 rounded-xl bg-stone-100/60 border border-stone-200 hover:border-stone-300/30 hover:bg-stone-100/90 transition-all duration-200 group"
                         >
-                          <div className="w-10 h-10 bg-sky-800 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-200">
+                          <div className="w-10 h-10 bg-gradient-to-br from-cyan-800 to-cyan-700 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-200">
                             <Icon className="w-5 h-5 text-white/90"/>
                           </div>
                           <span className="text-sm md:text-base lg:text-base text-slate-800 font-semibold leading-tight">{amenity}</span>
@@ -549,14 +549,14 @@ const ApartmentInfo = () => {
 
               {/* Contact Information */}
               <div className="bg-white rounded-2xl border mt-4 md:mt-5 lg:mt-6 mb-8 border-stone-200 shadow-md overflow-hidden">
-                <div className="px-5 py-4 md:py-5 lg:py-5 md:px-6 lg:px-6 border-b border-[#e4e4d4] flex items-center justify-between">
+                <div className="px-5 py-4 md:py-5 lg:py-5 md:px-6 lg:px-6 border-b border-stone-200 flex items-center justify-between">
                   <h3 className="font-semibold text-gray-950 text-lg md:text-xl lg:text-xl">Contact Information</h3>
                 </div>
 
                 <div className="p-4 md:p-5 lg:p-5 space-y-4">
                   {/* Agent card */}
-                  <div className="flex items-center gap-4 p-4 bg-[#ecece1]/40 rounded-xl border border-[#e4e4d4]">
-                    <div className="w-12 h-12 bg-sky-800/90 rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
+                  <div className="flex items-center gap-4 p-4 bg-stone-100/60 rounded-xl border border-stone-200">
+                    <div className="w-12 h-12 bg-cyan-800 rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
                       <User className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -566,7 +566,7 @@ const ApartmentInfo = () => {
                   </div>
 
                   {/* Phone card */}
-                  <div className="flex items-center gap-3 p-4 bg-[#ecece1]/40 rounded-xl border border-[#e4e4d4]">
+                  <div className="flex items-center gap-3 p-4 bg-stone-100/60 rounded-xl border border-stone-200">
                     <div className="w-12 h-12 bg-teal-500/80 rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
                       <Phone className="w-5 h-5 text-white" />
                     </div>
@@ -579,7 +579,7 @@ const ApartmentInfo = () => {
                       className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 flex-shrink-0 ${
                         copied
                           ? "bg-green-100 text-green-700 text-sm border border-green-200"
-                          : "bg-[#ecece1] text-sm text-slate-800 border border-[#e4e4d4] hover:border-[#e4e4d4]/40 hover:bg-[#ecece1]/50 active:scale-95"
+                          : "bg-stone-200/80 text-sm text-slate-800 border border-stone-300 hover:border-stone-300/40 hover:bg-stone-100/50 active:scale-95"
                       }`}
                     >
                       {copied ? (

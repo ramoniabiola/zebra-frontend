@@ -175,12 +175,12 @@ const MyListings = () => {
             )}
           </div>
 
-          <div className="bg-stone-50 rounded-xl py-3 px-4 flex items-center justify-center cursor-pointer  border border-stone-200">
+          <div className="bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white rounded-xl py-3 px-4 flex items-center justify-center cursor-pointer">
             <SearchIcon
               onClick={handleSearch}
               size={20}
-              strokeWidth={3}
-              className="text-stone-400 cursor-pointer"
+              strokeWidth={4}
+              className="text-white cursor-pointer"
             />
           </div>
         </div>

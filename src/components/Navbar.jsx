@@ -14,7 +14,7 @@ const Navbar = () => {
       <Link to="/home">
           <h1 
             className="text-[2rem] md:text-[2.2rem] lg:text-[2.4rem] text-slate-900 font-extrabold cursor-pointer tracking-tight text-shadow-lg">zebr
-            <span className="text-cyan-500">a</span>
+            <span className="text-cyan-600">a</span>
           </h1>
       </Link>
 

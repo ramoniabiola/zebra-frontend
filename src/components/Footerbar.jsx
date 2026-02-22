@@ -1,21 +1,4 @@
-import {
-  BellIcon as BellOutline,
-  HeartIcon as HeartOutline,
-  HomeIcon as HomeOutline,
-  UserIcon as UserOutline,
-  MagnifyingGlassIcon as SearchOutline,
-  Squares2X2Icon as DashboardOuline,
-  UserCircleIcon as UserCircleOutline
-} from "@heroicons/react/24/outline";
-import {
-  BellIcon as BellSolid,
-  HeartIcon as HeartSolid,
-  HomeIcon as HomeSolid,
-  UserIcon as UserSolid,
-  MagnifyingGlassIcon as SearchSolid,
-  Squares2X2Icon as DashboardSolid,
-  UserCircleIcon as UserCircleSolid
-} from "@heroicons/react/24/solid";
+import MaterialIcon from "../components/MaterialIcon";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -66,14 +49,18 @@ const Footerbar = () => {
     {
       id: "home",
       label: "Home",
-      icon: (active) => active ? <HomeSolid className="w-5 h-5" /> : <HomeOutline className="w-5 h-5" />,
+      icon: (active) => (
+        <MaterialIcon name="home" active={active} className="text-2xl" />
+      ),
     },
     {
       id: "search",
       label: "Search",
-      icon: (active) => active ? <SearchSolid className="w-5 h-5" /> : <SearchOutline className="w-5 h-5" />,
+      icon: (active) => (
+        <MaterialIcon name="search" active={active} className="text-2xl" />
+      ),
     },
-  ];
+  ];  
   
   let userSpecificTab = null;
   let extraTabs = [];
@@ -82,42 +69,58 @@ const Footerbar = () => {
     userSpecificTab = {
       id: "login",
       label: "Login",
-      icon: (active) => active ? <UserCircleSolid className="w-5 h-5" /> : <UserCircleOutline className="w-5 h-5" />,
+      icon: (active) => (
+        <MaterialIcon name="account_circle" active={active} className="text-2xl" />
+      ),
     };
   } else if (user.role === "tenant") {
     userSpecificTab = {
       id: "whishlists",
       label: "Wishlists",
-      icon: (active) => active ? <HeartSolid className="w-5 h-5" /> : <HeartOutline className="w-5 h-5" />,
+      icon: (active) => (
+        <MaterialIcon name="favorite" active={active} className="text-2xl" />
+      ),
     };
+
     extraTabs = [
       {
         id: "notifications",
         label: "Notifications",
-        icon: (active) => active ? <BellSolid className="w-5 h-5" /> : <BellOutline className="w-5 h-5" />,
+        icon: (active) => (
+          <MaterialIcon name="notifications" active={active} className="text-2xl" />
+        ),
       },
       {
         id: "profile",
         label: "Profile",
-        icon: (active) => active ? <UserSolid className="w-5 h-5" /> : <UserOutline className="w-5 h-5" />,
+        icon: (active) => (
+          <MaterialIcon name="person" active={active} className="text-2xl" />
+        ),
       },
     ];
   } else {
     userSpecificTab = {
       id: "dashboard",
       label: "Dashboard",
-      icon: (active) => active ? <DashboardSolid className="w-5 h-5" /> : <DashboardOuline className="w-5 h-5" />,
+      icon: (active) => (
+        <MaterialIcon name="dashboard" active={active} className="text-2xl" />
+      ),
     };
+
     extraTabs = [
       {
         id: "notifications",
         label: "Notifications",
-        icon: (active) => active ? <BellSolid className="w-5 h-5" /> : <BellOutline className="w-5 h-5" />,
+        icon: (active) => (
+          <MaterialIcon name="notifications" active={active} className="text-2xl" />
+        ),
       },
       {
         id: "profile",
         label: "Profile",
-        icon: (active) => active ? <UserSolid className="w-5 h-5" /> : <UserOutline className="w-5 h-5" />,
+        icon: (active) => (
+          <MaterialIcon name="person" active={active} className="text-2xl" />
+        ),
       },
     ];
   }
@@ -131,7 +134,7 @@ const Footerbar = () => {
 
   return (
     <div
-      className={`fixed bottom-0 w-full h-14 bg-white shadow-[0_-3px_10px_-4px_rgba(0,0,0,0.15)] z-50 flex items-center justify-around transition-opacity duration-300 ${
+      className={`fixed bottom-0 w-full h-14 bg-white shadow-[0_-3px_10px_-4px_rgba(0,0,0,0.15)] z-50 flex items-center justify-between px-4 md:px-5 transition-opacity duration-300 ${
         isBeyondScreen ? "opacity-70" : "opacity-100"
       }`}
     >
@@ -139,8 +142,8 @@ const Footerbar = () => {
         <div
           onClick={() => navigate(tabRoutes[tab.id])}
           key={tab.id}
-          className={`flex flex-col items-center justify-center cursor-pointer transition-all duration-200
-            ${activeTab === tab.id ? "text-cyan-600" : "text-slate-600 hover:text-slate-700"}
+          className={`flex flex-col items-center justify-center cursor-pointer transition-all -space-y-1 duration-200 mt-1
+            ${activeTab === tab.id ? "text-cyan-600" : "text-gray-600 hover:text-gray-700"}
           `}
         >
           <div className="relative">
@@ -161,7 +164,7 @@ const Footerbar = () => {
               </div>
             )}
           </div>
-          <h2 className="text-xs font-normal font-sans mt-1">{tab.label}</h2>
+          <h2 className="text-xs font-normal font-sans tracking-wide">{tab.label}</h2>
         </div>
       ))}
     </div>

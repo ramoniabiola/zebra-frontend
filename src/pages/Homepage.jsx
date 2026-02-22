@@ -32,7 +32,7 @@ const Homepage = () => {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-20 lg:bottom-10 z-20 right-5 lg:right-[390px] bg-gradient-to-t from-cyan-300 to-cyan-500 hover:bg-gradient-to-t hover:from-cyan-400 hover:to-cyan-600 text-white shadow-md p-2.5 rounded-lg transition cursor-pointer animate-slideUp"
+          className="fixed bottom-20 lg:bottom-10 z-20 right-5 lg:right-[390px] bg-gradient-to-b from-cyan-400 to-cyan-700 hover:bg-gradient-to-t hover:from-cyan-400 hover:to-cyan-800 text-white shadow-md p-2.5 rounded-lg transition cursor-pointer animate-slideUp"
         >
           <ArrowUp strokeWidth={3} className="w-4.5 h-4.5 lg:w-5 lg:h-5" />
         </button>

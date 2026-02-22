@@ -43,7 +43,7 @@ export default function WelcomePage() {
       <nav className="h-14 lg:h-18 flex justify-between items-center px-4 lg:px-18 py-4 bg-white/95 backdrop-blur-md fixed top-0 left-0 w-full z-50 shadow-sm">
         <h1 className="text-[2rem] md:text-[2.4rem] font-extrabold cursor-pointer tracking-tight">
           <span className="text-slate-900">zebr</span>
-          <span className="text-cyan-500">a</span>
+          <span className="text-cyan-600">a</span>
         </h1>
 
         <div className="flex gap-3">
@@ -191,7 +191,7 @@ export default function WelcomePage() {
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-2xl font-extrabold mb-2">
             <span className="text-white">zebr</span>
-            <span className="text-cyan-500">a</span>
+            <span className="text-cyan-600">a</span>
           </h1>
           <p className="text-gray-400 text-sm italic mb-6">
             "Making a seamless and easy property renting experience..."

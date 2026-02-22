@@ -21,7 +21,7 @@ const InfoCard = ({ icon: Icon, label, value, name, editable = true, editMode, e
   <div className="bg-stone-50/60 rounded-xl p-4 border border-stone-100">
     <div className="flex items-start gap-4">
       <div className="flex-shrink-0">
-        <div className="w-11 h-11 bg-gradient-to-br from-cyan-600 to-blue-500 rounded-xl flex items-center justify-center">
+        <div className="w-11 h-11 bg-gradient-to-br from-cyan-800 to-cyan-700 rounded-xl flex items-center justify-center">
           <Icon className="w-5.5 h-5.5 text-white" />
         </div>
       </div>
@@ -91,7 +91,7 @@ const ApartmentTypeCard = ({
     <div className="bg-stone-50/60 rounded-xl p-4 border border-stone-100">
       <div className="flex items-start gap-4">
         <div className="flex-shrink-0">
-          <div className="w-11 h-11 bg-gradient-to-br from-cyan-600 to-blue-500 rounded-xl flex items-center justify-center">
+          <div className="w-11 h-11  bg-gradient-to-br from-cyan-800 to-cyan-700 rounded-xl flex items-center justify-center">
             <Icon className="w-5.5 h-5.5 text-white" />
           </div>
         </div>
@@ -140,7 +140,7 @@ const AmenitiesCard = ({ icon: Icon, label, apartment_amenities, editable = true
     <div className="bg-stone-50/60 rounded-xl p-4 border border-stone-100">
       <div className="flex items-start gap-4">
         <div className="flex-shrink-0">
-          <div className="w-11 h-11 bg-gradient-to-br from-cyan-600 to-blue-500 rounded-xl flex items-center justify-center">
+          <div className="w-11 h-11  bg-gradient-to-br from-cyan-800 to-cyan-700 rounded-xl flex items-center justify-center">
             <Icon className="w-5.5 h-5.5 text-white" />
           </div>
         </div>
@@ -181,7 +181,7 @@ const AmenitiesCard = ({ icon: Icon, label, apartment_amenities, editable = true
                 />
                 <button
                   type="submit"
-                  className="flex-shrink-0 w-auto sm:w-auto px-2 py-3 bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white text-sm gap-1 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200 flex items-center"
+                  className="flex-shrink-0 w-auto sm:w-auto px-3 py-3 bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white text-sm gap-0.5 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200 flex items-center"
                 >
                   <Plus strokeWidth={3} className="w-3 h-3" />
                   Add

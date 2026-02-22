@@ -262,7 +262,7 @@ const ListingInfo = () => {
     <div className="bg-stone-50/60 rounded-xl p-4 border border-stone-100">
       <div className="flex items-start gap-4">
         <div className="flex-shrink-0">
-          <div className="w-11 h-11 bg-gradient-to-br from-cyan-600 to-blue-500 rounded-xl flex items-center justify-center">
+          <div className="w-11 h-11 bg-gradient-to-br from-cyan-800 to-cyan-700 rounded-xl flex items-center justify-center">
             <Icon className="w-5.5 h-5.5 text-white" />
           </div>
         </div>
@@ -280,7 +280,7 @@ const ListingInfo = () => {
       <div className="bg-stone-50/60 rounded-xl p-4 border border-stone-100">
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0">
-            <div className="w-11 h-11 bg-gradient-to-br from-cyan-600 to-blue-500 rounded-xl flex items-center justify-center">
+            <div className="w-11 h-11  bg-gradient-to-br from-cyan-800 to-cyan-700 rounded-xl flex items-center justify-center">
               <Icon className="w-5.5 h-5.5 text-white" />
             </div>
           </div>

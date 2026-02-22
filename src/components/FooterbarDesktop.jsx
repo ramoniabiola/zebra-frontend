@@ -117,7 +117,7 @@ const FooterbarDesktop = () => {
             className={`relative flex items-center gap-8 px-4 py-2 cursor-pointer transition
               ${activeTab === tab.id
                 ? "bg-cyan-100 text-cyan-600 rounded-md before:absolute before:left-0 before:top-1 before:bottom-1 before:w-[5px] before:bg-cyan-600 before:rounded-r-md"
-                : "text-gray-600 hover:bg-gray-100 rounded-md"}
+                : "text-gray-700 hover:bg-gray-100 rounded-md"}
               `}
             >     
 

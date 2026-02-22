@@ -432,7 +432,7 @@ const CreateNewListing = () => {
                 <button
                   type="button"
                   onClick={nextStep}
-                  className="px-3 py-2.5 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white text-sm font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5 cursor-pointer focus:invisible"
+                  className="px-3 py-2.5 bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white text-sm font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-1.5 cursor-pointer focus:invisible"
                 >
                   Continue
                   <ArrowLeft className="w-3.5 h-3.5 rotate-180" />
