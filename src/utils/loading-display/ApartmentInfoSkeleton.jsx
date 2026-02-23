@@ -11,8 +11,8 @@ const ApartmentInfoSkeleton = () => {
         <div className="h-full w-full overflow-hidden flex flex-col">
 
             {/* NAVBAR SKELETON */}
-            <div className="w-full h-18 flex items-center justify-between px-2 md:px-4 lg:px-6 bg-white">
-                <div className="flex items-center gap-3">
+            <div className="w-full h-18 flex items-center justify-between px-4 md:px-6 lg:px-8 bg-white">
+                <div className="flex items-center gap-4">
                     <Skeleton  width={24} height={24} borderRadius={8}  />
                     <div className="flex flex-col items-start gap-1 mt-1">
                         <Skeleton width={160} height={16} borderRadius={4} />
@@ -39,7 +39,7 @@ const ApartmentInfoSkeleton = () => {
                     {/* Title */}
                     <Skeleton width="75%" height={28} style={{ marginBottom: '16px' }} />
                     {/* Location row */}
-                    <div className="flex items-center gap-2 mb-2">
+                    <div className="flex items-center gap-1 mb-2">
                         <Skeleton width={32} height={32} borderRadius={12} />
                         <Skeleton width={180} height={18} />
                     </div>

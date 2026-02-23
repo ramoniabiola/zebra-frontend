@@ -143,7 +143,7 @@ const Footerbar = () => {
           onClick={() => navigate(tabRoutes[tab.id])}
           key={tab.id}
           className={`flex flex-col items-center justify-center cursor-pointer transition-all -space-y-1 duration-200 mt-1
-            ${activeTab === tab.id ? "text-cyan-600" : "text-gray-600 hover:text-gray-700"}
+            ${activeTab === tab.id ? "text-cyan-600" : "text-slate-600 hover:text-slate-700"}
           `}
         >
           <div className="relative">

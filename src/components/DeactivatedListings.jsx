@@ -153,20 +153,20 @@ const DeactivatedListings = () => {
       {/* Search input */}
       <div className="w-full h-18 flex items-center justify-center bg-white">
         <div className="flex gap-1 lg:gap-1.5 w-full mx-4 lg:mx-6">
-          <div className="relative flex-1 rounded-xl py-3 bg-stone-50 border border-stone-200">
+          <div className="relative flex-1 rounded-xl py-3 bg-gray-50 border border-gray-200">
             <input
               value={searchQuery}
               onChange={handleSearchChange}
               onKeyDown={handleKeyPress}
               type="text"
               placeholder="Search deactivated listings"
-              className="w-full h-full px-4 rounded-md outline-none text-base lg:text-lg font-semibold text-gray-900 placeholder-stone-400"
+              className="w-full h-full px-4 rounded-md outline-none text-base lg:text-lg font-semibold text-gray-900 placeholder-gray-400"
             />
 
             {query && (
               <button
                 onClick={handleClearSearch}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-stone-400 hover:text-stone-600 cursor-pointer"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer"
               >
                 <X className="w-4.5 h-4.5" />
               </button>

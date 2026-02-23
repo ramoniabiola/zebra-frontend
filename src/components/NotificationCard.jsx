@@ -12,7 +12,7 @@ const NotificationCard = ({ notification, onMarkAsRead }) => {
 
     const getNotificationStyle = () => {
         if (notification.isRead) {
-            return "bg-stone-50 border-stone-100";
+            return "bg-gray-50 border-gray-100";
         }
         return "bg-gradient-to-l from-cyan-50 to-cyan-100/80 border-cyan-200/70";
     };

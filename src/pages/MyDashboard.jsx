@@ -88,8 +88,8 @@ const MyDashboard = () => {
       {/* Welcome section with avatar */}
       <div className="w-full flex items-center justify-between px-6 md:px-7 lg:px-8 py-6 pt-8">
         <div className="flex flex-col gap-1">
-          <h2 className="text-base md:text-lg lg:text-lg font-semibold text-cyan-700 tracking-widest italic">Hello!</h2>
-          <h1 className="text-xl md:text-[26px] lg:text-[28px] font-bold bg-gradient-to-r from-cyan-800 to-cyan-700 bg-clip-text text-transparent tracking-widest">{user?.username}</h1>
+          <h2 className="text-base md:text-lg lg:text-lg font-semibold text-cyan-600 tracking-widest italic">Hello!</h2>
+          <h1 className="text-xl md:text-[26px] lg:text-[28px] font-bold bg-gradient-to-r from-cyan-800 to-cyan-900 bg-clip-text text-transparent tracking-widest">{user?.username}</h1>
         </div>
         
         <div className="rounded-full bg-gradient-to-b from-cyan-600 to-cyan-300 p-1">
@@ -172,7 +172,7 @@ const MyDashboard = () => {
         <div className="px-2">
           <button 
             onClick={() => navigate("/create-listing")} 
-            className="w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white font-semibold py-2 rounded-lg transition-all duration-200 flex items-center justify-center mx-auto gap-3 group focus:invisible cursor-pointer" 
+            className="w-full bg-gradient-to-r from-cyan-700 to-cyan-800 hover:from-cyan-800 hover:to-cyan-900 text-white font-semibold py-2 rounded-lg transition-all duration-200 flex items-center justify-center mx-auto gap-3 group focus:invisible cursor-pointer" 
           >
            <div className="p-1 bg-cyan-200/30 rounded-md group-hover:bg-cyan-200/40 transition-colors">
               <Plus size={16} strokeWidth={2} className="text-white/90" />

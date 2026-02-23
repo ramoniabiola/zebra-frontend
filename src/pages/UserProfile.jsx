@@ -321,11 +321,11 @@ const UserProfile = () => {
                 <h3 className="font-semibold text-gray-950 text-lg md:text-xl">My Profile</h3>        
               </div>
 
-              <div className="px-4 py-5 md:px-6 md:py-12 lg:px-8 lg:py-12">
+              <div className="px-3 py-5 md:px-6 md:py-12 lg:px-8 lg:py-12">
                 {/* Avatar + identity row */}
-                <div className="flex flex-row items-center gap-4 md:gap-7 lg:gap-10">
+                <div className="flex flex-row items-start gap-4 md:gap-7 lg:gap-10">
                   {/* Avatar */}
-                  <div className="relative flex-shrink-0 w-24 h-24 md:w-28 md:h-28  lg:w-32 lg:h-32">
+                  <div className="relative flex-shrink-0 w-22 h-22 md:w-28 md:h-28  lg:w-32 lg:h-32">
                     <div className="w-full h-full rounded-full  bg-gradient-to-b from-cyan-600 to-cyan-300 p-1">
                       <div className="w-full h-full rounded-full bg-white p-1">
                         {previewUrl || user?.profile_picture ? (

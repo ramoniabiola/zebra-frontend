@@ -426,7 +426,7 @@ const ApartmentInfo = () => {
               {/* Title and Location Card */}
               <div className="bg-white px-4 py-5 lg:px-6 lg:py-6 rounded-2xl border border-stone-200 shadow-md">
                 <div className="flex flex-wrap items-center gap-2 mb-3 md:mb-4 lg:mb-5">
-                  <span className="bg-cyan-700 text-white px-4 py-1.5 rounded-full tracking-wide text-xs md:text-sm lg:text-sm font-semibold uppercase shadow-md">
+                  <span className="bg-cyan-800 text-white px-4 py-1.5 rounded-full tracking-wide text-xs md:text-sm lg:text-sm font-semibold uppercase shadow-md">
                     {apartment.apartment_type}
                   </span>
                   {apartment.furnished && (
@@ -489,7 +489,7 @@ const ApartmentInfo = () => {
 
               {/* Rental Price */}
               <div className="bg-white rounded-2xl border mt-4 md:mt-5 lg:mt-6 border-stone-200 shadow-md overflow-hidden">
-                <div className="bg-gradient-to-r from-cyan-700 to-cyan-800/80 py-3 md:py-4 lg:py-4 px-5 md:px-6 lg:px-6 flex items-center justify-between">
+                <div className="bg-gradient-to-r from-cyan-800 to-cyan-800/80 py-3 md:py-4 lg:py-4 px-5 md:px-6 lg:px-6 flex items-center justify-between">
                   <span className="text-white/80 text-sm md:text-base lg:text-base font-medium uppercase tracking-wider">Rental Price</span>
                   <ChevronRight className="w-4 h-4 md:w-5 md:h-5 lg:w-5 lg:h-5 text-white/60" />
                 </div>

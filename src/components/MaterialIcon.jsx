@@ -2,15 +2,14 @@ const MaterialIcon = ({
   name,
   active = false,
   className = "",
-  fill = 0,
 }) => {
   return (
     <span
       className={`material-symbols-outlined ${className}`}
       style={{
         fontVariationSettings: `
-          'FILL' ${fill},
-          'wght' ${active ? 500 : 300},
+          'FILL' ${active ? 1 : 0},
+          'wght' ${400},
           'GRAD' 0,
           'opsz' 24
         `,

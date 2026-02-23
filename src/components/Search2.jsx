@@ -36,7 +36,7 @@ const Search2 = () => {
             onKeyDown={handleKeyPress}
             type="text"
             placeholder="Search an apartment..."
-            className="w-full h-full pl-4 bg-transparent outline-none text-base lg:text-lg font-semibold text-stone-900 placeholder-stone-400" 
+            className="w-full h-full pl-4 bg-transparent outline-none text-base lg:text-lg font-semibold text-gray-900 placeholder-gray-400" 
           />
         </div>
         <div className="bg-gray-100/80 rounded-xl py-3 px-4 flex items-center justify-center cursor-pointer">
