@@ -149,7 +149,7 @@ const Footerbar = () => {
           <div className="relative">
             {tab.icon(activeTab === tab.id)}
             {(tab.id === "notifications" && unreadCount > 0) && (
-              <div className="absolute -top-1.5 -right-3 flex items-center justify-center w-4.5 h-3.5 bg-rose-500 rounded-full">
+              <div className="absolute -top-1.5 -right-2.5 flex items-center justify-center w-4.5 h-3.5 bg-rose-500 rounded-full">
                 <span className="text-white text-[10px] font-medium">
                   {unreadCount > 99 ? '99+' : unreadCount}
                 </span>
@@ -164,7 +164,7 @@ const Footerbar = () => {
               </div>
             )}
           </div>
-          <h2 className="text-xs font-normal font-sans tracking-wide">{tab.label}</h2>
+          <h2 className="text-xs font-normal font-sans tracking-tight">{tab.label}</h2>
         </div>
       ))}
     </div>
