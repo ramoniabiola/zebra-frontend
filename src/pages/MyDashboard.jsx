@@ -88,7 +88,7 @@ const MyDashboard = () => {
       {/* Welcome section with avatar */}
       <div className="w-full flex items-center justify-between px-6 md:px-7 lg:px-8 py-6 pt-8">
         <div className="flex flex-col gap-1">
-          <h2 className="text-base md:text-lg lg:text-lg font-semibold text-cyan-600 tracking-widest italic">Hello!</h2>
+          <h2 className="text-base md:text-lg lg:text-lg font-semibold text-cyan-700 tracking-widest italic">Hello,</h2>
           <h1 className="text-xl md:text-[26px] lg:text-[28px] font-bold bg-gradient-to-r from-cyan-800 to-cyan-900 bg-clip-text text-transparent tracking-widest">{user?.username}</h1>
         </div>
         

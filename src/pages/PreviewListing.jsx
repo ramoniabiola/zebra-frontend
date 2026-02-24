@@ -267,11 +267,11 @@ const PreviewListing = ({ formData, onBackToStep }) => {
               <div className="w-full  flex justify-between items-start mb-6 lg:mb-8">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg">
+                    <span className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
                       {formData.apartment_type}
                     </span>
                     {formData.furnished && (
-                      <span className="bg-gradient-to-r from-emerald-500 to-green-500 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg">
+                      <span className="bg-gradient-to-r from-emerald-500 to-green-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
                         Furnished
                       </span>
                     )}
@@ -328,7 +328,7 @@ const PreviewListing = ({ formData, onBackToStep }) => {
                           key={idx}
                           className="flex items-center gap-3 py-4 px-2 md:px-3 lg:px-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200 hover:shadow-md transition-all duration-200"
                         >
-                          <div className="w-10 h-10 bg-gradient-to-r from-cyan-400 to-cyan-500 rounded-full flex items-center justify-center shadow-lg flex-shrink-0">
+                          <div className="w-10 h-10 bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
                             <IconComponent className="w-5 h-5 text-white" />
                           </div>
                       
