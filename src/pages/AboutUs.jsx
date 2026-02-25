@@ -109,7 +109,7 @@ const AboutUs = () => {
             </div>
 
 
-            <div className="w-full px-4 md:px-16 lg:px-20 pb-16 flex flex-col gap-10 mt-8">
+            <div className="w-full max-w-4xl mx-auto px-4 md:px-6 pb-16 flex flex-col gap-10 mt-8">
                 {/* ── HERO SECTION ── */}
                 <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-cyan-700 via-cyan-800 to-cyan-900 px-6 py-10 md:px-10 md:py-12 shadow-xl">
                     {/* Decorative circles */}

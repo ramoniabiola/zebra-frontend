@@ -29,7 +29,7 @@ const Search2 = () => {
   return (
     <header className="w-full h-18 lg:h-20 pt-1 flex items-center justify-center sticky top-0 lg:top-17 left-0 z-40 bg-white">
       <div className="flex gap-1 lg:gap-1.5 w-full mx-2 md:mx-6 lg:mx-6">  
-        <div className="bg-gray-100/80 flex-1 rounded-xl py-3">
+        <div className="bg-gray-100/80 flex-1 rounded-xl py-3 md:py-3.5 lg:py-3.5">
           <input
             value={searchQuery}
             onChange={handleSearchChange}

@@ -35,7 +35,7 @@ const MainLayout = () => {
                 {/* MAIN CONTENT + RIGHT SIDEBAR */}
                 <div className="ml-[355px] mr-[355px]">
                     {/* Center Content Area */}
-                    <div className="min-w-[314px] mx-auto">
+                    <div className="mx-auto">
                         <main className="min-w-0">
                             <Outlet />
                         </main>

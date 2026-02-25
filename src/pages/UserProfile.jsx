@@ -426,19 +426,14 @@ const UserProfile = () => {
               </div>
             </div>
 
-            {/* === LOGOUT CARD === */}
-            <div className="bg-white rounded-2xl border border-stone-200 shadow-md overflow-hidden">
-              <div className="p-4 md:p-5">
-                <button
-                  className="w-full flex items-center justify-center gap-2 py-2.5 text-white bg-gradient-to-br from-cyan-800 to-cyan-700 rounded-xl text-base font-semibold transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
-                  onClick={() => setShowConfirmModal(true)}
-                >
-                  <LogOut className="w-4 h-4" />
-                  Log out
-                </button>
-              </div>
-            </div>
-
+            {/* === LOGOUT CARD === */} 
+            <button
+              className="w-full flex items-center justify-center gap-2 py-3.5 text-white bg-gradient-to-br from-cyan-800 to-cyan-700 rounded-xl text-base font-semibold transition-all duration-200 cursor-pointer shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+              onClick={() => setShowConfirmModal(true)}
+            >
+              <LogOut className="w-4 h-4" />
+              Log out
+            </button>
           </div>
         </div>
       </div>
