@@ -219,7 +219,7 @@ const PreviewListing = ({ formData, onBackToStep }) => {
       <div className="w-full px-2 md:px-6 lg:px-8 py-4 lg:mt-20">
         {/* Main Preview Card */}
         <div className="w-full bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
-  
+
           {/* Images Section */}
           <div className="relative">
             <div 
@@ -260,171 +260,230 @@ const PreviewListing = ({ formData, onBackToStep }) => {
             </div>
           </div>
 
-          <div className="w-full py-8 px-2 md:px-4 lg:px-5">
-
-            {/* Title and Basic Info */}
-            <div className="mb-8">
-              <div className="w-full  flex justify-between items-start mb-6 lg:mb-8">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+          <div className="w-full px-2 md:px-4 lg:px-5 mb-8">
+            <div className="w-full py-8 md:px-4 lg:px-5">
+              {/* Title & Location Card */}
+              <div className="bg-white px-4 py-5 lg:px-6 lg:py-6 rounded-2xl border border-stone-200 shadow-md mb-6">
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="bg-cyan-800 text-white px-4 py-1.5 rounded-full text-xs font-semibold uppercase shadow-md">
                       {formData.apartment_type}
                     </span>
                     {formData.furnished && (
-                      <span className="bg-gradient-to-r from-emerald-500 to-green-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                      <span className="bg-teal-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold uppercase shadow-md">
                         Furnished
                       </span>
                     )}
                   </div>
-                  <h1 className="text-xl font-bold text-gray-900 mb-4 leading-tight">{formData.title}</h1>
-                  <div className="flex items-center gap-2 text-gray-600 mb-2 lg:mb-3">
-                    <MapPin className="w-5 h-5 text-cyan-500" />
-                    <span className="font-medium">{formData.location}</span>
-                  </div>
-                  <p className="text-gray-600 mb-2 lg:mb-3">{formData.apartment_address}</p>
-                  {formData.nearest_landmark && (
-                    <p className="text-sm text-gray-500">📍 Near {formData.nearest_landmark}</p>
-                  )}
-                </div>
-                <button
-                  onClick={() => onBackToStep?.(1)}
-                  className="bg-gray-50 hover:bg-gray-100 px-3 py-2 rounded-xl flex items-center gap-1 text-sm font-medium text-gray-700 transition-all duration-200 cursor-pointer"
-                >
-                  <Edit className="w-4 h-4" />
-                  Edit 
-                </button>
-              </div>
-              
-              {/* Property Stats */}
-              <div className="min-w-full grid grid-cols-3 gap-1 mb-12">
-                <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-4 rounded-2xl text-center border border-cyan-100">
-                  <Bed className="w-7 h-7 text-cyan-600 mx-auto mb-2" />
-                  <div className="text-xl font-bold text-gray-800 mb-1">{formData.bedrooms}</div>
-                  <div className="text-sm text-gray-600">Bedroom{formData.bedrooms > 1 ? 's' : ''}</div>
-                </div>
-                <div className="bg-gradient-to-br from-emerald-50 to-green-50 p-4 rounded-2xl text-center border border-emerald-100">
-                  <Bath className="w-7 h-7 text-emerald-600 mx-auto mb-2" />
-                  <div className="text-xl font-bold text-gray-800 mb-1">{formData.bathrooms}</div>
-                  <div className="text-sm text-gray-600">Bathroom{formData.bathrooms > 1 ? 's' : ''}</div>
-                </div>
-                {formData.apartment_size && (
-                  <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-2xl text-center border border-purple-100">
-                    <Square className="w-7 h-7 text-purple-600 mx-auto mb-2" />
-                    <div className="text-xl font-bold text-gray-800 mb-1">{formData.apartment_size}</div>
-                    <div className="text-sm text-gray-600">sq ft</div>
-                  </div>
-                )}
-              </div>
-              
-              {/* Amenities Grid */}
-              {formData.apartment_amenities && formData.apartment_amenities.length > 0 && (
-                <div className=''>
-                  <h3 className="text-xl font-bold text-center text-gray-800 mb-6">Amenities & Features</h3>
-                  <div className="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-3 gap-4">
-                    {formData.apartment_amenities.map((amenity, idx) => {
-                      const IconComponent = amenityIcons[amenity] || Home;
-                      return (
-                        <div
-                          key={idx}
-                          className="flex items-center gap-3 py-4 px-2 md:px-3 lg:px-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200 hover:shadow-md transition-all duration-200"
-                        >
-                          <div className="w-10 h-10 bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
-                            <IconComponent className="w-5 h-5 text-white" />
-                          </div>
-                      
-                          {/* Amenity name: Wrap or truncate if too long */}
-                          <span className="text-gray-700 font-medium break-words line-clamp-2">
-                            {amenity}
-                          </span>
-                        </div>
-                      );
-                    })}
-                  </div>  
-                </div>
-              )}
-            </div>
-
-            {/* Sidebar */}
-            <div className="space-y-6">
-              <div className="flex justify-between items-start mb-6">
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-2">Rental Price</h3>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-3xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
-                      {formatPrice(formData.price)}
-                    </span>
-                    <span className="text-gray-600 font-medium">/ {formData.payment_frequency}</span>
-                  </div>
-                  <p className="text-gray-600 mt-4">{formData.duration}</p>
-                  {formData.service_charge && (
-                    <div className='flex items-center justify-start bg-gray-100 border border-gray-200 py-2 px-4 mt-4 gap-4 md:gap-6 lg:gap-8 rounded-xl'>
-                      <p className='text-sm text-gray-500 font-semibold rounded-xl'>Service Charge:</p>
-                      <p className="text-lg text-gray-600 font-bold tracking-wide">
-                        {formatPrice(formData.service_charge)}
-                      </p>
-                    </div>
-                  )}
-                </div>
-                <button
-                  onClick={() => onBackToStep?.(2)}
-                  className="bg-gray-50 hover:bg-gray-100 px-3 py-2 rounded-xl flex items-center gap-1 text-sm font-medium text-gray-700 transition-all duration-200 cursor-pointer"
-                >
-                  <Edit className="w-4 h-4" />
-                  Edit
-                </button>
-              </div>
-
-              {/* Contact Information */}
-              <div className="border-t border-gray-100 pt-6">
-                <div className="flex justify-between items-center mb-6">
-                  <h3 className="text-lg lg:text-xl font-semibold text-gray-800">Contact Info</h3>
+                  
                   <button
-                    onClick={() => onBackToStep?.(3)}
-                    className="bg-gray-50 hover:bg-gray-100 px-3 py-2 rounded-xl flex items-center gap-1 text-sm font-medium text-gray-700 transition-all duration-200 cursor-pointer"
+                    onClick={() => onBackToStep?.(1)}
+                    className="bg-stone-100 hover:bg-stone-200 px-3 py-1 rounded-xl flex items-center gap-1 text-sm font-medium text-gray-700 transition-all duration-200"
                   >
                     <Edit className="w-4 h-4" />
                     Edit
                   </button>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-                  <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-2xl border border-cyan-100">
-                    <div className="w-11 h-11 bg-gradient-to-r from-cyan-400 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
-                      <User className="w-5.5 h-5.5 text-white" />
+                  
+                <h1 className="text-2xl flex-wrap font-semibold text-gray-900 leading-tight mb-4 break-words">
+                  {formData.title}
+                </h1>
+                  
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 bg-cyan-800 rounded-xl flex items-center justify-center">
+                      <MapPin className="w-4 h-4 text-white" />
+                    </div>
+                    <span className="font-semibold text-gray-900 text-base">
+                      {formData.location}
+                    </span>
+                  </div>
+                  
+                  <p className="text-slate-500 text-sm pl-9">
+                    {formData.apartment_address}
+                  </p>
+                  
+                  {formData.nearest_landmark && (
+                    <div className="flex items-center gap-2 pl-9">
+                      <span className="text-yellow-400 text-sm">●</span>
+                      <p className="text-sm text-slate-500">
+                        Near <span className="text-gray-900 font-semibold">{formData.nearest_landmark}</span>
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+                
+                
+              {/* Property Stats */}
+              <div className="grid grid-cols-3 gap-3 px-2 mb-6">
+                <div className="bg-white rounded-2xl border border-stone-200 shadow-md p-4 flex flex-col items-center text-center">
+                  <div className="w-12 h-12 bg-cyan-800 rounded-xl flex items-center justify-center mb-3">
+                    <Bed className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="text-2xl font-bold text-gray-800">
+                    {formData.bedrooms}
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    Bedroom{formData.bedrooms > 1 ? "s" : ""}
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-2xl border border-stone-200 shadow-md p-4 flex flex-col items-center text-center">
+                  <div className="w-12 h-12 bg-teal-500 rounded-xl flex items-center justify-center mb-3">
+                    <Bath className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="text-2xl font-bold text-gray-800">
+                    {formData.bathrooms}
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    Bathroom{formData.bathrooms > 1 ? "s" : ""}
+                  </div>
+                </div>
+                
+                {formData.apartment_size && (
+                  <div className="bg-white rounded-2xl border border-stone-200 shadow-md p-4 flex flex-col items-center text-center">
+                    <div className="w-12 h-12 bg-amber-500/70 rounded-xl flex items-center justify-center mb-3">
+                      <Square className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="text-2xl font-bold text-gray-800">
+                      {formData.apartment_size}
+                    </div>
+                    <div className="text-sm text-gray-500">sq ft</div>
+                  </div>
+                )}
+              </div>
+              
+              
+              {/* Rental Price Card */}
+              <div className="bg-white rounded-2xl border border-stone-200 shadow-md overflow-hidden mb-6">
+                <div className="bg-gradient-to-r from-cyan-800 to-cyan-700 py-3 md:py-4 px-5 flex items-center justify-between">
+                  <span className="text-white/80 text-sm font-medium uppercase tracking-wider">
+                    Rental Price
+                  </span>
+                  <Edit
+                    onClick={() => onBackToStep?.(2)}
+                    className="w-4 h-4 md:w-5 md:h-5 lg:w-5 lg:h-5 text-white/70 cursor-pointer"
+                  />
+                </div>
+              
+                <div className="px-5 py-6">
+                  <div className="flex items-baseline gap-2 mb-2">
+                    <span className="text-3xl font-bold text-gray-900">
+                      {formatPrice(formData.price)}
+                    </span>
+                    <span className="text-slate-500 font-medium text-sm">
+                      / {formData.payment_frequency}
+                    </span>
+                  </div>
+              
+                  <p className="text-sm text-slate-500 mb-4">
+                    {formData.duration}
+                  </p>
+              
+                  {formData.service_charge && (
+                    <div className="flex items-center justify-between bg-orange-50 border border-orange-200 px-4 py-3 rounded-xl">
+                      <span className="text-sm font-medium text-slate-700">
+                        Service Charge
+                      </span>
+                      <span className="font-bold text-slate-900">
+                        {formatPrice(formData.service_charge)}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+                
+                
+              {/* Amenities */}
+              {formData.apartment_amenities?.length > 0 && (
+                <div className="bg-white rounded-2xl border border-stone-200 shadow-md overflow-hidden mb-6">
+                  <div className="px-5 py-4 border-b border-stone-200 flex items-center justify-between">
+                    <h3 className="font-semibold text-gray-950 text-lg">
+                      Amenities & Features
+                    </h3>
+                    <span className="text-xs bg-stone-200 text-slate-600 px-2.5 py-1 rounded-full font-medium">
+                      {formData.apartment_amenities.length} total
+                    </span>
+                  </div>
+              
+                  <div className="p-4 grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {formData.apartment_amenities.map((amenity, idx) => {
+                      const Icon = amenityIcons[amenity] || Home;
+                      return (
+                        <div
+                          key={idx}
+                          className="flex items-center gap-3 p-4 rounded-xl bg-stone-100/60 border border-stone-200"
+                        >
+                          <div className="w-10 h-10 bg-gradient-to-br from-cyan-800 to-cyan-700 rounded-xl flex items-center justify-center">
+                            <Icon className="w-5 h-5 text-white" />
+                          </div>
+                          <span className="text-sm text-slate-800 font-semibold">
+                            {amenity}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            
+              {/* Contact Info */}
+              <div className="bg-white rounded-2xl border border-stone-200 shadow-md overflow-hidden">
+                <div className="px-5 py-4 border-b border-stone-200 flex items-center justify-between">
+                  <h3 className="font-semibold text-gray-950 text-lg">
+                    Contact Information
+                  </h3>
+                  <Edit
+                    onClick={() => onBackToStep?.(3)}
+                    className="w-4 h-4 md:w-5 md:h-5 lg:w-5 lg:h-5 text-gray-500 cursor-pointer"
+                  />
+                </div>
+            
+                <div className="p-4 space-y-4">
+                  <div className="flex items-center gap-4 p-4 bg-stone-100/60 rounded-xl border border-stone-200">
+                    <div className="w-12 h-12 bg-cyan-800 rounded-full flex items-center justify-center">
+                      <User className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-800">{formData.contact_name}</p>
-                      <p className="text-sm text-gray-600">Property Contact</p>
+                      <p className="text-base text-slate-900 font-semibold">
+                        {formData.contact_name}
+                      </p>
+                      <p className="text-sm text-slate-400">Property Contact</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl border border-emerald-100">
-                    <div className="w-11 h-11 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
-                      <Phone className="w-5.5 h-5.5 text-white" />
+            
+                  <div className="flex items-center gap-4 p-4 bg-stone-100/60 rounded-xl border border-stone-200">
+                    <div className="w-12 h-12 bg-teal-500/80 rounded-full flex items-center justify-center">
+                      <Phone className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-800">{formatPhoneNumber(formData.contact_phone)}</p>
-                      <p className="text-sm text-gray-600">Phone Number</p>
+                      <p className="text-base text-slate-900 font-semibold">
+                        {formatPhoneNumber(formData.contact_phone)}
+                      </p>
+                      <p className="text-sm text-slate-400">Phone Number</p>
                     </div>
                   </div>
                 </div>
               </div>
               {/* Action Buttons */}
-              <div className="border-t border-gray-100 pt-6 mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+              <div className="border-t border-gray-100 pt-8 mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
                 <button
                   onClick={() => onBackToStep?.(4)}
-                  className="w-full px-6 py-4 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-2xl transition-all duration-200 flex items-center justify-center gap-2 focus:invisible cursor-pointer"
+                  className="w-full px-6 py-4 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-2xl shadow-lg transition-all duration-200 flex items-center justify-center gap-2 focus:invisible cursor-pointer"
                 >
                   <ArrowLeft className="w-5 h-5" />
                   Back to Edit
                 </button>
                 <button
                   onClick={() => setShowConfirmModal(true)}
-                  className="w-full px-6 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 focus:invisible flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full px-6 py-4 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-2xl shadow-lg transition-all duration-200 focus:invisible flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <CheckCircle className="w-5 h-5" />
                   Publish Listing
                 </button>
               </div>
-            </div>
+            </div> 
           </div>
         </div>
       </div>

@@ -219,7 +219,7 @@ const BookmarkCard = ({ apartment, toggleBookmark, error, setError }) => {
                     </span>
                 )}
 
-                {error && (
+                {error && isBookmarked && (
                     <ToggleErrorAlert 
                         onClose={() => setError(null)} 
                     />

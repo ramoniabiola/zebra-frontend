@@ -32,12 +32,12 @@ const StepIndicator = ({ currentStep }) => {
           return (
             <div key={index} className="flex flex-col items-center">
               <div className={`
-                w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg border-2
+                w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 shadow-lg border-2
                 ${isCompleted 
-                  ? 'bg-gradient-to-r from-cyan-500 to-cyan-600 border-cyan-500 text-white' 
+                  ? 'bg-gradient-to-r from-cyan-600 to-cyan-700 border-cyan-600 text-white' 
                   : isActive 
                     ? 'bg-gradient-to-r from-cyan-500 to-cyan-600 border-cyan-500 text-white shadow-cyan-200' 
-                    : 'bg-white border-gray-300 text-gray-400'
+                    : 'bg-white border-gray-200 text-gray-400'
                 }
               `}>
                 {isCompleted ? (

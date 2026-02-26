@@ -409,12 +409,12 @@ const CreateNewListing = () => {
         )}
 
         {/* Form */}
-        <div className="bg-white w-full px-4 rounded-2xl border border-gray-100 overflow-hidden">
-          <form  className="w-full px-1 md:px-4 lg:px-4 py-8">
+        <div className="bg-white w-full px-4 rounded-2xl border border-gray-200 shadow overflow-hidden">
+          <form  className="w-full md:px-4 lg:px-4 py-8">
             {renderStep()}
 
             {/* Navigation Buttons */}
-            <div className="flex justify-between items-center mt-6 pt-8 border-t border-gray-100">
+            <div className="flex justify-between items-center mt-8 pt-8 border-t border-gray-100">
               {step > 1 ? (
                 <button
                   type="button"

@@ -1,16 +1,16 @@
 import {
     FaFacebookF,
-    FaTwitter,
     FaInstagram,
     FaLinkedinIn,
 } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 
 const Footer = () => {
     const navigate = useNavigate();
     
   return (
-    <footer className="w-full bg-slate-50 text-slate-900 px-6 py-8 lg:py-12 lg:border-t lg:border-t-slate-100">
+    <footer className="w-full bg-gray-50 text-slate-900 px-6 py-8 lg:py-12 lg:border-t lg:border-t-slate-100">
         <div className="max-w-7xl mx-auto">
             {/* Main Footer Content */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
@@ -26,7 +26,7 @@ const Footer = () => {
                     {/* Social Icons - Desktop */}
                     <div className="hidden md:flex space-x-6 mt-4">
                         <a href="#" aria-label="Facebook"><FaFacebookF className="text-xl cursor-pointer hover:text-cyan-500 transition" /></a>    
-                        <a href="#" aria-label="Twitter"><FaTwitter className="text-xl cursor-pointer hover:text-cyan-500 transition" /></a>
+                        <a href="#" aria-label="Twitter"><FaXTwitter className="text-xl cursor-pointer hover:text-cyan-500 transition" /></a>
                         <a href="#" aria-label="Instagram"><FaInstagram className="text-xl cursor-pointer hover:text-cyan-500 transition" /></a>
                         <a href="#" aria-label="LinkedIn"><FaLinkedinIn className="text-xl cursor-pointer hover:text-cyan-500 transition" /></a>
                     </div>
@@ -71,7 +71,7 @@ const Footer = () => {
                 {/* Social Icons - Mobile Only */}
                 <div className="flex space-x-6 md:hidden">
                     <a href="#" aria-label="Facebook"><FaFacebookF className="text-lg cursor-pointer hover:text-cyan-500 transition" /></a>    
-                    <a href="#" aria-label="Twitter"><FaTwitter className="text-lg cursor-pointer hover:text-cyan-500 transition" /></a>
+                    <a href="#" aria-label="Twitter"><FaXTwitter className="text-lg cursor-pointer hover:text-cyan-500 transition" /></a>
                     <a href="#" aria-label="Instagram"><FaInstagram className="text-lg cursor-pointer hover:text-cyan-500 transition" /></a>
                     <a href="#" aria-label="LinkedIn"><FaLinkedinIn className="text-lg cursor-pointer hover:text-cyan-500 transition" /></a>
                 </div>

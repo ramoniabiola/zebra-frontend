@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import MyListings from "../components/MyListings";
 import DeactivatedListings from "../components/DeactivatedListings";
 import { useNavigate } from "react-router-dom";
-import { Component, Landmark, PauseCircle, Plus, RotateCcw, UserRoundCheck } from "lucide-react";
+import { Component, Landmark, PauseCircle, Plus, RotateCcw, TrendingUp, UserRoundCheck } from "lucide-react";
 import { useSelector } from "react-redux";
 import { fetchUserStatsApi } from "../api/myListings";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
@@ -60,6 +60,40 @@ const MyDashboard = () => {
   };
 
 
+  const stats = [
+    {
+      label: "Active Listings",
+      value: compactNumber(userStats.activeListings),
+      icon: Landmark,
+      iconBg: "bg-cyan-100/80",
+      iconColor: "text-cyan-700",
+      valueBg: "bg-cyan-700",
+      trend: "+2 this month",
+      trendPositive: true,
+    },
+    {
+      label: "Total Listings",
+      value: compactNumber(userStats.totalListings),
+      icon: Component,
+      iconBg: "bg-violet-100/80",
+      iconColor: "text-violet-600",
+      valueBg: "bg-violet-600",
+      trend: "All time",
+      trendPositive: true,
+    },
+    {
+      label: "Deactivated",
+      value: compactNumber(userStats.deactivatedListings),
+      icon: PauseCircle,
+      iconBg: "bg-amber-100/80",
+      iconColor: "text-amber-600",
+      valueBg: "bg-amber-500",
+      trend: "Rented out",
+      trendPositive: false,
+    },
+  ];
+
+
 
   // Error Display
   const ErrorDisplay = () => (
@@ -84,21 +118,44 @@ const MyDashboard = () => {
 
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-start justify-start bg-white lg:mt-20">
-      {/* Welcome section with avatar */}
-      <div className="w-full flex items-center justify-between px-6 md:px-7 lg:px-8 py-6 pt-8">
-        <div className="flex flex-col gap-1">
-          <h2 className="text-base md:text-lg lg:text-lg font-semibold text-cyan-700 tracking-widest italic">Hello,</h2>
-          <h1 className="text-xl md:text-[26px] lg:text-[28px] font-bold bg-gradient-to-r from-cyan-800 to-cyan-900 bg-clip-text text-transparent tracking-widest">{user?.username}</h1>
-        </div>
-        
-        <div className="rounded-full bg-gradient-to-b from-cyan-600 to-cyan-300 p-1">
-          <div className="w-full h-full rounded-full bg-white p-1">
-            {user.profile_picture ? (
-              <img src={user.profile_picture} alt="avatar" className="w-13 h-13 lg:w-14 lg:h-14 rounded-full object-cover cursor-pointer" />
-            ) : (
-              <UserCircleIcon className="w-14 h-14 lg:w-15 lg:h-15 text-cyan-500 cursor-pointer" />
-            )}
+    <div className="w-full min-h-screen flex flex-col items-start justify-start bg-white lg:mt-18">
+      {/* ── HERO WELCOME BANNER ── */}
+      <div className="w-full px-2 md:px-4 lg:px-4 flex flex-col mt-4 md:mt-8 lg:mt-8">
+        <div className="w-full relative overflow-hidden rounded-2xl md:rounded-3xl lg:rounded-3xl bg-gradient-to-br from-cyan-700 via-cyan-800 to-cyan-900 px-5 py-6 md:px-8 md:py-10 lg:px-8 lg:py-10">
+          {/* Decorative blobs */}
+          <div className="absolute -top-12 -right-12 w-52 h-52 rounded-full bg-white/5" />
+          <div className="absolute -bottom-16 -left-10 w-64 h-64 rounded-full bg-white/5" />
+          <div className="absolute top-8 right-32 w-12 h-12 rounded-full bg-cyan-500/40" />
+
+          <div className="relative z-10 flex items-center justify-between gap-4">
+            <div className="flex flex-col gap-3 md:gap-4 lg:gap-4 ">
+              <span className="inline-block text-xs font-bold tracking-widest uppercase text-cyan-300 bg-white/10 px-2.5 py-0.5 rounded-full w-fit">
+                Dashboard
+              </span> 
+
+              <div className="gap-1.5">
+                <h2 className="text-sm text-cyan-200/70 font-medium mt-1">Welcome back,</h2>
+                <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight leading-none">
+                  {user?.username}
+                </h1>
+              </div> 
+
+              <div className="flex items-center gap-2 mt-2">
+                <span className={`text-xs font-bold px-2.5 py-1 rounded-full first-letter:uppercase border ${
+                  user?.role === "tenant"
+                    ? "bg-red-500/20 text-red-200 border-red-400/30"
+                    : user?.role === "landlord"
+                    ? "bg-yellow-500/20 text-yellow-200 border-yellow-400/30"
+                    : "bg-emerald-500/20 text-emerald-200 border-emerald-400/30"
+                }`}>
+                  {user?.role}
+                </span>
+                <span className="flex items-center gap-1 text-xs text-cyan-200/60">
+                  <TrendingUp className="w-3 h-3" />
+                  Active account
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -111,68 +168,57 @@ const MyDashboard = () => {
         (
           <DashboardSkeleton /> 
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-2 mb-8 px-2">
-            {/* Active Listings */}
-            <div className="flex items-center justify-between py-3 px-3 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 border border-stone-200">
-              <div className="flex flex-col gap-2">
-                <h2 className="text-lg font-bold font-sans text-cyan-800">{compactNumber(userStats.activeListings)}</h2>
-                <p className="text-xs font-medium text-cyan-800/80 tracking-widest">Active Listings</p>
-              </div>
-              <div className="items-center mb-4">
-                <Landmark 
-                  className="w-6 h-6 text-cyan-800/95" 
-                />
-              </div>
+          <div className="w-full px-2 md:px-4 lg:px-4 flex flex-col mt-2 md:mt-4 lg:mt-4 mb-4 gap-4">
+            {/* Overview label */}
+            <div className="flex items-center gap-3">
+              <h2 className="text-base md:text-lg font-bold text-gray-900 tracking-tight">Overview</h2>
+              <div className="flex-1 h-px bg-gradient-to-r from-gray-200 to-transparent" />
+              <span className="text-xs bg-stone-200 text-slate-600/70 px-2.5 py-1 rounded-full font-medium">
+                {new Date().toLocaleDateString("en-NG", { month: "short", year: "numeric" })}
+              </span>
             </div>
- 
-            {/* Total Listings */}
-            <div className="flex items-center justify-between py-3 px-3 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 border border-stone-200">
-              <div className="flex flex-col gap-2">
-                <h2 className="text-lg font-bold font-sans text-cyan-800">{compactNumber(userStats.totalListings)}</h2>
-                <p className="text-xs font-medium text-cyan-800/80 tracking-widest">Total Listings</p>
-              </div>
-              <div className="items-center mb-4">
-                <Component
-                  className="w-6 h-6 text-cyan-800/95" 
-                />
-              </div>
-            </div>
-        
 
-            {/* User Role */}
-            <div className="flex items-center justify-between py-3 px-3 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 border border-stone-200">
-              <div className="flex flex-col gap-2">
-                <h2 className="text-lg font-bold font-sans text-cyan-800 first-letter:uppercase">{user.role}</h2>
-                <p className="text-xs font-medium text-cyan-800/80 tracking-widest">User Role</p>
-              </div>
-              <div className="items-center mb-4">
-                <UserRoundCheck
-                  className="w-6 h-6 text-cyan-800/95" 
-                />
-              </div>
-            </div>
-            
-
-            {/*Deactivated Listings */}
-            <div className="flex items-center justify-between py-3 px-3 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 border border-stone-200">
-              <div className="flex flex-col gap-2">
-                <h2 className="text-lg font-bold font-sans text-cyan-800">{compactNumber(userStats.deactivatedListings)}</h2>
-                <p className="text-xs font-medium text-cyan-800/80 tracking-widest">Rented Listings</p>
-              </div>
-              <div className="items-center mb-4">
-                <PauseCircle
-                  className="w-6 h-6 text-cyan-800/95" 
-                />
-              </div>
+            {/* Stat cards */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-2 md:gap-3 lg:gap-3">
+              {stats.map((stat, i) => {
+                const Icon = stat.icon;
+                return (
+                  <div
+                    key={i}
+                    className="bg-white rounded-xl md:rounded-2xl lg:rounded-2xl border border-stone-200 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group"
+                  >
+                    {/* Colored top bar */}
+                    <div className={`h-1 w-full ${stat.valueBg}`} />
+                    <div className="px-3 py-2 md:px-5 md:py-4 lg:px-5 lg:py-4">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className={`w-9 h-9 rounded-xl ${stat.iconBg} flex items-center justify-center group-hover:scale-110 transition-transform duration-200`}>
+                          <Icon className={`w-4.5 h-4.5 ${stat.iconColor}`} />
+                        </div>
+                        <span className={`text-[9px] md:text-[12px] lg:text-[12px] font-semibold px-2 py-0.5 rounded-full ${
+                          stat.trendPositive
+                            ? "bg-emerald-50 text-emerald-600 border border-emerald-100"
+                            : "bg-amber-50 text-amber-600 border border-amber-100"
+                        }`}>
+                          {stat.trend}
+                        </span>
+                      </div>
+                      <p className="text-[1.15rem] md:text-2xl lg:text-2xl pl-1 font-black text-gray-900 tracking-tight leading-none mb-1.5 first-letter:uppercase">
+                        {stat.value ?? "—"}
+                      </p>
+                      <p className="text-xs md:text-sm lg:text-sm text-gray-400 font-medium">{stat.label}</p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
 
         {/* Create New Listing Button */}
-        <div className="px-2">
+        <div className="px-2 md:px-4 lg:px-4 mt-4">
           <button 
             onClick={() => navigate("/create-listing")} 
-            className="w-full bg-gradient-to-r from-cyan-700 to-cyan-800 hover:from-cyan-800 hover:to-cyan-900 text-white font-semibold py-2 rounded-lg transition-all duration-200 flex items-center justify-center mx-auto gap-3 group focus:invisible cursor-pointer" 
+            className="w-full bg-gradient-to-r from-cyan-700 to-cyan-800 hover:from-cyan-800 hover:to-cyan-900 text-white font-semibold py-2 md:py-2.5 lg:py-2.5  rounded-lg transition-all duration-200 flex items-center justify-center mx-auto gap-3 group focus:invisible cursor-pointer" 
           >
            <div className="p-1 bg-cyan-200/30 rounded-md group-hover:bg-cyan-200/40 transition-colors">
               <Plus size={16} strokeWidth={2} className="text-white/90" />
