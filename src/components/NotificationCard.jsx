@@ -19,9 +19,9 @@ const NotificationCard = ({ notification, onMarkAsRead }) => {
 
     const getTitleStyle = () => {
         if (notification.isRead) {
-            return "text-gray-700";
+            return "text-gray-800";
         }
-        return "text-cyan-600 font-semibold";
+        return "text-cyan-700 font-semibold";
     };
     
     const getMetaTextStyle = () => {

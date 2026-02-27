@@ -135,7 +135,7 @@ const MyDashboard = () => {
 
               <div className="gap-1.5">
                 <h2 className="text-sm text-cyan-200/70 font-medium mt-1">Welcome back,</h2>
-                <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight leading-none">
+                <h1 className="text-2xl md:text-3xl lg:text-3xl font-black text-white tracking-tight leading-none">
                   {user?.username}
                 </h1>
               </div> 

@@ -6,9 +6,9 @@ const DashboardSkeleton = () => {
       
       {/* Overview Header Skeleton */}
       <div className="flex items-center gap-3">
-        <Skeleton height={16} width={90} />
+        <Skeleton height={14} width={90} borderRadius={9} />
         <div className="flex-1 h-px bg-gradient-to-r from-gray-200 to-transparent" />
-        <Skeleton height={20} width={70} borderRadius={999} />
+        <Skeleton height={18} width={70} borderRadius={999} />
       </div>
 
       {/* Stat Cards Skeleton */}

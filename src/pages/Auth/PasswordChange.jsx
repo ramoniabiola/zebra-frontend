@@ -1,165 +1,94 @@
 import { useState, useRef, useEffect } from "react";
-import { Eye, EyeOff, Lock, ArrowRight, Shield, Mail, Loader2 } from "lucide-react";
+import { Eye, EyeOff, Lock, ArrowRight, Shield, Mail, Loader2, ArrowLeft, CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import PasswordChangeVerificationPage from "./PasswordChangeVerificationPage";
 import { sendVerificationCodeApi } from "../../api/auth";
+
 
 const PasswordChange = () => {
     const [formData, setFormData] = useState({
         email: "",
         newPassword: "",
-        confirmPassword: ""
+        confirmPassword: "",
     });
     const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(false)
-
+    const [isLoading, setIsLoading] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [focusedField, setFocusedField] = useState("");
     const [fieldErrors, setFieldErrors] = useState({});
-    const [shakingFields, setShakingFields] = useState({}); // Track which fields shoulds
+    const [shakingFields, setShakingFields] = useState({});
     const [showVerificationPage, setShowVerificationPage] = useState(false);
-    const navigate =  useNavigate();
+    const navigate = useNavigate();
 
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-
-        // Clear field error when user starts typing
-        if (fieldErrors[e.target.name]) {
-          setFieldErrors(prev => ({...prev, [e.target.name]: ""}));
-        }
-
-        // Clear shaking state when user starts typing
-        if (shakingFields[e.target.name]) {
-          setShakingFields(prev => ({...prev, [e.target.name]: false}));
-        }
-    };
-
-
-
-    // Validation function
-    const validateForm = () => {
-        const errors = {};
-        const requiredFields = ['email', 'newPassword', 'confirmPassword'];
-
-        requiredFields.forEach(field => {
-          if (!formData[field].trim()) {
-            errors[field] = `${field.replace('_', ' ')} is required`;   
-          }
-        });
-
-        // Email validation
-        if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
-          errors.email = "Please enter a valid email address";
-        }
-
-        // New password validation
-        if (formData.newPassword && formData.newPassword.length < 6) {
-          errors.newPassword = "New password must be at least 6 characters";
-        }
-
-        // Confirm password validation
-        if (formData.confirmPassword && formData.confirmPassword.length < 6) {
-          errors.confirmPassword = "Confirm password must match new password";
-        }
-
-        // Password match validation
-        if (formData.newPassword && formData.confirmPassword && 
-            formData.newPassword !== formData.confirmPassword) {
-            errors.confirmPassword = "Passwords do not match";
-        }
-
-        return errors;
-    }
-
-
-
-    // Create refs for each input field
     const inputRefs = {
         email: useRef(null),
         newPassword: useRef(null),
         confirmPassword: useRef(null),
     };
 
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+        if (fieldErrors[e.target.name]) setFieldErrors((p) => ({ ...p, [e.target.name]: "" }));
+        if (shakingFields[e.target.name]) setShakingFields((p) => ({ ...p, [e.target.name]: false }));
+    };
 
-    // Effect to maintain focus when focusedField changes
+    const validateForm = () => {
+        const errors = {};
+        if (!formData.email.trim()) errors.email = "Email is required";
+        else if (!/\S+@\S+\.\S+/.test(formData.email)) errors.email = "Please enter a valid email address";
+        if (!formData.newPassword.trim()) errors.newPassword = "New password is required";
+        else if (formData.newPassword.length < 6) errors.newPassword = "New password must be at least 6 characters";
+        if (!formData.confirmPassword.trim()) errors.confirmPassword = "Please confirm your password";
+        else if (formData.newPassword !== formData.confirmPassword) errors.confirmPassword = "Passwords do not match";
+        return errors;
+    };
+
     useEffect(() => {
         if (focusedField && inputRefs[focusedField]?.current) {
-            const inputElement = inputRefs[focusedField].current;
-            inputElement.focus();
-            
-            // Set cursor to end of text
-            const length = inputElement.value.length;
-            inputElement.setSelectionRange(length, length);
+            const el = inputRefs[focusedField].current;
+            el.focus();
+            el.setSelectionRange(el.value.length, el.value.length);
         }
-    }, [focusedField, formData]); // Re-run when formData changes to maintain focus
+    }, [focusedField, formData]);
 
-    
     const sendVerificationCode = async () => {
         setIsLoading(true);
-        setError(null)
-
-        try{
-
-            const userEmail = {
-                email: formData.email
-            }
-
-            const response = await sendVerificationCodeApi(userEmail);
-            if(response.status >= 200 && response.status < 300) {
+        setError(null);
+        try {
+            const response = await sendVerificationCodeApi({ email: formData.email });
+            if (response.status >= 200 && response.status < 300) {
                 setError(null);
                 setIsLoading(false);
-
             } else {
-                // If the response status is not in the success range, handle the error
                 throw new Error(response.data.error);
             }
-        }catch(error){
-            setIsLoading(false)
-            setError(error.response?.data?.error || "Failed to send verification code, please try again by clicking the resend button")
+        } catch (err) {
+          setIsLoading(false);
+          setError(err.response?.data?.error || "Failed to send verification code, please try again");
         }
-    }
-
-
+    };
 
     const handlePasswordChange = async (e) => {
         e.preventDefault();
-
         const errors = validateForm();
-
-        if(Object.keys(errors).length > 0) {
+        if (Object.keys(errors).length > 0) {
             setFieldErrors(errors);
-            
-            // Set shaking state for fields with errors
-            const newShakingFields = {};
-            Object.keys(errors).forEach(field => {
-              newShakingFields[field] = true;
-            });
-            setShakingFields(newShakingFields);
-
-            // Clear shaking state after animation completes
-            setTimeout(() => {
-              setShakingFields({});
-            }, 500);
-
-            // Shake animation for submit button
-            const submitBtn = document.getElementById('submit-btn');
-            submitBtn?.classList.add('animate-shake');
-            setTimeout(() => submitBtn?.classList.remove('animate-shake'), 500);
-
-          return;
+            const shaking = {};
+            Object.keys(errors).forEach((f) => (shaking[f] = true));
+            setShakingFields(shaking);
+            setTimeout(() => setShakingFields({}), 500);
+            const btn = document.getElementById("submit-btn");
+            btn?.classList.add("animate-shake");
+            setTimeout(() => btn?.classList.remove("animate-shake"), 500);
+            return;
         }
-
+        
         setFieldErrors({});
         setShakingFields({});
-
-
-        //Invoke send-verification-code function and navigate to the passwordchange-verification-page
         sendVerificationCode();
         setShowVerificationPage(true);
     };
-
 
 
     if (showVerificationPage) {
@@ -170,216 +99,186 @@ const PasswordChange = () => {
                 sendVerificationCodeError={error}
                 setSendVerificationCodeError={setError}
             />
-        );
+        );  
     }
 
-    
-   
+    /* ─── Input class helper ─── */
+    const inputCls = (name, pl = "pl-10", pr = "pr-4") =>
+        `w-full ${pl} ${pr} py-3 rounded-xl border text-sm font-medium transition-all duration-200 focus:outline-none placeholder:text-gray-300 ${
+            fieldErrors[name]
+                ? "border-red-300 bg-red-50 text-red-700"
+                : focusedField === name
+                ? "border-cyan-400 bg-white text-gray-800 ring-3 ring-cyan-100"
+                : "border-stone-200 bg-stone-50 text-gray-700 hover:border-stone-300"
+        }`;
 
+    const iconCls = (name) =>
+        `absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none transition-colors duration-200 ${
+            fieldErrors[name] ? "text-rose-400" : focusedField === name ? "text-cyan-600" : "text-gray-300"
+        }`;
 
-    const PasswordField = ({ name, placeholder, value, show, setShow, icon: Icon = Lock }) => {
-        const hasError = fieldErrors[name];
-        const shouldShake = shakingFields[name];
-
-        return (
-            <div className={`relative group ${shouldShake ? 'animate-shake' : ''}`}>
-                <div className="relative group">
-                    <div className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-300 z-10 ${
-                            hasError ? 'text-rose-500' :
-                            focusedField === name ? 'text-cyan-500' : 'text-gray-400'
-                        }`}
-                    >
-                        <Icon size={18} />
-                    </div>
-                    <input
-                        ref={inputRefs[name]}
-                        type={show ? "text" : "password"}
-                        name={name}
-                        placeholder={placeholder}
-                        value={value}
-                        onChange={handleChange}
-                        onFocus={() => setFocusedField(name)}
-                        onBlur={() => setFocusedField("")}
-                        required
-                        className={`w-full pl-12 pr-12 py-3 bg-gray-50 border rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
-                            hasError 
-                                ? 'border-rose-500 shadow-md shadow-rose-500/20' 
-                                : focusedField === name 
-                                    ? 'border-cyan-500 shadow-lg shadow-cyan-500/20' 
-                                    : 'border-gray-200 hover:border-gray-300'
-                        } placeholder-gray-400`}
-                    />
-                    <button
-                        type="button"
-                        onMouseDown={(e) => {
-                            e.preventDefault(); // Prevent input from losing focus
-                            setShow(!show);
-                        }}
-                        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-cyan-500 transition-colors duration-300"
-                    >
-                        {show ? <EyeOff size={18} /> : <Eye size={18} />}
-                    </button>
-                </div>
-                {hasError && (
-                    <p className={`text-rose-500 text-xs lg:text-sm mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
-                )}
-            </div>
-        )   
-    };
-
-    const InputField = ({ icon: Icon, type, name, placeholder, value, required = false }) => {
-        const hasError = fieldErrors[name];
-        const shouldShake = shakingFields[name];
-        
-        return (
-            <div className={`relative group ${shouldShake ? 'animate-shake' : ''}`}>
-                <div className="relative">
-                    <div className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-300 z-10 ${
-                            hasError ? 'text-rose-500' :
-                            focusedField === name ? 'text-cyan-500' : 'text-gray-400'
-                        }`}
-                    >
-                        <Icon size={18} />
-                    </div>
-                    <input
-                        ref={inputRefs[name]}
-                        type={type}
-                        name={name}
-                        placeholder={placeholder}
-                        value={value}
-                        onChange={handleChange}
-                        onFocus={() => setFocusedField(name)}
-                        onBlur={() => setFocusedField("")}
-                        required={required}
-                        className={`w-full pl-12 pr-12 py-3 bg-gray-50 border rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
-                            hasError 
-                                ? 'border-rose-500 shadow-md shadow-rose-500/20' 
-                                : focusedField === name 
-                                    ? 'border-cyan-500 shadow-lg shadow-cyan-500/20' 
-                                    : 'border-gray-200 hover:border-gray-300'
-                        } placeholder-gray-400`}
-                    />
-                </div>
-                {hasError && (
-                    <p className={`text-rose-500 text-xs lg:text-sm mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
-                )}
-            </div>
-        );
-    };
-
+    const passwordsMatch =
+        formData.newPassword && formData.confirmPassword &&
+        formData.newPassword === formData.confirmPassword;
+    const passwordsMismatch =
+        formData.newPassword && formData.confirmPassword &&
+        formData.newPassword !== formData.confirmPassword;
 
 
 
     return (
-        <>
-            <div className="min-h-screen bg-white flex flex-col justify-center px-6 py-10">
-                {/* App Name */}
-                <h1 
-                    className="text-[2rem] md:text-[2.1rem] lg:text-[2.2rem] text-slate-900 font-extrabold cursor-pointer text-center mb-2 tracking-tight text-shadow-lg">zebr
-                    <span className="text-cyan-600">a</span>
-                </h1>
-                {/* Welcome message */}
-                <h2 className="text-lg text-center font-semibold text-gray-400 mb-1 tracking-wider">Change Your Password</h2>
-                <p className="text-center text-sm text-gray-500 mb-8 italic">Enter registered email and your new password to secure your account</p>
+        <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4 py-12">
 
-                {/* Form */}
-                <div className="space-y-6 max-w-md mx-auto w-full">
-                    <InputField
-                        icon={Mail}
-                        type="text"
-                        name="email"
-                        placeholder="you@example.com"
-                        value={formData.email}
-                        required
-                    />
+            {/* ── CARD ── */}
+            <div className="w-full max-w-sm md:max-w-md lg:max-w-md bg-white rounded-3xl shadow-xl border border-stone-100 overflow-hidden">
 
-                    <PasswordField
-                        name="newPassword"
-                        placeholder="Enter new password"
-                        value={formData.newPassword}
-                        show={showNewPassword}
-                        setShow={setShowNewPassword}
-                        icon={Lock}
-                    />
+                {/* Top accent bar */}
+                <div className="h-1.5 w-full bg-gradient-to-r from-cyan-500 via-cyan-600 to-cyan-800" />
 
-                    <PasswordField 
-                        name="confirmPassword"
-                        placeholder="Confirm new password"
-                        value={formData.confirmPassword}
-                        show={showConfirmPassword}
-                        setShow={setShowConfirmPassword}
-                        icon={Shield}
-                    />
-
-                    {/* Password Match Indicator */}
-                    {formData.newPassword && formData.confirmPassword && (
-                        <div className={`text-sm font-medium ${
-                            formData.newPassword === formData.confirmPassword 
-                                ? 'text-green-600' 
-                                : 'text-red-600'
-                        }`}>
-                            {formData.newPassword === formData.confirmPassword 
-                                ? '✓ Passwords match' 
-                                : '✗ Passwords do not match'
-                            }
-                        </div>
-                    )}
-
-                    {/* Submit Button */}
+                <div className="px-7 pt-8 pb-7 flex flex-col gap-6">
+                    {/* Back button */}
                     <button
-                        id="submit-btn"
-                        type="submit"
-                        disabled={isLoading} 
-                        onClick={handlePasswordChange}
-                        className="w-full bg-gradient-to-r from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 text-white py-3 rounded-xl text-base font-semibold transition-all duration-300 transform hover:scale-[1.01] hover:shadow-lg shadow-cyan-500/25 focus:outline-none focus:ring-4 focus:ring-cyan-500/30 flex items-center justify-center space-x-2 group cursor-pointer"
+                        onClick={() => navigate("/login")}
+                        className="flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-cyan-700 transition-colors cursor-pointer w-fit"
                     >
-                        {isLoading ? (
-                            <>
-                              <Loader2 className="w-5 h-5 text-white animate-spin" />
-                              <span>Updating Password...</span>
-                            </>
-                        ) : (
-                            <>
-                              <span>Update Password</span>
-                              <ArrowRight size={18} className="transform group-hover:translate-x-1 transition-transform duration-300" />
-                            </>
-                        )}
+                        <ArrowLeft className="w-3.5 h-3.5" />
+                        Back to Login
                     </button>
+
+                    {/* Brand + heading */}
+                    <div className="flex flex-col items-center gap-1.5">
+                        <div className="w-12 h-12 bg-gradient-to-br from-cyan-700 to-cyan-900 rounded-2xl flex items-center justify-center shadow-lg mb-1">
+                            <Shield className="w-6 h-6 text-white" />
+                        </div>
+                        <h2 className="text-xl font-black text-gray-900 tracking-tight">Change Password</h2>
+                        <p className="text-xs text-gray-400 font-medium text-center">Enter your email and a new password to secure your account</p>
+                    </div>
+
+                    {/* Form */}
+                    <form onSubmit={handlePasswordChange} className="flex flex-col gap-4">
+
+                        {/* Email */}
+                        <div className={`flex flex-col gap-1.5 ${shakingFields.email ? "animate-shake" : ""}`}>
+                            <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">Registered Email</label>
+                            <div className="relative">
+                                <Mail className={iconCls("email")} />
+                                <input
+                                    ref={inputRefs.email}
+                                    type="text"
+                                    name="email"
+                                    placeholder="you@example.com"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    onFocus={() => setFocusedField("email")}
+                                    onBlur={() => setFocusedField("")}
+                                    className={inputCls("email")}
+                                />
+                            </div>
+                            {fieldErrors.email && <p className="text-xs text-red-600 font-medium animate-slideDown">{fieldErrors.email}</p>}
+                        </div>
+
+                        {/* New Password */}
+                        <div className={`flex flex-col gap-1.5 ${shakingFields.newPassword ? "animate-shake" : ""}`}>
+                            <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">New Password</label>
+                            <div className="relative">
+                                <Lock className={iconCls("newPassword")} />
+                                <input
+                                    ref={inputRefs.newPassword}
+                                    type={showNewPassword ? "text" : "password"}
+                                    name="newPassword"
+                                    placeholder="Min. 6 characters"
+                                    value={formData.newPassword}
+                                    onChange={handleChange}
+                                    onFocus={() => setFocusedField("newPassword")}
+                                    onBlur={() => setFocusedField("")}
+                                    className={inputCls("newPassword", "pl-10", "pr-11")}
+                                />
+                                <button type="button" onMouseDown={(e) => { e.preventDefault(); setShowNewPassword(!showNewPassword); }}
+                                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-300 hover:text-cyan-600 transition-colors">
+                                    {showNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                                </button>
+                            </div>
+                            {fieldErrors.newPassword && <p className="text-xs text-red-600 font-medium animate-slideDown">{fieldErrors.newPassword}</p>}
+                        </div>
+
+                        {/* Confirm Password */}
+                        <div className={`flex flex-col gap-1.5 ${shakingFields.confirmPassword ? "animate-shake" : ""}`}>
+                            <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">Confirm Password</label>
+                            <div className="relative">
+                                <Shield className={iconCls("confirmPassword")} />
+                                <input
+                                    ref={inputRefs.confirmPassword}
+                                    type={showConfirmPassword ? "text" : "password"}
+                                    name="confirmPassword"
+                                    placeholder="Repeat new password"
+                                    value={formData.confirmPassword}
+                                    onChange={handleChange}
+                                    onFocus={() => setFocusedField("confirmPassword")}
+                                    onBlur={() => setFocusedField("")}
+                                    className={inputCls("confirmPassword", "pl-10", "pr-11")}
+                                />
+                                <button type="button" onMouseDown={(e) => { e.preventDefault(); setShowConfirmPassword(!showConfirmPassword); }}
+                                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-300 hover:text-cyan-600 transition-colors">
+                                    {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                                </button>
+                            </div>
+                            {fieldErrors.confirmPassword && <p className="text-xs text-red-600 font-medium animate-slideDown">{fieldErrors.confirmPassword}</p>}
+                        </div>
+
+                        {/* Password match indicator */}
+                        {(passwordsMatch || passwordsMismatch) && (
+                            <div className={`flex items-center gap-2 text-xs font-semibold px-3 py-2.5 rounded-xl border ${
+                                passwordsMatch
+                                    ? "text-emerald-700 bg-emerald-50 border-emerald-200"
+                                    : "text-red-600 bg-red-50 border-red-200"
+                            }`}>
+                                {passwordsMatch
+                                    ? <><CheckCircle className="w-3.5 h-3.5" /> Passwords match</>
+                                    : <><span className="text-base leading-none">✗</span> Passwords do not match</>
+                                }
+                            </div>
+                        )}
+
+                        {/* API error */}
+                        {error && (
+                            <div className="flex items-start gap-2 px-3.5 py-3 bg-red-50 border border-red-200 rounded-xl">
+                                <div className="w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0 mt-1.5" />
+                                <p className="text-xs text-red-700 font-medium leading-relaxed">{error}</p>
+                            </div>
+                        )}
+
+                        {/* Submit */}
+                        <button
+                            id="submit-btn"
+                            type="submit"
+                            disabled={isLoading}
+                            className="w-full mt-1 flex items-center justify-center gap-2 bg-cyan-700 hover:bg-cyan-800 active:bg-cyan-900 text-white py-3.5 rounded-xl text-sm font-bold transition-all duration-200 shadow-lg shadow-cyan-700/20 hover:shadow-xl hover:shadow-cyan-700/25 transform hover:-translate-y-0.5 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                        >
+                            {isLoading ? (
+                                <><Loader2 className="w-4 h-4 animate-spin" /> Sending Code...</>
+                            ) : (
+                                <>Update Password <ArrowRight className="w-4 h-4" /></>
+                            )}
+                        </button>   
+                    </form>
+                    
                 </div>
-
-                {/* Back to Login Link */}
-                <div className="text-center mt-8 text-sm">
-                    <p className="text-gray-600">
-                        Remember your password?{" "}
-                        <span onClick={() => navigate("/login")} className="text-cyan-600 font-semibold hover:text-cyan-700 transition-colors duration-300 hover:underline cursor-pointer">
-                            Back to Login
-                        </span>
-                    </p>
-                </div>
-
-
-                {/* Custom Styles */}
-                <style jsx="true">{
-                  `
-                    @keyframes shake {
-                      0%, 100% { transform: translateX(0); }
-                      25% { transform: translateX(-5px); }
-                      75% { transform: translateX(5px); }
-                    }
-                    @keyframes slideDown {
-                      from { transform: translateY(-10px); opacity: 0; }
-                      to { transform: translateY(0); opacity: 1; }
-                    }
-                    .animate-shake {
-                      animation: shake 0.5s ease-in-out;
-                    }
-                    .animate-slideDown {
-                      animation: slideDown 0.3s ease-out;
-                    }
-                  `}
-                </style>
             </div>
-        </>
+
+          <style jsx="true">{`
+              @keyframes shake {
+                  0%, 100% { transform: translateX(0); }
+                  25% { transform: translateX(-5px); }
+                  75% { transform: translateX(5px); }
+              }
+              @keyframes slideDown {
+                  from { transform: translateY(-8px); opacity: 0; }
+                  to { transform: translateY(0); opacity: 1; }
+              }
+              .animate-shake { animation: shake 0.5s ease-in-out; }
+              .animate-slideDown { animation: slideDown 0.3s ease-out; }
+          `}</style>
+        </div>
     );
 };
 

@@ -5,301 +5,219 @@ import { useLogin } from "../../hooks/auth";
 import { useDispatch } from "react-redux";
 
 
-
-
-
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [focusedField, setFocusedField] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
-  const [shakingFields, setShakingFields] = useState({}); // Track which fields shoulds
-  const { login, error, isLoading } = useLogin(); 
- 
-  const navigate = useNavigate()
+  const [shakingFields, setShakingFields] = useState({});
+  const { login, error, isLoading } = useLogin();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
-    // Clear field error when user starts typing
-    if (fieldErrors[e.target.name]) {
-      setFieldErrors(prev => ({...prev, [e.target.name]: ""}));
-    }
-
-    // Clear shaking state when user starts typing
-    if (shakingFields[e.target.name]) {
-      setShakingFields(prev => ({...prev, [e.target.name]: false}));
-    }
-  };
-
-
-  // Validation function
-  const validateForm = () => {
-    const errors = {};
-    const requiredFields = ['email', 'password'];
-    
-    requiredFields.forEach(field => {
-      if (!formData[field].trim()) {
-        errors[field] = `${field.replace('_', ' ')} is required`;   
-      }
-    });
-
-    // Email validation
-    if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = "Please enter a valid email address";
-    }
-
-    // Password validation
-    if (formData.password && formData.password.length < 6) {
-      errors.password = "Password must be at least 6 characters";
-    }
-
-    return errors;
-  }
-
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
-    const errors = validateForm();
-
-    if(Object.keys(errors).length > 0) {
-      setFieldErrors(errors);
-      
-      // Set shaking state for fields with errors
-      const newShakingFields = {};
-      Object.keys(errors).forEach(field => {
-        newShakingFields[field] = true;
-      });
-      setShakingFields(newShakingFields);
-      
-      // Clear shaking state after animation completes
-      setTimeout(() => {
-        setShakingFields({});
-      }, 500);
-      
-      // Shake animation for submit button
-      const submitBtn = document.getElementById('submit-btn');
-      submitBtn?.classList.add('animate-shake');
-      setTimeout(() => submitBtn?.classList.remove('animate-shake'), 500);
-      
-      return;
-    }
-       
-    setFieldErrors({});
-    setShakingFields({});
-
-    // Perform login action
-    await login(dispatch, formData);
-    
-  }
-
-  // Create refs for each input field
   const inputRefs = {
     email: useRef(null),
     password: useRef(null),
   };
 
-  // Effect to maintain focus when focusedField changes
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (fieldErrors[e.target.name]) setFieldErrors((p) => ({ ...p, [e.target.name]: "" }));
+    if (shakingFields[e.target.name]) setShakingFields((p) => ({ ...p, [e.target.name]: false }));
+  };
+
+  const validateForm = () => {
+    const errors = {};
+    if (!formData.email.trim()) errors.email = "Email is required";
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) errors.email = "Please enter a valid email address";
+    if (!formData.password.trim()) errors.password = "Password is required";
+    else if (formData.password.length < 6) errors.password = "Password must be at least 6 characters";
+    return errors;
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      const shaking = {};
+      Object.keys(errors).forEach((f) => (shaking[f] = true));
+      setShakingFields(shaking);
+      setTimeout(() => setShakingFields({}), 500);
+      const btn = document.getElementById("submit-btn");
+      btn?.classList.add("animate-shake");
+      setTimeout(() => btn?.classList.remove("animate-shake"), 500);
+      return;
+    }
+    setFieldErrors({});
+    setShakingFields({});
+    await login(dispatch, formData);
+  };
+
   useEffect(() => {
     if (focusedField && inputRefs[focusedField]?.current) {
-      const inputElement = inputRefs[focusedField].current;
-      inputElement.focus();
-      
-      // Set cursor to end of text
-      const length = inputElement.value.length;
-      inputElement.setSelectionRange(length, length);
+      const el = inputRefs[focusedField].current;
+      el.focus();
+      el.setSelectionRange(el.value.length, el.value.length);
     }
-  }, [focusedField, formData]); 
-  
+  }, [focusedField, formData]);
 
-
-
-  const InputField = ({ icon: Icon, type, name, placeholder, value, required = false }) => {
-    const hasError = fieldErrors[name];
-    const shouldShake = shakingFields[name];
-        
-    return (
-      <div className={`relative group ${shouldShake ? 'animate-shake' : ''}`}>
-        <div className="relative">
-          <div className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-300 z-10 ${
-              hasError ? 'text-rose-500' :
-              focusedField === name ? 'text-cyan-500' : 'text-gray-400'
-            }`}
-          >
-            <Icon size={18} />
-          </div>
-          <input
-            ref={inputRefs[name]}
-            type={type}
-            name={name}
-            placeholder={placeholder}
-            value={value}
-            onChange={handleChange}
-            onFocus={() => setFocusedField(name)}
-            onBlur={() => setFocusedField("")}
-            required={required}
-            className={`w-full pl-12 pr-12 py-3 bg-gray-50 border rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
-              hasError 
-                ? 'border-rose-500 shadow-md shadow-rose-500/20' 
-                : focusedField === name 
-                  ? 'border-cyan-500 shadow-lg shadow-cyan-500/20' 
-                  : 'border-gray-200 hover:border-gray-300'
-              } placeholder-gray-400`}
-            />
-          </div>
-          {hasError && (
-            <p className={`text-rose-500 text-xs lg:text-sm mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
-          )}
-      </div>
-    );
-  };
-
-  const PasswordField = ({ name, placeholder, value, show, setShow }) => {
-    const hasError = fieldErrors[name];
-    const shouldShake = shakingFields[name];
-
-    return (
-      <div className={`relative group ${shouldShake ? 'animate-shake' : ''}`}>
-        <div className="relative">
-          <div className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-300 z-10 ${
-              hasError ? 'text-rose-500' :
-              focusedField === name ? 'text-cyan-500' : 'text-gray-400'
-            }`}
-          >
-            <Lock size={18} />
-          </div>
-          <input
-            ref={inputRefs[name]}
-            type={show ? "text" : "password"}
-            name={name}
-            placeholder={placeholder}
-            value={value}
-            onChange={handleChange}
-            onFocus={() => setFocusedField(name)}
-            onBlur={() => setFocusedField("")}
-            required
-            className={`w-full pl-12 pr-12 py-3 bg-gray-50 border rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none focus:bg-white ${
-              hasError 
-                ? 'border-rose-500 shadow-md shadow-rose-500/20' 
-                : focusedField === name 
-                  ? 'border-cyan-500 shadow-lg shadow-cyan-500/20' 
-                  : 'border-gray-200 hover:border-gray-300'
-            } placeholder-gray-400`}
-          />
-          <button
-              type="button"
-              onMouseDown={(e) => {
-                e.preventDefault(); // Prevent input from losing focus
-                setShow(!show);
-              }}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-cyan-500 transition-colors duration-300"
-              >
-            {show ? <EyeOff size={18} /> : <Eye size={18} />}
-          </button>
-        </div>
-        {hasError && (
-          <p className={`text-rose-500 text-xs lg:text-sm mt-1 ${shouldShake ? 'animate-slideDown' : ''}`}>{hasError}</p>
-        )}
-      </div>
-    );
-  };
-  
 
   return (
-    <div className="min-h-screen bg-white flex flex-col justify-center px-6 py-10">
-      {/* App Name   */}
-      <h1 
-        className="text-[2rem] md:text-[2.2rem] lg:text-[2.4rem] text-slate-900 font-extrabold cursor-pointer text-center mb-2 tracking-tight text-shadow-lg">zebr
-        <span className="text-cyan-600">a</span>
-      </h1>
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4 py-12">
 
-      {/* Welcome message */}
-      <h2 className="text-lg text-center font-semibold text-gray-400 tracking-widest">Welcome back to zebra!</h2>
-      <h3 className="text-xs text-center font-normal italic text-gray-400 mb-8">The hub of property renting...</h3>
-            
-      {/* Form */}
-      <form className="space-y-6 max-w-md mx-auto w-full">
-        <InputField
-          icon={Mail}
-          type="text"
-          name="email"
-          placeholder="you@example.com"
-          value={formData.email}
-          required
-        />
-        
-        <PasswordField 
-          name="password"
-          type="password"
-          placeholder="********"
-          value={formData.password}
-          show={showPassword}
-          setShow={setShowPassword}
-        />
-        {error && <p className='text-rose-600 -mt-3'>{error}</p>} {/* Display the error if it exists */}
-        {/* Forgot Password */}
-        <div className="flex justify-end">
-          <span onClick={() => navigate("/change-password")} className="text-sm font-medium text-cyan-600 hover:text-cyan-700 cursor-pointer transition-colors duration-300 hover:underline">
-            Forgot Password?
-          </span>
+      {/* ── CARD ── */}
+      <div className="w-full max-w-sm md:max-w-md lg:max-w-md bg-white rounded-3xl shadow-xl border border-stone-100 overflow-hidden">
+
+        {/* Card top accent bar */}
+        <div className="h-1.5 w-full bg-gradient-to-r from-cyan-500 via-cyan-600 to-cyan-800" />
+
+        <div className="px-7 pt-8 pb-7 flex flex-col gap-6">
+
+          {/* Brand */}
+          <div className="flex flex-col items-center gap-1.5 mb-1 mt-4">
+            <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight text-shadow-lg">
+              zebr<span className="text-cyan-600">a</span>
+            </h1>
+            <p className="text-xs text-gray-400 font-medium">The hub of property renting in Nigeria</p>
+          </div>
+
+          {/* Heading */}
+          <div className="text-center">
+            <h2 className="text-lg font-bold text-gray-900">Welcome back 👋</h2>
+            <p className="text-sm text-gray-400 mt-0.5">Sign in to continue to your account</p>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleLogin} className="flex flex-col gap-4">
+
+            {/* Email */}
+            <div className={`flex flex-col gap-1.5 ${shakingFields.email ? "animate-shake" : ""}`}>
+              <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">Email</label>
+              <div className="relative">
+                <Mail className={`absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none transition-colors duration-200 ${
+                  fieldErrors.email ? "text-rose-400" : focusedField === "email" ? "text-cyan-600" : "text-gray-300"
+                }`} />
+                <input
+                  ref={inputRefs.email}
+                  type="text"
+                  name="email"
+                  placeholder="you@example.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  onFocus={() => setFocusedField("email")}
+                  onBlur={() => setFocusedField("")}
+                  className={`w-full pl-10 pr-4 py-3 rounded-xl border text-sm font-medium transition-all duration-200 focus:outline-none placeholder:text-gray-300 ${
+                    fieldErrors.email
+                      ? "border-red-300 bg-red-50 text-red-700"
+                      : focusedField === "email"
+                      ? "border-cyan-400 bg-white text-gray-800 ring-3 ring-cyan-100"
+                      : "border-stone-200 bg-stone-50 text-gray-700 hover:border-stone-300"
+                  }`}
+                />
+              </div>
+              {fieldErrors.email && <p className="text-xs text-red-600 font-medium animate-slideDown">{fieldErrors.email}</p>}
+            </div>
+
+            {/* Password */}
+            <div className={`flex flex-col gap-1.5 ${shakingFields.password ? "animate-shake" : ""}`}>
+              <div className="flex items-center justify-between">
+                <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">Password</label>
+                <span
+                  onClick={() => navigate("/change-password")}
+                  className="text-xs font-semibold text-cyan-600 hover:text-cyan-700 cursor-pointer hover:underline transition-colors"
+                >
+                  Forgot password?
+                </span>
+              </div>
+              <div className="relative">
+                <Lock className={`absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none transition-colors duration-200 ${
+                  fieldErrors.password ? "text-rose-400" : focusedField === "password" ? "text-cyan-600" : "text-gray-300"
+                }`} />
+                <input
+                  ref={inputRefs.password}
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="••••••••"
+                  value={formData.password}
+                  onChange={handleChange}
+                  onFocus={() => setFocusedField("password")}
+                  onBlur={() => setFocusedField("")}
+                  className={`w-full pl-10 pr-11 py-3 rounded-xl border text-sm font-medium transition-all duration-200 focus:outline-none placeholder:text-gray-300 ${
+                    fieldErrors.password
+                      ? "border-red-300 bg-red-50 text-red-700"
+                      : focusedField === "password"
+                      ? "border-cyan-400 bg-white text-gray-800 ring-3 ring-cyan-100"
+                      : "border-stone-200 bg-stone-50 text-gray-700 hover:border-stone-300"
+                  }`}
+                />
+                <button
+                  type="button"
+                  onMouseDown={(e) => { e.preventDefault(); setShowPassword(!showPassword); }}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-300 hover:text-cyan-600 transition-colors duration-200"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+              {fieldErrors.password && <p className="text-xs text-red-600 font-medium animate-slideDown">{fieldErrors.password}</p>}
+            </div>
+
+            {/* API error */}
+            {error && (
+              <div className="flex items-start gap-2 px-3.5 py-3 bg-red-50 border border-red-200 rounded-xl">
+                <div className="w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0 mt-1.5" />
+                <p className="text-xs text-red-700 font-medium leading-relaxed">{error}</p>
+              </div>
+            )}
+
+            {/* Submit */}
+            <button
+              id="submit-btn"
+              type="submit"
+              disabled={isLoading}
+              className="w-full mt-1 flex items-center justify-center gap-2 bg-cyan-700 hover:bg-cyan-800 active:bg-cyan-900 text-white py-3.5 rounded-xl text-sm font-bold transition-all duration-200 shadow-lg shadow-cyan-700/20 hover:shadow-xl hover:shadow-cyan-700/25 transform hover:-translate-y-0.5 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-lg"
+            >
+              {isLoading ? (
+                <><Loader2 className="w-4 h-4 animate-spin" /> Logging in...</>
+              ) : (
+                <>Login <ArrowRight className="w-4 h-4" /></>
+              )}
+            </button>
+          </form>
+
+          {/* Divider */}
+          <div className="flex items-center gap-3">
+            <div className="flex-1 h-px bg-stone-200" />
+            <span className="text-xs text-gray-400 font-medium">New here?</span>
+            <div className="flex-1 h-px bg-stone-200" />
+          </div>
+
+          {/* Register link */}
+          <button
+            onClick={() => navigate("/register")}
+            className="w-full py-3 rounded-xl border-2 border-stone-200 text-sm font-bold text-gray-600 hover:border-cyan-300 hover:text-cyan-700 hover:bg-cyan-50/50 transition-all duration-200 cursor-pointer"
+          >
+            Create an account
+          </button>
+
         </div>
-         {/* Submit Button */}
-        <button
-          id="submit-btn"
-          type="submit"
-          onClick={handleLogin}
-          disabled={isLoading} // Disable button while loading
-          className="w-full bg-linear-65 from-cyan-400 to-cyan-600 hover:bg-linear-65 hover:from-cyan-500 hover:to-cyan-700 text-white py-3 rounded-xl text-base font-semibold transition-all duration-300 transform hover:scale-[1.01] hover:shadow-lg shadow-cyan-500/25 focus:outline-none focus:ring-4 focus:ring-cyan-500/30 flex items-center justify-center space-x-2 group cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
-        >
-          {isLoading ? (
-            <>
-              <Loader2 className="w-5 h-5 text-white animate-spin" />
-              <span>Logging In...</span>
-            </>
-          ) : (
-            <>
-              <span>Login</span>
-              <ArrowRight size={18} className="transform group-hover:translate-x-1 transition-transform duration-300" />
-            </>
-          )}
-        </button>
-      </form>
-
-      {/* Register Link */}
-      <div className="text-center mt-8">
-        <p className="text-gray-600">
-          Don't have an account?{" "}
-          <span onClick={() => navigate("/register")} className="text-cyan-600 font-semibold hover:text-cyan-700 transition-colors duration-300 hover:underline cursor-pointer">
-            Create one
-          </span>
-        </p>
       </div>
 
-      {/* Custom Styles */}
-      <style jsx="true">{
-        `
-          @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-          }
-          @keyframes slideDown {
-            from { transform: translateY(-10px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-          }
-          .animate-shake {
-            animation: shake 0.5s ease-in-out;
-          }
-          .animate-slideDown {
-            animation: slideDown 0.3s ease-out;
-          }
-        `}
-      </style>
+      <style jsx="true">{`
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          25% { transform: translateX(-5px); }
+          75% { transform: translateX(5px); }
+        }
+        @keyframes slideDown {
+          from { transform: translateY(-8px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+        .animate-shake { animation: shake 0.5s ease-in-out; }
+        .animate-slideDown { animation: slideDown 0.3s ease-out; }
+      `}</style>
     </div>
   );
 };
-
 
 export default Login;
