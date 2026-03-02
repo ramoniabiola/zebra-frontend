@@ -124,31 +124,34 @@ const ListingInfo = () => {
     if (!showConfirmModal) return null;
 
     return (
-      <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
-          <div className="text-center mb-6">
-            <div className="w-14 h-14 bg-gradient-to-r from-rose-500 to-rose-600 rounded-full flex items-center justify-center mx-auto mb-4">
+      <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative shadow-2xl">
+          <button onClick={() => setShowConfirmModal(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer">
+            <X className="w-5 h-5" />
+          </button>
+          <div className="text-center">
+            <div className="w-14 h-14 bg-gradient-to-br from-rose-500 to-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
               <AlertTriangle className="w-7 h-7 text-white" />
             </div>
-            <h3 className="text-xl font-bold text-gray-800 mb-2">Confirm Deactivation</h3>
-            <p className="text-gray-600 text-sm">
+            <h3 className="text-lg font-bold text-gray-900 mb-2">Confirm Deactivation</h3>
+            <p className="text-gray-500 text-sm leading-relaxed mb-6">
               Are you sure you want to deactivate this listing? Once deactivated, it will no longer be visible to potential tenants.
             </p>
-          </div>
-          
-          <div className="flex gap-3">
-            <button
-              onClick={() => setShowConfirmModal(false)}
-              className="flex-1 px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all duration-200 focus:invisible cursor-pointer"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={handleDeactivateListing}
-              className="flex-1 px-3 py-2 bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white font-semibold rounded-xl transition-all duration-200 focus:invisible cursor-pointer"
-            >
-              Deactivate
-            </button>
+            
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={() => setShowConfirmModal(false)}
+                className="w-full border border-gray-200 text-gray-700 py-2.5 px-4 rounded-xl font-semibold hover:bg-gray-50 transition-colors duration-200 cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDeactivateListing}
+                className="w-full bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white py-2.5 px-4 rounded-xl font-semibold transition-colors duration-200 cursor-pointer shadow-md"
+              >
+                Deactivate
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -161,8 +164,8 @@ const ListingInfo = () => {
     if (!showSubmitModal) return null;
   
     return (
-      <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative">
+      <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative shadow-2xl">
           {!deactivateLoading && (
             <button
               onClick={() => setShowSubmitModal(false)}
@@ -175,13 +178,13 @@ const ListingInfo = () => {
           <div className="text-center">
             {deactivateLoading && (
               <>
-                <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Loader2 className="w-8 h-8 text-sky-600 animate-spin" />
+                <div className="w-14 h-14 bg-sky-100 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                  <Loader2 className="w-7 h-7 text-sky-600 animate-spin" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
                   Deactivating Your Listing...
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-500 text-sm leading-relaxed">
                  Please wait while we take your listing offline...
                 </p>
               </>
@@ -189,13 +192,13 @@ const ListingInfo = () => {
   
             {success && (
               <>
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-green-600" />
+                <div className="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                  <CheckCircle className="w-7 h-7 text-green-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
                  Listing Successfully Deactivated!
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-500 text-sm leading-relaxed">
                   Your listing has been taken offline and is no longer visible to potential tenants.
                 </p>
               </>

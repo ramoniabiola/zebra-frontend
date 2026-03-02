@@ -89,31 +89,34 @@ const PreviewListing = ({ formData, onBackToStep }) => {
   const ConfirmModal = () => {
     if (!showConfirmModal) return null;
     return (
-      <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
-          <div className="text-center mb-6">
-            <div className="w-14 h-14 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
+      <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative shadow-2xl">
+          <button onClick={() => setShowConfirmModal(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer">
+            <X className="w-5 h-5" />
+          </button>
+          <div className="text-center">
+            <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
               <CheckCircle className="w-7 h-7 text-white" />
             </div>
-            <h3 className="text-lg font-bold text-gray-800 mb-2">Confirm Submission</h3>
-            <p className="text-gray-600 text-sm">
+            <h3 className="text-lg font-bold text-gray-900 mb-2">Confirm Submission</h3>
+            <p className="text-gray-500 text-sm leading-relaxed mb-6">
               Are you sure you want to submit this listing? Once submitted, it will be reviewed before going live.
             </p>
-          </div>
-          
-          <div className="flex gap-3">
-            <button
-              onClick={() => setShowConfirmModal(false)}
-              className="flex-1 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all duration-200 focus:invisible cursor-pointer"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={handleFinalSubmit}
-              className="flex-1 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-xl transition-all duration-200 focus:invisible cursor-pointer"
-            >
-              Submit
-            </button>
+            
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={() => setShowConfirmModal(false)}
+                className="w-full border border-gray-200 text-gray-700 py-2.5 px-4 rounded-xl font-semibold hover:bg-gray-50 transition-colors duration-200 cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleFinalSubmit}
+                className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white py-2.5 px-4 rounded-xl font-semibold transition-colors duration-200 cursor-pointer shadow-md"
+              >
+                Submit
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -126,8 +129,8 @@ const PreviewListing = ({ formData, onBackToStep }) => {
     if (!showSubmitModal) return null;
   
     return (
-      <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative">
+      <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative shadow-2xl">
           {!isLoading && (
             <button
               onClick={() => setShowSubmitModal(false)}
@@ -140,13 +143,13 @@ const PreviewListing = ({ formData, onBackToStep }) => {
           <div className="text-center">
             {isLoading && (
               <>
-                <div className="w-14 h-14 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-14 h-14 bg-sky-100 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
                   <Loader2 className="w-7 h-7 text-sky-600 animate-spin" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
                   🚀 Making Your Vacant Home Shine Online!
                 </h3>
-                <p className="text-gray-600 text-base">
+                <p className="text-gray-500 text-sm leading-relaxed">
                   Please wait while we publish your vacant listing...
                 </p>
               </>
@@ -154,13 +157,13 @@ const PreviewListing = ({ formData, onBackToStep }) => {
   
             {success && (
               <>
-                <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
                   <CheckCircle className="w-7 h-7 text-green-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
                   🎉 Your Home is Now Live!
                 </h3>
-                <p className="text-gray-600 text-base">
+                <p className="text-gray-500 text-sm leading-relaxed">
                   Congratulations! Your listing is now visible to potential tenants. Get ready for inquiries!
                 </p>
               </>
@@ -168,22 +171,22 @@ const PreviewListing = ({ formData, onBackToStep }) => {
   
             {error && (
               <>
-                <div className="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
                   <AlertCircle className="w-7 h-7 text-red-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
                   Oops! Something Went Wrong
                 </h3>
-                <p className="text-gray-600 text-base mb-4">
+                <p className="text-gray-500 text-sm leading-relaxed mb-4">
                   Don't worry - these things happen! Let's give it another shot.
                   <br />
-                  <span className="text-sm text-gray-500 mt-2 block">
+                  <span className="text-xs text-gray-400 mt-2 block">
                     Error:  <b className="text-gray-700">{error}</b>
                   </span>
                 </p>
                 <button
                   onClick={handleFinalSubmit}
-                  className="px-6 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg transition-colors duration-200 cursor-pointer"
+                  className="w-full bg-sky-600 hover:bg-sky-700 text-white py-2.5 px-4 rounded-xl font-semibold transition-colors duration-200 cursor-pointer shadow-md"
                 >
                   Try Again
                 </button>

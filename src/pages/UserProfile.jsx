@@ -180,17 +180,20 @@ const UserProfile = () => {
     if (!showConfirmModal) return null;
     return (
       <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
-          <div className="text-center mb-6">
-            <div className="w-14 h-14 bg-gradient-to-r from-rose-500 to-rose-600 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative shadow-2xl">
+          <button onClick={() => setShowConfirmModal(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer">
+            <X className="w-5 h-5" />
+          </button>
+          <div className="text-center">
+            <div className="w-14 h-14 bg-gradient-to-br from-rose-500 to-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
               <LogOutIcon className="w-7 h-7 text-white" />
             </div>
-            <h3 className="text-lg font-bold text-gray-800 mb-2">Confirm Logout</h3>
-            <p className="text-gray-600 text-base">Are you sure you want to log out of your account?</p>
-          </div>
-          <div className="flex gap-3">
-            <button onClick={() => setShowConfirmModal(false)} className="flex-1 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all duration-200 cursor-pointer">Cancel</button>
-            <button onClick={handleUserLogOut} className="flex-1 px-4 py-2 bg-gradient-to-r from-rose-500 to-rose-700 hover:from-rose-600 hover:to-rose-800 text-white font-semibold rounded-xl transition-all duration-200 cursor-pointer">Log Out</button>
+            <h3 className="text-lg font-bold text-gray-900 mb-2">Confirm Logout</h3>
+            <p className="text-gray-500 text-sm leading-relaxed mb-6">Are you sure you want to log out of your account?</p>
+            <div className="flex flex-col gap-3">
+              <button onClick={() => setShowConfirmModal(false)} className="w-full border border-gray-200 text-gray-700 py-2.5 px-4 rounded-xl font-semibold hover:bg-gray-50 transition-colors duration-200 cursor-pointer">Cancel</button>
+              <button onClick={handleUserLogOut} className="w-full bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white py-2.5 px-4 rounded-xl font-semibold transition-colors duration-200 cursor-pointer shadow-md">Log Out</button>
+            </div>
           </div>
         </div>
       </div>
@@ -201,7 +204,7 @@ const UserProfile = () => {
     if (!showSubmitModal) return null;
     return (
       <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative">
+        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative shadow-2xl">
           {!isLoading && (
             <button onClick={() => setShowSubmitModal(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer">
               <X className="w-5 h-5" />
@@ -210,34 +213,34 @@ const UserProfile = () => {
           <div className="text-center">
             {isLoading && (
               <>
-                <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Loader2 className="w-8 h-8 text-sky-600 animate-spin" />
+                <div className="w-14 h-14 bg-sky-100 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                  <Loader2 className="w-7 h-7 text-sky-600 animate-spin" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">Updating Your Profile</h3>
-                <p className="text-gray-600 text-base">Please wait while we update your profile information...</p>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Updating Your Profile</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">Please wait while we update your profile information...</p>
               </>
             )}
             {success && (
               <>
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-green-600" />
+                <div className="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                  <CheckCircle className="w-7 h-7 text-green-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">Profile Updated Successfully!</h3>
-                <p className="text-gray-600 text-base">Your profile information has been updated successfully.</p>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Profile Updated Successfully!</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">Your profile information has been updated successfully.</p>
               </>
             )}
             {error && (
               <>
-                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <AlertCircle className="w-8 h-8 text-red-600" />
+                <div className="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                  <AlertCircle className="w-7 h-7 text-red-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">Update Failed</h3>
-                <p className="text-gray-600 mb-4 text-base">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Update Failed</h3>
+                <p className="text-gray-500 text-sm leading-relaxed mb-4">
                   We couldn't update your profile. Please try again.
                   <br />
-                  <span className="text-sm text-gray-500 mt-2 block">Error: <b>{error}</b></span>
+                  <span className="text-xs text-gray-400 mt-2 block">Error: <b>{error}</b></span>
                 </p>
-                <button onClick={handleRetry} className="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold tracking-widest rounded-lg transition-colors duration-200 cursor-pointer">Retry</button>
+                <button onClick={handleRetry} className="w-full bg-sky-600 hover:bg-sky-700 text-white py-2.5 px-4 rounded-xl font-semibold transition-colors duration-200 cursor-pointer shadow-md">Retry</button>
               </>
             )}
           </div>

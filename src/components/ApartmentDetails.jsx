@@ -89,45 +89,45 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
     
     // Authentication Dialog Component
     const AuthDialog = () => (
-        <div className="fixed inset-0 bg-black/20 bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 max-w-md w-11/12 mx-4 relative">
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative shadow-2xl">
                 {/* Close button */}
                 <button
                     onClick={handleDialogClose}
-                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer"
                 >
                     <X className="w-5 h-5" />
                 </button>
 
                 {/* Dialog content */}
                 <div className="text-center">
-                    <div className="mb-4">
-                        <HeartSolid className="w-14 h-14 text-rose-500 mx-auto mb-3" />
-                        <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                            Save Your Favorite Apartments
-                        </h2>
-                        <p className="text-gray-600 text-sm leading-relaxed">
-                            Log in to add this apartment to your wishlist and keep track of your favorite potential homes.
-                        </p>
+                    <div className="w-14 h-14 bg-gradient-to-br from-rose-500 to-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                        <HeartSolid className="w-7 h-7 text-white" />
                     </div>
+                    <h2 className="text-lg font-bold text-gray-900 mb-2">
+                        Save Your Favorite Apartments
+                    </h2>
+                    <p className="text-gray-500 text-sm leading-relaxed mb-6">
+                        Log in to add this apartment to your wishlist and keep track of your favorite potential homes.
+                    </p>
 
                     {/* Action buttons */}
-                    <div className="flex flex-col gap-3 mt-6">
+                    <div className="flex flex-col gap-3">
                         <button
                             onClick={handleLoginNavigation}
-                            className="w-full shadow-lg bg-cyan-600 text-white py-2 px-2 rounded-lg font-medium hover:bg-cyan-700 transition-colors cursor-pointer"
+                            className="w-full bg-cyan-700 hover:bg-cyan-800 text-white py-2.5 px-4 rounded-xl font-semibold transition-colors duration-200 cursor-pointer shadow-md"
                         >
                             Log In
                         </button>
                         <button
                             onClick={handleRegisterNavigation}
-                            className="w-full border shadow-lg border-gray-300 text-gray-700 py-1.5 px-4 rounded-lg font-medium hover:bg-gray-50 transition-colors cursor-pointer"
+                            className="w-full border border-gray-200 text-gray-700 py-2.5 px-4 rounded-xl font-semibold hover:bg-gray-50 transition-colors duration-200 cursor-pointer"
                         >
                             Create Account
                         </button>
                     </div>
 
-                    <p className="text-xs text-gray-500 mt-4">
+                    <p className="text-xs text-gray-400 mt-4">
                         Don't have an account? Create one to start building your wishlist.
                     </p>
                 </div>

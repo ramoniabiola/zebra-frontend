@@ -14,7 +14,7 @@ const ApartmentInfoSkeleton = () => {
             <div className="w-full h-18 flex items-center justify-between px-4 md:px-6 lg:px-8 bg-white">
                 <div className="flex items-center gap-4">
                     <Skeleton  width={24} height={24} borderRadius={8}  />
-                    <div className="flex flex-col items-start gap-1 mt-1">
+                    <div className="flex flex-col items-start gap-0.5 mt-1">
                         <Skeleton width={160} height={16} borderRadius={4} />
                         <Skeleton width={220} height={14}  borderRadius={4} />
                     </div>
@@ -39,14 +39,14 @@ const ApartmentInfoSkeleton = () => {
                     {/* Title */}
                     <Skeleton width="75%" height={28} style={{ marginBottom: '16px' }} />
                     {/* Location row */}
-                    <div className="flex items-center gap-1 mb-2">
+                    <div className="flex items-center gap-2 mb-2">
                         <Skeleton width={32} height={32} borderRadius={12} />
                         <Skeleton width={180} height={18} />
                     </div>
                     {/* Address */}
                     <div className="pl-9">
-                        <Skeleton width={240} height={16} style={{ marginBottom: '8px' }} />
-                        <Skeleton width={180} height={16} />
+                        <Skeleton width={220} height={16} style={{ marginBottom: '8px' }} />
+                        <Skeleton width={160} height={16} />
                     </div>
                 </div>
 
@@ -92,7 +92,7 @@ const ApartmentInfoSkeleton = () => {
                         {[...Array(6)].map((_, idx) => (
                             <div key={idx} className="flex items-center gap-2.5 p-4 rounded-xl bg-stone-100/60 border border-stone-200">
                                 <Skeleton width={40} height={40} borderRadius={12} className="flex-shrink-0" />
-                                <Skeleton width={80} height={16} />
+                                <Skeleton width={70} height={16} />
                             </div>
                         ))}
                     </div>
@@ -116,10 +116,10 @@ const ApartmentInfoSkeleton = () => {
                         <div className="flex items-center gap-3 p-4 bg-stone-100/60 rounded-xl border border-stone-200">
                             <Skeleton circle width={48} height={48} className="flex-shrink-0" />
                             <div className="flex-1">
-                                <Skeleton width={150} height={20} style={{ marginBottom: '6px' }} />
-                                <Skeleton width={110} height={16} />
+                                <Skeleton width={130} height={20} style={{ marginBottom: '6px' }} />
+                                <Skeleton width={100} height={16} />
                             </div>
-                            <Skeleton width={80} height={36} borderRadius={12} />
+                            <Skeleton width={70} height={36} borderRadius={12} />
                         </div>
                     </div>
                 </div>

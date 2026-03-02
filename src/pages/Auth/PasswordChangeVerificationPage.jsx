@@ -184,8 +184,8 @@ const PasswordChangeVerificationPage = ({formData, sendVerificationCode, sendVer
     if (!showVerificationModal) return null;
 
     return (
-      <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative">
+      <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative shadow-2xl">
           {!verifyCodeLoading && (
             <button
               onClick={() => setShowVerificationModal(false)}
@@ -198,13 +198,13 @@ const PasswordChangeVerificationPage = ({formData, sendVerificationCode, sendVer
           <div className="text-center">
             {verifyCodeLoading && (
               <>
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+                <div className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                  <Loader2 className="w-7 h-7 text-blue-600 animate-spin" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
                   Verifying Your Code
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-500 text-sm leading-relaxed">
                   Please wait while we confirm your verification code...
                 </p>
               </>
@@ -212,13 +212,13 @@ const PasswordChangeVerificationPage = ({formData, sendVerificationCode, sendVer
 
             {verifyCodeSuccess && (
               <>
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-green-600" />
+                <div className="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                  <CheckCircle className="w-7 h-7 text-green-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
                   Code Verified Successfully!
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-500 text-sm leading-relaxed">
                   🎉 Your verification code has been confirmed. You can now proceed to create an account.
                 </p>
               </>
@@ -226,22 +226,22 @@ const PasswordChangeVerificationPage = ({formData, sendVerificationCode, sendVer
 
             {verifyCodeError && (
               <>
-                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <AlertCircle className="w-8 h-8 text-red-600" />
+                <div className="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                  <AlertCircle className="w-7 h-7 text-red-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
                   Verification Failed
                 </h3>
-                <p className="text-gray-600 mb-4 text-sm">
+                <p className="text-gray-500 text-sm leading-relaxed mb-4">
                   We couldn't verify your code. Please check it and try again.
                   <br />
-                  <span className="text-sm text-gray-500 mt-2 block">
+                  <span className="text-xs text-gray-400 mt-2 block">
                     Error: <b className="text-gray-700">{verifyCodeError}</b>
                   </span>
                 </p>
                 <button
                   onClick={handleResendCode}
-                  className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200 cursor-pointer"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 px-4 rounded-xl font-semibold transition-colors duration-200 cursor-pointer shadow-md"
                 >
                   Resend Code
                 </button>
@@ -260,8 +260,8 @@ const PasswordChangeVerificationPage = ({formData, sendVerificationCode, sendVer
     if (!showSubmitModal) return null;
 
     return (
-      <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative">
+      <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative shadow-2xl">
           {!isLoading && (
             <button
               onClick={() => setShowSubmitModal(false)}
@@ -274,13 +274,13 @@ const PasswordChangeVerificationPage = ({formData, sendVerificationCode, sendVer
           <div className="text-center">
             {isLoading && (
               <>
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+                <div className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                  <Loader2 className="w-7 h-7 text-blue-600 animate-spin" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
                   Changing Your Password
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-500 text-sm leading-relaxed">
                   Please wait while we update your password securely...
                 </p>
               </>
@@ -288,13 +288,13 @@ const PasswordChangeVerificationPage = ({formData, sendVerificationCode, sendVer
 
             {success && (
               <>
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-green-600" />
+                <div className="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                  <CheckCircle className="w-7 h-7 text-green-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
                   Password Changed Successfully!
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-500 text-sm leading-relaxed">
                   Your password has been updated successfully. Please use your new password future logins.
                 </p>
               </>
@@ -302,22 +302,22 @@ const PasswordChangeVerificationPage = ({formData, sendVerificationCode, sendVer
 
             {error && (
               <>
-                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <AlertCircle className="w-8 h-8 text-red-600" />
+                <div className="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                  <AlertCircle className="w-7 h-7 text-red-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
                   Password Change Failed
                 </h3>
-                <p className="text-gray-600 mb-4 text-sm">
+                <p className="text-gray-500 text-sm leading-relaxed mb-4">
                   We couldn't update your password. 
                   <br />
-                  <span className="text-sm text-gray-500 mt-2 block">
+                  <span className="text-xs text-gray-400 mt-2 block">
                     Error:  <b className="text-gray-700">{error}</b>
                   </span>
                 </p>
                 <button
                   onClick={handlePasswordChange}
-                  className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200 cursor-pointer"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 px-4 rounded-xl font-semibold transition-colors duration-200 cursor-pointer shadow-md"
                 >
                   Try Again
                 </button>

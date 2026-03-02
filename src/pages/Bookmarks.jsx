@@ -8,14 +8,14 @@ import ToggleSuccess from "../utils/pop-display/ToggleSuccess";
 import { useClearAllUserBookmarks, useGetUserBookmarks, useToggleBookmark } from "../hooks/bookmarks";
 import { selectPaginatedBookmarks, setCurrentPage } from "../redux/bookmarkSlice";
 import BookmarkCardSkeleton from "../utils/loading-display/BookmarkCardSkeleton";
-import { ArrowLeft, ChevronLeft, ChevronRight, MoreVertical, RotateCcw, Trash2 } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, MoreVertical, RotateCcw, Trash2, X } from "lucide-react";
 
 
 
 
 const Bookmarks = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(); 
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const { getUserBookmarks, isLoading, error } = useGetUserBookmarks();
@@ -73,33 +73,36 @@ const Bookmarks = () => {
         if (!showConfirmModal) return null;
 
         return (
-            <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
-                <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
-                    <div className="text-center mb-6">
-                        <div className="w-14 h-14 bg-gradient-to-r from-rose-500 to-rose-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
+                <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative shadow-2xl">
+                    <button onClick={() => setShowConfirmModal(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer">
+                        <X className="w-5 h-5" />
+                    </button>
+                    <div className="text-center">
+                        <div className="w-14 h-14 bg-gradient-to-br from-rose-500 to-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
                             <Trash2 className="w-7 h-7 text-white" />
                         </div>
-                        <h3 className="text-lg font-bold text-gray-800 mb-2">
+                        <h3 className="text-lg font-bold text-gray-900 mb-2">
                             Clear All Wishlist?
                         </h3>
-                        <p className="text-gray-600 text-sm">
+                        <p className="text-gray-500 text-sm leading-relaxed mb-6">
                             Are you sure you want to remove all apartment from your wishlist? 
                             This action cannot be undone.
                         </p>
-                    </div>
-                    <div className="flex gap-3">
-                        <button
-                            onClick={() => setShowConfirmModal(false)}
-                            className="flex-1 px-2 py-2 bg-gray-100 text-sm hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all duration-200 cursor-pointer"
-                        >
-                            Cancel
-                        </button>
-                        <button
-                            onClick={handleClearAllWishlist}
-                            className="flex-1 px-2 py-2 bg-gradient-to-r from-rose-600 to-rose-700 text-sm hover:from-rose-700 hover:to-rose-800 text-white font-semibold rounded-xl transition-all duration-200 cursor-pointer"
-                        >
-                            Clear All
-                        </button>
+                        <div className="flex flex-col gap-3">
+                            <button
+                                onClick={() => setShowConfirmModal(false)}
+                                className="w-full border border-gray-200 text-gray-700 py-2.5 px-4 rounded-xl font-semibold hover:bg-gray-50 transition-colors duration-200 cursor-pointer"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handleClearAllWishlist}
+                                className="w-full bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white py-2.5 px-4 rounded-xl font-semibold transition-colors duration-200 cursor-pointer shadow-md"
+                            >
+                                Clear All
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -110,8 +113,8 @@ const Bookmarks = () => {
     const ErrorModal = () => {
         if (!showErrorModal) return null;
         return (
-          <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative">
+          <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative shadow-2xl">
                 <button
                   onClick={() => setShowErrorModal(false)}
                   className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer"
@@ -120,22 +123,22 @@ const Bookmarks = () => {
                 </button>
              
                 <div className="text-center">
-                    <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <AlertCircle className="w-8 h-8 text-red-600" />
+                    <div className="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                      <AlertCircle className="w-7 h-7 text-red-600" />
                     </div>
-                    <h3 className="text-base font-semibold text-gray-800 mb-2">
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">
                       Update Failed
                     </h3>
-                    <p className="text-gray-600 mb-4 text-sm">
+                    <p className="text-gray-500 text-sm leading-relaxed mb-6">
                       We couldn't clear all your wishlist. Please try again.
                       <br />
-                      <span className="text-sm text-gray-500 mt-2 block">
+                      <span className="text-xs text-gray-400 mt-2 block">
                         Error: <b>{clearError}</b>
                       </span>
                     </p>
                     <button
                       onClick={handleRetry}
-                      className="px-6 py-2 bg-sky-600 text-sm hover:bg-sky-700 text-white font-semibold tracking-widest rounded-lg transition-colors duration-200 cursor-pointer"
+                      className="w-full bg-sky-600 hover:bg-sky-700 text-white py-2.5 px-4 rounded-xl font-semibold transition-colors duration-200 cursor-pointer shadow-md"
                     >
                       Retry
                     </button>

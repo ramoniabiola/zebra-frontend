@@ -322,8 +322,8 @@ const CreateNewListing = () => {
     if (!showUploadModal) return null;
 
     return (
-      <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative">
+      <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative shadow-2xl">
           {uploadStatus !== 'uploading' && (
             <button
               onClick={() => setShowUploadModal(false)}
@@ -336,34 +336,34 @@ const CreateNewListing = () => {
           <div className="text-center">
             {uploadStatus === 'uploading' && (
               <>
-                <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Loader2 className="w-8 h-8 text-sky-600 animate-spin" />
+                <div className="w-14 h-14 bg-sky-100 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                  <Loader2 className="w-7 h-7 text-sky-600 animate-spin" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">Uploading Property Images</h3>
-                <p className="text-gray-600 text-base">Please wait while we upload property images...</p>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Uploading Property Images</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">Please wait while we upload property images...</p>
               </>
             )}
 
             {uploadStatus === 'success' && (
               <>
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-green-600" />
+                <div className="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                  <CheckCircle className="w-7 h-7 text-green-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">Upload Successful!</h3>
-                <p className="text-gray-600 text-base">All property images have been uploaded successfully.</p>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Upload Successful!</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">All property images have been uploaded successfully.</p>
               </>
             )}
 
             {uploadStatus === 'error' && (
               <>
-                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <AlertCircle className="w-8 h-8 text-red-600" />
+                <div className="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                  <AlertCircle className="w-7 h-7 text-red-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">Upload Failed</h3>
-                <p className="text-gray-600 text-base mb-4">{uploadError}</p>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Upload Failed</h3>
+                <p className="text-gray-500 text-sm leading-relaxed mb-4">{uploadError}</p>
                 <button
                   onClick={handleUploadImages}
-                  className="px-6 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg transition-colors duration-200 cursor-pointer"
+                  className="w-full bg-sky-600 hover:bg-sky-700 text-white py-2.5 px-4 rounded-xl font-semibold transition-colors duration-200 cursor-pointer shadow-md"
                 >
                   Try Again
                 </button>
@@ -380,7 +380,7 @@ const CreateNewListing = () => {
     <div className="w-full h-full min-h-screen bg-gradient-to-br from-gray-50 to-white flex flex-col">
       {/* Header */}
       <div className="bg-white border-b border-gray-100 sticky top-0 lg:top-18 left-0 z-40">
-        <div className="w-full px-4 py-4">
+        <div className="w-full px-4 py-3">
           <div className="flex items-center gap-3">
             <button 
               onClick={() => window.history.back()}
