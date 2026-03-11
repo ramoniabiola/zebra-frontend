@@ -220,7 +220,7 @@ const Bookmarks = () => {
                     </div>
 
                     {/* Content */}
-                    <div className="w-full h-full mt-4 pl-6 pr-0 lg:pl-10 lg:pr-0 overflow-y-auto scroll-smooth mb-12">
+                    <div className="w-full h-full mt-4 px-4 md:pl-6 md:pr-0 lg:pl-10 lg:pr-0 overflow-y-auto scroll-smooth mb-12">
                         {error ? (
                             <ErrorDisplay />
                         ) : isLoading ? (

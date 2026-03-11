@@ -105,7 +105,7 @@ const SearchResults = () => {
         <div className="w-full h-full flex flex-col items-start justify-center">
             <Search2 />
 
-            <div className="w-full px-2 h-full flex flex-col items-center justify-start mt-8 lg:mt-24">
+            <div className="w-full px-2 h-full flex flex-col items-center justify-start mt-4 lg:mt-24">
                 <h1
                     className={`${
                         query ? "text-xl text-center text-gray-600 font-semibold" : "hidden"
@@ -114,7 +114,7 @@ const SearchResults = () => {
                     Search results for "<b className="text-gray-800">{query}</b>"
                 </h1>
 
-                <div className="w-full h-full pl-6 pr-0 lg:pl-10 lg:pr-0 overflow-y-auto scroll-smooth mb-12">
+                <div className="w-full h-full px-4 md:pl-6 md:pr-0 lg:pl-10 lg:pr-0 overflow-y-auto scroll-smooth mb-12">
                     {error && page >= 1  ? (
                         <ErrorDisplay />
                     ) : isLoading && page >= 1  ? (

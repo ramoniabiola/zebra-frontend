@@ -37,16 +37,16 @@ const ApartmentInfoSkeleton = () => {
                         <Skeleton width={94} height={30} borderRadius={100} />
                     </div>
                     {/* Title */}
-                    <Skeleton width="75%" height={28} style={{ marginBottom: '16px' }} />
+                    <Skeleton width="75%" height={28} borderRadius={6} style={{ marginBottom: '16px' }} />
                     {/* Location row */}
-                    <div className="flex items-center gap-2 mb-2">
-                        <Skeleton width={32} height={32} borderRadius={12} />
-                        <Skeleton width={180} height={18} />
+                    <div className="flex items-center gap-2 mb-1.5">
+                        <Skeleton width={32} height={32}  borderRadius={12} />
+                        <Skeleton width={180} height={18} borderRadius={4} />
                     </div>
                     {/* Address */}
-                    <div className="pl-9">
-                        <Skeleton width={220} height={16} style={{ marginBottom: '8px' }} />
-                        <Skeleton width={160} height={16} />
+                    <div className="pl-10">
+                        <Skeleton width={220} height={16} borderRadius={4} style={{ marginBottom: '8px' }} />
+                        <Skeleton width={160} height={16} borderRadius={4} />
                     </div>
                 </div>
 

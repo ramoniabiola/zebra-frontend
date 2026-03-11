@@ -10,7 +10,7 @@ const Footer = () => {
     const navigate = useNavigate();
     
   return (
-    <footer className="w-full bg-gray-50 text-slate-900 px-6 py-8 lg:py-12 lg:border-t lg:border-t-slate-100">
+    <footer className="w-full bg-gray-50 text-slate-900 px-6 py-8 lg:py-12 lg:border-t lg:border-t-gray-100">
         <div className="max-w-7xl mx-auto">
             {/* Main Footer Content */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">

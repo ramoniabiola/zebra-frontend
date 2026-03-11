@@ -144,7 +144,7 @@ const Apartments = () => {
 
 
       {/* APARTMENT LISTINGS */}
-      <div className="mt-[1.5rem] lg:mt-[3rem] w-full h-full pl-6 pr-0 lg:pl-10 lg:pr-0 overflow-y-auto scroll-smooth mb-12">
+      <div className="mt-[1.5rem] lg:mt-[3rem] w-full h-full px-4 md:pl-6 md:pr-0 lg:pl-10 lg:pr-0 overflow-y-auto scroll-smooth mb-12">
         {error && page === 1 ? (
           <ErrorDisplay />
         ) : isLoading && page === 1 ? (
@@ -152,7 +152,7 @@ const Apartments = () => {
         ) : apartments?.length > 0 ? (
           <>
             {/* Grid Container for Apartments */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-2 lg:gap-2">
               {apartments?.map((apartment, idx) => (
                 <ApartmentDetails 
                   key={`${apartment._id}-${idx}`} 

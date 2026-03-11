@@ -1,4 +1,4 @@
-import { AlertCircle, Calendar, ChevronLeft, ChevronRight, MapPin, X } from 'lucide-react';
+import { AlertCircle, Calendar, ChevronLeft, ChevronRight, MapPin, X, Bed, Bath } from 'lucide-react';
 import { HeartIcon as HeartSolid, TagIcon } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { useState } from "react";
@@ -9,83 +9,43 @@ import ApartmentImagesPlaceholder from "../utils/placeholders/ApartmentImagesPla
 import DotNavigation from "../utils/pop-display/DotNavigation";
 
 
-const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
+const ApartmentDetails = ({ apartment, toggleBookmark, error, setError }) => {
     const [currentImg, setCurrentImg] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
-    const [showAuthDialog, setShowAuthDialog] = useState(false);
     const totalImages = apartment.uploadedImages?.length || 0;
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const user = useSelector((state) => state.auth.user);
-    const userId = user?._id
-    const userRole = user?.role
+    const userId = user?._id;
+    const userRole = user?.role;
     const bookmarked = useSelector((state) => state.bookmarks.items?.bookmarks || []);
-    const isBookmarked = bookmarked.some(
-        (b) => b?.apartmentId?._id === apartment._id
-    );
+    const isBookmarked = bookmarked.some((b) => b?.apartmentId?._id === apartment._id);
+    const [showAuthDialog, setShowAuthDialog] = useState(false);
 
-    
-
-
-    // Time Formatting 
     const { createdAt, updatedAt, isAvailable } = apartment;
+    const reactivationTime = (isAvailable && updatedAt !== createdAt)
+        ? formatCustomTimeAgo(updatedAt)
+        : formatCustomTimeAgo(createdAt);
 
-    let reactivationTime = null;
-
-    if (isAvailable && updatedAt !== createdAt) {
-        reactivationTime = formatCustomTimeAgo(updatedAt); 
-    } else {
-        reactivationTime = formatCustomTimeAgo(createdAt); 
-    }
-
-
-    // Price Formatting
-    const formatPrice = (price) => {
-        return new Intl.NumberFormat('en-NG', {
+    const formatPrice = (price) =>
+        new Intl.NumberFormat('en-NG', {
             style: 'currency',
             currency: 'NGN',
-            minimumFractionDigits: 0
+            minimumFractionDigits: 0,
         }).format(price);
-    };  
 
-
-   
-    const handleNext = () => {
-        if (currentImg < totalImages - 1) {
-            setCurrentImg((prev) => prev + 1);
-        }
-    };
-  
-    const handlePrev = () => {
-        if (currentImg > 0) {
-            setCurrentImg((prev) => prev - 1);
-        }
-    };
-    
+    const handleNext = () => { if (currentImg < totalImages - 1) setCurrentImg((p) => p + 1); };
+    const handlePrev = () => { if (currentImg > 0) setCurrentImg((p) => p - 1); };
 
     const handleToggleBookmark = async () => {
-        
-        // Check if user is authenticated
-        if (!userId) {
-            setShowAuthDialog(true);
-            return;
-        }
+        if (!userId) { setShowAuthDialog(true); return; }
+        await toggleBookmark(apartment._id, isBookmarked);
+    };
 
-       await toggleBookmark(apartment._id, isBookmarked);
-    }
-   
-    const handleDialogClose = () => {
-        setShowAuthDialog(false);
-    }
+    const handleDialogClose = () => setShowAuthDialog(false);
+    const handleLoginNavigation = () => { setShowAuthDialog(false); navigate('/login'); };
+    const handleRegisterNavigation = () => { setShowAuthDialog(false); navigate('/register'); };
 
-    const handleLoginNavigation = () => {
-        setShowAuthDialog(false);
-        navigate('/login');
-    }
 
-    const handleRegisterNavigation = () => {
-        setShowAuthDialog(false);
-        navigate('/register');
-    }
     
     // Authentication Dialog Component
     const AuthDialog = () => (
@@ -102,7 +62,7 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
                 {/* Dialog content */}
                 <div className="text-center">
                     <div className="w-14 h-14 bg-gradient-to-br from-rose-500 to-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
-                        <HeartSolid className="w-7 h-7 text-white" />
+                        <HeartSolid className="w-8 h-8 text-white" />
                     </div>
                     <h2 className="text-lg font-bold text-gray-900 mb-2">
                         Save Your Favorite Apartments
@@ -136,78 +96,78 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
     );
 
 
-    // Error Alert Component
+
+
+    // ── ERROR ALERT ──
     const ErrorAlert = ({ onClose }) => (
-        <div className="p-2 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3 animate-in slide-in-from-top-2 duration-300">
+        <div className="px-3 py-2.5 bg-red-50 border border-red-200 rounded-xl flex items-start gap-2.5">
             <AlertCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-            <div className="flex-1">
-                <p className="text-sm text-red-700 font-medium">{error}</p>
-            </div>
+            <p className="text-xs text-red-700 font-medium flex-1">{error}</p>
             {onClose && (
-                <button onClick={onClose} className="text-red-400 hover:text-red-600">
-                    <X className="w-4 h-4" />
+                <button onClick={onClose} className="text-red-400 hover:text-red-600 flex-shrink-0">
+                    <X className="w-3.5 h-3.5" />
                 </button>
             )}
-        </ div>
+        </div>
     );
-    
 
 
     return (
         <>
-            <div className='w-11/12 h-auto flex flex-col items-center justify-start bg-white mb-12 relative mt-12 cursor-pointer'>  
-                <div 
-                    className="w-full h-[300px] relative overflow-hidden rounded-2xl"
+            {/* ── CARD ── */}
+            <div
+                className="w-full md:w-11/12 lg:w-11/12 flex flex-col bg-white rounded-2xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer mb-4 mt-11 group"
+            >
+                {/* ── IMAGE BLOCK ── */}
+                <div className="p-2 pb-0">
+                <div
+                    className="relative w-full h-[260px] overflow-hidden rounded-2xl mt-1"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                 >
-                    {/* Image Slider */}
                     {apartment.uploadedImages.length === 0 ? (
                         <ApartmentImagesPlaceholder />
                     ) : (
-                        <div 
-                            className="h-full w-full flex transition-transform duration-600 ease-[cubic-bezier(0.4, 0, 0.2, 1)]"
+                        <div
+                            className="h-full w-full flex transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]"
                             style={{ transform: `translateX(-${currentImg * 100}%)` }}
                         >
                             {apartment.uploadedImages.map((image, index) => {
-                                const optimizedUrl = image.includes("/upload/") 
-                                ? image.replace("/upload/", "/upload/f_auto,q_auto/")
-                                : image;
-                            
+                                const optimizedUrl = image.includes("/upload/")
+                                    ? image.replace("/upload/", "/upload/f_auto,q_auto/")
+                                    : image;
                                 return (
-                                    <img 
+                                    <img
                                         key={index}
                                         src={optimizedUrl}
                                         alt={`apartment-${index}`}
-                                        className="min-w-full flex-shrink-0 h-full object-cover rounded-md"
+                                        className="min-w-full flex-shrink-0 h-full object-cover"
                                     />
                                 );
                             })}
                         </div>
                     )}
 
+                    {/* Gradient overlay at bottom of image */}
+                    <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
 
-                    {/* Left and right image slider navigatiom */}
+                    {/* Prev / Next */}
                     {isHovered && currentImg > 0 && (
-                    <button
-                    onClick={handlePrev}
-                    className="absolute top-1/2 left-3 transform -translate-y-1/2 bg-white p-2 rounded-full opacity-80 shadow hover:bg-gray-100 transition cursor-pointer"
-                    >
-                        <ChevronLeft strokeWidth={3} className="w-6 h-6 text-gray-400" />
-                    </button>
+                        <button onClick={handlePrev}
+                            className="absolute top-1/2 left-3 -translate-y-1/2 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center shadow-md hover:bg-white transition cursor-pointer z-10">
+                            <ChevronLeft strokeWidth={3} className="w-4 h-4 text-gray-600" />
+                        </button>
                     )}
                     {isHovered && currentImg < totalImages - 1 && (
-                        <button
-                        onClick={handleNext}
-                        className="absolute top-1/2 right-3 transform -translate-y-1/2 bg-white p-2 rounded-full opacity-80 shadow hover:bg-gray-100 transition cursor-pointer"
-                        >
-                            <ChevronRight strokeWidth={3} className="w-6 h-6 text-gray-400" />
+                        <button onClick={handleNext}
+                            className="absolute top-1/2 right-3 -translate-y-1/2 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center shadow-md hover:bg-white transition cursor-pointer z-10">
+                            <ChevronRight strokeWidth={3} className="w-4 h-4 text-gray-600" />
                         </button>
                     )}
 
-                    {/* Dots Navigation */}
+                    {/* Dots */}
                     {totalImages > 1 && (
-                        <DotNavigation 
+                        <DotNavigation
                             apartment={apartment}
                             totalImages={totalImages}
                             currentImg={currentImg}
@@ -215,81 +175,100 @@ const ApartmentDetails   = ({ apartment, toggleBookmark, error, setError }) => {
                         />
                     )}
 
+                    {/* Apartment type badge — bottom left overlay (like reference card) */}
+                    <div className="absolute bottom-4 left-3 z-10">
+                        <span className="text-xs font-bold text-white bg-white/10 backdrop-blur-sm px-3 py-2 rounded-full tracking-widest capitalize">
+                            {apartment.apartment_type}
+                        </span>
+                    </div>
 
-                    {/* Heart Icon */}
-                    {
-                        !userRole || userRole === "tenant" ? (
-                            <div 
-                                onClick={handleToggleBookmark}
-                            >
-                                {
-                                    isBookmarked ? (  
-                                        <>   
-                                            <HeartSolid className="w-12 h-12 lg:w-13 lg:h-13 text-rose-600 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
-                                            <HeartOutline className="w-12 h-12 lg:w-13 lg:h-13 text-gray-50 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
-                                        </> 
-                                    ) : (
-                                        <>   
-                                            <HeartSolid className="w-12 h-12 lg:w-13 lg:h-13 text-black/50 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
-                                            <HeartOutline className="w-12 h-12 lg:w-13 lg:h-13 text-gray-50 absolute top-2 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
-                                        </>
-                                    )
-                                }   
-                            </div>
-                        ) : (
-                            <></>
-                        )
-                    }    
-
-
+                    {/* Premium badge — top left */}
                     {apartment.furnished && (
-                        <div className="absolute top-4 left-3 z-10 ">
-                            <span className="flex items-center gap-1.5 px-4 py-1 lg:py-2 bg-white/90 backdrop-blur-sm text-sm font-bold rounded-full shadow-md border-2  border-stone-300">
-                                <TagIcon className="w-3 h-3 lg:w-4 lg:h-4 text-stone-700" />
+                        <div className="absolute top-3 left-3 z-10">
+                            <span className="flex items-center gap-1.5 px-3 py-1.5 bg-white/90 backdrop-blur-sm text-xs md:text-sm lg:text-sm font-bold rounded-full shadow-md border border-stone-300">
+                                <span>🏷️</span>
                                 <span className="text-stone-700 tracking-widest">Premium</span>
                             </span>
                         </div>
                     )}
-                </div> 
 
-                {/* Apartment Info */}
-                <div onClick={() => navigate(`/apartment/${apartment._id}`)} className="w-full mt-4 flex flex-col gap-2 text-left">
-                    <div className="flex items-start justify-between gap-3">
-                        <h1 className="text-lg lg:text-xl font-semibold text-gray-900 leading-tight group-hover:text-gray-900 transition-colors">
+                    {/* Heart — top right */}
+                    {(!userRole || userRole === "tenant") && (
+                       <div 
+                            onClick={handleToggleBookmark}
+                        >
+                            {
+                                isBookmarked ? (  
+                                    <>   
+                                        <HeartSolid className="w-12 h-12 lg:w-13 lg:h-13 text-rose-600 absolute top-1.5 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
+                                        <HeartOutline className="w-12 h-12 lg:w-13 lg:h-13 text-gray-50 absolute top-1.5 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
+                                    </> 
+                                ) : (
+                                    <>   
+                                        <HeartSolid className="w-12 h-12 lg:w-13 lg:h-13 text-gray-950/40 absolute top-1.5 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" /> 
+                                        <HeartOutline className="w-12 h-12 lg:w-13 lg:h-13 text-gray-50 absolute top-1.5 right-3  hover:scale-110 transition-all duration-200 z-10 cursor-pointer" />
+                                    </>
+                                )
+                            }   
+                        </div>
+                    )}
+                </div>
+                </div>
+
+
+                {/* ── INFO BLOCK ── */}
+                <div
+                    onClick={() => navigate(`/apartment/${apartment._id}`)}
+                    className="flex flex-col gap-3 p-4"
+                >
+                    {/* Title + location */}
+                    <div className="flex flex-col gap-2">
+                        <h1 className="text-lg lg:text-xl font-bold text-gray-900 leading-snug line-clamp-1">
                             {apartment.title}
                         </h1>
+                        <div className="flex items-center gap-1.5 text-gray-400">
+                            <MapPin className="w-4 h-4 lg:w-5 lg:h-5 text-gray-500" />
+                            <h4 className="text-sm lg:text-base font-medium">{apartment.location}</h4>
+                        </div>
                     </div>
 
-                    <div className="flex items-center gap-1.5 text-gray-600">
-                        <MapPin className="w-4 h-4 lg:w-5 lg:h-5 text-gray-700" />
-                        <h4 className="text-sm lg:text-base font-medium">{apartment.location}</h4>
+                    {error && <ErrorAlert onClose={() => setError(null)} />}
+
+                    {/* Time */}
+                    <div className="flex items-center justify-end-safe gap-1.5 text-gray-400">
+                        <Calendar className="w-3 h-3" />
+                        <span className="text-xs font-medium">{reactivationTime}</span>
                     </div>
 
-                    <p className="text-sm lg:text-base text-slate-500 leading-relaxed tracking-widest">{apartment.apartment_type}</p>
-                
-                    {error && (
-                        <ErrorAlert 
-                            onClose={() => setError(null)} 
-                        />
-                    )}
-                    <div className="flex items-center justify-between mt-2 pt-4 px-1.5 border-t border-gray-100">
-                       <h3 className="text-xl lg:text-2xl font-bold text-slate-900 font-mono">
-                            {formatPrice(apartment.price)}
-                           <span className="text-xs lg:text-sm font-normal text-slate-500 ml-1">{apartment.payment_frequency}</span>
-                       </h3>
+                    {/* Price + View row */}
+                    <div className="flex items-center justify-between pt-3 border-t border-stone-100">
+                        {/* Price */}
+                        <div>
+                            <span className="text-xl lg:text-2xl font-bold text-slate-900 font-mono">
+                                {formatPrice(apartment.price)}
+                            </span>
+                            <span className="text-xs lg:text-sm text-gray-400 font-medium ml-1">
+                                / {apartment.payment_frequency}
+                            </span>
+                        </div>
 
-                       <div className="flex items-center gap-1.5 text-gray-400">
-                           <Calendar className="w-3.5 h-3.5" />
-                           <span className="text-xs lg:text-sm font-medium">{reactivationTime}</span>
-                       </div>
+                        {/* View pill */}
+                        <button
+                            onClick={(e) => { e.stopPropagation(); navigate(`/apartment/${apartment._id}`); }}
+                            className="flex items-center gap-3 bg-gradient-to-br from-cyan-800 to-cyan-600 text-white text-xs font-bold px-4 py-2 rounded-full shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer"
+                        >
+                            View
+                            <span className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center">
+                                <ChevronRight className="w-3 h-3" strokeWidth={3} />
+                            </span>
+                        </button>
                     </div>
                 </div>
             </div>
 
-            {/* Authentication Dialog */}
             {showAuthDialog && <AuthDialog />}
         </>
-    )
-}
+    );
+};
 
 export default ApartmentDetails;
