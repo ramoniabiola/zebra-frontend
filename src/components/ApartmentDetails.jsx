@@ -185,7 +185,7 @@ const ApartmentDetails = ({ apartment, toggleBookmark, error, setError }) => {
                     {/* Premium badge — top left */}
                     {apartment.furnished && (
                         <div className="absolute top-3 left-3 z-10">
-                            <span className="flex items-center gap-1.5 px-3 py-1.5 bg-white/90 backdrop-blur-sm text-xs md:text-sm lg:text-sm font-bold rounded-full shadow-md border border-stone-300">
+                            <span className="flex items-center gap-1 px-3 py-1.5 bg-white/90 backdrop-blur-sm text-xs md:text-sm lg:text-sm font-bold rounded-full shadow-md border border-stone-300">
                                 <span>🏷️</span>
                                 <span className="text-stone-700 tracking-widest">Premium</span>
                             </span>
@@ -219,7 +219,7 @@ const ApartmentDetails = ({ apartment, toggleBookmark, error, setError }) => {
                 {/* ── INFO BLOCK ── */}
                 <div
                     onClick={() => navigate(`/apartment/${apartment._id}`)}
-                    className="flex flex-col gap-3 p-4"
+                    className="flex flex-col gap-2 p-4"
                 >
                     {/* Title + location */}
                     <div className="flex flex-col gap-2">

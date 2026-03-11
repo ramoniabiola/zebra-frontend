@@ -16,7 +16,7 @@ const BookmarkCardSkeleton = ({ cards }) => {
             </div>
           </div>
           {/* ── INFO BLOCK ── */}
-          <div className="flex flex-col gap-2 p-4">
+          <div className="flex flex-col gap-1 p-4">
             {/* Title + location */}
             <div className="flex flex-col gap-2">
               <Skeleton width="65%" height={20} borderRadius={6} />

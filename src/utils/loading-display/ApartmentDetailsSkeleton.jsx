@@ -3,7 +3,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 const ApartmentDetailsSkeleton = ({ cards }) => {
   return (
-    <div className="mt-[2.5rem] lg:mt-[3rem] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-14 md:gap-10 lg:gap-14 md:pl-0 md:pr-6 lg:pl-0 lg:pr-10 w-full">
+    <div className="mt-[2.5rem] lg:mt-[2.7rem] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-14 md:gap-10 lg:gap-14 md:pl-0 md:pr-6 lg:pl-0 lg:pr-10 w-full">
       {Array(cards).fill(0).map((_, i) => (
         <div
           key={i}
@@ -16,7 +16,7 @@ const ApartmentDetailsSkeleton = ({ cards }) => {
               </div>
           </div>
           {/* ── INFO BLOCK ── */}
-          <div className="flex flex-col gap-2 p-4">
+          <div className="flex flex-col gap-1 p-4">
               {/* Title + location */}
               <div className="flex flex-col gap-2">
                 <Skeleton width="65%" height={20} borderRadius={6} />

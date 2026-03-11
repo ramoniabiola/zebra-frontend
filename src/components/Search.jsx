@@ -23,8 +23,8 @@ const Search = () => {
   };
 
   return (
-    <header className="w-full h-16 lg:h-20 pt-3 flex items-center justify-center sticky top-13 lg:top-18 z-40 bg-white">
-      <div className="relative bg-white w-full mx-3 lg:mx-4 h-11/12  py-2 border border-gray-200 shadow-[0_5px_15px_0_rgba(0,0,0,0.15)] rounded-xl">  
+    <header className="w-full h-15 lg:h-20 pt-2 flex items-center justify-center sticky top-11 lg:top-18 z-40 bg-white">
+      <div className="relative bg-white w-full mx-3 lg:mx-4 h-11/12 lg:h-10/12  py-2 border border-gray-200 shadow-[0_5px_15px_0_rgba(0,0,0,0.15)] rounded-xl">  
         <input
           value={searchQuery}
           onChange={handleSearchChange}

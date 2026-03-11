@@ -113,7 +113,7 @@ const Apartments = () => {
   return (
     <div className="relatve h-full w-full flex flex-col items-start justify-center">
       {/* APARTMENT LISTING OPTIONS */}
-      <div className="sticky top-28 lg:top-36 z-30 h-18 lg:h-22 w-full mt-1 flex items-center justify-between px-6 lg:px-10 bg-white shadow-md py-1">
+      <div className="sticky top-25 lg:top-36 z-30 h-18 lg:h-22 w-full mt-1 flex items-center justify-between px-6 lg:px-10 bg-white shadow-md py-1">
         {tabs.map((tab) => (
           <div
             key={tab.id}
@@ -125,10 +125,10 @@ const Apartments = () => {
             `}
           >
             {tab.icon}
-            <h2 className="text-sm lg:text-base font-semibold relative mt-1">
+            <h2 className="text-sm lg:text-base font-semibold relative mt-0.5">
               {tab.label}
               {activeTab === tab.id && (
-                <span className="absolute -bottom-[10px] lg:-bottom-[11px] left-0 w-full h-[2px] lg:h-[3px] bg-slate-800 rounded-full"></span>
+                <span className="absolute -bottom-[10px] lg:-bottom-[11px] left-0 w-full h-[2px] bg-slate-800 rounded-full"></span>
               )}
               {hovered === tab.id && (
                 <span
@@ -144,7 +144,7 @@ const Apartments = () => {
 
 
       {/* APARTMENT LISTINGS */}
-      <div className="mt-[1.5rem] lg:mt-[3rem] w-full h-full px-4 md:pl-6 md:pr-0 lg:pl-10 lg:pr-0 overflow-y-auto scroll-smooth mb-12">
+      <div className="mt-[0.4rem] lg:mt-[3rem] w-full h-full px-4 md:pl-6 md:pr-0 lg:pl-10 lg:pr-0 overflow-y-auto scroll-smooth mb-12">
         {error && page === 1 ? (
           <ErrorDisplay />
         ) : isLoading && page === 1 ? (

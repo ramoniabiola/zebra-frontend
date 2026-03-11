@@ -9,7 +9,7 @@ const Navbar = () => {
 
 
   return (
-    <nav className="w-full h-14 lg:h-18 flex items-center justify-between bg-white px-6 lg:border-b lg:border-slate-200 md:px-12 lg:px-20 lg:shadow-xs fixed top-0 left-0 z-50">
+    <nav className="w-full h-12 lg:h-18 flex items-center justify-between bg-white px-6 lg:border-b lg:border-slate-200 md:px-12 lg:px-20 lg:shadow-xs fixed top-0 left-0 z-50">
       {/* LOGO */}
       <Link to="/home">
           <h1 

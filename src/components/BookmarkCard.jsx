@@ -189,7 +189,7 @@ const BookmarkCard = ({ apartment, toggleBookmark, error, setError }) => {
 
 
                 {/* ── INFO BLOCK ── */}
-                <div onClick={handleNavigation} className="flex flex-col gap-3 p-4">
+                <div onClick={handleNavigation} className="flex flex-col gap-2 p-4">
 
                     {/* Title + location */}
                     <div className="flex flex-col gap-2">
@@ -207,7 +207,7 @@ const BookmarkCard = ({ apartment, toggleBookmark, error, setError }) => {
                     {errorAlert && <AvailableErrorMessage onClose={() => setErrorAlert(false)} />}
 
                     {/* Time */}
-                    <div className="flex items-center gap-1.5 text-gray-400">
+                    <div className="flex items-center justify-end-safe gap-1.5 text-gray-400">
                         <Calendar className="w-3 h-3" />
                         <span className="text-xs font-medium">{reactivationTime}</span>
                     </div>
