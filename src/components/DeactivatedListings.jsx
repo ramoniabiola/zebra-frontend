@@ -194,7 +194,7 @@ const DeactivatedListings = () => {
       )}
 
       {/* Listings */}
-      <div className="w-full h-full pl-6 pr-0 lg:pl-10 lg:pr-0 overflow-y-auto scroll-smooth mb-12">
+      <div className="w-full h-full px-4 md:pl-6 md:pr-0 lg:pl-10 lg:pr-0 overflow-y-auto scroll-smooth mb-12">
         {error ? (
           <ErrorDisplay />
         ) : isLoading ? (
@@ -202,7 +202,7 @@ const DeactivatedListings = () => {
         ) : displayedListings?.length > 0 ? (
           <>
             {/* Grid Container for deactivated listings */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-2 md:mt-4 lg:mt-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-2 lg:gap-2">
               {displayedListings.map((apartment) => (
                 <DeactivatedListingDetails apartment={apartment} key={apartment._id} />
               ))}
@@ -212,7 +212,7 @@ const DeactivatedListings = () => {
             {/* Pagination Controls */}
             {!error && !isLoading &&  (
               (query ? searchTotalPages > 1 : reduxDeactivatedListings.totalPages > 1) && (
-                <div className="w-full flex items-center justify-center gap-12 py-6 pl-0 pr-6 lg:pl-0 lg:pr-10">
+                <div className="w-full mt-8 flex items-center justify-center gap-12 py-6 pl-0 pr-4 lg:pl-0 lg:pr-10">
                   <button
                     onClick={handlePrevPage}
                     disabled={query ? searchPage <= 1 : reduxDeactivatedListings.currentPage <= 1}

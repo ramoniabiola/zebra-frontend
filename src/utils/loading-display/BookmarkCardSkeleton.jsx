@@ -10,7 +10,7 @@ const BookmarkCardSkeleton = ({ cards }) => {
           className="w-full md:w-11/12 lg:w-11/12 flex flex-col bg-white rounded-2xl overflow-hidden border border-stone-200 shadow-sm mb-6"
         >
           {/* ── IMAGE BLOCK ── */}
-          <div className="p-2 pb-0">
+          <div className="p-2 pt-1 pb-0">
             <div className="w-full h-[260px] rounded-2xl overflow-hidden">
               <Skeleton height={260} borderRadius={16} />
             </div>

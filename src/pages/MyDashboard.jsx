@@ -120,8 +120,8 @@ const MyDashboard = () => {
   return (
     <div className="w-full min-h-screen flex flex-col items-start justify-start bg-white lg:mt-18">
       {/* ── HERO WELCOME BANNER ── */}
-      <div className="w-full px-2 md:px-4 lg:px-4 flex flex-col mt-4 md:mt-8 lg:mt-8">
-        <div className="w-full relative overflow-hidden rounded-2xl md:rounded-3xl lg:rounded-3xl bg-gradient-to-br from-cyan-700 via-cyan-800 to-cyan-900 px-5 py-6 md:px-8 md:py-10 lg:px-8 lg:py-10">
+      <div className="w-full px-2 md:px-4 lg:px-4 flex flex-col mt-3 md:mt-6 lg:mt-6">
+        <div className="w-full relative overflow-hidden rounded-2xl md:rounded-3xl lg:rounded-3xl bg-gradient-to-br from-cyan-700 via-cyan-800 to-cyan-900 px-5 py-4 md:px-8 md:py-8 lg:px-8 lg:py-8">
           {/* Decorative blobs */}
           <div className="absolute -top-12 -right-12 w-52 h-52 rounded-full bg-white/5" />
           <div className="absolute -bottom-16 -left-10 w-64 h-64 rounded-full bg-white/5" />
@@ -134,7 +134,7 @@ const MyDashboard = () => {
               </span> 
 
               <div className="gap-1.5">
-                <h2 className="text-sm text-cyan-200/70 font-medium mt-1">Welcome back,</h2>
+                <h2 className="text-sm text-cyan-200/70 font-medium mt-1 tracking-widest">Welcome back,</h2>
                 <h1 className="text-2xl md:text-3xl lg:text-3xl font-black text-white tracking-tight leading-none">
                   {user?.username}
                 </h1>
@@ -190,7 +190,7 @@ const MyDashboard = () => {
                     {/* Colored top bar */}
                     <div className={`h-1 w-full ${stat.valueBg}`} />
                     <div className="px-3 py-2 md:px-5 md:py-4 lg:px-5 lg:py-4">
-                      <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-start justify-between mb-2">
                         <div className={`w-9 h-9 rounded-xl ${stat.iconBg} flex items-center justify-center group-hover:scale-110 transition-transform duration-200`}>
                           <Icon className={`w-4.5 h-4.5 ${stat.iconColor}`} />
                         </div>
@@ -202,10 +202,10 @@ const MyDashboard = () => {
                           {stat.trend}
                         </span>
                       </div>
-                      <p className="text-[1.15rem] md:text-2xl lg:text-2xl pl-1 font-black text-gray-900 tracking-tight leading-none mb-1.5 first-letter:uppercase">
+                      <p className="text-xs md:text-sm lg:text-sm text-gray-400 font-medium mb-1.5">{stat.label}</p>
+                      <p className="text-[1.15rem] md:text-2xl lg:text-2xl pl-1 font-black text-gray-900 tracking-tight leading-none first-letter:uppercase mb-0.5">
                         {stat.value ?? "—"}
                       </p>
-                      <p className="text-xs md:text-sm lg:text-sm text-gray-400 font-medium">{stat.label}</p>
                     </div>
                   </div>
                 );

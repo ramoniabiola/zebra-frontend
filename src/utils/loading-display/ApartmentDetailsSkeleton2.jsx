@@ -12,7 +12,7 @@ const ApartmentDetailsSkeleton2 = ({ cards }) => {
                     {/* Skeleton Container with fade effect */}
                     <div className="relative w-full flex flex-col bg-white rounded-2xl overflow-hidden border border-stone-50">
                         {/* ── IMAGE BLOCK with padding (matches p-2 pb-0) ── */}
-                        <div className="p-2 pb-0">
+                        <div className="p-2 pt-1 pb-0">
                             <div className="w-full h-[260px] rounded-xl overflow-hidden">
                                 <Skeleton height={260} borderRadius={16} />
                             </div>

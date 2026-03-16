@@ -24,18 +24,18 @@ const DashboardSkeleton = () => {
             <div className="px-3 py-2 md:px-5 md:py-4 lg:px-5 lg:py-4">
               
               {/* Icon + Trend */}
-              <div className="flex items-start justify-between mb-2">
+              <div className="flex items-start justify-between mb-1">
                 <Skeleton height={32} width={36} borderRadius={12} />
                 <Skeleton height={14} width={50} borderRadius={999} />
               </div>
 
-              {/* Value */}
-              <div className="mb-1">
-                <Skeleton height={18} width={50} />
+              {/* Label */}
+              <div className="mb-2">   
+                <Skeleton height={10} width={90} />
               </div>
 
-              {/* Label */}
-              <Skeleton height={10} width={100} />
+              {/* Value */}
+              <Skeleton height={18} width={30} />
             </div>
           </div>
         ))}
